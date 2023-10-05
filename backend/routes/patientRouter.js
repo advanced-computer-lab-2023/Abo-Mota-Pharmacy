@@ -2,10 +2,10 @@ const express= require('express');
 const router = express.Router();
 const {getMedicines} = require('../controller/patientController');
 
-router.get('/patients',getMedicines);
+router.get('/medicines' , getMedicines);
 
 
-modules.export = router;
+module.exports = router;
 
 
 

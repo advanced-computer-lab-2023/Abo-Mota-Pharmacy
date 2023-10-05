@@ -1,12 +1,12 @@
 const express= require('express');
 const router = express.Router();
-const {getMedicines,addMedicine,editMedicines} = require('../controller/pharmasictController'); 
+const {getMedicines,addMedicine,editMedicine} = require('../controller/pharmacistController'); 
 
 router.get('/medicine',getMedicines );
 
 router.post('/medicine',addMedicine );
 
-router.patch('/medicine', editMedicines);
+router.patch('/medicine',editMedicine );
 
-modules.export = router;
+module.exports = router;
 
