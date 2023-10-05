@@ -4,9 +4,32 @@ const Patient = require('../models/Patient');
 const Pharmacist = require('../models/Pharmacist');
 
 
-// View Doctor Application Info
-const getApplicationInfo = async (req, res) => {
-    
+// View all Pharmacist Applications
+const getApplications = async (req, res) => {
+    try{
+        const applications = await Pharmacist.find({registrationStatus : "pending"});
+        res.status(200).json({applications: applications});
+    }
+    catch (error){
+        res.status(500).json({error: "No applications found", message: error});
+    }
+}
+
+// View a single application
+const getApplication = async (req, res) => {
+    try {
+      
+    } catch (error) {
+      
+    }
+}
+
+const getPharmacists = async (req, res) => {
+    try {
+      
+    } catch (error) {
+      
+    }
 }
 
 const getPharmacist = async (req, res) => {
@@ -22,33 +45,42 @@ const getPharmacist = async (req, res) => {
     res.status(200).json(pharmacist);
   } catch (error) {
     console.error('Error fetching pharmacist:', error);
-    res.status(500).json({ error: 'Failed to fetch pharmacist' });
+    res.status(500).json({ error: 'Failed to fetch pharmacist'});
   }
 };
 
-
-
-const getPatient = async (req,res)=>{
+// Get all patients
+const getPatients = async (req, res) => {
   try {
-    const { username } = req.params;
-
-    const pharmacist = await Patient.findOne({ username });
-
-    if (!pharmacist) {
-      return res.status(404).json({ error: 'Pharmacist not found' });
-    }
-
-    res.status(200).json(pharmacist);
+    const patients = await Patient.find({});
+    
+    res.status(200).json({patients: patients});
   } catch (error) {
-    console.error('Error fetching pharmacist:', error);
-    res.status(500).json({ error: 'Failed to fetch pharmacist' });
+    res.status(500).json({error: "Could not retrieve patients"});
   }
 }
 
-//View a list of all medicines
+// Get single patient
+const getPatient = async (req,res)=>{
+  try {
+    const { id } = req.params;
+
+    const patient = await Patient.findOne({ _id : id });
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    res.status(200).json({message: patient});
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch patient', message: error });
+  }
+}
+
+// View a list of all medicines
 const getMedicines = async (req,res)=>{
     try {
-        const medicines = await Medicines.find();
+        const medicines = await Medicines.find({});
     
         // Check if there are no medicines in the database
         if (!medicines || medicines.length === 0) {
@@ -74,14 +106,12 @@ const addAdmin = async (req, res) => {
       return res.status(400).json({ error: 'Username is already in use' });
     }
 
-   
     const existingEmail = await PharmacyAdmin.findOne({ email });
 
     if (existingEmail) {
       return res.status(400).json({ error: 'Email is already in use' });
     }
 
-   
     const newAdmin = new PharmacyAdmin({ name, email, username, password });
 
     // Save the new admin to the database
@@ -89,7 +119,6 @@ const addAdmin = async (req, res) => {
 
     res.status(201).json({ message: 'Admin created successfully' });
   } catch (error) {
-    console.error('Error adding admin:', error);
     res.status(500).json({ error: 'Failed to add admin' });
   }
 };
@@ -97,17 +126,12 @@ const addAdmin = async (req, res) => {
 
 const deleteAdmin = async (req, res) => {
     try{
-        const {username}= req.body;
+        const {id} = req.params;
 
-        const deletionResult = await PharmacyAdmin.deleteOne({ username });
+        const deletionResult = await PharmacyAdmin.deleteOne({ _id: id});
 
-    if (deletionResult.deletedCount === 1) {
-     
-      res.status(200).json({ message: 'Admin deleted successfully' });
-    } else {
-      
-      res.status(500).json({ error: 'Failed to delete admin' });
-    }
+        res.status(200).json({ message: 'Admin deleted successfully' });
+    
     }
     catch(error)
     {
@@ -118,17 +142,9 @@ const deleteAdmin = async (req, res) => {
 // Delete a specific Patient
 const deletePatient = async (req, res) => {
     try{
-        const {username}= req.body;
-
-        const deletionResult = await Patient.deleteOne({ username });
-
-    if (deletionResult.deletedCount === 1) {
-      
-      res.status(200).json({ message: 'Admin deleted successfully' });
-    } else {
-      
-      res.status(500).json({ error: 'Failed to delete admin' });
-    }
+        const {id}= req.params;
+        const deletionResult = await Patient.deleteOne({ _id: id});
+        res.status(200).json({message:'successfully deleted'});
     }
     catch(error)
     {
@@ -139,31 +155,27 @@ const deletePatient = async (req, res) => {
 // Delete a specific Doctor
 const deletePharmacist = async (req, res) => {
     try{
-        const {username}= req.body;
-
-        const deletionResult = await Pharmacist.deleteOne({ username });
-
-    if (deletionResult.deletedCount === 1) {
-      
-      res.status(200).json({ message: 'Admin deleted successfully' });
-    } else {
-      res.status(500).json({ error: 'Failed to delete admin' });
-    }
+        const {id}= req.params;
+        const deletionResult = await Pharmacist.deleteOne({ _id: id});
+        res.status(200).json({message:'successfully deleted'});
     }
     catch(error)
     {
-        res.status(500).json({error:'failed to delete admin'});
+      res.status(500).json({error:'failed to delete admin'});
     }
 }
 
 
 module.exports={
     getMedicines,
-    getApplicationInfo,
+    getApplications,
     addAdmin,
     deleteAdmin,
     deletePatient,
     deletePharmacist,
     getPatient,
-    getPharmacist
+    getPharmacist,
+    getPatients,
+    getPharmacists,
+    getApplication
 }

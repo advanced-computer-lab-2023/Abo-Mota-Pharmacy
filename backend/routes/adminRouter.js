@@ -1,30 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const {getMedicines,
-    getApplicationInfo,
+    getApplications,
     addAdmin,
     deleteAdmin,
     deletePatient,
     deletePharmacist,
-getPatient,
-getPharmacist} = require('../controller/adminController');
+    getPatients,
+    getPatient,
+    getPharmacist,
+    getPharmacists,
+    getApplication} = require('../controller/adminController');
 
 
 router.get('/medicines', getMedicines);
 
-router.get('/application', getApplicationInfo);
+router.get('/applications', getApplications);
 
-router.get('/patient',getPatient);
+router.get('/applications/:id', getApplication)
 
-router.get('/pharmacist',getPharmacist);
+router.get('/patients', getPatients);
 
-router.post('/addAdmin', addAdmin);
+router.get('/patients/:id', getPatient);
 
-router.delete('/deleteAdmin', deleteAdmin);
+router.get('/pharmacists', getPharmacists);
 
-router.delete('/deletePatient', deletePatient);
+router.get('/pharmacists/:id',getPharmacist);
 
-router.delete('/deletePharmacist', deletePharmacist);
+router.post('/admins', addAdmin);
+
+router.delete('/admins/:id', deleteAdmin);
+
+router.delete('/patients/:id', deletePatient);
+
+router.delete('/pharmacists/:id', deletePharmacist);
 
 
 module.exports= router;
