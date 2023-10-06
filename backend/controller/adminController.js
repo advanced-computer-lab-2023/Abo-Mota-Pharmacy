@@ -26,25 +26,21 @@ const getApplication = async (req, res) => {
 
 const getPharmacists = async (req, res) => {
     try {
-      
+      const pharmacists = await Pharmacist.find();
+      res.status(200).json(pharmacists);
     } catch (error) {
-      
+      res.status(500).json({error: 'not found'});
     }
 }
 
 const getPharmacist = async (req, res) => {
   try {
-    const { username } = req.params;
-
-    const pharmacist = await Pharmacist.findOne({ username });
-
-    if (!pharmacist) {
-      return res.status(404).json({ error: 'Pharmacist not found' });
-    }
-
+    const { id } = req.params;
+    const pharmacist = await Pharmacist.findById(id);
+    if(!pharmacist)
+      throw error;
     res.status(200).json(pharmacist);
   } catch (error) {
-    console.error('Error fetching pharmacist:', error);
     res.status(500).json({ error: 'Failed to fetch pharmacist'});
   }
 };

@@ -13,6 +13,11 @@ const pharmacistSchema = new Schema({
 	nationalId: Buffer,
 	workingLicense: Buffer,
 	pharmacyDegree: Buffer,
+	registrationStatus: {
+        type: String,
+        enum: ["pending", "approved", "rejected"],
+        default: "pending",
+    }
 });
 
 const Pharmacist = mongoose.model("Pharmacist", pharmacistSchema);

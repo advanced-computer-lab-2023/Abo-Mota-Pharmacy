@@ -6,7 +6,7 @@ router.get('/medicine',getMedicines );
 
 router.post('/medicine',addMedicine );
 
-router.patch('/medicine',editMedicine );
+router.patch('/medicine/:id',editMedicine );
 
 module.exports = router;
 
