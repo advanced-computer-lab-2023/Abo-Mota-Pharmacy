@@ -6,7 +6,7 @@ export const medicines = [
       extras: {
         sales: 50,
         availableQuantity: 100,
-        medicinalUse: 'Pain'
+        medicinalUse: 'Antiviral'
       }
   },
   {
@@ -16,7 +16,7 @@ export const medicines = [
       extras: {
         sales: 50,
         availableQuantity: 100,
-        medicinalUse: 'Inflammation'
+        medicinalUse: 'Antifungal'
       }
   },
   {
@@ -26,7 +26,7 @@ export const medicines = [
       extras: {
         sales: 50,
         availableQuantity: 100,
-        medicinalUse: 'Bacterial-Infections'
+        medicinalUse: 'Antipyretic'
       }
   },
   {
@@ -36,7 +36,7 @@ export const medicines = [
       extras: {
         sales: 50,
         availableQuantity: 100,
-        medicinalUse: 'Allergies'
+        medicinalUse: 'Pain Reliever'
       }
   },
   {
@@ -46,7 +46,22 @@ export const medicines = [
       extras: {
         sales: 50,
         availableQuantity: 100,
-        medicinalUse: 'Pain'
+        medicinalUse: 'Antibiotic'
       }
   }
 ];
+
+export const medicinalUses = [
+"Antibiotic",      // Used to treat bacterial infections
+"Pain Reliever",   // Used to alleviate pain
+"Antipyretic",     // Used to reduce fever
+"Antifungal",      // Used to treat fungal infections
+"Antiviral",       // Used to treat viral infections
+"Antiseptic",      // Used to prevent the growth of disease-causing microorganisms
+"Antispasmodic",   // Used to prevent or ease spasms or cramps in the muscles
+"Antihistamine",   // Used to treat allergic reactions
+"Anti-inflammatory", // Used to reduce inflammation
+"Diuretic"         // Used to increase the excretion of water from the body
+];
+
+

@@ -1,0 +1,22 @@
+.medicine-form-error{
+  color: red;
+}
+.form-container{
+  display: flex;
+  align-items: flex-end;
+}
+
+.add-medicine-form{
+  flex-grow: 1;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 15px;
+  margin: 50px;
+}
+
+.submit-add-medicine-button-container{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  height: 60px;
+}

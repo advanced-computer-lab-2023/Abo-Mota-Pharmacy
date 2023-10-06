@@ -1,0 +1,16 @@
+.search-filter-div{
+  display: flex;
+  flex-direction: row;
+}
+.medicine-screen-pharmacist{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.add-medicine-container{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin-left: -10px;
+}
