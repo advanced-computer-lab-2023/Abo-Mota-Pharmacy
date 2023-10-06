@@ -1,6 +1,6 @@
 import './styles.css';
 
-const DropDown = ({ options, id, error, label, ...probs }) => {
+const DropDown = ({ options, id, error, touch,  label, ...probs }) => {
   // console.log(probs.onChange);
   return (
     <div className="dropdown-container">
@@ -14,7 +14,7 @@ const DropDown = ({ options, id, error, label, ...probs }) => {
         );
       })}
     </select>
-    {error ? <div className="input-error"> {error} </div>: null}
+    {error && touch ? <div className="input-error"> {error} </div>: null}
     </div>
   );
 }

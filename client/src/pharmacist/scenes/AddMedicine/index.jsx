@@ -30,6 +30,7 @@ const AddMedicine = () => {
           label="Medicine Name"
           id="medicineName" 
           error={formik.errors.medicineName}
+          touch={formik.touched.medicineName}
           type="text"
           {...formik.getFieldProps('medicineName')}
           />
@@ -41,6 +42,7 @@ const AddMedicine = () => {
           id="description" 
           type="text"
           error={formik.errors.description}
+          touch={formik.touched.description}
           {...formik.getFieldProps('description')}
           />
         </div>
@@ -49,6 +51,7 @@ const AddMedicine = () => {
             label="Active Ingredients"
             id="activeIngredients" 
             type="text"
+            touch= {formik.touched.activeIngredients}
             error={formik.errors.activeIngredients}
             {...formik.getFieldProps('activeIngredients')}
           />
@@ -60,6 +63,7 @@ const AddMedicine = () => {
           id="price" 
           type="number"
           error={formik.errors.price}
+          touch  = {formik.touched.price}
           {...formik.getFieldProps('price')}
           />
           <Input
@@ -67,6 +71,7 @@ const AddMedicine = () => {
           id="availableQuantity" 
           type="number"
           error={formik.errors.availableQuantity}
+          touch = {formik.touched.availableQuantity}
           {...formik.getFieldProps('availableQuantity')}
           />
         </div>
@@ -77,6 +82,7 @@ const AddMedicine = () => {
           label= "Medicinal Use"
           error={formik.errors.medicinalUse}
           value={formik.values.medicinalUse}
+          touch={formik.touched.medicinalUse}
           onChange={formik.handleChange}
           />
         </div>
