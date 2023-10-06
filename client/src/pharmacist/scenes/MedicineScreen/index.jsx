@@ -17,8 +17,8 @@ const MedicineScreen = () => {
   const filteredArray = medicineArray.filter((medicine) => {
     return medicine.name.toLowerCase().includes(search.toLowerCase()) && medicine.extras.medicinalUse.includes(filter);
   });
-  const mappedArray = filteredArray.map((medicine) => {
-    return <Accordion label={medicine.name} subLabel={medicine.description} price={`$${medicine.price}`} expanded={medicine.extras}/>
+  const mappedArray = filteredArray.map((medicine, index) => {
+    return <Accordion key={index} label={medicine.name} subLabel={medicine.description} price={`$${medicine.price}`} expanded={medicine.extras} medicineDetails={medicine}/>
   });
   return (
     <div className="medicine-screen-pharmacist">
