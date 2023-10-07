@@ -2,14 +2,13 @@ import Button from "../../../shared/components/Button";
 import { useState } from "react";
 import Input from "../../../shared/components/InputField";
 import './styles.css';
-import DropDown from "../../../shared/components/DropDown";
 import DateInput from "../../../shared/components/DateInput";
 import logo from '../../../shared/assets/logo.png';
-import { Link } from "react-router-dom";
 import * as yup from 'yup';
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
+import DropDown from "../../../shared/components/DropDown";
 
 
 const RegisterScreen = () => {
@@ -17,7 +16,7 @@ const RegisterScreen = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
-    // console.log(values);
+    console.log(values);
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
@@ -26,10 +25,10 @@ const RegisterScreen = () => {
 };
 
 
-  const PharmacistForm = (
+  const clientForm = (
     <Formik
-    initialValues={initialPharmacistValues}
-    validationSchema={PharmacistSchema}
+    initialValues={clientInitialValues}
+    validationSchema={clientSchema}
     onSubmit={handleSubmit}
     >
       {(formik) => (
@@ -60,7 +59,7 @@ const RegisterScreen = () => {
             error={formik.errors.firstName}
             touch= {formik.touched.firstName}
             {...formik.getFieldProps('firstName')}
-            />  
+            /> 
             <Input 
             label="Last Name*" 
             type="text" 
@@ -80,31 +79,23 @@ const RegisterScreen = () => {
             onChange={formik.handleChange}
             />
             <Input 
-            label="Hourly rate in USD*" 
-            type="number" 
-            id="hourlyRate"
-            error={formik.errors.hourlyRate}
-            touch = {formik.touched.hourlyRate}
-            {...formik.getFieldProps('hourlyRate')}
-            />   
-          </div>
-          <div className="form-container">           
-            <Input 
-            label="Affliation(Hospital)*" 
+            label="Phone number*" 
+            type="tel" 
+            id="mobileNumber"
+            error={formik.errors.mobileNumber}
+            touch = {formik.touched.mobileNumber}
+            {...formik.getFieldProps('mobileNumber')}
+            />
+            <DropDown 
+            label="Gender*" 
             type="text" 
-            id="affiliation"
-            error={formik.errors.affiliation}
-            touch = {formik.touched.affiliation}
-            {...formik.getFieldProps('affiliation')}
-            />  
-            <Input 
-            label="Educational Background*" 
-            type="text" 
-            id="educationalBackground"
-            error={formik.errors.educationalBackground}
-            touch = {formik.touched.educationalBackground}
-            {...formik.getFieldProps('educationalBackground')}
-            />  
+            id="gender"
+            error={formik.errors.gender}
+            onChange={formik.handleChange}
+            touch = {formik.touched.gender}
+            options={['male', 'female']}
+            {...formik.getFieldProps('gender')}
+            />      
           </div>
           <div className="form-container">
           <Input 
@@ -116,7 +107,7 @@ const RegisterScreen = () => {
             {...formik.getFieldProps('password')}
             />
             <Input 
-            label="Cofirm Password*" 
+            label="Confirm Password*" 
             type="password" 
             id="confirmPassword"
             error={formik.errors.confirmPassword}
@@ -124,6 +115,43 @@ const RegisterScreen = () => {
             {...formik.getFieldProps('confirmPassword')}
             />  
           </div>
+          <div className="register-emergency-contact-title">Emergenct Contact:</div>
+          <div className="form-container">
+          <Input 
+            label="First Name*" 
+            type="text" 
+            id="emergencyContactFirstName"
+            error={formik.errors.emergencyContactFirstName}
+            touch= {formik.touched.emergencyContactFirstName}
+            {...formik.getFieldProps('emergencyContactFirstName')}
+            /> 
+            <Input 
+            label="Last Name*" 
+            type="text" 
+            id="emergencyContactLastName"
+            error={formik.errors.emergencyContactLastName}
+            touch= {formik.touched.emergencyContactLastName}
+            {...formik.getFieldProps('emergencyContactLastName')}
+            />   
+        </div>          
+        <div className="form-container">
+          <Input 
+            label="Phone number*" 
+            type="tel" 
+            id="emergencyContactMobileNumber"
+            error={formik.errors.emergencyContactMobileNumber}
+            touch = {formik.touched.emergencyContactMobileNumber}
+            {...formik.getFieldProps('emergencyContactMobileNumber')}
+            />
+            <Input 
+            label="Contact Relation*" 
+            type="text" 
+            id="emergencyContactRelation"
+            error={formik.errors.emergencyContactRelation}
+            touch= {formik.touched.emergencyContactRelation}
+            {...formik.getFieldProps('emergencyContactRelation')}
+            />   
+        </div>
           <div className="submit-add-medicine-button-container">
           {isLoading ? <LoadingIndicator /> :<Button type="submit">
             Submit Form
@@ -139,8 +167,8 @@ const RegisterScreen = () => {
     <div className="registesr-div">
       <div className="register-portal">
         <div className="register-part">
-          <Header header="Welcome to Abo Mouta Pharmacy!" subheader="We are glad you want to join us!"/>
-          {PharmacistForm}
+          <Header header="Welcome to Abo Mouta Clinic!" subheader=""/>
+          {clientForm}
         </div>
         <div className="logo-div"> <img className="register-logo" src={logo} alt="logo"/> </div>
       </div>
@@ -148,11 +176,11 @@ const RegisterScreen = () => {
   );
 }
 
-const PharmacistSchema = yup.object().shape({
+const clientSchema = yup.object().shape({
   userName: yup.string().min(3, 'Username must be at least 3 characters long').max(50, 'Username must be at most 50 characters long').required('Please enter a valid username'),
-  
+
   firstName: yup.string().min(2, 'First Name must be at least 2 characters long').max(50, 'First Name must be at most 50 characters long').required('Please enter a valid First Name'),
-  
+
   lastName: yup.string().min(2, 'Last Name must be at least 2 characters long').max(50, 'Last Name must be at most 50 characters long').required('Please enter a valid Last Name'),
 
   email: yup.string().email('Invalid email').required('Please enter a valid email address'),
@@ -160,28 +188,36 @@ const PharmacistSchema = yup.object().shape({
   password: yup.string().min(8, 'Password must be at least 8 characters long').matches(/[a-zA-Z]/, 'Password must contain at least one letter').matches(/[0-9]/, 'Password must contain at least one number').required('Please enter a valid password'),
 
   confirmPassword: yup.string().required('Confirm Password is required').oneOf([yup.ref('password'), null], 'Passwords must match'),
-  
+
   dateOfBirth: yup.date().max(new Date(), 'Date of Birth should be in the past').required('Please enter your date of birth'),
 
-  hourlyRate: yup.number().positive('Hourly rate should be a positive number').required('Please enter your hourly rate'),
+  gender: yup.string().oneOf(['male', 'female'], 'Invalid gender').required('Please select a gender'),
 
-  affiliation: yup.string().min(3, 'Affiliation (Hospital) must be at least 3 characters long').max(50, 'Affiliation (Hospital) must be at most 50 characters long').required('Please enter your affiliation (hospital)'),
+  mobileNumber: yup.string().matches(/^[0-9]{11}$/, 'Mobile number must be exactly 11 digits').required('Please enter a valid mobile number'),
 
-  educationalBackground: yup.string().min(5, 'Educational Background is too short').max(500, 'Educational Background is too long').required('Please enter your educational background'),
+  emergencyContactFirstName: yup.string().min(2, 'First Name must be at least 2 characters long').max(100, 'First Name must be at most 100 characters long').required('Please enter a valid first name'),
+
+  emergencyContactLastName: yup.string().min(2, 'Last Name must be at least 2 characters long').max(100, 'Last Name must be at most 100 characters long').required('Please enter a valid last name'),
+
+  emergencyContactMobileNumber: yup.string().matches(/^[0-9]{11}$/, 'Mobile number must be exactly 11 digits').required('Please enter a valid mobile number'),
+
+  emergencyContactRelation: yup.string().min(2, 'Relation must be at least 2 characters long').max(100, 'Relation must be at most 100 characters long').required('Please specify the relation to patient')
 });
 
-
-const initialPharmacistValues = {
+const clientInitialValues = {
   userName: '',
   firstName: '',
   lastName: '',
   email: '',
   password: '',
-  confirmPassword: '',  
+  confirmPassword: '',
   dateOfBirth: '',
-  hourlyRate: '',
-  affiliation: '',
-  educationalBackground: ''
+  gender: '',
+  mobileNumber: '',
+  emergencyContactFirstName: '',
+  emergencyContactLastName: '',
+  emergencyContactMobileNumber: '',
+  emergencyContactRelation: ''
 };
 
 
