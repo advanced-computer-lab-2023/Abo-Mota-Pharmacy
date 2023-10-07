@@ -9,13 +9,22 @@ import { Link } from "react-router-dom";
 import * as yup from 'yup';
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
+import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 
 
 const RegisterScreen = () => {
-  const handleSubmit = (values, {resetForm}) => {
-    console.log(values);
-    resetForm({values: ''});
-  };
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (values, { resetForm }) => {
+    // values contains all the data needed for registeration
+    // console.log(values);
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Remove the above await and insert code for backend registeration here.
+    setIsLoading(false);
+    resetForm({ values: '' });
+};
+
 
   const PharmacistForm = (
     <Formik
@@ -116,9 +125,9 @@ const RegisterScreen = () => {
             />  
           </div>
           <div className="submit-add-medicine-button-container">
-          <Button type="submit">
+          {isLoading ? <LoadingIndicator /> :<Button type="submit">
             Submit Form
-          </Button>
+          </Button>}
         </div>
         </form>
       )}

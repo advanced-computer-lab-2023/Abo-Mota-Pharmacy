@@ -7,14 +7,21 @@ import Header from "../../../shared/components/Header";
 import {AiOutlinePlus} from 'react-icons/ai';
 import {medicinalUses} from '../../../shared/assets/mockdata.js'
 import DropDown from "../../../shared/components/DropDown";
+import LoadingIndicator from "../../../shared/components/LoadingIndicator";
+import { useState } from "react";
 
 
 const AddMedicine = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
-
-  const handleSubmit = (values, {resetForm}) => {
-    console.log(values);
-    resetForm({values: ''});
+  const handleSubmit = async (values, {resetForm}) => {
+    // values contains all the data needed for registeration
+    // console.log(values);
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Remove the above await and insert code for backend registeration here.
+    setIsLoading(false);
+    resetForm({ values: '' });
   }
 
   const medicineForm = (
@@ -87,10 +94,10 @@ const AddMedicine = () => {
           />
         </div>
         <div className="submit-add-medicine-button-container">
-          <Button type="submit">
+          {isLoading ? <LoadingIndicator /> :<Button type="submit">
             <AiOutlinePlus color="#fff" size={20} />
             Add Medicine
-          </Button>
+          </Button>}
         </div>
       </form>
     )}

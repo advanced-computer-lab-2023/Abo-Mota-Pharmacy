@@ -7,9 +7,12 @@ import { medicinalUses } from '../../../shared/assets/mockdata';
 import DropDown from '../../../shared/components/DropDown';
 import Button from '../../../shared/components/Button';
 import { AiOutlineEdit } from 'react-icons/ai';
+import { useState } from 'react';
+import LoadingIndicator from '../../../shared/components/LoadingIndicator';
 
 
 const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const {name, price, description, extras} = medicineDetails;
   const {availableQuantity, medicinalUse} = extras;
 
@@ -20,13 +23,18 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
     medicinalUse: medicinalUse
   };
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values, {resetForm}) => {
+    // console.log(values);
     values.availableQuantity = values.addQuantity ? parseInt(availableQuantity) + parseInt(values.addQuantity) : '';
     delete values.addQuantity;
     const cleanedValues = Object.fromEntries(Object.entries(values).filter(([_, v]) => v !== ''));
-    console.log(cleanedValues);
     // use name and cleanedvalues to do the update
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Remove the above await and insert code for backend registeration here.
+    setIsLoading(false);
+    resetForm({ values: '' });
+    console.log(cleanedValues);
     onClose();
   };
 
@@ -80,10 +88,10 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
         />
         </div>
         <div className='edit-medicine-button'>
-              <Button type="submit">
+{ isLoading ? <LoadingIndicator /> :<Button type="submit">
                 <AiOutlineEdit size={20} color='#fff' />
                 Apply Changes
-              </Button>
+              </Button>}
         </div>
         </form>
       )}
