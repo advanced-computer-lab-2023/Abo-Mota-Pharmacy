@@ -1,32 +1,21 @@
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import PharmacistApp from './pharmacist/scenes/PharmacistApp';
+import PatientApp from './client/PatientApp';
+import AdminApp from './admin/AdminApp';
 
-import NavBar from  './shared/components/NavBar';
-import MedicineScreen from './pharmacist/scenes/MedicineScreen';
-import AddMedicine from './pharmacist/scenes/AddMedicine';
-import RegisterForm from './pharmacist/scenes/RegisterForm';
-import LoadingIndicator from './shared/components/LoadingIndicator';
-import RegisterScreen from './client/scenes/RegisterScreen';
-import SideBar from './shared/components/SideBar';
-import ViewPharmacists from './admin/pages/ViewPharmacists';
 function App() {
-  const items = [
-    {
-      name: "ViewPatients",
-      to: "viewPatients"
-    },
-    {
-      name: "ManageUsers",
-      to: "manageUsers",
-    },
-    {
-      name: "ViewPharmacists",
-      to: "viewPharmacists"
-    },
-    
-  ];
+
   return (
     <div className="app">
-        <NavBar links={items} />
-        <ViewPharmacists />
+      <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path='pharmacist/*' element={<PharmacistApp/>}/>
+          <Route path='patient/*' element={<PatientApp/>}/>
+          <Route path='/admin/*' element={<AdminApp/>}/>
+      </Routes>
+        {/* <NavBar links={items} />
+        <RegisterScreen /> */}
     </div>
   );
 }

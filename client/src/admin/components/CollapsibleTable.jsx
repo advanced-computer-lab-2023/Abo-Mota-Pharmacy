@@ -16,20 +16,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 
-function createData(id, name, hourlyRate, affiliation) {
-  return {
-    id,
-    name,
-    hourlyRate,
-    affiliation,
-    medicalBackground: {
-      education: 'German University in Cairo',
-      degree: 'View Degree',
-      license: 'View License',
-    },
-  };
-}
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -65,13 +51,19 @@ function Row(props) {
           fontSize: '12px',
           align: 'center'
         }}>
-          {row.hourlyRate}
+          {row.dateOfBirth}
         </TableCell>
         <TableCell style={{
           fontSize: '12px',
           align: 'center'
         }}>
           {row.affiliation}
+        </TableCell>
+        <TableCell style={{
+          fontSize: '12px',
+          align: 'center'
+        }}>
+          {row.hourlyRate}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -90,16 +82,16 @@ function Row(props) {
               </Typography>
               <div>
                 <Typography variant="subtitle1" style={{display: 'flex', alignItems: 'center', gap: '105px'}}>
-                  <p style={{fontWeight: 'bold'}}>ID</p>
-                  {row.medicalBackground.education}
+                  <p style={{fontWeight: 'bold'}}>Education</p>
+                  {row.education}
                 </Typography>
                 <Typography variant="subtitle1" style={{display: 'flex', alignItems: 'center', gap: '80px'}}>
                   <p style={{fontWeight: 'bold'}}>Pharmacy Degree</p>
-                  <Link to={`${row.medicalBackground.degree}`}>View Degree</Link>
+                  <Link to={`${row.degree}`}>View Degree</Link>
                 </Typography>
                 <Typography variant="subtitle1" style={{display: 'flex', alignItems: 'center', gap: '77px'}}>
                   <p style={{fontWeight: 'bold'}}>Working License</p>
-                  <Link to={`${row.medicalBackground.license}`}>View License</Link>
+                  <Link to={`${row.license}`}>View License</Link>
                 </Typography>
                 <div style={{display: 'flex', gap: '20px', marginLeft: '250px'}}>
                     <Button variant="outlined" color="success">
@@ -118,55 +110,28 @@ function Row(props) {
   );
 }
 
+
 Row.propTypes = {
   row: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    hourlyRate: PropTypes.number.isRequired,
-    medicalBackground: PropTypes.shape({
-      education: PropTypes.string.isRequired,
-      degree: PropTypes.string,
-      license: PropTypes.string.isRequired,
-    }).isRequired,
-    name: PropTypes.string.isRequired,
-    affiliation: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-const rows = [
-  createData('1', 'John Doe', 'XYZ Affiliation', 3.99),
-  createData('2', 'Jane Smith', 'ABC Affiliation', 4.99),
-  createData('3', 'Alice Johnson', 'LMN Affiliation', 3.79),
-  createData('4', 'Bob Brown', 'PQR Affiliation', 2.5),
-  createData('5', 'Eve Davis', 'JKL Affiliation', 1.5),
-];
 
-export default function CollapsibleTable() {
+function CollapsibleTable({ rows, headers }) {
   return (
     <TableContainer component={Paper} style={{ width: '100%', marginLeft: '20px' }}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell style={{
+          <TableCell style={{
               fontSize: '16px',
               align: 'center'
             }} />
-            <TableCell style={{
-              fontSize: '16px',
-              align: 'center'
-            }}>ID</TableCell>
-            <TableCell style={{
-              fontSize: '16px',
-              align: 'center'
-            }}>Name</TableCell>
-            <TableCell style={{
-              fontSize: '16px',
-              align: 'center'
-            }}>Affiliation</TableCell>
-            <TableCell style={{
-              fontSize: '16px',
-              align: 'center'
-            }}>Hourly Rate</TableCell>
-            
+            {headers.map((header, index) => (
+              <TableCell key={index} style={{ fontSize: '16px', align: 'center' }}>
+                {header}
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -178,3 +143,11 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
+
+CollapsibleTable.propTypes = {
+  rows: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+export default CollapsibleTable;
+
