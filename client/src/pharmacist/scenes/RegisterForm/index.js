@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
-
+import { Link } from "react-router-dom";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -123,9 +123,13 @@ const RegisterForm = () => {
             />  
           </div>
           <div className="submit-add-medicine-button-container">
-          {isLoading ? <LoadingIndicator /> :<Button type="submit">
-            Submit Form
-          </Button>}
+          {isLoading ? <LoadingIndicator /> :
+            // <Link to='medicine'>
+              <Button type="submit">
+                Submit Form
+              </Button>
+            // </Link>
+          }
         </div>
         </form>
       )}

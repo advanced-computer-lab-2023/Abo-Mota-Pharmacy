@@ -6,6 +6,11 @@ import RegisterForm from './pharmacist/scenes/RegisterForm';
 import LoadingIndicator from './shared/components/LoadingIndicator';
 import RegisterScreen from './client/scenes/RegisterScreen';
 import SideBar from './shared/components/SideBar';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import PharmacistApp from './pharmacist/scenes/PharmacistApp';
+import PatientApp from './client/PatientApp';
+
 function App() {
   const items = [
     {
@@ -24,8 +29,14 @@ function App() {
   ];
   return (
     <div className="app">
-        <NavBar links={items} />
-        <RegisterScreen />
+      <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path='pharmacist/*' element={<PharmacistApp/>}/>
+          <Route path='patient/*' element={<PatientApp/>}/>
+          {/* <Route path='/admin/*' element={<RegisterScreen/>}/> */}
+      </Routes>
+        {/* <NavBar links={items} />
+        <RegisterScreen /> */}
     </div>
   );
 }
