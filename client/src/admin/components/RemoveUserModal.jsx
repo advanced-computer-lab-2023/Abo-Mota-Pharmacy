@@ -84,8 +84,7 @@ function RemoveUserModal() {
                 onChange={handleRoleChange}
                 required
               >
-                <MenuItem value="Admin">Admin</MenuItem>
-                <MenuItem value="Doctor">Doctor</MenuItem>
+                <MenuItem value="Pharmacist">Doctor</MenuItem>
                 <MenuItem value="Patient">Patient</MenuItem>
               </Select>
             </FormControl>

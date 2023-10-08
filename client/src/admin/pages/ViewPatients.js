@@ -7,7 +7,7 @@ const tableData1 = [
   
 const tableData2 = [];
   
-const tableHeaders1 = ['ID', 'Name', 'Affiliation', 'Hourly Rate'];
+const tableHeaders1 = ['ID', 'Name', 'Date of Birth', ''];
 const tableHeaders2 = ['Custom Header 1', 'Custom Header 2', 'Custom Header 3'];
 
 function ViewPatients() {
