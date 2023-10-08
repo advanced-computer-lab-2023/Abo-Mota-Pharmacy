@@ -6,26 +6,27 @@ import RegisterForm from './pharmacist/scenes/RegisterForm';
 import LoadingIndicator from './shared/components/LoadingIndicator';
 import RegisterScreen from './client/scenes/RegisterScreen';
 import SideBar from './shared/components/SideBar';
+import ViewPharmacists from './admin/pages/ViewPharmacists';
 function App() {
   const items = [
     {
-      name: "Profile",
-      to: "profile"
+      name: "ViewPatients",
+      to: "viewPatients"
     },
     {
-      name: "Patients",
-      to: "patients",
+      name: "ManageUsers",
+      to: "manageUsers",
     },
     {
-      name: "Appointments",
-      to: "appointments",
+      name: "ViewPharmacists",
+      to: "viewPharmacists"
     },
     
   ];
   return (
     <div className="app">
         <NavBar links={items} />
-        <RegisterScreen />
+        <ViewPharmacists />
     </div>
   );
 }
