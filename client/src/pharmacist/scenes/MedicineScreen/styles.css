@@ -14,3 +14,8 @@
   align-items: stretch;
   margin-left: -10px;
 }
+
+.add-medicine-button-container{
+  display: flex;
+  text-decoration: none;
+}

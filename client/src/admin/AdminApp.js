@@ -3,15 +3,23 @@ import ManageUsers from "./pages/ManageUsers";
 import ViewPharmacists from "./pages/ViewPharmacists";
 import ViewPatients from './pages/ViewPatients';
 import MedicineScreen from "../pharmacist/scenes/MedicineScreen";
-import RegisterForm from "../pharmacist/scenes/RegisterForm";
+import NavBar from "../shared/components/NavBar";
 
 function AdminApp() {
+	const links =[
+		{name: 'Change App', to: '/'},
+		{name: 'Manage Users', to: '/admin/manageUsers'},
+		{name: 'View Patients', to: '/admin/viewPatients'},
+		{name: 'View Pharmacists', to: '/admin/viewPharmacists'},
+		{name: 'Medicine Inventory', to: '/admin/medicine'},
+	]
 	return (
 		<div>
+			<NavBar links={links} />
 		<Routes>
-			<Route path='/' element={<RegisterForm/>}/>
+			<Route path='/' element={<ManageUsers/>}/>
 			<Route path='manageUsers' element={<ManageUsers/>}/>		
-			<Route path='viewPatiens' element={<ViewPatients/>}/>			
+			<Route path='viewPatients' element={<ViewPatients/>}/>			
 			<Route path='viewPharmacists' element={<ViewPharmacists/>}/>
 			<Route path='medicine' element={<MedicineScreen/>}/>			
 		</Routes>

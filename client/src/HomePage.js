@@ -4,10 +4,13 @@ function HomePage() {
   return (
     <div>
       <Link to='pharmacist'>
-        <button>Register as Pharmacist</button>
+        <button>View Pharmacist</button>
       </Link>
       <Link to='patient'>
-        <button>Register as Patient</button>
+        <button>View Patient</button>
+      </Link>
+      <Link to='admin'>
+        <button>View admin</button>
       </Link>
       
     </div>
