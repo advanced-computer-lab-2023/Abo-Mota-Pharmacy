@@ -13,7 +13,7 @@ const Accordion = ({label, subLabel, price, expanded, medicineDetails, isPharmac
   };
   console.log(expanded);
   const extension = Object.entries(expanded).map(([key, value], index) => {
-    if(!isPharmacist && (key === 'sales' || key == 'availableQuantity')) return null;
+    if(!isPharmacist && (key === 'sales' || key === 'availableQuantity')) return null;
     return <div key={index} className='accordion-entry'>
       <span className='accordion-key'>{key}</span>: {value}
       </div>;
