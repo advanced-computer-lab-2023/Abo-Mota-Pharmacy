@@ -4,6 +4,7 @@ import ProductsGrid from './MedList'
 import RegisterScreen from '../client/scenes/RegisterScreen'
 import NavBar from '../shared/components/NavBar'
 import MedicineScreen from '../pharmacist/scenes/MedicineScreen'
+import { useGetMedicinesQuery } from '../store'
 function PatientApp() {
   const links = [
     {name: 'Change App', to: '/'},
@@ -11,9 +12,16 @@ function PatientApp() {
     {name: 'MedicineInventory', to: '/patient/medicine'},
     {name: 'MedicineInventory2', to: '/patient/medicine2'}
   ]
+  const { data, error , isFetching } = useGetMedicinesQuery();
+  // console.log(data);
   return (
     <div>
       <NavBar links={links}/>
+      {isFetching && <div>Fetching...</div>}
+      {error && <div>Error:</div>}
+      {!isFetching&& data.map((medicine) => {
+        return <div key={medicine._id}>{medicine.name}</div>
+      })}
       <Routes>
         <Route path='/' element={<RegisterScreen/>}/>
         <Route path='medicine' element={<ProductsGrid/>}/>

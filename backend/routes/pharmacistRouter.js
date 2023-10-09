@@ -1,6 +1,13 @@
 const express= require('express');
 const router = express.Router();
-const {getMedicines,addMedicine,editMedicine} = require('../controller/pharmacistController'); 
+const {
+    getPharmacist,
+    getMedicines,
+    addMedicine,
+    editMedicine
+} = require('../controller/pharmacistController'); 
+
+router.get('/', getPharmacist);
 
 router.get('/medicine',getMedicines );
 

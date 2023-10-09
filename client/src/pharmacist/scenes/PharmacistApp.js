@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import RegisterForm from './RegisterForm';
 import MedicineScreen from './MedicineScreen';
 import AddMedicine from './AddMedicine';
@@ -14,11 +14,11 @@ function PharmacistApp() {
   return (
     <div>
       <NavBar links={links}/>
+      {/* <Outlet/> */}
       <Routes>
         <Route path='/' element={<RegisterForm/>}/>
         <Route path='medicine' element={<MedicineScreen isPharmacist/>}/>
         <Route path='addMedicine' element={<AddMedicine/>}/>
-        {/* </Route> */}
         
       </Routes>
       
