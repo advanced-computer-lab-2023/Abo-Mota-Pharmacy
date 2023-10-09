@@ -16,14 +16,14 @@ const NavBar = ({links}) => {
 
         <ul className='buttons'>
           <li>
-            <Link to="/home" className='navbar-link'>
+            <Link to="/" className='navbar-link'>
               <div className='navbar-home'>
                 <AiOutlineHome size={20}/>
                 Home 
               </div>
             </Link>
           </li>
-          <li><Link to="/home" className='navbar-link'>Join Us</Link></li>
+          <li><Link to="/" className='navbar-link'>Join Us</Link></li>
         </ul>
       {/* <div className='right'>
         <div className='avatar'></div>
