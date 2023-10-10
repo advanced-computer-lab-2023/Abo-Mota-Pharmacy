@@ -1,4 +1,4 @@
-filterTest
+
 
 import React, { useState } from "react";
 import { medicines } from "../shared/assets/mockdata";
