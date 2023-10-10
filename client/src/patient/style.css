@@ -1,7 +1,26 @@
-.container {
-    overflow: hidden;
+#myBtnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
   }
   
+  /* .myBtnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 70px; 
+    align-content: center;
+    /* justify-content:space-evenly; */
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  
+
   .filterDiv {
     float: left;
     background-color: #2196F3;
