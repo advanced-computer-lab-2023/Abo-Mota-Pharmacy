@@ -9,19 +9,36 @@ import {medicinalUses} from '../../../shared/assets/mockdata.js'
 import DropDown from "../../../shared/components/DropDown";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import { useState } from "react";
+import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 
 
 const AddMedicine = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [addMedicine, results] = useAddMedicineMutation();
+  const { data, error, isFetching } = useGetPharmacistQuery();
+      // console.log(error);
 
   const handleSubmit = async (values, {resetForm}) => {
     // values contains all the data needed for registeration
     // console.log(values);
+    console.log(data);
+    const medicineObj = {
+        id: data._id,
+        medicine: {
+          name: values.medicineName,
+          price: values.price,
+          description: values.description,
+          quantity: values.availableQuantity,
+          activeIngredients: values.activeIngredients.split(","),
+        }
+    }
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    addMedicine(medicineObj);
+    console.log(medicineObj);
+    // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
-    resetForm({ values: '' });
+    // resetForm({ values: '' });
   }
 
   const medicineForm = (

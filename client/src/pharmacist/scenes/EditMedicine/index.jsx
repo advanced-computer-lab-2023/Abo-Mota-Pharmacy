@@ -9,6 +9,7 @@ import Button from '../../../shared/components/Button';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { useState } from 'react';
 import LoadingIndicator from '../../../shared/components/LoadingIndicator';
+import { useEditMedicineMutation } from '../../../store';
 
 
 const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
@@ -22,6 +23,8 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
     addQuantity: '',
     medicinalUse: medicinalUse
   };
+  
+  const [editMedicine,results] = useEditMedicineMutation();
 
   const onSubmit = async (values, {resetForm}) => {
     // console.log(values);
