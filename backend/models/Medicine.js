@@ -8,7 +8,21 @@ const medicineSchema = new Schema({
 	price: Number,
 	quantity: Number,
 	image: String, //url
-	medicinalUse: String
+	medicinalUse: {
+		type: String,
+		enum: [
+			"antibiotic",
+			"pain reliever",
+			"antipyretic",
+			"antifungal",
+			"antiviral",
+			"antiseptic",
+			"antispasmodic",
+			"antihistamine",
+			"anti-inflammatory",
+			"diuretic",
+		],
+	},
 });
 
 const Medicine = mongoose.model("Medicine", medicineSchema);
