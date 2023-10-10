@@ -10,6 +10,7 @@ import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import DropDown from "../../../shared/components/DropDown";
 import { useRegisterPatientMutation } from "../../../store";
+import { useNavigate } from "react-router-dom";
 
 
 const RegisterScreen = () => {
@@ -17,6 +18,7 @@ const RegisterScreen = () => {
   const [registerPatient, results] = useRegisterPatientMutation();
   const [error, setError] = useState('');
   const [patient, setPatient] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     if (results.isError) {
       setError(results.error.data.message);
@@ -50,7 +52,8 @@ const RegisterScreen = () => {
     // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
-    // resetForm({ values: '' });
+    resetForm({ values: '' });
+    navigate('/patient/medicine2');
 };
 
 

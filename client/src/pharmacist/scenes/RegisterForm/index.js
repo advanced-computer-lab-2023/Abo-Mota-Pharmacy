@@ -8,12 +8,13 @@ import * as yup from 'yup';
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DropDown from "../../../shared/components/DropDown";
 import { useRegisterPharmacistMutation } from "../../../store";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const [registerPharmacist, results] = useRegisterPharmacistMutation();
   const [error, setError] = useState('');
   const [pharmacist, setPharmacist] = useState({});
@@ -50,6 +51,7 @@ const RegisterForm = () => {
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
     resetForm({ values: '' });
+    navigate('/pharmacist/medicine');
 };
 
 
