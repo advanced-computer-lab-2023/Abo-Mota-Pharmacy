@@ -2,22 +2,22 @@ import Button from "../../../shared/components/Button";
 import { useState } from "react";
 import Input from "../../../shared/components/InputField";
 import './styles.css';
-import DropDown from "../../../shared/components/DropDown";
 import DateInput from "../../../shared/components/DateInput";
 import logo from '../../../shared/assets/logo.png';
-import { Link } from "react-router-dom";
 import * as yup from 'yup';
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
+import { Link } from "react-router-dom";
+import DropDown from "../../../shared/components/DropDown";
 
-
-const RegisterScreen = () => {
+const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
     // console.log(values);
+    console.log(values);
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
@@ -53,6 +53,16 @@ const RegisterScreen = () => {
             touch= {formik.touched.userName}
             {...formik.getFieldProps('userName')}
             />
+            <Input 
+              label="NationalID*" 
+              type="text" 
+              id="nationalId"
+              error={formik.errors.nationalId}
+              touch= {formik.touched.nationalId}
+              {...formik.getFieldProps('nationalId')}
+            />  
+            </div>
+            <div className="form-container">
             <Input 
             label="First Name*" 
             type="text" 
@@ -107,6 +117,26 @@ const RegisterScreen = () => {
             />  
           </div>
           <div className="form-container">
+            <Input 
+            label="Phone number*" 
+            type="tel" 
+            id="mobileNumber"
+            error={formik.errors.mobileNumber}
+            touch = {formik.touched.mobileNumber}
+            {...formik.getFieldProps('mobileNumber')}
+            />
+            <DropDown 
+            label="Gender*" 
+            type="text" 
+            id="gender"
+            error={formik.errors.gender}
+            onChange={formik.handleChange}
+            touch = {formik.touched.gender}
+            options={['male', 'female']}
+            {...formik.getFieldProps('gender')}
+            />      
+          </div>
+          <div className="form-container">
           <Input 
             label="Password*" 
             type="password" 
@@ -116,7 +146,7 @@ const RegisterScreen = () => {
             {...formik.getFieldProps('password')}
             />
             <Input 
-            label="Cofirm Password*" 
+            label="Confirm Password*" 
             type="password" 
             id="confirmPassword"
             error={formik.errors.confirmPassword}
@@ -125,9 +155,13 @@ const RegisterScreen = () => {
             />  
           </div>
           <div className="submit-add-medicine-button-container">
-          {isLoading ? <LoadingIndicator /> :<Button type="submit">
-            Submit Form
-          </Button>}
+          {isLoading ? <LoadingIndicator /> :
+            // <Link to='medicine'>
+              <Button type="submit">
+                Submit Form
+              </Button>
+            // </Link>
+          }
         </div>
         </form>
       )}
@@ -168,6 +202,12 @@ const PharmacistSchema = yup.object().shape({
   affiliation: yup.string().min(3, 'Affiliation (Hospital) must be at least 3 characters long').max(50, 'Affiliation (Hospital) must be at most 50 characters long').required('Please enter your affiliation (hospital)'),
 
   educationalBackground: yup.string().min(5, 'Educational Background is too short').max(500, 'Educational Background is too long').required('Please enter your educational background'),
+
+  gender: yup.string().oneOf(['male', 'female'], 'Invalid gender').required('Please select a gender'),
+
+  mobileNumber: yup.string().matches(/^[0-9]{11}$/, 'Mobile number must be exactly 11 digits').required('Please enter a valid mobile number'),
+
+  nationalId: yup.string().matches(/^[0-9]{14}$/, 'National ID must be exactly 14 digits').required('Please enter a valid national ID')
 });
 
 
@@ -181,9 +221,12 @@ const initialPharmacistValues = {
   dateOfBirth: '',
   hourlyRate: '',
   affiliation: '',
-  educationalBackground: ''
+  educationalBackground: '',
+  gender: 'male',
+  mobileNumber: '',
+  nationalId: ''
 };
 
 
 
-export default RegisterScreen;
+export default RegisterForm;

@@ -8,7 +8,7 @@ const Pharmacist = require('../models/Pharmacist');
 const getApplications = async (req, res) => {
     try{
         const applications = await Pharmacist.find({registrationStatus : "pending"});
-        res.status(200).json({applications: applications});
+        res.status(200).json(applications);
     }
     catch (error){
         res.status(500).json({error: "No applications found", message: error});
@@ -121,45 +121,60 @@ const addAdmin = async (req, res) => {
 
 
 const deleteAdmin = async (req, res) => {
-    try{
-        const {id} = req.params;
+	try {
+		// const { id } = req.params;
+		// const filter = { _id: id };
+		const { username } = req.body;
+		const filter = { username};
+		const admin = await PharmacyAdmin.findOne(filter);
+    console.log(filter);
+		if (!admin) {
+			throw new Error('Admin not found');
+		}
 
-        const deletionResult = await PharmacyAdmin.deleteOne({ _id: id});
+		const deletedAdminResponse = await PharmacyAdmin.deleteOne(filter);
+		res.status(200).json(deletedAdminResponse);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
 
-        res.status(200).json({ message: 'Admin deleted successfully' });
-    
-    }
-    catch(error)
-    {
-        res.status(500).json({error:'failed to delete admin'});
-    }
-}
-
-// Delete a specific Patient
+// Delete a specific Patient - tested initially
 const deletePatient = async (req, res) => {
-    try{
-        const {id}= req.params;
-        const deletionResult = await Patient.deleteOne({ _id: id});
-        res.status(200).json({message:'successfully deleted'});
-    }
-    catch(error)
-    {
-        res.status(500).json({error:'failed to delete admin'});
-    }
-}
+	try {
+		const { username } = req.body;
+		const filter = { username };
+		const patient = await Patient.findOne(filter);
+    
+		if (!patient) {
+			throw new Error("Patient not found");
+		}
+    
+		const deletedPatientResponse = await Patient.deleteOne(filter);
+		res.status(200).json(deletedPatientResponse);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
 
 // Delete a specific Doctor
 const deletePharmacist = async (req, res) => {
-    try{
-        const {id}= req.params;
-        const deletionResult = await Pharmacist.deleteOne({ _id: id});
-        res.status(200).json({message:'successfully deleted'});
-    }
-    catch(error)
-    {
-      res.status(500).json({error:'failed to delete admin'});
-    }
-}
+	try {
+		
+		const { username } = req.body;
+		const filter = { username: username, registrationStatus: "approved" };
+		const pharmacist = await Pharmacist.findOne(filter);
+
+		if (!pharmacist) {
+			throw new Error("Doctor not found");
+		}
+
+		const deletedPharmacistResponse = await Pharmacist.deleteOne(filter);
+		res.status(200).json(deletedPharmacistResponse);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
 
 
 module.exports={

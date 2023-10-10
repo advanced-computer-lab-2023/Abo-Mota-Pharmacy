@@ -1,15 +1,19 @@
-import NavBar from  './shared/components/NavBar';
-import MedicineScreen from './pharmacist/scenes/MedicineScreen';
-import AddMedicine from './pharmacist/scenes/AddMedicine';
-import RegisterScreen from './pharmacist/scenes/RegisterScreen';
-import LoadingIndicator from './shared/components/LoadingIndicator';
-
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import PharmacistApp from './pharmacist/scenes/PharmacistApp';
+import PatientApp from './patient/PatientApp';
+import AdminApp from './admin/AdminApp';
 
 function App() {
+
   return (
-    <div className="App">
-      <NavBar />
-      <MedicineScreen />
+    <div className="app">
+      <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path='pharmacist/*' element={<PharmacistApp/>}/>
+          <Route path='/patient/*' element={<PatientApp/>}/>
+          <Route path='/admin/*' element={<AdminApp/>}/>
+      </Routes>
     </div>
   );
 }

@@ -1,5 +1,13 @@
 const Medicine = require('../models/Medicine');
-
+const Pharmacist = require('../models/Pharmacist');
+const getPharmacist = async (req, res) => {
+    try {
+      const pharmacist = await Pharmacist.findOne({}).select('-password');
+      res.status(200).json(pharmacist);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+};
 const getMedicines = async (req, res) => {
   try {
       const medicines = await Medicine.find();
@@ -14,15 +22,15 @@ const getMedicines = async (req, res) => {
 
 const addMedicine = async (req, res) => {
     try {
-      const { name, description, price, activeIngredients, quantity } = req.body;
-  
-      const newMedicine = new Medicine({
+      const { name, description, price, activeIngredients, quantity, medicinalUse } = req.body;
+      const newMedicine = {
         name,
         description,
         price,
         activeIngredients,
         quantity,
-      });
+        medicinalUse
+      }
       
       const medicine = await Medicine.findOne({name: newMedicine.name});
       if(medicine)
@@ -32,9 +40,9 @@ const addMedicine = async (req, res) => {
 
   
       
-      await newMedicine.save();
+      const returnedMedicine = await Medicine.create(newMedicine);
   
-      res.status(201).json(newMedicine); 
+      res.status(201).json(returnedMedicine); 
     } catch (error) {
       console.error('Error adding medicine:', error);
       res.status(500).json({ error: 'Failed to add medicine' });
@@ -46,12 +54,7 @@ const addMedicine = async (req, res) => {
     try {
       const {id} = req.params;
   
-      const updatedMedicine = await Medicine.updateOne(
-        {_id:id},
-        {
-          ...req.body
-        }       
-        );
+      const updatedMedicine = await Medicine.updateOne({_id:id},{...req.body});
   
       // Check if the medicine was found and updated
       if (!updatedMedicine){
@@ -69,7 +72,12 @@ const addMedicine = async (req, res) => {
   
 
    
-module.exports = {getMedicines, addMedicine,editMedicine};
+module.exports = {
+  getPharmacist,
+  getMedicines, 
+  addMedicine,
+  editMedicine
+};
 
 
 

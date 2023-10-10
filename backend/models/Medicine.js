@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const { Schema } = mongoose;
 
 const medicineSchema = new Schema({
@@ -9,6 +8,7 @@ const medicineSchema = new Schema({
 	price: Number,
 	quantity: Number,
 	image: String, //url
+	medicinalUse: String
 });
 
 const Medicine = mongoose.model("Medicine", medicineSchema);

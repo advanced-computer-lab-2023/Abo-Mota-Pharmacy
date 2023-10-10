@@ -13,6 +13,8 @@ const {getMedicines,
     getApplication} = require('../controller/adminController');
 
 
+
+
 router.get('/medicines', getMedicines);
 
 router.get('/applications', getApplications);
@@ -29,11 +31,11 @@ router.get('/pharmacists/:id',getPharmacist);
 
 router.post('/admins', addAdmin);
 
-router.delete('/admins/:id', deleteAdmin);
+router.delete('/admins', deleteAdmin);
 
-router.delete('/patients/:id', deletePatient);
+router.delete('/patients', deletePatient);
 
-router.delete('/pharmacists/:id', deletePharmacist);
+router.delete('/pharmacists', deletePharmacist);
 
 
 module.exports= router;
