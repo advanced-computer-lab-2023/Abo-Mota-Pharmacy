@@ -1,17 +1,10 @@
+card.css
 .container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-}
-
-/* .container{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap:16px;
     justify-items: center;
-}  */
+} 
 .product-card {
     display: flex;
     flex-direction: column;
