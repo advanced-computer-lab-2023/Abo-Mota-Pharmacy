@@ -22,13 +22,14 @@ const getMedicines = async (req, res) => {
 
 const addMedicine = async (req, res) => {
     try {
-      const { name, description, price, activeIngredients, quantity } = req.body;
+      const { name, description, price, activeIngredients, quantity, medicinalUse } = req.body;
       const newMedicine = {
         name,
         description,
         price,
         activeIngredients,
         quantity,
+        medicinalUse
       }
       
       const medicine = await Medicine.findOne({name: newMedicine.name});

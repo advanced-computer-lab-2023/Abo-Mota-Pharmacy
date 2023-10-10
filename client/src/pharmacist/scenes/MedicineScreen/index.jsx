@@ -10,7 +10,7 @@ import {AiOutlinePlus} from 'react-icons/ai';
 import './styles.css';
 import Header from "../../../shared/components/Header";
 import { Link } from "react-router-dom";
-import { useGetAllMedicinesQuery, useGetMedicinesQuery, useGetPharmacistQuery } from "../../../store";
+import { useGetAllMedicinesQuery, useGetPharmacistQuery } from "../../../store";
 const MedicineScreen = ({isPharmacist = false}) => {
   const [medicineArray,setMedicineArray] = useState([]);
   
@@ -18,6 +18,7 @@ const MedicineScreen = ({isPharmacist = false}) => {
   const [filter, setFilter] = useState('');
   // const { data, error , isFetching } = useGetMedicinesQuery();
   const [pharmacist,setPharmacist] = useState({});
+  const [pharmacistFetchingError] = useState('')
   const { data: pharmacistData, error: PharmacistError, isFetching: isFetchingPharmacist } = useGetPharmacistQuery();
 
   useEffect(() => {

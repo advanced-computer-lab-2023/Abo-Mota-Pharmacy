@@ -30,6 +30,7 @@ const AddMedicine = () => {
           description: values.description,
           quantity: values.availableQuantity,
           activeIngredients: values.activeIngredients.split(","),
+          medicinalUse: values.medicinalUse
         }
     }
     setIsLoading(true);
