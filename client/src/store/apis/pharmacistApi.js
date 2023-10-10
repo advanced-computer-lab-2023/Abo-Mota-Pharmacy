@@ -22,7 +22,7 @@ const pharmacistApi = createApi({
                         return {type:'Medicine', id:medicine._id}
                     });
                     tags.push({type:'PharmacistMedicine',id:pharmacist._id});
-                    console.log(tags);
+                    // console.log(tags);
                     return tags;
                 },
                 query: (pharmacist) => ({
@@ -32,7 +32,7 @@ const pharmacistApi = createApi({
             }),
             addMedicine: builder.mutation({
                 invalidatesTags:(result,error,{ id })=>{
-                    console.log([{type:'PharmacistMedicine', id:id}]);
+                    // console.log([{type:'PharmacistMedicine', id:id}]);
                     return [{type:'PharmacistMedicine', id:id}]
                 },
                 query: ({ medicine }) => ({

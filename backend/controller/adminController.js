@@ -11,7 +11,7 @@ const getApplications = async (req, res) => {
         res.status(200).json({applications: applications});
     }
     catch (error){
-        res.status(500).json({error: "No applications found", message: error});
+        res.status(500).json({ message: error.message});
     }
 }
 
@@ -29,7 +29,7 @@ const getPharmacists = async (req, res) => {
       const pharmacists = await Pharmacist.find();
       res.status(200).json(pharmacists);
     } catch (error) {
-      res.status(500).json({error: 'not found'});
+      res.status(500).json({message: 'not found'});
     }
 }
 
@@ -41,7 +41,7 @@ const getPharmacist = async (req, res) => {
       throw error;
     res.status(200).json(pharmacist);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch pharmacist'});
+    res.status(500).json({ message: 'Failed to fetch pharmacist'});
   }
 };
 
@@ -52,7 +52,7 @@ const getPatients = async (req, res) => {
     
     res.status(200).json({patients: patients});
   } catch (error) {
-    res.status(500).json({error: "Could not retrieve patients"});
+    res.status(500).json({message: "Could not retrieve patients"});
   }
 }
 
@@ -69,7 +69,7 @@ const getPatient = async (req,res)=>{
 
     res.status(200).json({message: patient});
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch patient', message: error });
+    res.status(500).json({  message: error.message });
   }
 }
 
@@ -80,12 +80,12 @@ const getMedicines = async (req,res)=>{
     
         // Check if there are no medicines in the database
         if (!medicines || medicines.length === 0) {
-          return res.status(404).json({ error: 'No medicines found' });
+          return res.status(404).json({ message: 'No medicines found' });
         }
     
         res.status(200).json(medicines);
       } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch medicines' });
+        res.status(500).json({ message: error.message });
       }
 }
 
@@ -99,13 +99,13 @@ const addAdmin = async (req, res) => {
     const existingUsername = await PharmacyAdmin.findOne({ username });
 
     if (existingUsername) {
-      return res.status(400).json({ error: 'Username is already in use' });
+      return res.status(400).json({ message: 'Username is already in use' });
     }
 
     const existingEmail = await PharmacyAdmin.findOne({ email });
 
     if (existingEmail) {
-      return res.status(400).json({ error: 'Email is already in use' });
+      return res.status(400).json({ message: 'Email is already in use' });
     }
 
     const newAdmin = new PharmacyAdmin({ name, email, username, password });
@@ -115,7 +115,7 @@ const addAdmin = async (req, res) => {
 
     res.status(201).json({ message: 'Admin created successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to add admin' });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -131,7 +131,7 @@ const deleteAdmin = async (req, res) => {
     }
     catch(error)
     {
-        res.status(500).json({error:'failed to delete admin'});
+        res.status(500).json({message:error.message});
     }
 }
 
@@ -144,7 +144,7 @@ const deletePatient = async (req, res) => {
     }
     catch(error)
     {
-        res.status(500).json({error:'failed to delete admin'});
+        res.status(500).json({message:error.message});
     }
 }
 
@@ -157,7 +157,7 @@ const deletePharmacist = async (req, res) => {
     }
     catch(error)
     {
-      res.status(500).json({error:'failed to delete admin'});
+      res.status(500).json({message:error.message});
     }
 }
 

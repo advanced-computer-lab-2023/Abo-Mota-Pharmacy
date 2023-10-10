@@ -5,7 +5,7 @@ const getPharmacist = async (req, res) => {
       const pharmacist = await Pharmacist.findOne({}).select('-password');
       res.status(200).json(pharmacist);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
 };
 const getMedicines = async (req, res) => {
@@ -14,8 +14,8 @@ const getMedicines = async (req, res) => {
       res.status(200).json(medicines); 
   }
   catch (error) {
-    console.error('Error editing medicine:', error);
-    res.status(500).json({ error: 'Failed to get medicine' });
+    // console.error('Error editing medicine:', error);
+    res.status(500).json({ message: error.message });
   }
      
 };
@@ -44,8 +44,8 @@ const addMedicine = async (req, res) => {
   
       res.status(201).json(returnedMedicine); 
     } catch (error) {
-      console.error('Error adding medicine:', error);
-      res.status(500).json({ error: 'Failed to add medicine' });
+      // console.error('Error adding medicine:', error);
+      res.status(500).json({ message: error.message });
     }
   };
   
@@ -58,7 +58,7 @@ const addMedicine = async (req, res) => {
   
       // Check if the medicine was found and updated
       if (!updatedMedicine){
-        return res.status(404).json({ error: 'Medicine not found' });
+        return res.status(404).json({ message: 'Medicine not found' });
       }
       if (updatedMedicine.modifiedCount === 0) {
         return res.json({ message: 'Medicine not updated with new values' });
@@ -66,7 +66,7 @@ const addMedicine = async (req, res) => {
       
       res.json({ message: 'Medicine updated successfully', updatedMedicine });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to edit medicine' });
+      res.status(500).json({ message: error.message });
     }
   };
   

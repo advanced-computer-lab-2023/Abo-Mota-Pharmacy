@@ -5,7 +5,7 @@ const getPatient = async (req,res) => {
 		const patient = await Patient.findOne({}).populate("healthPackage.package");
 		res.status(200).json(patient);
 	} catch(error){
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ message: error.message });
 	}	
 }
 
@@ -16,7 +16,7 @@ const getMedicines = async (req, res) => {
     }
     catch (error)
      {
-      res.status(500).json({ error: 'Failed to fetch medicines' });
+      res.status(500).json({ message: 'Failed to fetch medicines' });
      }
 };
 
