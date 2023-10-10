@@ -3,8 +3,8 @@ import { Routes, Route } from 'react-router-dom'
 import ProductsGrid from './MedList'
 import RegisterScreen from './scenes/RegisterScreen'
 import NavBar from '../shared/components/NavBar'
-import MedicineScreen from '../pharmacist/scenes/MedicineScreen'
 import { useGetMedicinesQuery } from '../store'
+import MedicineScreen from './scenes/MedicineScreen';
 function PatientApp() {
   const links = [
     {name: 'Change App', to: '/'},
@@ -14,7 +14,6 @@ function PatientApp() {
     //
     {name: 'Shop Medicines', to: 'patient'}
   ]
-  const { data, error , isFetching } = useGetMedicinesQuery();
   // console.log(data);
   return (
     <div>

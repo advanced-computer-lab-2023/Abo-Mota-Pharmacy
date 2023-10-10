@@ -8,7 +8,7 @@ import {AiOutlinePlus} from 'react-icons/ai';
 import {medicinalUses} from '../../../shared/assets/mockdata.js'
 import DropDown from "../../../shared/components/DropDown";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 
 
@@ -16,12 +16,24 @@ const AddMedicine = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [addMedicine, results] = useAddMedicineMutation();
   const { data, error, isFetching } = useGetPharmacistQuery();
-      // console.log(error);
+  const [pharmacist,setPharmacist] = useState({});
+  const [addMedicineError,setAddMedicineError] = useState('');
+  // console.log(results);
+  useEffect(() => {
+    if(data && !isFetching){
+      setPharmacist(data);
+      // console.log(pharmacist);
+    }
+    if(results.error){
+      setAddMedicineError(results.error.data.message);
+      console.log(addMedicineError);
+    }
+  },[results,isFetching,data]);
 
   const handleSubmit = async (values, {resetForm}) => {
     // values contains all the data needed for registeration
     // console.log(values);
-    console.log(data);
+    // console.log(data);
     const medicineObj = {
         id: data._id,
         medicine: {
@@ -35,7 +47,7 @@ const AddMedicine = () => {
     }
     setIsLoading(true);
     await addMedicine(medicineObj);
-    console.log(medicineObj);
+    // console.log(medicineObj);
     // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);

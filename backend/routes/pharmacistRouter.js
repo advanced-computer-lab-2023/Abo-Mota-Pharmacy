@@ -1,19 +1,20 @@
-const express= require('express');
+const express = require("express");
 const router = express.Router();
 const {
-    getPharmacist,
-    getMedicines,
-    addMedicine,
-    editMedicine
-} = require('../controller/pharmacistController'); 
+	getPharmacist,
+	getMedicines,
+	addMedicine,
+	editMedicine,
+} = require("../controller/pharmacistController");
 
-router.get('/', getPharmacist);
+const validateMedicine = require("../middlewares/validateMedicineMiddleware");
 
-router.get('/medicine',getMedicines );
+router.get("/", getPharmacist);
 
-router.post('/medicine',addMedicine );
+router.get("/medicine", getMedicines);
 
-router.patch('/medicine/:id',editMedicine );
+router.post("/medicine", validateMedicine, addMedicine);
+
+router.patch("/medicine/:id", editMedicine);
 
 module.exports = router;
-

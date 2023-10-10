@@ -1,5 +1,5 @@
 import Button from "../../../shared/components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../../shared/components/InputField";
 import './styles.css';
 import DateInput from "../../../shared/components/DateInput";
@@ -8,21 +8,50 @@ import * as yup from 'yup';
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DropDown from "../../../shared/components/DropDown";
+import { useRegisterPharmacistMutation } from "../../../store";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [registerPharmacist, results] = useRegisterPharmacistMutation();
+  const [error, setError] = useState('');
+  const [pharmacist, setPharmacist] = useState({});
+  useEffect(() => {
+    if (results.isError) {
+      setError(results.error.data.message);
+      console.log(error);
+    }else if(results.isSuccess){
+      setPharmacist(results.data);
+      console.log(pharmacist);
+    }
+  },[results]);
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
     // console.log(values);
     console.log(values);
+    const pharmacist = {
+      dob: values.dateOfBirth,
+      email: values.email,
+      name: `${values.firstName} ${values.lastName}`,
+      gender: values.gender,
+      mobile: values.mobileNumber,
+      nationalId: values.nationalId,
+      username: values.userName,
+      password: values.password,
+      rate: values.hourlyRate,
+      affiliation: values.affiliation,
+      educationalBackground: values.educationalBackground
+    }
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await registerPharmacist(pharmacist);
+    // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
     resetForm({ values: '' });
+    navigate('/pharmacist/medicine');
 };
 
 
