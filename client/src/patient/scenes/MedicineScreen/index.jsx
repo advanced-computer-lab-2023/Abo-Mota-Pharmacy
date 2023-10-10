@@ -10,44 +10,38 @@ import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import './styles.css';
 import Header from "../../../shared/components/Header";
 import { Link } from "react-router-dom";
-import { useGetAllMedicinesQuery, useGetPharmacistQuery } from "../../../store";
+import { useGetMedicinesQuery } from "../../../store";
 const MedicineScreen = ({isPharmacist = false}) => {
-  const [medicineArray,setMedicineArray] = useState([]);
+  // const [medicineArray,setMedicineArray] = useState([]);
   
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
   // const { data, error , isFetching } = useGetMedicinesQuery();
-  const [pharmacist,setPharmacist] = useState({});
-  const [pharmacistFetchingError, setPharmacistFetchingError] = useState('');
-  const { data: pharmacistData, error: pharmacistError, isFetching: isFetchingPharmacist } = useGetPharmacistQuery();
 
-  useEffect(() => {
-    if(pharmacistData && !isFetchingPharmacist){
-      setPharmacist(pharmacistData);
-      // console.log(pharmacistData);
-    }else if(pharmacistError && !isFetchingPharmacist){
-      setPharmacistFetchingError(pharmacistError.message);
-    }
-  },[pharmacistData,isFetchingPharmacist,pharmacistError]);
-  const { data, error , isFetching } = useGetAllMedicinesQuery(pharmacist);
+  console.log('filter', filter);
+ 
+
+  const { data, error , isFetching } = useGetMedicinesQuery();
   
-  const [getMedicinesError, setGetMedicinesError] = useState('');
+  // const [getMedicinesError, setGetMedicinesError] = useState('');
 
-  useEffect(() => {
-    if(data && !isFetching){
-      setMedicineArray(data);
-      // console.log(data);
-    }else if(error && !isFetching){
-      setGetMedicinesError(error.message);
-      console.log(error);
-    }
-  },[data,isFetching,error]);
-
+  // useEffect(() => {
+  //   if(data && !isFetching){
+  //     setMedicineArray(data);
+  //     console.log(data);
+  //   }else if(error && !isFetching){
+  //     setGetMedicinesError(error.message);
+  //     console.log(error);
+  //   }
+  // },[data,isFetching,error]);
+  let medicineArray = [];
+  if(data && !isFetching){
+    medicineArray = data;
+    // console.log(data);
+  }
   const filteredArray = medicineArray.filter((medicine) => {
-    return medicine.name.toLowerCase().includes(search.toLowerCase()) 
-    // && medicine.extras.medicinalUse.includes(filter);
+    return medicine.name.toLowerCase().includes(search.toLowerCase()) && medicine.medicinalUse.includes(filter);
   });
-
 
 
 
@@ -59,7 +53,8 @@ const MedicineScreen = ({isPharmacist = false}) => {
       subLabel={medicine.description} 
       price={`$${medicine.price}`} 
       quantity={medicine.quantity}
-
+      medicinalUse={medicine.medicinalUse}
+      sales={medicine.sales}
     />
   });
 
