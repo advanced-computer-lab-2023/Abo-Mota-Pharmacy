@@ -1,10 +1,9 @@
-filterTest
-
 import React, { useState } from "react";
 import { medicines } from "../shared/assets/mockdata";
 import ProductCard from "../shared/components/Card";
 import ProductsGrid from "./MedList";
 import './style.css';
+//import '../shared/components/Card/card.css';
 
 
 const Filter = (props) => {
@@ -23,7 +22,7 @@ const Filter = (props) => {
           selectedMedicinalUse === "all"
         );
       });
-   
+      
     const mappedArray = filteredArray.map((medicine) => {
         return (
             <ProductCard
@@ -34,7 +33,7 @@ const Filter = (props) => {
             />
         );
     });
-
+    
     return (
         <div>
             <div id="myBtnContainer">
@@ -45,7 +44,9 @@ const Filter = (props) => {
                 <button className={`btn ${selectedMedicinalUse === "Pain Reliever" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Pain Reliever')}>Pain Reliever</button>
                 <button className={`btn ${selectedMedicinalUse === "Antibiotic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antibiotic')}>Antibiotic</button>
             </div>
-            {mappedArray};               
+            <div className="container">
+                {mappedArray};
+            </div>         
         </div>
     );
 }

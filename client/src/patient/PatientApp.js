@@ -10,7 +10,9 @@ function PatientApp() {
     {name: 'Change App', to: '/'},
     {name: 'Register', to: '/patient/'},
     {name: 'MedicineInventory', to: '/patient/medicine'},
-    {name: 'MedicineInventory2', to: '/patient/medicine2'}
+    {name: 'MedicineInventory2', to: '/patient/medicine2'},
+    //
+    {name: 'Shop Medicines', to: 'patient'}
   ]
   const { data, error , isFetching } = useGetMedicinesQuery();
   // console.log(data);
@@ -21,6 +23,8 @@ function PatientApp() {
         <Route path='/' element={<RegisterScreen/>}/>
         <Route path='medicine' element={<ProductsGrid/>}/>
         <Route path='medicine2' element={<MedicineScreen />} />
+        <Route path='patient' element={<ProductsGrid/>}/>
+
         {/* </Route> */}
         
       </Routes>
