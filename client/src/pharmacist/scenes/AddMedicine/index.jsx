@@ -33,7 +33,7 @@ const AddMedicine = () => {
         }
     }
     setIsLoading(true);
-    addMedicine(medicineObj);
+    await addMedicine(medicineObj);
     console.log(medicineObj);
     // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.

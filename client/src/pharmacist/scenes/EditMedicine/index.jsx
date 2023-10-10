@@ -14,21 +14,20 @@ import { useEditMedicineMutation } from '../../../store';
 
 const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const {name, price, description, extras} = medicineDetails;
-  const {availableQuantity, medicinalUse} = extras;
+  const {name, price, quantity,  description} = medicineDetails;
 
   const initialValues = {
     price: '',
     description: '',
     addQuantity: '',
-    medicinalUse: medicinalUse
+    medicinalUse: 'antibiotic'
   };
   
   const [editMedicine,results] = useEditMedicineMutation();
 
   const onSubmit = async (values, {resetForm}) => {
     // console.log(values);
-    values.availableQuantity = values.addQuantity ? parseInt(availableQuantity) + parseInt(values.addQuantity) : '';
+    values.availableQuantity = values.addQuantity ? parseInt(quantity) + parseInt(values.addQuantity) : '';
     delete values.addQuantity;
     const cleanedValues = Object.fromEntries(Object.entries(values).filter(([_, v]) => v !== ''));
     // use name and cleanedvalues to do the update

@@ -32,7 +32,7 @@ const MedicineScreen = ({isPharmacist = false}) => {
   useEffect(() => {
     if(data && !isFetching){
       setMedicineArray(data);
-      // console.log(data);
+      console.log(data);
     }
   },[data,isFetching]);
   // console.log(error);
@@ -41,7 +41,9 @@ const MedicineScreen = ({isPharmacist = false}) => {
     return medicine.name.toLowerCase().includes(search.toLowerCase()) 
     // && medicine.extras.medicinalUse.includes(filter);
   });
-  
+
+
+
 
   const mappedArray = filteredArray.map((medicine, index) => {
     return <Accordion 
@@ -50,8 +52,8 @@ const MedicineScreen = ({isPharmacist = false}) => {
       label={medicine.name} 
       subLabel={medicine.description} 
       price={`$${medicine.price}`} 
-      // expanded={medicine.extras} 
-      medicineDetails={medicine}
+      quantity={medicine.quantity}
+
     />
   });
 

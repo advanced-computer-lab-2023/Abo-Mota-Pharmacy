@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import ProductsGrid from './MedList'
-import RegisterScreen from '../client/scenes/RegisterScreen'
+import RegisterScreen from './scenes/RegisterScreen'
 import NavBar from '../shared/components/NavBar'
 import MedicineScreen from '../pharmacist/scenes/MedicineScreen'
 import { useGetMedicinesQuery } from '../store'
@@ -17,11 +17,6 @@ function PatientApp() {
   return (
     <div>
       <NavBar links={links}/>
-      {isFetching && <div>Fetching...</div>}
-      {error && <div>Error:</div>}
-      {!isFetching&& data.map((medicine) => {
-        return <div key={medicine._id}>{medicine.name}</div>
-      })}
       <Routes>
         <Route path='/' element={<RegisterScreen/>}/>
         <Route path='medicine' element={<ProductsGrid/>}/>
