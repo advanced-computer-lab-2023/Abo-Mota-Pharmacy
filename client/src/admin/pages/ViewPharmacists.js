@@ -1,19 +1,17 @@
 import React, {useState} from "react";
-import CollapsibleTable from "../components/CollapsibleTable";
+import DataTable from "../components/DataTable";
 
 const tableData1 = [
-	{id: '1', name: 'omar', dateOfBirth: '29-10-2002', affiliation: 'Hospital', hourlyRate: '50', 
-	education: 'GUC', degree: 'idc', license: 'idc'}
+	{nationalId:'1234', username: 'ok', password: 'pass', name: 'omar', dob: '29-10-2002', rate: 50, affiliation: 'Hospital', educationalBackground: 'GUC'}
 ];
-const tableData2 = [];
 
-const tableHeaders1 = ['ID', 'Name', 'Date of Birth', 'Affiliation', 'Hourly Rate'];
-const tableHeaders2 = ['Custom Header 1', 'Custom Header 2', 'Custom Header 3'];
+const tableHeaders1 = ['National ID', 'Username', 'Password', 'Name', 'Date of Birth', 'Rate', 'Affiliation', 'Education'];
+
 
 function ViewPharmacists() {
-	return (
+    return (
 		<div>
-			<CollapsibleTable rows={tableData1} headers={tableHeaders1}/>
+			<DataTable rows={tableData1} headers={tableHeaders1}/>
 		</div>
 	)
 }
