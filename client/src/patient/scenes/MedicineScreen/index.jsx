@@ -17,6 +17,8 @@ const MedicineScreen = ({isPharmacist = false}) => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
   // const { data, error , isFetching } = useGetMedicinesQuery();
+
+  console.log('filter', filter);
  
 
   const { data, error , isFetching } = useGetMedicinesQuery();
@@ -35,11 +37,10 @@ const MedicineScreen = ({isPharmacist = false}) => {
   let medicineArray = [];
   if(data && !isFetching){
     medicineArray = data;
-    console.log(data);
+    // console.log(data);
   }
   const filteredArray = medicineArray.filter((medicine) => {
-    return medicine.name.toLowerCase().includes(search.toLowerCase()) 
-    // && medicine.extras.medicinalUse.includes(filter);
+    return medicine.name.toLowerCase().includes(search.toLowerCase()) && medicine.medicinalUse.includes(filter);
   });
 
 
@@ -53,7 +54,7 @@ const MedicineScreen = ({isPharmacist = false}) => {
       price={`$${medicine.price}`} 
       quantity={medicine.quantity}
       medicinalUse={medicine.medicinalUse}
-
+      sales={medicine.sales}
     />
   });
 
