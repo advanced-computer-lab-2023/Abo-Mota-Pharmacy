@@ -15,14 +15,14 @@ const Accordion = ({label, subLabel, price, isPharmacist = false, quantity, medi
     'medicinalUse': medicinalUse,
     'sales': sales
   }
+
   const onClick = () => {
     setOpen(!open);
   };
   // console.log(expanded);
-  console.log('data' , data);
+  // console.log('data' , data);
   const extension = Object.entries(data).map(([key, value], index) => {
     if(!isPharmacist && (key === 'sales' || key === 'quantity')) return null;
-    console.log(key, value);
     return <div key={index} className='accordion-entry'>
       <span className='accordion-key'>{key}</span>: {value}
       </div>;

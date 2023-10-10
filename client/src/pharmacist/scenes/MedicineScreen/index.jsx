@@ -44,10 +44,8 @@ const MedicineScreen = ({isPharmacist = false}) => {
   },[data,isFetching,error]);
 
   const filteredArray = medicineArray.filter((medicine) => {
-    return medicine.name.toLowerCase().includes(search.toLowerCase()) 
-    // && medicine.extras.medicinalUse.includes(filter);
+    return medicine.name.toLowerCase().includes(search.toLowerCase()) && medicine.medicinalUse.includes(filter);
   });
-
 
 
 
@@ -59,7 +57,8 @@ const MedicineScreen = ({isPharmacist = false}) => {
       subLabel={medicine.description} 
       price={`$${medicine.price}`} 
       quantity={medicine.quantity}
-
+      medicinalUse={medicine.medicinalUse}
+      sales={medicine.sales}
     />
   });
 
