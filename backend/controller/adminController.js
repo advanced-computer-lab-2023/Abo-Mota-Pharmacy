@@ -81,7 +81,7 @@ const getMedicines = async (req, res) => {
 		}
 		res.status(200).json(medicines);
 	} catch (error) {
-		res.status(500).json({ error: "Failed to fetch medicines" });
+		res.status(500).json({ error: error.message });
 	}
 };
 
@@ -97,14 +97,17 @@ const addAdmin = async (req, res) => {
 		}
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-		const newAdmin = new PharmacyAdmin({  username, password: hashedPassword });
+		const newAdmin = await PharmacyAdmin.create({  
+			username, 
+			password: hashedPassword 
+		});
 
 		// Save the new admin to the database
-		await newAdmin.save();
+		// await newAdmin.save();
 
-		res.status(201).json({ message: "Admin created successfully" });
+		res.status(200).json(newAdmin);
 	} catch (error) {
-		res.status(500).json({ error: "Failed to add admin" });
+		res.status(500).json({ error: error.message });
 	}
 };
 
