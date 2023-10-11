@@ -15,6 +15,6 @@ router.get("/medicine", getMedicines);
 
 router.post("/medicine", validateMedicine, addMedicine);
 
-router.patch("/medicine/:id", editMedicine);
+router.patch("/medicine/:name", editMedicine);
 
 module.exports = router;

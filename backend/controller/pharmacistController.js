@@ -46,9 +46,9 @@ const addMedicine = async (req, res) => {
 
 const editMedicine = async (req, res) => {
 	try {
-		const { id } = req.params;
+		const { name } = req.params;
 
-		const updatedMedicine = await Medicine.updateOne({ _id: id }, { ...req.body });
+		const updatedMedicine = await Medicine.updateOne({ name: name }, { ...req.body });
 
 		// Check if the medicine was found and updated
 		if (!updatedMedicine) {

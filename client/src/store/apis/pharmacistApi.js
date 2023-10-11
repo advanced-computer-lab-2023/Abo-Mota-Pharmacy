@@ -8,34 +8,34 @@ const pharmacistApi = createApi({
     endpoints(builder)  {
         return {
             getPharmacist: builder.query({
-                providesTags:(result,error)=>{
-                    return [{type:'PharmacistMedicine',id:result._id}];
-                },
+                // providesTags:(result,error)=>{
+                //     return [{type:'PharmacistMedicine',id:result._id}];
+                // },
                 query: () => ({
                     url: '/',
                     method: 'GET',
                 }),
             }),
             getAllMedicines: builder.query({
-                providesTags:(result,error,pharmacist)=>{
+                providesTags:(result,error)=>{
                     const tags = result.map((medicine)=>{
-                        return {type:'Medicine', id:medicine._id}
+                        return {type:'Medicine', val:medicine.name}
                     });
-                    tags.push({type:'PharmacistMedicine',id:pharmacist._id});
+                    tags.push({type:'PharmacistMedicine',val:"ID"});
                     // console.log(tags);
                     return tags;
                 },
-                query: (pharmacist) => ({
+                query: () => ({
                     url:'/medicine',
                     method: 'GET'
                 }),
             }),
             addMedicine: builder.mutation({
-                invalidatesTags:(result,error,{ id })=>{
+                invalidatesTags:(result,error,medicine)=>{
                     // console.log([{type:'PharmacistMedicine', id:id}]);
-                    return [{type:'PharmacistMedicine', id:id}]
+                    return [{type:'PharmacistMedicine',val:"ID"}]
                 },
-                query: ({ medicine }) => ({
+                query: (medicine) => ({
                     url: '/medicine',
                     method: 'POST',
                     body: medicine,
@@ -43,12 +43,12 @@ const pharmacistApi = createApi({
             }),
             editMedicine: builder.mutation({
                 invalidatesTags:(result,error,medicine)=>{
-                    return [{type:'Medicine', id:medicine._id}]
+                    return [{type:'Medicine', val:medicine.name}]
                 },
                 query: (medicine) => ({
-                    url: `/medicine/${medicine._id}`,
+                    url: `/medicine/${medicine.name}`,
                     method: 'PATCH',
-                    body: medicine,
+                    body: medicine.dataBaseValues,
                 }),
             }),
         };
