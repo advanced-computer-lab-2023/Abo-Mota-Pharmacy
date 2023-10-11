@@ -15,35 +15,26 @@ import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 const AddMedicine = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [addMedicine, results] = useAddMedicineMutation();
-  const { data, error, isFetching } = useGetPharmacistQuery();
-  const [pharmacist,setPharmacist] = useState({});
   const [addMedicineError,setAddMedicineError] = useState('');
   // console.log(results);
   useEffect(() => {
-    if(data && !isFetching){
-      setPharmacist(data);
-      // console.log(pharmacist);
-    }
     if(results.error){
       setAddMedicineError(results.error.data.message);
       console.log(addMedicineError);
     }
-  },[results,isFetching,data]);
+  },[results]);
 
   const handleSubmit = async (values, {resetForm}) => {
     // values contains all the data needed for registeration
     // console.log(values);
     // console.log(data);
-    const medicineObj = {
-        id: data._id,
-        medicine: {
-          name: values.medicineName,
-          price: values.price,
-          description: values.description,
-          quantity: values.availableQuantity,
-          activeIngredients: values.activeIngredients.split(","),
-          medicinalUse: values.medicinalUse
-        }
+    const medicineObj = { 
+      name: values.medicineName,
+      price: values.price,
+      description: values.description,
+      quantity: values.availableQuantity,
+      activeIngredients: values.activeIngredients.split(","),
+      medicinalUse: values.medicinalUse
     }
     setIsLoading(true);
     await addMedicine(medicineObj);
