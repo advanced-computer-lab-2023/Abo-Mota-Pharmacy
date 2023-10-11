@@ -1,5 +1,5 @@
 import Button from "../../../shared/components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../../shared/components/InputField";
 import './styles.css';
 import DateInput from "../../../shared/components/DateInput";
@@ -9,19 +9,51 @@ import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import DropDown from "../../../shared/components/DropDown";
+import { useRegisterPatientMutation } from "../../../store";
+import { useNavigate } from "react-router-dom";
 
 
 const RegisterScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [registerPatient, results] = useRegisterPatientMutation();
+  const [error, setError] = useState('');
+  const [patient, setPatient] = useState({});
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (results.isError) {
+      setError(results.error.data.message);
+      // console.log(error);
+    }else if(results.isSuccess){
+      setPatient(results.data);
+      // console.log(patient);
+    }
+  },[results]);
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
     console.log(values);
+    const patient = {
+      dob: values.dateOfBirth,
+      email: values.email,
+      name: `${values.firstName} ${values.lastName}`,
+      gender: values.gender,
+      mobile: values.mobileNumber,
+      nationalId: values.nationalId,
+      username: values.userName,
+      password: values.password,
+      emergencyContact: {
+        name: `${values.emergencyContactFirstName} ${values.emergencyContactLastName}`,
+        mobile: values.emergencyContactMobileNumber,
+        relation: values.emergencyContactRelation,
+      }
+    }
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await registerPatient(patient);
+    // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
     resetForm({ values: '' });
+    navigate('/patient/medicine2');
 };
 
 

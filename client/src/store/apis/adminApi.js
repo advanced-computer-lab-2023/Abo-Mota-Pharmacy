@@ -7,9 +7,9 @@ const adminApi = createApi({
     }),
     endpoints(builder) {
         return{
-            getMedicines: builder.query({
+            fetchPatients: builder.query({
                 query: () => ({
-                    url:'/medicines',
+                    url:'/patients',
                     method: 'GET',
                 }),
             }),
@@ -51,18 +51,17 @@ const adminApi = createApi({
               removePharmacist: builder.mutation({
                 query: (pharmacist)=>{
                   return{
-                    url: '/doctors',
+                    url: '/pharmacists',
                     body: pharmacist,
                     method: 'DELETE'
                   }
                 }
             }),
-            fetchPharmacist: builder.query({
-                query : (pharmacist)=>{
+            fetchPharmacists: builder.query({
+                query : ()=>{
                     return {
                         url:'/pharmacists',
                         method: 'GET'
-
                     }
                 }
             })
@@ -72,6 +71,12 @@ const adminApi = createApi({
 });
 
 export const{ 
-    useFetchPharmacistQuery,
-useFetchApplicationsQuery } = adminApi;
+    useFetchPatientsQuery,
+useFetchApplicationsQuery,
+useRemoveAdminMutation,
+useRemovePharmacistMutation,
+useRemovePatientMutation,
+useAddAdminMutation,
+useFetchPharmacistsQuery,
+useFetch } = adminApi;
 export { adminApi };

@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import {FiUserMinus} from 'react-icons/fi';
+import { useRemoveAdminMutation, useRemovePatientMutation, useRemovePharmacistMutation } from '../../store';
 
 const modalStyle = {
   display: 'flex',
@@ -26,6 +27,9 @@ function RemoveUserModal() {
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [role, setRole] = useState('');
+  const [deleteAdmin, results1]= useRemoveAdminMutation();
+  const [deletePatient, results2]= useRemovePatientMutation();
+  const [deletePharmacist, results3] = useRemovePharmacistMutation();
 
   const handleOpen = () => {
     setOpen(true);
@@ -44,10 +48,19 @@ function RemoveUserModal() {
   };
 
   const handleSubmit = () => {
-    // Handle form submission here
-    setUsername('');
-    setRole('');
-    setOpen(false);
+    if(role!=='')
+    {
+      
+      if(role==='Admin')
+        deleteAdmin({username});
+      else if(role==='Pharmacist')
+        deletePharmacist({username})
+      else
+        deletePatient({username});
+      setUsername('');
+      setRole('');
+      setOpen(false);
+    }
   };
 
   return (
@@ -84,8 +97,9 @@ function RemoveUserModal() {
                 onChange={handleRoleChange}
                 required
               >
-                <MenuItem value="Pharmacist">Doctor</MenuItem>
+                <MenuItem value="Admin">Admin</MenuItem>
                 <MenuItem value="Patient">Patient</MenuItem>
+                <MenuItem value="Pharmacist">Pharmacist</MenuItem>
               </Select>
             </FormControl>
             <div style={{marginTop: '20px', marginLeft: '230px'}}>

@@ -1,19 +1,30 @@
-import React, {useState} from "react";
-import CollapsibleTable from "../components/CollapsibleTable";
+import { useFetchPatientsQuery } from "../../store";
+import DataTable from "../components/DataTable";
 
 const tableData1 = [
-	{id: '1', name: 'omar', dateOfBirth: '29-10-2002', affiliation: 'Hospital', hourlyRate: '50'}
-];
-  
-const tableData2 = [];
-  
-const tableHeaders1 = ['ID', 'Name', 'Date of Birth', ''];
-const tableHeaders2 = ['Custom Header 1', 'Custom Header 2', 'Custom Header 3'];
+	{nationalId: '1', email: 'omarok@gmail.com', username: 'ok', password: 'pass', 
+	name: 'omar', dob: '29-10-2002', gender: 'Male', mobile: '01000981773', 
+emergencyContact: {name: 'malak', mobile: '01000981553', relation: 'sister'}, 
+healthPackage: {package: 'ObjectId_1234', endDate: '12-20-2020'}, 
+appointments: ['20-12-2023', '19-10-2022']},
 
-function ViewPatients() {
+];
+
+const tableHeaders1 = ['National ID', 'Email', 'Username', 'Password', 'Name', 
+'Date of Birth', 'Gender', 'Mobile', 'Emergency Contact', 'Health Package', 
+'Appointments'];
+
+function ViewPatients(){
+	const {data, error,isFetching}= useFetchPatientsQuery();
+	let content;
+	if(isFetching)
+		content = <div></div>
+	else
+		content = <DataTable rows={data} headers={tableHeaders1}/>
+	// console.log(data);
 	return (
 		<div>
-			<CollapsibleTable rows={tableData1} headers={tableHeaders1}/>
+			{content}
 		</div>
 	)
 }

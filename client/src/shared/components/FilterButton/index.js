@@ -28,6 +28,7 @@ const FilterButton = ({options, filter, setFilter}) => {
     );
   });
 
+
   const extraClass = open ? 'filter-button-open' : '';
   return (
     <div className={`filter-container ${extraClass}`} onClick={onClick}>

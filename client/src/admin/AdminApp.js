@@ -4,13 +4,15 @@ import ViewApplications from "./pages/ViewApplications";
 import ViewPatients from './pages/ViewPatients';
 import MedicineScreen from "../pharmacist/scenes/MedicineScreen";
 import NavBar from "../shared/components/NavBar";
+import ViewPharmacists from "./pages/ViewPharmacists";
 
 function AdminApp() {
 	const links =[
 		{name: 'Change App', to: '/'},
 		{name: 'Manage Users', to: '/admin/manageUsers'},
 		{name: 'View Patients', to: '/admin/viewPatients'},
-		{name: 'View Applications', to: '/admin/viewApplications'},
+		{name: 'View Pharmacists', to: '/admin/viewPharmacists'},
+		{name: 'View Applications', to: '/admin/applications'},
 		{name: 'Medicine Inventory', to: '/admin/medicine'},
 	]
 	return (
@@ -19,8 +21,9 @@ function AdminApp() {
 		<Routes>
 			<Route path='/' element={<ManageUsers/>}/>
 			<Route path='manageUsers' element={<ManageUsers/>}/>		
-			<Route path='viewPatients' element={<ViewPatients/>}/>			
-			<Route path='viewApplications' element={<ViewApplications/>}/>
+			<Route path='viewPatients' element={<ViewPatients/>}/>	
+			<Route path='viewPharmacists' element={<ViewPharmacists/>}/>	
+			<Route path='applications' element={<ViewApplications/>}/>
 			<Route path='medicine' element={<MedicineScreen/>}/>			
 		</Routes>
 		

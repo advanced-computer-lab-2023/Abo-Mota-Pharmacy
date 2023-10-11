@@ -34,42 +34,21 @@ function Row({row}) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell style={{
-          fontSize: '12px',
-          align: 'center'
-        }} component="th" scope="row">
-          {row.name}
-        </TableCell>
-        <TableCell style={{
-          fontSize: '12px',
-          align: 'center'
-        }}>
-          {row.email}
-        </TableCell>
-        <TableCell style={{
-          fontSize: '12px',
-          align: 'center'
-        }}>
-          {row.username}
-        </TableCell>
-        <TableCell style={{
-          fontSize: '12px',
-          align: 'center'
-        }}>
-          {row.dob}
-        </TableCell>
-        <TableCell style={{
-          fontSize: '12px',
-          align: 'center'
-        }}>
-          {row.affiliation}
-        </TableCell>
-        <TableCell style={{
-          fontSize: '12px',
-          align: 'center'
-        }}>
-          {row.rate}
-        </TableCell>
+        {Object.keys(row).map((key) => (
+        key === 'educationalBackground' ||
+        key === 'pharmacyDegree' ||
+        key === 'workingLicense' ? null : (<TableCell
+          key={key}
+          style={{
+            fontSize: '12px',
+            textAlign: 'center'
+          }}
+          component="th"
+          scope="row"
+        >
+          {row[key]}
+        </TableCell>)
+      ))}
       </TableRow>
       <TableRow>
         <TableCell
@@ -90,13 +69,13 @@ function Row({row}) {
                   <p style={{fontWeight: 'bold'}}>Education</p>
                   {row.educationalBackground}
                 </Typography>
-                <Typography variant="subtitle1" style={{display: 'flex', alignItems: 'center', gap: '80px'}}>
+                <Typography variant="subtitle1" style={{display: 'flex', alignItems: 'center', gap: '65px'}}>
                   <p style={{fontWeight: 'bold'}}>Pharmacy Degree</p>
-                  <Link to={`${row.degree}`}>View Degree</Link>
+                  <Link to={`${row.pharmacyDegree}`}>View Degree</Link>
                 </Typography>
-                <Typography variant="subtitle1" style={{display: 'flex', alignItems: 'center', gap: '77px'}}>
+                <Typography variant="subtitle1" style={{display: 'flex', alignItems: 'center', gap: '70px'}}>
                   <p style={{fontWeight: 'bold'}}>Working License</p>
-                  <Link to={`${row.license}`}>View License</Link>
+                  <Link to={`${row.workingLicense}`}>View License</Link>
                 </Typography>
                 <div style={{display: 'flex', gap: '20px', marginLeft: '250px'}}>
                     <Button variant="outlined" color="success">
@@ -134,7 +113,7 @@ function CollapsibleTable({ data, headers }) {
               align: 'center'
             }} />
             {headers.map((header, index) => (
-              <TableCell key={index} style={{ fontSize: '16px', align: 'center' }}>
+              <TableCell key={index} style={{ fontSize: '16px', textAlign: 'center' }}>
                 {header}
               </TableCell>
             ))}

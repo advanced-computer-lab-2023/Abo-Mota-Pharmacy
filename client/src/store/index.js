@@ -42,7 +42,12 @@ export {
 } from './apis/patientApi';
 
 export {
-  useFetchPharmacistQuery,
-  useFetchApplicationsQuery
+  useFetchPharmacistsQuery,
+  useFetchApplicationsQuery,
+  useRemoveAdminMutation,
+  useRemovePatientMutation,
+  useRemovePharmacistMutation,
+  useAddAdminMutation,
+  useFetchPatientsQuery
 } from './apis/adminApi'
 
