@@ -43,17 +43,16 @@ export default function DataTable({ rows, headers }) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 {Object.keys(row).map((key) => (
-                  <TableCell key={key} align="center">
-                    {key === 'emergencyContact' ||
-                    key === 'healthPackage' ||
-                    key === 'appointments' ? (
-                      <Button onClick={() => handleRowClick(row[key])}>
-                        View
-                      </Button>
-                    ) : (
-                      row[key]
-                    )}
-                  </TableCell>
+                  
+                    (key === 'name' ||
+                    key === 'username' ||
+                    key === 'email') && 
+                     (
+                      <TableCell key={key} align="center">
+                        {row[key]}
+                      </TableCell>
+                    )
+
                 ))}
               </TableRow>
             ))}
