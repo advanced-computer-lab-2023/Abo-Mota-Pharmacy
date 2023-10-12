@@ -8,6 +8,7 @@ const medicineSchema = new Schema({
 	price: Number,
 	quantity: Number,
 	image: String, //url
+	sales: Number,
 	medicinalUse: {
 		type: String,
 		enum: [

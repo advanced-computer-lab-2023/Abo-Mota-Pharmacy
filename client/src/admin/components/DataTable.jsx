@@ -43,10 +43,7 @@ export default function DataTable({ rows, headers }) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 {Object.keys(row).map((key) => (
-                  
-                    (key === 'name' ||
-                    key === 'username' ||
-                    key === 'email') && 
+                   
                      (
                       <TableCell key={key} align="center">
                         {row[key]}
