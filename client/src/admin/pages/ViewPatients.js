@@ -10,22 +10,20 @@ appointments: ['20-12-2023', '19-10-2022']},
 
 ];
 
-let tableHeaders1 = ['Email', 'Username', 'Name', 
-'Date of Birth', 'Gender', 'Mobile', 'Emergency Contact'  ];
+
+
 
 function ViewPatients(){
 	const {data, error,isFetching}= useFetchPatientsQuery();
-	
+	let tableHeaders = {name:'Name',username:'Username',email:'Email', dob:'Date of birth', gender: 'Gender', mobile:'Mobile' }; 
 	let content;
 	if(isFetching)
 		content = <div></div>
-	else{
-		tableHeaders1 = Object.keys(data)
-		console.log(data)
-		content = <DataTable rows={data} headers={tableHeaders1}/>
-		
+	else
+	{
+		content = <DataTable rows={data} headers={tableHeaders}/>
 	}
-	// console.log(data);
+	
 	return (
 		<div>
 			{content}

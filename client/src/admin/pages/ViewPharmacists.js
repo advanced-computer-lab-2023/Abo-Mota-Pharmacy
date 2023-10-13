@@ -12,6 +12,7 @@ const tableHeaders1 = ['National ID', 'Username', 'Password', 'Name', 'Date of B
 function ViewPharmacists() {
 	const {data, error, isFetching}= useFetchPharmacistsQuery();
 	let content;
+	const tableHeaders1 ={name:'Name', email:'Email', username:'Username', dob:'Date of Birth', rate:'Hourly Rate', affiliation:'Affiliation'  }
 	if(isFetching)
 		content = <div></div>
 	else

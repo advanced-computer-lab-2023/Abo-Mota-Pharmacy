@@ -23,13 +23,16 @@ export default function DataTable({ rows, headers }) {
     setSelectedRow(null);
   };
 
+  const headerValues = Object.values(headers);
+  const headerKeys = Object.keys(headers);
+
   return (
     <div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              {headers.map((header) => (
+              {headerValues.map((header) => (
                 <TableCell align="center" key={header}>
                   {header}
                 </TableCell>
@@ -37,22 +40,18 @@ export default function DataTable({ rows, headers }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                {Object.keys(row).map((key) => (
-                   
-                     (
-                      <TableCell key={key} align="center">
-                        {row[key]}
-                      </TableCell>
-                    )
-
-                ))}
-              </TableRow>
-            ))}
+          {rows.map((row) => (
+          <TableRow
+          key={row.name}
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+        {headerKeys.map((headerKey)=>(
+        <TableCell key= {headerKey} align="center">
+          { row[headerKey] } 
+        </TableCell>
+          ))}
+        </TableRow>
+        ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -60,7 +59,6 @@ export default function DataTable({ rows, headers }) {
         <Dialog open={true} onClose={handleCloseModal}>
           <DialogTitle>Details</DialogTitle>
           <DialogContent>
-            {/* Render modal content based on selectedRow */}
             {Object.keys(selectedRow).map((key) => (
               <div key={key}>
                 <DialogContentText>

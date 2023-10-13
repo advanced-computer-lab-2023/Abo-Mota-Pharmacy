@@ -42,18 +42,7 @@ const patientSchema = new Schema(
       },
       endDate: Date,
     },
-    // prescriptions: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Prescription",
-    //   },
-    // ],
-    // appointments: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Appointment",
-    //   },
-    // ],
+    
   },
   { toJSON: { virtuals: true } }
 );
