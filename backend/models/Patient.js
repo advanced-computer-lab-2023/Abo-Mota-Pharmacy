@@ -12,23 +12,23 @@ const patientSchema = new Schema(
     gender: String,
     mobile: String,
     nationalId: String,
-    familyMembers: [
-      {
-        // _id: {
-        // 	type: Schema.Types.ObjectId,
-        // 	ref: "Patient",
-        // },
-        // relationToPatient: String, // Add your extra attribute here
-        name: String,
-        age: Number,
-        gender: String,
-        relationToPatient: {
-          type: String,
-          enum: ["child", "husband", "wife"],
-        },
-        nationalId: String,
-      },
-    ],
+    // familyMembers: [
+    //   {
+    //     // _id: {
+    //     // 	type: Schema.Types.ObjectId,
+    //     // 	ref: "Patient",
+    //     // },
+    //     // relationToPatient: String, // Add your extra attribute here
+    //     name: String,
+    //     age: Number,
+    //     gender: String,
+    //     relationToPatient: {
+    //       type: String,
+    //       enum: ["child", "husband", "wife"],
+    //     },
+    //     nationalId: String,
+    //   },
+    // ],
     emergencyContact: {
       name: String,
       mobile: String,

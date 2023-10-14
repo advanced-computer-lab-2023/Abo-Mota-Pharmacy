@@ -140,11 +140,11 @@ const deletePatient = async (req, res) => {
     if (!patient) {
       throw new Error("Patient not found");
     }
-    const idOfPatient = patient._id;
-    //find and delete appointments
-    const deletedAppointments = await Appointment.deleteMany({ patient: idOfPatient });
-    // find and delete prescriptions
-    const deletedPrescriptions = await Prescription.deleteMany({ patient: idOfPatient });
+    // const idOfPatient = patient._id;
+    // //find and delete appointments
+    // const deletedAppointments = await Appointment.deleteMany({ patient: idOfPatient });
+    // // find and delete prescriptions
+    // const deletedPrescriptions = await Prescription.deleteMany({ patient: idOfPatient });
 
     const deletedPatientResponse = await Patient.deleteOne(filter);
     res.status(200).json(deletedPatientResponse);
