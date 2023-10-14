@@ -33,7 +33,8 @@ const AddMedicine = () => {
       price: values.price,
       description: values.description,
       quantity: values.availableQuantity,
-      activeIngredients: values.activeIngredients.split(","),
+      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()) // Remove spaces
+      .filter((ingredient) => ingredient),
       medicinalUse: values.medicinalUse
     }
     setIsLoading(true);

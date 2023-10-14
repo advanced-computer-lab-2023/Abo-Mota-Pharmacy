@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const { Schema } = mongoose;
-// ADDDDD NATIONALID PICTURE ATTRIBUTE YALLA
 const patientSchema = new Schema(
   {
     name: String,
@@ -57,6 +56,6 @@ patientSchema.virtual("formattedDob").get(function () {
   return new Intl.DateTimeFormat("en-US", options).format(this.dob);
 });
 
-const Patient = mongoose.model("Patient", patientSchema);
+const Patient = mongoose.model("PharmacyPatient", patientSchema);
 
 module.exports = Patient;

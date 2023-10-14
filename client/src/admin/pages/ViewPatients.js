@@ -15,7 +15,7 @@ appointments: ['20-12-2023', '19-10-2022']},
 
 function ViewPatients(){
 	const {data, error,isFetching}= useFetchPatientsQuery();
-	let tableHeaders = {name:'Name',username:'Username',email:'Email', dob:'Date of birth', gender: 'Gender', mobile:'Mobile' }; 
+	let tableHeaders = {name:'Name',username:'Username',email:'Email', formattedDob:'Date of birth', gender: 'Gender', mobile:'Mobile' }; 
 	let content;
 	if(isFetching)
 		content = <div></div>

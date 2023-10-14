@@ -15,6 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
+import { GiConsoleController } from 'react-icons/gi';
 
 function Row({row}) {
   const [open, setOpen] = React.useState(false);
@@ -102,7 +103,8 @@ Row.propTypes = {
 
 
 function CollapsibleTable({ data, headers }) {
-  console.log(data);
+  
+
   return (
     <TableContainer component={Paper} style={{ width: '100%', marginLeft: '20px' }}>
       <Table aria-label="collapsible table">
@@ -120,9 +122,11 @@ function CollapsibleTable({ data, headers }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <Row key={row.id} row={row} />
-          ))}
+          {data.map((row) => {
+          const {name,email,username,formattedDob,affiliation, rate} = row;
+          return <Row key={row.id} row={{name,email,username,formattedDob,affiliation,rate}} />
+          }
+          )}
         </TableBody>
       </Table>
     </TableContainer>
