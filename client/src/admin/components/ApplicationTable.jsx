@@ -104,7 +104,7 @@ Row.propTypes = {
 
 function CollapsibleTable({ data, headers }) {
   
-
+  console.log(data);
   return (
     <TableContainer component={Paper} style={{ width: '100%', marginLeft: '20px' }}>
       <Table aria-label="collapsible table">
@@ -123,8 +123,8 @@ function CollapsibleTable({ data, headers }) {
         </TableHead>
         <TableBody>
           {data.map((row) => {
-          const {name,email,username,formattedDob,affiliation, rate} = row;
-          return <Row key={row.id} row={{name,email,username,formattedDob,affiliation,rate}} />
+          const {name,email,username,formattedDob,affiliation, rate,educationalBackground} = row;
+          return <Row key={row.id} row={{name,email,username,formattedDob,affiliation,rate,educationalBackground}} />
           }
           )}
         </TableBody>

@@ -90,7 +90,7 @@ const addAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const existingUsername = await PharmacyAdmin.findOne({ username });
+    const existingUsername = await PharmacyAdmin.findOne({ username:username.toLowerCase() });
 
     if (existingUsername) {
       return res.status(400).json({ error: "Username is already in use" });
@@ -98,7 +98,7 @@ const addAdmin = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newAdmin = await PharmacyAdmin.create({
-      username,
+      username: username.toLowerCase(),
       password: hashedPassword,
     });
 
@@ -111,30 +111,13 @@ const addAdmin = async (req, res) => {
   }
 };
 
-const deleteAdmin = async (req, res) => {
-  try {
-    // const { id } = req.params;
-    // const filter = { _id: id };
-    const { username } = req.body;
-    const filter = { username };
-    const admin = await PharmacyAdmin.findOne(filter);
-    console.log(filter);
-    if (!admin) {
-      throw new Error("Admin not found");
-    }
 
-    const deletedAdminResponse = await PharmacyAdmin.deleteOne(filter);
-    res.status(200).json(deletedAdminResponse);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
 // Delete a specific Patient - tested initially
 const deletePatient = async (req, res) => {
   try {
     const { username } = req.body;
-    const filter = { username };
+    const filter = { username:username.toLowerCase() };
     const patient = await Patient.findOne(filter);
 
     if (!patient) {
@@ -157,7 +140,7 @@ const deletePatient = async (req, res) => {
 const deletePharmacist = async (req, res) => {
   try {
     const { username } = req.body;
-    const filter = { username: username, registrationStatus: "approved" };
+    const filter = { username: username.toLowerCase(), registrationStatus: "approved" };
     const pharmacist = await Pharmacist.findOne(filter);
 
     if (!pharmacist) {
@@ -175,7 +158,6 @@ module.exports = {
   getMedicines,
   getApplications,
   addAdmin,
-  deleteAdmin,
   deletePatient,
   deletePharmacist,
   getPatient,

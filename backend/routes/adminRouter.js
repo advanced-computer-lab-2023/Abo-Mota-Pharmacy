@@ -31,7 +31,7 @@ router.get('/pharmacists/:id',getPharmacist);
 
 router.post('/admins', addAdmin);
 
-router.delete('/admins', deleteAdmin);
+
 
 router.delete('/patients', deletePatient);
 
