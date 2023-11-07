@@ -12,11 +12,13 @@ import { useEffect, useState } from "react";
 import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 import FileInput from "../../../shared/components/FileInput";
 
+import {useNavigate} from 'react-router-dom';
 
 const AddMedicine = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [addMedicine, results] = useAddMedicineMutation();
   const [addMedicineError,setAddMedicineError] = useState('');
+  const navigate = useNavigate();
   // console.log(results);
   useEffect(() => {
     if(results.error){
@@ -29,12 +31,14 @@ const AddMedicine = () => {
     // values contains all the data needed for registeration
     // console.log(values);
     // console.log(data);
+    
     const medicineObj = { 
       name: values.medicineName,
       price: values.price,
       description: values.description,
       quantity: values.availableQuantity,
-      activeIngredients: values.activeIngredients.split(","),
+      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()) // Remove spaces
+      .filter((ingredient) => ingredient),
       medicinalUse: values.medicinalUse
     }
     setIsLoading(true);
@@ -42,6 +46,7 @@ const AddMedicine = () => {
     // console.log(medicineObj);
     // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
+    navigate('/pharmacist/medicine');
     setIsLoading(false);
     // resetForm({ values: '' });
   }

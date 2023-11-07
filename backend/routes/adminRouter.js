@@ -1,42 +1,40 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const {getMedicines,
-    getApplications,
-    addAdmin,
-    deleteAdmin,
-    deletePatient,
-    deletePharmacist,
-    getPatients,
-    getPatient,
-    getPharmacist,
-    getPharmacists,
-    getApplication} = require('../controller/adminController');
+const {
+  getMedicines,
+  getApplications,
+  addAdmin,
+  deleteAdmin,
+  deletePatient,
+  deletePharmacist,
+  getPatients,
+  getPatient,
+  getPharmacist,
+  getPharmacists,
+  getApplication,
+  handleApplication,
+} = require("../controller/adminController");
 
+router.get("/medicines", getMedicines);
 
+router.get("/applications", getApplications);
 
+router.get("/applications/:id", getApplication);
 
-router.get('/medicines', getMedicines);
+router.patch("/applications/:id", handleApplication);
 
-router.get('/applications', getApplications);
+router.get("/patients", getPatients);
 
-router.get('/applications/:id', getApplication)
+router.get("/patients/:id", getPatient);
 
-router.get('/patients', getPatients);
+router.get("/pharmacists", getPharmacists);
 
-router.get('/patients/:id', getPatient);
+router.get("/pharmacists/:id", getPharmacist);
 
-router.get('/pharmacists', getPharmacists);
+router.post("/admins", addAdmin);
 
-router.get('/pharmacists/:id',getPharmacist);
+router.delete("/patients", deletePatient);
 
-router.post('/admins', addAdmin);
+router.delete("/pharmacists", deletePharmacist);
 
-router.delete('/admins', deleteAdmin);
-
-router.delete('/patients', deletePatient);
-
-router.delete('/pharmacists', deletePharmacist);
-
-
-module.exports= router;
-
+module.exports = router;

@@ -18,7 +18,18 @@ const pharmacistSchema = new Schema({
         enum: ["pending", "approved", "rejected"],
         default: "pending",
     }
-});
+},{ toJSON: { virtuals: true } });
+
+
+const options = {
+	year: "numeric",
+	month: "2-digit",
+	day: "2-digit",
+  };
+  
+  pharmacistSchema.virtual("formattedDob").get(function () {
+	return new Intl.DateTimeFormat("en-US", options).format(this.dob);
+  });
 
 const Pharmacist = mongoose.model("Pharmacist", pharmacistSchema);
 module.exports = Pharmacist;

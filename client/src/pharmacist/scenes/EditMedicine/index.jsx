@@ -29,8 +29,9 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
   // console.log('medicineDetails' , medicineDetails);
   const onSubmit = async (values, {resetForm}) => {
     // console.log(values);
+    
     const cleanedValues = {...values};
-    cleanedValues.quantity = values.addQuantity ? parseInt(quantity) + parseInt(values.addQuantity) : '';
+    cleanedValues.quantity = values.addQuantity ? parseInt(values.addQuantity) : '';
     delete cleanedValues.addQuantity
     const dataBaseValues = Object.fromEntries(Object.entries(cleanedValues).filter(([_, v]) => v !== ''));
     // use name and cleanedvalues to do the update

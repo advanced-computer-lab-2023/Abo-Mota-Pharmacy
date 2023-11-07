@@ -157,7 +157,7 @@ const RegisterScreen = () => {
             {...formik.getFieldProps('confirmPassword')}
             />  
           </div>
-          <div className="register-emergency-contact-title">Emergenct Contact:</div>
+          <div className="register-emergency-contact-title">Emergency Contact:</div>
           <div className="form-container">
           <Input 
             label="First Name*" 

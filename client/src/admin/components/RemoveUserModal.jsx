@@ -51,9 +51,7 @@ function RemoveUserModal() {
     if(role!=='')
     {
       
-      if(role==='Admin')
-        deleteAdmin({username});
-      else if(role==='Pharmacist')
+      if(role==='Pharmacist')
         deletePharmacist({username})
       else
         deletePatient({username});
@@ -97,7 +95,6 @@ function RemoveUserModal() {
                 onChange={handleRoleChange}
                 required
               >
-                <MenuItem value="Admin">Admin</MenuItem>
                 <MenuItem value="Patient">Patient</MenuItem>
                 <MenuItem value="Pharmacist">Pharmacist</MenuItem>
               </Select>
