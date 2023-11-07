@@ -1,12 +1,13 @@
 import './styles.css';
-const Button = ({type, children, ...probs}) => {
+const Button = ({type, children, forgetPass , ...probs}) => {
   const childs = children ? children : '';
+  const forgetPassClass = forgetPass ? 'forgot-password' : 'custom-button';
   return (
     <div className='button-container'>
-      <button className="custom-button" type={type} {...probs} >
-          <div className='button-content'>
+      <button className={`${forgetPassClass}`} type={type} {...probs} >
+          {!forgetPass ? <div className='button-content'>
             {childs}
-          </div>
+          </div> : childs}
       </button>
     </div>
   );
