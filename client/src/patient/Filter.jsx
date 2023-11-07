@@ -5,7 +5,7 @@ import ProductsGrid from "./MedList";
 import './style.css';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Button } from "@mui/material";
-// import TempDrawer from "../shared/components/Drawer";
+import TempDrawer from "../shared/components/Drawer";
 
 
 const Filter = (props) => {
@@ -72,7 +72,7 @@ const Filter = (props) => {
             <div className="container">
                 {mappedArray}
             </div>
-            {/* <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} /> */}
+            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} />
                      
         </div>
     );
