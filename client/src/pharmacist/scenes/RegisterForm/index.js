@@ -142,15 +142,14 @@ const RegisterForm = () => {
             touch = {formik.touched.affiliation}
             {...formik.getFieldProps('affiliation')}
             />  
-            <FileInput
-            label="Educational Background*"
+            <Input 
+            label="Educational Background*" 
+            type="text" 
             id="educationalBackground"
-            name="educationalBackground" // Ensure this is set to correctly associate with Formik's `getFieldProps`
             error={formik.errors.educationalBackground}
-            touch={formik.touched.educationalBackground}
-            onChange={(file) => formik.setFieldValue('educationalBackground', file)}
-            onBlur={() => formik.setFieldTouched('educationalBackground', true)} // To handle touch status
-            />
+            touch = {formik.touched.educationalBackground}
+            {...formik.getFieldProps('educationalBackground')}
+            />  
           </div>
           <div className="form-container">
             <Input 
@@ -161,7 +160,7 @@ const RegisterForm = () => {
             touch = {formik.touched.mobileNumber}
             {...formik.getFieldProps('mobileNumber')}
             />
-                        <Input 
+            <Input 
             label="Hourly rate in USD*" 
             type="number" 
             id="hourlyRate"
@@ -187,6 +186,26 @@ const RegisterForm = () => {
             touch = {formik.touched.confirmPassword}
             {...formik.getFieldProps('confirmPassword')}
             />  
+          </div>
+          <div className="form-container">
+          <FileInput
+            label="Pharmacy Degree*"
+            id="pharmacyDegree"
+            name="pharmacyDegree" // Ensure this is set to correctly associate with Formik's `getFieldProps`
+            error={formik.errors.pharmacyDegree}
+            touch={formik.touched.pharmacyDegree}
+            onChange={(file) => formik.setFieldValue('pharmacyDegree', file)}
+            onBlur={() => formik.setFieldTouched('pharmacyDegree', true)} // To handle touch status
+            />
+          <FileInput
+            label="Working Liscense*"
+            id="workingLiscense"
+            name="workingLiscense" // Ensure this is set to correctly associate with Formik's `getFieldProps`
+            error={formik.errors.workingLiscense}
+            touch={formik.touched.workingLiscense}
+            onChange={(file) => formik.setFieldValue('workingLiscense', file)}
+            onBlur={() => formik.setFieldTouched('workingLiscense', true)} // To handle touch status
+            />
           </div>
           <div className="submit-add-medicine-button-container">
           {isLoading ? <LoadingIndicator /> :
@@ -243,7 +262,9 @@ const PharmacistSchema = yup.object().shape({
 
   mobileNumber: yup.string().matches(/^[0-9]{11}$/, 'Mobile number must be exactly 11 digits').required('Please enter a valid mobile number'),
 
-  educationalBackground: yup
+  educationalBackground: yup.string().min(10, 'Educational Background must be at least 10 characters long').max(50, 'Educational Background must be at most 50 characters long').required('Please enter your educational background (university)'),
+
+  pharmacyDegree: yup
   .mixed()
   .required('A file is required')
   .test(
@@ -281,6 +302,26 @@ const PharmacistSchema = yup.object().shape({
         let file = value instanceof FileList ? value[0] : value;
         return file && file.size <= FILE_SIZE;
       }
+    ),
+
+    workingLiscense: yup
+    .mixed()
+    .required('A file is required')
+    .test(
+      'fileFormat',
+      'Unsupported Format',
+      (value) => {
+        let file = value instanceof FileList ? value[0] : value;
+        return file && SUPPORTED_FORMATS.includes(file.type);
+      }
+    )
+    .test(
+      'fileSize',
+      'File too large',
+      (value) => {
+        let file = value instanceof FileList ? value[0] : value;
+        return file && file.size <= FILE_SIZE;
+      }
     )
 
 });
@@ -296,10 +337,11 @@ const initialPharmacistValues = {
   dateOfBirth: '',
   hourlyRate: '',
   affiliation: '',
-  educationalBackground: null,
+  pharmacyDegree: null,
   gender: 'male',
   mobileNumber: '',
-  nationalId: null
+  nationalId: null,
+  workingLiscense: null
 };
 
 

@@ -3,10 +3,9 @@ import { medicines } from "../shared/assets/mockdata";
 import ProductCard from "../shared/components/Card";
 import ProductsGrid from "./MedList";
 import './style.css';
-import Drawer from '@mui/material/Drawer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Button } from "@mui/material";
-import TempDrawer from "../shared/components/Drawer";
+// import TempDrawer from "../shared/components/Drawer";
 
 
 const Filter = (props) => {
@@ -73,7 +72,7 @@ const Filter = (props) => {
             <div className="container">
                 {mappedArray}
             </div>
-            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} />
+            {/* <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} /> */}
                      
         </div>
     );
