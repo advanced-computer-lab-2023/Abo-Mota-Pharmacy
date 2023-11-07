@@ -20,7 +20,8 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
     price: '',
     description: '',
     addQuantity: '',
-    medicinalUse: medicinalUse
+    medicinalUse: medicinalUse,
+    
   };
   // console.log(medicinalUse);
   // console.log(medicineDetails);
