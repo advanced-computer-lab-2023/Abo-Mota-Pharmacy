@@ -1,17 +1,20 @@
-import React from 'react';
-import './card.css';
+import * as React from 'react';
+import './item.css';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
- 
+import { Stepper } from '@mui/material';
 
-const ProductCard = ({name,description,price,extras,onAddToCart}) => {
-  const handleClick = () => {
-    onAddToCart({ name, description, price, extras });   
+
+export default function DrawerItem({name,description,price,quantity,onDelete}) {
+  const handleDelete = () => {
+    onDelete();
    };
-
+   
   return (
-  // <div className="container"> 
-    <div className="product-card">
-      <img
+    <div className="container2">
+
+        <div className="image2">
+        <img
     src={
     name === 'Paracetamol'
       ? 'https://i-cf65.ch-static.com/content/dam/cf-consumer-healthcare/panadol-reborn/en_IE/product-detail/panadol-advance-compack-16/Panadol-Base-24s-(3D).png?auto=format'
@@ -25,28 +28,23 @@ const ProductCard = ({name,description,price,extras,onAddToCart}) => {
       ? 'https://www.binsina.ae/media/catalog/product/m/48932_1.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=300&width=300&canvas=300:300'
       : ''
   }
-        alt={name}
-        className="product-image"
-        />
+  alt={name}
+   />
+      </div>
 
-      <div className="product-details">
-        <div className='nameWithPrice'>
-        <h3 className="product-name">{name}</h3>
-        <p className="product-price">{price}</p>
+      <div className="product-details2">
+        <div className='nameWithPrice2'>
+          <h3 className="product-name2">{name}</h3>
+          <p className="product-price2">{price}</p>
+          <p className="product-description2">{description}</p>
         </div>
-        <p className="product-description">{description}</p>
-        <p className="extras">→ Sold: {extras.sales}</p>
-        <p className="extras">→ In Stock: {extras.availableQuantity}</p>
-        <p className="extras">→ Use: {extras.medicinalUse}</p>
-        
+        <div>
+        <p className="product-quantity">{quantity}</p>
+        {/* STEPPER */}
+        </div>
+        <Button onClick={handleDelete} variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
       </div>
-      <div className="button-div">
-        <Button className="add-button" onClick={handleClick}>Add to cart</Button>
-      </div>
+       
     </div>
-  // </div>  
   );
 }
-
-
-export default ProductCard;

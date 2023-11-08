@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { medicines } from "../shared/assets/mockdata";
 import ProductCard from "../shared/components/Card";
-import ProductsGrid from "./MedList";
 import './style.css';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Button } from "@mui/material";
 import TempDrawer from "../shared/components/Drawer";
+import DrawerItem from "../shared/components/DrawerItem";
 
 
 const Filter = (props) => {
     const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [cart, setCart] = useState([]);
 
 
     const filterMedicinesByMedicinalUse = (medicinalUse) => {
@@ -24,10 +24,35 @@ const Filter = (props) => {
         );
       });
 
-
       const handleAddToCart = (medicine) => {
-        //take medicine info to cart
-        console.log('Add to cart clicked on card:', medicine.name);
+        console.log('Adding to cart:', medicine.name);
+        // Create a copy of the current cart state
+        const updatedCart = [...cart];
+      
+        // Check if the product already exists in the cart
+        const existingItem = updatedCart.find((item) => item.name === medicine.name);
+      
+        if (existingItem) {
+          // If the product is already in the cart, update its quantity
+          existingItem.quantity += 1;
+        } else {
+          // If the product is not in the cart, add it with a quantity of 1
+          const newItem = {
+            name: medicine.name,
+            price: medicine.price,
+            quantity: 1,
+          };
+          updatedCart.push(newItem);
+        }
+    
+        setCart(updatedCart);
+      };
+      
+ 
+      const handleDeleteItem = (medicine) => {
+        //new cart without the removed med
+        const updatedCart = cart.filter((item) => item.name !== medicine.name);
+        setCart(updatedCart);
       };
 
       const handleCartIcon = () => {
@@ -50,8 +75,7 @@ const Filter = (props) => {
         );
     });
 
-    
-    
+
     return (
         <div>
             <div className="cart-div">
@@ -72,7 +96,19 @@ const Filter = (props) => {
             <div className="container">
                 {mappedArray}
             </div>
-            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} />
+            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} />
+
+            {/* <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer}>
+                {cart.map((medicine, index) => (
+                <DrawerItem
+                    // key={index}
+                    name={medicine.name}
+                    description={medicine.description}
+                    price={medicine.price}
+                    quantity={medicine.quantity}
+                />
+                ))}
+            </TempDrawer> */}
                      
         </div>
     );
