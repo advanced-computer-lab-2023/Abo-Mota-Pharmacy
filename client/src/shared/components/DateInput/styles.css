@@ -1,4 +1,4 @@
-.wrapper{
+.date-input{
   background-color: #fff;
   padding: 30px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0,1);
@@ -6,15 +6,10 @@
   flex-grow: 1;
   max-width: 40%;
   min-width: 40%;
-  height: 2rem;
+  height: 4rem;
 }
 
-.email{
-  max-width: none;
-  min-width: none;
-}
-
-.wrapper .input-data{
+.date-input .input-data{
   height: 20px;
   width: 100%;
   position: relative;
@@ -25,7 +20,7 @@
   font-size: 1.4rem;
 }
 
-.wrapper .input-data input{
+.date-input .input-data input{
   height: 100%;
   width: 100%;
   border: none;
@@ -40,7 +35,7 @@
   font-size: 15px;
 }
 
-.wrapper .input-data label{
+.date-input .input-data label{
   position: absolute;
   bottom: 10px;
   left: 0;
@@ -48,6 +43,3 @@
   pointer-events: none;
   transition: all 0.3s ease;
 }
-
-
-

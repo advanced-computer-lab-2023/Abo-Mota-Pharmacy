@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const { Schema } = mongoose;
-// ADDDDD NATIONALID PICTURE ATTRIBUTE YALLA
 const patientSchema = new Schema(
   {
     name: String,
@@ -42,18 +41,7 @@ const patientSchema = new Schema(
       },
       endDate: Date,
     },
-    // prescriptions: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Prescription",
-    //   },
-    // ],
-    // appointments: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Appointment",
-    //   },
-    // ],
+    
   },
   { toJSON: { virtuals: true } }
 );

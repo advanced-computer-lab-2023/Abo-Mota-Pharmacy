@@ -40,6 +40,7 @@ const MedicineScreen = ({isPharmacist = false}) => {
     });
   
     const mappedArray = filteredArray.map((medicine, index) => {
+      console.log(medicine);
       return <Accordion 
         isPharmacist = {isPharmacist} 
         key={index} 

@@ -13,3 +13,12 @@
   text-align: start;
   padding-left: 15px;
 }
+
+.login-header{
+  color: var(--main-color);
+  font-size: 3rem;
+  font-weight: 900;
+  font-style: italic;
+  padding-left: 10px;
+  align-self: center;
+}
