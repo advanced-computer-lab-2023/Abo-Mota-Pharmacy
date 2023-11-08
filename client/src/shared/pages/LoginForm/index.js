@@ -1,12 +1,12 @@
-import Button from "../../../shared/components/Button";
+import Button from "../../components/Button";
 import { useEffect, useState } from "react";
-import Input from "../../../shared/components/InputField";
+import Input from "../../components/InputField";
 import './styles.css';
 import logo from '../../../shared/assets/logo.png';
 import * as yup from 'yup';
-import Header from "../../../shared/components/Header";
+import Header from "../../components/Header";
 import { Formik } from "formik";
-import LoadingIndicator from "../../../shared/components/LoadingIndicator";
+import LoadingIndicator from "../../components/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +30,10 @@ const LoginForm = () => {
     navigate('/pharmacist/medicine');
 };
 
+const forgetPasswordOnClick = () => {
+  console.log("forget password");
+}
+
 
   const PharmacistForm = (
     <Formik
@@ -43,6 +47,7 @@ const LoginForm = () => {
           <div className="form-container">         
             <Input 
             label="Email*" 
+            icon
             type="text" 
             id="email"
             error={formik.errors.email}
@@ -53,6 +58,7 @@ const LoginForm = () => {
           <div className="form-container">
             <Input 
             label="Password*" 
+            icon
             type="password" 
             id="password"
             error={formik.errors.password}
@@ -64,7 +70,7 @@ const LoginForm = () => {
           {isLoading ? <LoadingIndicator /> :
             // <Link to='medicine'>
               <Button type="submit">
-                Submit Form
+                Log in
               </Button>
             // </Link>
           }
@@ -80,9 +86,14 @@ const LoginForm = () => {
       <div className="login-portal">
         <div className="login-part">
         <div className="login-logo-div"> <img className="login-logo" src={logo} alt="logo"/> </div>
-        <Header header="Welcome!" type="login-header"/>
-          {PharmacistForm}
-          <Button forgetPass >Forget Password</Button>
+        <Header header="Welcome Back!" type="login-header"/>
+        </div>
+        <p className="login-word">Login</p>
+        {PharmacistForm}
+        <div className="forget-password-container">
+          <button className="forget-password-button" onClick={forgetPasswordOnClick}>
+            Forget Password?
+          </button>
         </div>
       </div>
     </div>

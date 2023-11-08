@@ -4,7 +4,6 @@ import RegisterForm from './RegisterForm';
 import MedicineScreen from './MedicineScreen';
 import AddMedicine from './AddMedicine';
 import NavBar from '../../shared/components/NavBar';
-import LoginForm from './LoginForm';
 function PharmacistApp() {
   const links = [
     {name: 'Change App', to: '/'},
@@ -17,7 +16,7 @@ function PharmacistApp() {
       <NavBar links={links}/>
       {/* <Outlet/> */}
       <Routes>
-        <Route path='/' element={<LoginForm/>}/>
+        <Route path='/' element={<RegisterForm/>}/>
         <Route path='medicine' element={<MedicineScreen isPharmacist/>}/>
         <Route path='addMedicine' element={<AddMedicine/>}/>
         
