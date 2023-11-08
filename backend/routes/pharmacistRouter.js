@@ -9,6 +9,8 @@ const {
 
 const validateMedicine = require("../middlewares/validateMedicineMiddleware");
 
+const authorize = require("../middlewares/authorization");
+
 router.get("/", getPharmacist);
 
 router.get("/medicine", getMedicines);
