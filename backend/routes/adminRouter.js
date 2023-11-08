@@ -12,7 +12,8 @@ const {getMedicines,
     getPharmacists,
     getApplication} = require('../controller/adminController');
 
-
+    //to be added in routes after log in page added
+const authorize = require("../middlewares/authorization");
 
 
 router.get('/medicines', getMedicines);
