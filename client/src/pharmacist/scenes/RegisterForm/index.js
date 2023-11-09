@@ -235,8 +235,8 @@ const RegisterForm = () => {
   );
 }
 
-const FILE_SIZE = 160 * 1024; // e.g., 160 KB
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+const FILE_SIZE = 10000 * 1024; // e.g., 160 KB
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'application/pdf'];
 
 
 const PharmacistSchema = yup.object().shape({

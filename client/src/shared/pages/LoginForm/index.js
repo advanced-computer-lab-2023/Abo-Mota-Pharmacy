@@ -19,8 +19,7 @@ const LoginForm = () => {
   const [otpOpen, setOtpOpen] = useState(false);
   const navigate = useNavigate();
   const [login, results] = useLoginMutation();
-  const [error, setError] = useState('');
-  const [pharmacist, setPharmacist] = useState({});
+
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
