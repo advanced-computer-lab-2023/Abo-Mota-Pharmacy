@@ -38,7 +38,7 @@ const LoginForm = () => {
       console.log(result);
       // Use the result for navigation or other side effects
       if (result.userType === "patient") {
-        navigate("/patient");
+        navigate("/patient/medicine");
       } else if (result.userType === "pharmacist") {
         navigate("/pharmacist");
       } else if (result.userType === "admin") {
