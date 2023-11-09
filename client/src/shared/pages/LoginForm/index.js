@@ -8,16 +8,19 @@ import Header from "../../components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
+import ForgetPasswordScreen from "../ForgetPasswordScreen";
+import OtpScreen from "../OtpScreen";
 import { useLoginMutation } from "../../../store";
 
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [forgetPassword, setForgetPassword] = useState(false);
+  const [otpOpen, setOtpOpen] = useState(false);
   const navigate = useNavigate();
+  const [login, results] = useLoginMutation();
   const [error, setError] = useState('');
   const [pharmacist, setPharmacist] = useState({});
-  const [login, results] = useLoginMutation();
-
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
@@ -49,11 +52,6 @@ const LoginForm = () => {
     }
 
 };
-
-const forgetPasswordOnClick = () => {
-  console.log("forget password");
-}
-
 
   const PharmacistForm = (
     <Formik
@@ -111,11 +109,13 @@ const forgetPasswordOnClick = () => {
         <p className="login-word">Login</p>
         {PharmacistForm}
         <div className="forget-password-container">
-          <button className="forget-password-button" onClick={forgetPasswordOnClick}>
+          <button className="forget-password-button" onClick={() => {setForgetPassword(true)}}>
             Forget Password?
           </button>
         </div>
       </div>
+      {forgetPassword && <ForgetPasswordScreen closeForm={() => {setForgetPassword(false)}} goToOtp={() => {setOtpOpen(true)}} />}
+      {otpOpen && <OtpScreen closeForm={() => {setOtpOpen(false)}} />}
     </div>
   );
 }
