@@ -235,8 +235,8 @@ const RegisterForm = () => {
   );
 }
 
-const FILE_SIZE = 160 * 1024; // e.g., 160 KB
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+const FILE_SIZE = 10000 * 1024; // e.g., 160 KB
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'application/pdf'];
 
 
 const PharmacistSchema = yup.object().shape({
@@ -262,7 +262,7 @@ const PharmacistSchema = yup.object().shape({
 
   mobileNumber: yup.string().matches(/^[0-9]{11}$/, 'Mobile number must be exactly 11 digits').required('Please enter a valid mobile number'),
 
-  educationalBackground: yup.string().min(10, 'Educational Background must be at least 10 characters long').max(50, 'Educational Background must be at most 50 characters long').required('Please enter your educational background (university)'),
+  educationalBackground: yup.string().min(10, 'Educational Background must be at least 10 characters long').max(50, 'Educational Background must be at most 50 characters long').required('Please enter your educational background'),
 
   pharmacyDegree: yup
   .mixed()
@@ -341,7 +341,8 @@ const initialPharmacistValues = {
   gender: 'male',
   mobileNumber: '',
   nationalId: null,
-  workingLiscense: null
+  workingLiscense: null,
+  educationalBackground: '',
 };
 
 

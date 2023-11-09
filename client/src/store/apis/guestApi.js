@@ -5,6 +5,7 @@ const guestApi = createApi({
     reducerPath: 'guestApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/guest`,
+        credentials: "include"
     }),
     endpoints(builder){
        return {
@@ -26,12 +27,22 @@ const guestApi = createApi({
                 }
             }
         }),
+        login: builder.mutation({
+            query: (user) => {
+              return {
+                url: "/login",
+                body: user,
+                method: "POST",
+              };
+            },
+          }),
        } 
     }
 })
 
 export const {
     useRegisterPharmacistMutation,
-    useRegisterPatientMutation
+    useRegisterPatientMutation,
+    useLoginMutation
 } = guestApi;
 export { guestApi } ;

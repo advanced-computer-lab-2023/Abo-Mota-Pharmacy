@@ -5,6 +5,8 @@ import RegisterScreen from './scenes/RegisterScreen'
 import NavBar from '../shared/components/NavBar'
 import { useGetMedicinesQuery } from '../store'
 import MedicineScreen from './scenes/MedicineScreen';
+import Checkout from './Checkout';
+import Accordion3 from '../shared/components/Accordion3';
 function PatientApp() {
   const links = [
     {name: 'Change App', to: '/'},
@@ -23,7 +25,8 @@ function PatientApp() {
         <Route path='medicine' element={<ProductsGrid/>}/>
         <Route path='medicine2' element={<MedicineScreen />} />
         <Route path='patient' element={<ProductsGrid/>}/>
-
+        <Route path='checkout' element={<Checkout/>}/>
+        <Route path="/accordion3" component={Accordion3} />
         {/* </Route> */}
         
       </Routes>

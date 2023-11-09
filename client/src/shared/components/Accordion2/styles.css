@@ -1,0 +1,16 @@
+#icon {
+    padding-top: 10px;
+}
+
+
+.two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px; /* Adjust the gap as needed */
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
