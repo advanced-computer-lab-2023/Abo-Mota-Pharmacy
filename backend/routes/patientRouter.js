@@ -4,9 +4,9 @@ const {getMedicines, getPatient} = require('../controller/patientController');
 
 const authorize = require("../middlewares/authorization");
 
-router.get('/',getPatient);
+router.get('/',authorize,getPatient);
 
-router.get('/medicines' , getMedicines);
+router.get('/medicines' , authorize,getMedicines);
 
 
 module.exports = router;

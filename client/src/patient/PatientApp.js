@@ -7,10 +7,12 @@ import { useGetMedicinesQuery } from '../store'
 import MedicineScreen from './scenes/MedicineScreen';
 import Checkout from './Checkout';
 import Accordion3 from '../shared/components/Accordion3';
+import Order from './Order';
+
 function PatientApp() {
   const links = [
     {name: 'Change App', to: '/'},
-    {name: 'Register', to: '/patient/'},
+    {name: 'Register', to: '/patient/registerPatient'},
     {name: 'MedicineInventory', to: '/patient/medicine'},
     {name: 'MedicineInventory2', to: '/patient/medicine2'},
     //
@@ -21,12 +23,12 @@ function PatientApp() {
     <div>
       <NavBar links={links}/>
       <Routes>
-        <Route path='/' element={<RegisterScreen/>}/>
+        <Route path='/registerPatient' element={<RegisterScreen/>}/>
         <Route path='medicine' element={<ProductsGrid/>}/>
         <Route path='medicine2' element={<MedicineScreen />} />
         <Route path='patient' element={<ProductsGrid/>}/>
         <Route path='checkout' element={<Checkout/>}/>
-        <Route path="/accordion3" component={Accordion3} />
+        <Route path="/order" component={<Order/>}/>
         {/* </Route> */}
         
       </Routes>

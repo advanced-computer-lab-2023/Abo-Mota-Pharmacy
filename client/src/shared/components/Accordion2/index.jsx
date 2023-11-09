@@ -3,9 +3,7 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 
 
-const Accordion2 = ({savedAddresses,onSaveAddress}) => {
-  const [open, setOpen] = useState(false);
- // const [showAddressDropdown, setShowAddressDropdown] = useState(false);
+const Accordion2 = ({savedAddresses,open,onContinue,setOpen}) => {
  const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
@@ -20,25 +18,23 @@ const Accordion2 = ({savedAddresses,onSaveAddress}) => {
 
   const onClick = () => {
     setOpen(!open);
+    if (!open) {
+      setFirstName('');
+      setLastName('');
+      setStreetAddress('');
+      setEmail('');
+      setPhoneNumber('');
+      setCity('');
+      setIsDefault(false);
+      setSavedAddress('');
+    }
   };
   
 
-
- const handleCancel = () => {
-  // Reset the state of all input fields to clear their values
-  setFirstName('');
-  setLastName('');
-  setStreetAddress('');
-  setEmail('');
-  setPhoneNumber('');
-  setCity('');
-  setIsDefault(false);
-  setSavedAddress('');
-};
 const handleContinue=()=>{
  // Add logic to save address in DATABASE
  
- onSaveAddress(); // Callback to notify parent component
+ onContinue(); // Notify parent component (Checkout) to handle the Continue action
  setOpen(false); // Close the current accordion
 };
 
@@ -46,7 +42,7 @@ const handleContinue=()=>{
   return (
     <div className='accordion-container' >
       <h4 onClick={onClick}>
-      <Icon icon="tabler:circle-dashed-number-1" /> DELIVERY OPTIONS</h4>
+      <Icon icon="tabler:circle-dashed-number-1" /> DELIVERY </h4>
       {open ? <div className='accordion-extension'>
         Required field *
         <div className="two-column-grid">
@@ -95,10 +91,8 @@ const handleContinue=()=>{
           <label htmlFor="isDefault">Set as Default:</label>
           <input type="checkbox" id="isDefault" checked={isDefault} onChange={(e) => setIsDefault(e.target.checked)}/>
         </div>
-        <button type="submit" onClick={handleContinue}>Continue</button>
-       <button type="button" onClick={handleCancel} >
-           Cancel
-      </button>
+        <button className="continue" type="submit" onClick={handleContinue}>Continue</button>
+       
         </div> : <></>}
       
     </div>

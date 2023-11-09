@@ -11,12 +11,12 @@ const validateMedicine = require("../middlewares/validateMedicineMiddleware");
 
 const authorize = require("../middlewares/authorization");
 
-router.get("/", getPharmacist);
+router.get("/", authorize,getPharmacist);
 
-router.get("/medicine", getMedicines);
+router.get("/medicine", authorize,getMedicines);
 
-router.post("/medicine", validateMedicine, addMedicine);
+router.post("/medicine", authorize,validateMedicine, addMedicine);
 
-router.patch("/medicine/:name", editMedicine);
+router.patch("/medicine/:name", authorize,editMedicine);
 
 module.exports = router;
