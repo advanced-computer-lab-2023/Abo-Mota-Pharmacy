@@ -18,27 +18,27 @@ const {
 
     //to be added in routes after log in page added
 const authorize = require("../middlewares/authorization");
-router.get("/medicines", getMedicines);
+router.get("/medicines", authorize, getMedicines);
 
-router.get("/applications", getApplications);
+router.get("/applications", authorize, getApplications);
 
 
-router.get("/applications/:id", getApplication);
+router.get("/applications/:id",authorize, getApplication);
 
-router.patch("/applications/:id", handleApplication);
+router.patch("/applications/:id", authorize,handleApplication);
 
-router.get("/patients", getPatients);
+router.get("/patients", authorize,getPatients);
 
-router.get("/patients/:id", getPatient);
+router.get("/patients/:id", authorize,getPatient);
 
-router.get("/pharmacists", getPharmacists);
+router.get("/pharmacists", authorize,getPharmacists);
 
-router.get("/pharmacists/:id", getPharmacist);
+router.get("/pharmacists/:id", authorize,getPharmacist);
 
-router.post("/admins", addAdmin);
+router.post("/admins", authorize,addAdmin);
 
-router.delete("/patients", deletePatient);
+router.delete("/patients", authorize,deletePatient);
 
-router.delete("/pharmacists", deletePharmacist);
+router.delete("/pharmacists", authorize,deletePharmacist);
 
 module.exports = router;
