@@ -34,8 +34,8 @@ const registerPatient = async (req, res) => {
 			{expiresIn: 86400}, //expires after 1 day
 			
 		)
-		res.cookie('jwt', token, {httpOnly: true, maxAge: 86400})
-		return res.status(200).json({newPatient, token: "Bearer " + token});
+		return res.cookie('jwt', token, {httpOnly: true, maxAge: 86400 * 1000, secure: false, path: '/' })
+					.status(200).json({newPatient, token: "Bearer " + token});
 	} catch (error) {
 		return res.status(404).json({ error: error.message });
 	}
@@ -83,9 +83,9 @@ const registerPharmacist = async (req, res) => {
 			{expiresIn: 86400}, //expires after 1 day
 			
 		)
-		res.cookie('jwt', token, {httpOnly: true, maxAge: 86400})
 
-		return res.status(200).json({newPharmacist, token: "Bearer " + token});
+		return res.cookie('jwt', token, {httpOnly: true, maxAge: 86400 * 1000, secure: false, path: '/' })
+				.status(200).json({newPharmacist, token: "Bearer " + token});
 	} catch (error) {
 		return res.status(404).json({ error: error.message });
 	}
@@ -137,8 +137,8 @@ const login = async (req, res)  => {
                     if(err) 
                         return res.json({message: err})
 
-					res.cookie('jwt', token, {httpOnly: true, maxAge: 86400})
-                    return res.status(200).json({
+                    return res.cookie('jwt', token, {httpOnly: true, maxAge: 86400 * 1000, secure: false, path: '/' })
+						.status(200).json({
                         message: "Success",
                         token: "Bearer " + token,
 						userType: userType //use to redirect to correct homepage

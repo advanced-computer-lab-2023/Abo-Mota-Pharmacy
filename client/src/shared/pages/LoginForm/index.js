@@ -10,26 +10,45 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
 import ForgetPasswordScreen from "../ForgetPasswordScreen";
 import OtpScreen from "../OtpScreen";
+import { useLoginMutation } from "../../../store";
+
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [otpOpen, setOtpOpen] = useState(false);
   const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [pharmacist, setPharmacist] = useState({});
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
     // console.log(values);
     console.log(values);
-    const login = {
+    const pharmacist = {
       email: values.email,
       password: values.password,
     }
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 3000));
-    // Remove the above await and insert code for backend registeration here.
-    setIsLoading(false);
-    resetForm({ values: '' });
-    navigate('/pharmacist/medicine');
+
+    try {
+      const result = await login(user).unwrap();
+      console.log(result);
+      // Use the result for navigation or other side effects
+      if (result.userType === "patient") {
+        navigate("/patient");
+      } else if (result.userType === "pharmacist") {
+        navigate("/pharmacist");
+      } else if (result.userType === "admin") {
+        navigate("/admin");
+      }
+      resetForm({ values: "" });
+    } catch (error) {
+      console.error("Failed to login:", error);
+    } finally {
+      setIsLoading(false);
+    }
+
 };
 
   const PharmacistForm = (
