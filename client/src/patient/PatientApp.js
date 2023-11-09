@@ -7,6 +7,8 @@ import { useGetMedicinesQuery } from '../store'
 import MedicineScreen from './scenes/MedicineScreen';
 import Checkout from './Checkout';
 import Accordion3 from '../shared/components/Accordion3';
+import Order from './Order';
+
 function PatientApp() {
   const links = [
     {name: 'Change App', to: '/'},
@@ -26,7 +28,7 @@ function PatientApp() {
         <Route path='medicine2' element={<MedicineScreen />} />
         <Route path='patient' element={<ProductsGrid/>}/>
         <Route path='checkout' element={<Checkout/>}/>
-        <Route path="/accordion3" component={Accordion3} />
+        <Route path="/order" component={<Order/>}/>
         {/* </Route> */}
         
       </Routes>
