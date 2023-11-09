@@ -4,7 +4,6 @@ import './style.css';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Button } from "@mui/material";
 import TempDrawer from "../shared/components/Drawer";
-import DrawerItem from "../shared/components/DrawerItem";
 
 
 const Filter = (props) => {
@@ -25,11 +24,9 @@ const Filter = (props) => {
       });
 
       const handleAddToCart = (medicine) => {
-        console.log('Adding to cart:', medicine.name);
-        // Create a copy of the current cart state
+        //console.log('Adding to cart:', medicine.name);
         const updatedCart = [...cart];
-      
-        // Check if the product already exists in the cart
+
         const existingItem = updatedCart.find((item) => item.name === medicine.name);
       
         if (existingItem) {
@@ -48,7 +45,29 @@ const Filter = (props) => {
         setCart(updatedCart);
       };
       
- 
+      const handleQuantityInc = (medicine) => {
+        const updatedCart = [...cart];
+        const toChange = updatedCart.find((item) => item.name === medicine.name);
+      
+        if (toChange) {
+          toChange.quantity++;
+        }
+        setCart(updatedCart);
+        console.log("new quantity of ", medicine.name, "is: " , medicine.quantity);
+      };
+
+      const handleQuantityDec = (medicine) => {
+        const updatedCart = [...cart];
+        const toChange = updatedCart.find((item) => item.name === medicine.name);
+      
+        if (toChange) {
+          toChange.quantity--;
+        }
+        setCart(updatedCart);
+        console.log("new quantity of ", medicine.name, "is: " , medicine.quantity);
+      };
+      
+
       const handleDeleteItem = (medicine) => {
         //new cart without the removed med
         const updatedCart = cart.filter((item) => item.name !== medicine.name);
@@ -56,11 +75,11 @@ const Filter = (props) => {
       };
 
       const handleCartIcon = () => {
-        setIsDrawerOpen(true); // Open the Drawer
+        setIsDrawerOpen(true); 
     };
 
     const closeDrawer = () => {
-        setIsDrawerOpen(false); // Close the Drawer
+        setIsDrawerOpen(false); 
     };
       
     const mappedArray = filteredArray.map((medicine) => {
@@ -68,7 +87,7 @@ const Filter = (props) => {
             <ProductCard
                 name={medicine.name}
                 description={medicine.description}
-                price={`$${medicine.price}`}
+                price={medicine.price}
                 extras={medicine.extras}
                 onAddToCart={handleAddToCart}
             />
@@ -96,19 +115,7 @@ const Filter = (props) => {
             <div className="container">
                 {mappedArray}
             </div>
-            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} />
-
-            {/* <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer}>
-                {cart.map((medicine, index) => (
-                <DrawerItem
-                    // key={index}
-                    name={medicine.name}
-                    description={medicine.description}
-                    price={medicine.price}
-                    quantity={medicine.quantity}
-                />
-                ))}
-            </TempDrawer> */}
+            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} onQuantityInc={handleQuantityInc} onQuantityDec={handleQuantityDec} />
                      
         </div>
     );
