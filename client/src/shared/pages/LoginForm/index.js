@@ -8,26 +8,45 @@ import Header from "../../components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../../store";
+
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [pharmacist, setPharmacist] = useState({});
+  const [login, results] = useLoginMutation();
+
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
     // console.log(values);
     console.log(values);
-    const pharmacist = {
+    const user = {
       email: values.email,
       password: values.password,
     }
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 3000));
-    // Remove the above await and insert code for backend registeration here.
-    setIsLoading(false);
-    resetForm({ values: '' });
-    navigate('/pharmacist/medicine');
+
+    try {
+      const result = await login(user).unwrap();
+      console.log(result);
+      // Use the result for navigation or other side effects
+      if (result.userType === "patient") {
+        navigate("/patient");
+      } else if (result.userType === "pharmacist") {
+        navigate("/pharmacist");
+      } else if (result.userType === "admin") {
+        navigate("/admin");
+      }
+      resetForm({ values: "" });
+    } catch (error) {
+      console.error("Failed to login:", error);
+    } finally {
+      setIsLoading(false);
+    }
+
 };
 
 const forgetPasswordOnClick = () => {
