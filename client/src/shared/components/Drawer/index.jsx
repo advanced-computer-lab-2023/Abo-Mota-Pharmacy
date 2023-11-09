@@ -5,12 +5,16 @@ import Button from '@mui/material/Button';
 import DrawerItem from '../DrawerItem';
 
 
-export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[] , onDeleteItem}) {
+export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onDeleteItem, onQuantityInc, onQuantityDec, totalAmount}) {
   const toggleDrawer = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
   };
+
+  totalAmount = cartItems.reduce((total, item) => {
+    return total + item.quantity * item.price;
+  }, 0);
 
   return (
     <div className="drawer">
@@ -34,9 +38,11 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[] , on
                 price={item.price}
                 quantity={item.quantity}
                 onDelete={() => onDeleteItem(item)}
+                quantityInc={() => onQuantityInc(item,item.quantity)}
+                quantityDec={() => onQuantityDec(item,item.quantity)}
               />
             ))}
-            {/* if cart not empty */}
+            <h2>Total: ${totalAmount}</h2>
           <Button className="checkout-button" variant="contained" color="success" disabled={cartItems.length === 0}>GO TO CHECKOUT</Button>
         </Drawer>
       </React.Fragment>
