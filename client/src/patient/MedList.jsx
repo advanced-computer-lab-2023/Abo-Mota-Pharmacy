@@ -18,7 +18,7 @@ const ProductsGrid = () => {
       });
       
     const mappedArray = filteredArray.map((medicine) => {
-      return <ProductCard name={medicine.name} description={medicine.description} price={`$${medicine.price}`} extras={medicine.extras}/>
+      return <ProductCard name={medicine.name} description={medicine.description} price={medicine.price} extras={medicine.extras}/>
     });
 
          

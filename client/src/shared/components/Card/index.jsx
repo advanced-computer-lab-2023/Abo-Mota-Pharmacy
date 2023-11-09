@@ -32,7 +32,7 @@ const ProductCard = ({name,description,price,extras,onAddToCart}) => {
       <div className="product-details">
         <div className='nameWithPrice'>
         <h3 className="product-name">{name}</h3>
-        <p className="product-price">{price}</p>
+        <p className="product-price">${price}</p>
         </div>
         <p className="product-description">{description}</p>
         <p className="extras">→ Sold: {extras.sales}</p>

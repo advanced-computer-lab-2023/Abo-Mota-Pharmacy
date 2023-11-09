@@ -4,6 +4,8 @@ const adminApi = createApi({
   reducerPath: "adminApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/admin`,
+    credentials: "include"
+
   }),
   endpoints(builder) {
     return {

@@ -2,14 +2,19 @@ import * as React from 'react';
 import './item.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import { Stepper } from '@mui/material';
+//import Stepper from '../Stepper'
+import QuantityInput from './quantityField';
 
-
-export default function DrawerItem({name,description,price,quantity,onDelete}) {
+export default function DrawerItem({name,description,price,quantity,onDelete, quantityInc, quantityDec}) {
   const handleDelete = () => {
     onDelete();
    };
-   
+   const handleQuan = (newQuantity) => {
+    quantityInc(newQuantity);
+   };
+   const handleQuan2 = (newQuantity) => {
+    quantityDec(newQuantity);
+   };
   return (
     <div className="container2">
 
@@ -35,12 +40,14 @@ export default function DrawerItem({name,description,price,quantity,onDelete}) {
       <div className="product-details2">
         <div className='nameWithPrice2'>
           <h3 className="product-name2">{name}</h3>
-          <p className="product-price2">{price}</p>
+          <p className="product-price2">${price}</p>
           <p className="product-description2">{description}</p>
         </div>
         <div>
-        <p className="product-quantity">{quantity}</p>
-        {/* STEPPER */}
+        {/* <p className="product-quantity">{quantity}</p> */}
+        {/* <QuantityInput initialValue={quantity} onIncrement={handleInc} /> */}
+        <QuantityInput initialValue={quantity} onIncrement={handleQuan} onDecrement={handleQuan2} />
+
         </div>
         <Button onClick={handleDelete} variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
       </div>

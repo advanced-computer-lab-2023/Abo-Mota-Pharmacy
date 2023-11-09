@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const pharmacistApi = createApi({
     reducerPath: 'pharmacistApi',
     baseQuery: fetchBaseQuery({ 
-        baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/pharmacist` 
+        baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/pharmacist` ,
+        credentials: "include"
+
     }),
     endpoints(builder)  {
         return {
