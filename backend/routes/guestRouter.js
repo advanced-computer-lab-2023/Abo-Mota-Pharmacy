@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerPatient, registerPharmacist } = require("../controller/guestController");
+const { registerPatient, registerPharmacist, login, logout } = require("../controller/guestController");
 
 const router = express.Router();
 
@@ -8,5 +8,8 @@ router.post("/registerPatient", registerPatient);
 
 // register a guest as doctor
 router.post("/registerPharmacist", registerPharmacist);
+
+router.post("/login" , login);
+router.get("/logout", logout);
 
 module.exports = router;

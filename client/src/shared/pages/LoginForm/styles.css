@@ -1,6 +1,4 @@
-/* styles.css */
 
-/* General container styles for the form */
 .login-div {
   display: flex;
   justify-content: center;
@@ -19,6 +17,8 @@
 
 .login-part {
   padding: 2rem;
+  background-color: var(--main-color-transparent);
+  border-radius: 0px 0px 20px 20px;
 }
 
 /* Styles for the logo container and image */
@@ -66,12 +66,7 @@ button:hover {
   margin-top: 0.25rem;
 }
 
-/* Header styles specific to the login form, if necessary */
-.login-header {
-  text-align: center;
-  color: var(--main-color); /* Dark grey color */
-  margin-bottom: 2rem;
-}
+
 
 /* Loading indicator styles */
 .loading-indicator {
@@ -85,4 +80,26 @@ button:hover {
     width: 90%; /* Full width on smaller screens */
     margin: 0 5%;
   }
+}
+
+.login-word{
+  text-align: center;
+  font-size: 3rem;
+  color: var(--main-color);
+  font-family:'Courier New', Courier, monospace
+}
+
+.forget-password-container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.forget-password-button{
+  background-color: transparent;
+  color: grey;
+}
+
+.forget-password-button:hover{
+  background-color: transparent;
+  color: black;
 }

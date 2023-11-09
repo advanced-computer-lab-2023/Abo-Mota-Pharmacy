@@ -2,6 +2,7 @@
 
 :root{
   --main-color: Blue;
+  --main-color-transparent: rgba(0, 0, 255, 0.8);
 }
 html{
   font-size: 80%; 
