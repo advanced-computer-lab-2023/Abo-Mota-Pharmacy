@@ -27,6 +27,15 @@ const guestApi = createApi({
                 }
             }
         }),
+        login: builder.mutation({
+            query: (user) => {
+              return {
+                url: "/login",
+                body: user,
+                method: "POST",
+              };
+            },
+          }),
        } 
     }
 })

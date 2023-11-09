@@ -10,6 +10,7 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../store";
 
+
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const LoginForm = () => {
     // console.log(values);
     console.log(values);
     const user = {
-      email: values.email,
+      username: values.username,
       password: values.password,
     }
     setIsLoading(true);
@@ -64,14 +65,14 @@ const forgetPasswordOnClick = () => {
         <form onSubmit={formik.handleSubmit}>
           {console.log(formik.values)}
           <div className="form-container">         
-            <Input 
-            label="Email*" 
-            icon
-            type="text" 
-            id="email"
-            error={formik.errors.email}
-            touch={formik.touched.email}
-            {...formik.getFieldProps('email')}
+            <Input
+              label="Username*"
+              icon
+              type="text"
+              id="username"
+              error={formik.errors.username}
+              touch={formik.touched.username}
+              {...formik.getFieldProps("username")}
             />
           </div>
           <div className="form-container">
@@ -122,7 +123,7 @@ const forgetPasswordOnClick = () => {
 
 
 const PharmacistSchema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Please enter a valid email address'),
+  username: yup.string().required('Please enter a valid username'),
 
   password: yup.string().min(8, 'Password must be at least 8 characters long').matches(/[a-zA-Z]/, 'Password must contain at least one letter').matches(/[0-9]/, 'Password must contain at least one number').required('Please enter a valid password'),
 
@@ -130,7 +131,7 @@ const PharmacistSchema = yup.object().shape({
 
 
 const initialPharmacistValues = {
-  email: '',
+  username: '',
   password: ''
 };
 
