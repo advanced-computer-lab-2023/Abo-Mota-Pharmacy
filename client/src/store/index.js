@@ -22,7 +22,7 @@ export const store = configureStore({
 
 setupListeners(store.dispatch);
 
-export { useRegisterPharmacistMutation, useRegisterPatientMutation , useLoginMutation} from "./apis/guestApi";
+export { useRegisterPharmacistMutation, useRegisterPatientMutation , useLoginMutation, useLogoutMutation} from "./apis/guestApi";
 
 export {
   useGetPharmacistQuery,

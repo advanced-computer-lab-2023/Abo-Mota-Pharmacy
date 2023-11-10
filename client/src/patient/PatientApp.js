@@ -30,6 +30,7 @@ function PatientApp() {
         <Route path='patient' element={<ProductsGrid/>}/>
         <Route path='checkout' element={<Checkout/>}/>
         <Route path='/order' element={<OrderCard/>}/>
+        
         {/* </Route> */}
         
       </Routes>

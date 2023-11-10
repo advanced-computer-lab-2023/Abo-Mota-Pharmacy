@@ -10,26 +10,28 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { BiChat } from "react-icons/bi";
 import Chip from '@mui/joy/Chip';
 import { useLocation } from 'react-router-dom';
+import OrderItems from '../shared/components/OrderItems';
 
-
-function OrderCard({cartItems}) {
+function OrderCard({}) {
 
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const totalAmount = queryParams.get('total');
-  
+  const {totalAmount,cartItems}=location.state
+  //const queryParams = new URLSearchParams(location.search);
+  //const totalAmount = queryParams.get('total');
+  const status= "PENDING";
   const colors = {
     "upcoming": "warning",
     "cancelled": "error",
     "completed": "success"
   }
-  console.log("total in order is: ", totalAmount);
+  //console.log("TOTAL AMOUNT",totalAmount);
+  
   return (
     <Card
       variant="outlined"
       orientation="horizontal"
       sx={{
-        width: "100%",
+        width: "90%%",
         '&:hover': { boxShadow: 'md', borderColor: 'neutral.outlinedHoverBorder' },
         //...sx
       }}
@@ -42,7 +44,7 @@ function OrderCard({cartItems}) {
               id="card-description"
             // startDecorator={<AccessTimeIcon fontSize='10' />}
             >
-              ORDER NO.
+              ORDER IS {status}
             </Typography>
 
             {/* <Chip color={colors[status]} variant='soft'> */}
@@ -52,39 +54,36 @@ function OrderCard({cartItems}) {
             {/* </Chip> */}
           </Box>
 
-          <Typography
-            level="body-lg"
-            aria-describedby="card-description"
-            mb={1}
-            startDecorator={<AccessTimeIcon fontSize='10' />}
-          >
-            
-          </Typography>
+          
         </Box>
 
         <Divider sx={{ marginBottom: 1.5 }} />
 
-        <Box className="flex justify-between">
-          <Box className='flex space-x-4'>
-            <Avatar
-              // alt={name}
+        <Box className="flex items-center justify-between">
+          <Box className='flex  space-x-4'>
             
-              size="lg"
-            />
 
             <Box className='mr-10'>
               <Typography level="title-lg" id="card-description">
-                Dr. name
-              </Typography>
-              <Typography level="body-lg" aria-describedby="card-description" mb={1}>
+              {cartItems.map((item, index) => (
+              <OrderItems
+                key={index}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                quantity={item.quantity}
                 
+              />
+            ))}
+              </Typography>
+              <Typography level="h5" fontWeight={500}>Total Amount : ${totalAmount}</Typography>
+              <Typography level="h5" aria-describedby="card-description" mb={1}>
+                Estimated delivery: <strong>MAY 28th</strong><br />
+                <strong>YOUR ORDER IS ON ITS WAY</strong>
               </Typography>
             </Box>
           </Box>
 
-          <IconButton aria-label="call" size="md">
-            <BiChat fontSize={24} />
-          </IconButton>
         </Box>
 
       </CardContent>
