@@ -4,9 +4,11 @@ import logo from '../../assets/logo.png';
 import {AiOutlineHome} from 'react-icons/ai';
 import SideBar from '../SideBar';
 import { useState } from 'react';
+import { useLogoutMutation } from '../../../store';
 
 const NavBar = ({links}) => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
+  const [logout, result] = useLogoutMutation();
   return (
     <div className='navbar'>
       <div className='left'>
@@ -23,7 +25,7 @@ const NavBar = ({links}) => {
               </div>
             </Link>
           </li>
-          <li><Link to="/" className='navbar-link'>Join Us</Link></li>
+          <li><Link to="/" className='navbar-link' onClick={async() => {await logout()}}>Logout</Link></li>
         </ul>
       {/* <div className='right'>
         <div className='avatar'></div>
