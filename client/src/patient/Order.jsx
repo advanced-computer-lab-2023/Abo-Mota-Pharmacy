@@ -17,13 +17,13 @@ function OrderCard({cartItems}) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const totalAmount = queryParams.get('total');
-  
+  const status= "PENDING";
   const colors = {
     "upcoming": "warning",
     "cancelled": "error",
     "completed": "success"
   }
-  console.log("total in order is: ", totalAmount);
+  
   return (
     <Card
       variant="outlined"
@@ -42,7 +42,7 @@ function OrderCard({cartItems}) {
               id="card-description"
             // startDecorator={<AccessTimeIcon fontSize='10' />}
             >
-              ORDER NO.
+              ORDER IS {status}
             </Typography>
 
             {/* <Chip color={colors[status]} variant='soft'> */}
@@ -52,25 +52,14 @@ function OrderCard({cartItems}) {
             {/* </Chip> */}
           </Box>
 
-          <Typography
-            level="body-lg"
-            aria-describedby="card-description"
-            mb={1}
-            startDecorator={<AccessTimeIcon fontSize='10' />}
-          >
-            
-          </Typography>
+          
         </Box>
 
         <Divider sx={{ marginBottom: 1.5 }} />
 
-        <Box className="flex justify-between">
-          <Box className='flex space-x-4'>
-            <Avatar
-              // alt={name}
-            
-              size="lg"
-            />
+        <Box className="flex items-center justify-between">
+          <Box className='flex  space-x-4'>
+            //MEDICINE PHOTO
 
             <Box className='mr-10'>
               <Typography level="title-lg" id="card-description">

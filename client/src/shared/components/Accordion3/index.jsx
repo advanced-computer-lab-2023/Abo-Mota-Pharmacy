@@ -2,6 +2,11 @@ import './styles.css';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
+import { Box } from "@mui/joy";
+import { Typography, Divider, Button, Card } from "@mui/joy";
+import { FaRegCreditCard } from "react-icons/fa";
+import { IoWallet } from "react-icons/io5";
+import {BsCashCoin} from "react-icons/bs";
 
 const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
   //const [open, setOpen] = useState(false);
@@ -78,23 +83,36 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
               Pay
             </button>
           )}
+          <Typography level="body-sm">By clicking Pay you agree to the Terms & Conditions.</Typography>
         </>
       );
     }else if (selectedOption === 'wallet') {
       return (
         <>
-          <div>
-            <p>Wallet Amount: ${walletAmount}</p>
-            <p>Total Amount: ${totalAmount}</p>
-            {totalAmount <= walletAmount ? (
-              <>
-                {paymentStatus !== 'success' ? (
-                  <button onClick={handlePayment}>Pay</button>
-                ) : null}
-              </>
-            ) : (<p className="failure-message">Not enough amount in the wallet.</p>
-            )}
-          </div>
+        <form >
+                  <Typography level="h3" fontWeight={500}>Available Balance - ${walletAmount}</Typography>
+                  <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
+                  {totalAmount <= walletAmount ? (
+                    <>
+                    {paymentStatus !== 'success' ? (
+                  <Button
+                    //type="submit"
+                    variant="solid"
+                    
+                    id="submit"
+                    sx={{ width: "25%", my: 3, borderRadius: 1 }}
+                   onClick={handlePayment}
+                  >
+                    <span id="Button-text">{"Pay"}</span>
+                  </Button>
+                    ):null}
+                  </>
+                  ):(<p className="failure-message">Not enough amount in the wallet.</p>)}
+
+                  
+                </form>
+          
+            
         </>
       );
     }
@@ -117,7 +135,7 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
 
   const handleViewOrder = () => {
     // Navigate to the /Order page
-    navigate('/order', { state: { totalAmount } });
+    navigate('/order');
   };
 
   const renderCashOnDeliveryButton = () => {
@@ -130,13 +148,33 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
     }
     return null;
   };
+  const buttonGroup = [
+    {
+      id: 1,
+      label: "Card",
+      icon: <FaRegCreditCard />,
+      onClick: () => setSelectedOption('creditCard'),
+    },
+    {
+      id: 2,
+      label: "Wallet",
+      icon: <IoWallet />,
+      onClick: () => setSelectedOption('wallet'),
+    },
+    {
+      id:3,
+      label: "Cash",
+      icon: <BsCashCoin/>,
+      onClick:()=> setSelectedOption('cashOnDelivery'),
+    }
+  ];
 
   
   const className = `accordion ${open ? 'open' : 'closed'}`;
 
   return (
     <div className='accordion-container'>
-      <h4 onClick={onClick}>
+      <h4 onClick={onClick} >
         <Icon icon="tabler:circle-dashed-number-2" /> PAYMENT OPTIONS
       </h4>
       {open && (
@@ -146,6 +184,7 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
             <>
               {renderPaymentInputs()}
               {renderPaymentStatus()}
+              <Typography level="body-sm">By clicking Pay you agree to the Terms & Conditions.</Typography>
               
             </>
           )}
@@ -154,46 +193,39 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
           {selectedOption !== 'creditCard' && selectedOption !== 'wallet' && (
             <>
               <h3>Choose a payment method</h3>
-              <label>
-                <input
-                  type="radio"
-                  value="wallet"
-                  checked={selectedOption === 'wallet'}
-                  onChange={() => setSelectedOption('wallet')}
-                />
-                Pay with Wallet
-              </label>
-
-              <label>
-                <input
-                  type="radio"
-                  value="creditCard"
-                  checked={selectedOption === 'creditCard'}
-                  onChange={() => setSelectedOption('creditCard')}
-                />
-                Pay with Credit Card
-              </label>
-
-              <label>
-                <input
-                  type="radio"
-                  value="cashOnDelivery"
-                  checked={selectedOption === 'cashOnDelivery'}
-                  onChange={() => setSelectedOption('cashOnDelivery')}
-                />
-                Cash on Delivery
-              </label>
+              
+              <Box id="button-group" className="flex space-x-2 mb-5">
+                {buttonGroup.map((button) => (
+                  <Button
+                    key={button.id}
+                    variant="outlined"
+                    onClick={button.onClick}
+                    startDecorator={button.icon}
+                    sx={
+                      button.label.toLowerCase() === selectedOption
+                        ? { borderColor: "#0b6bcb", borderWidth: 2 }
+                        : {}
+                    }
+                    className="h-16 w-24"
+                  >
+                    {button.label}
+                  </Button>
+                ))}
+              </Box>
+              
             </>
           )}
           {selectedOption !== 'wallet' && (
             <>
               {renderPaymentInputs()}
               {renderPaymentStatus()}
+              
             </>
           )}
 
           
           {renderCashOnDeliveryButton()}
+          
         </div>
       )}
     </div>
