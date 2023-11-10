@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 
-const Accordion3 = ({ open,setOpen,totalAmount }) => {
+const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
   //const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [cardNumber, setCardNumber] = useState('');
@@ -106,7 +106,7 @@ const Accordion3 = ({ open,setOpen,totalAmount }) => {
       return (
         <>
           <p className="success-message">Payment Successful!</p>
-          <button className="viewOrderButton" onClick={handleViewOrder}>
+          <button className="viewOrderButton" onClick={() => window.location.href = `http://localhost:3000/patient/order?total=${totalAmount}`}>
             View my order!
           </button>
         </>
@@ -117,13 +117,13 @@ const Accordion3 = ({ open,setOpen,totalAmount }) => {
 
   const handleViewOrder = () => {
     // Navigate to the /Order page
-    navigate('/order');
+    navigate('/order', { state: { totalAmount } });
   };
 
   const renderCashOnDeliveryButton = () => {
     if (selectedOption === 'cashOnDelivery') {
       return (
-        <button className='viewOrderButton' onClick={handleViewOrder}>
+        <button className='viewOrderButton'  onClick={() => window.location.href = `http://localhost:3000/patient/order?total=${totalAmount}`}>
           View my order!
         </button>
       );

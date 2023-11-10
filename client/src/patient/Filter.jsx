@@ -4,6 +4,7 @@ import './style.css';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Button } from "@mui/material";
 import TempDrawer from "../shared/components/Drawer";
+import OrderCard from "./Order";
 
 
 const Filter = (props) => {
@@ -22,6 +23,10 @@ const Filter = (props) => {
           selectedMedicinalUse === "all"
         );
       });
+
+      const mappedOrders = cart.map((cartItem, index) => (
+        <OrderCard key={index} cartItem={cartItem} />
+      ));
 
       const handleAddToCart = (medicine) => {
         //console.log('Adding to cart:', medicine.name);
