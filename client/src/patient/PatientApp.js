@@ -8,6 +8,7 @@ import MedicineScreen from './scenes/MedicineScreen';
 import Checkout from './Checkout';
 import Accordion3 from '../shared/components/Accordion3';
 import Order from './Order';
+import OrderCard from './Order'
 
 function PatientApp() {
   const links = [
@@ -28,7 +29,7 @@ function PatientApp() {
         <Route path='medicine2' element={<MedicineScreen />} />
         <Route path='patient' element={<ProductsGrid/>}/>
         <Route path='checkout' element={<Checkout/>}/>
-        <Route path="/order" component={<Order/>}/>
+        <Route path='/order' element={<OrderCard/>}/>
         {/* </Route> */}
         
       </Routes>

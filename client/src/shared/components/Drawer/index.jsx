@@ -43,7 +43,7 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onD
               />
             ))}
             <h2>Total: ${totalAmount}</h2>
-          <Button className="checkout-button" variant="contained" color="success" disabled={cartItems.length === 0}>GO TO CHECKOUT</Button>
+          <Button  className="checkout-button" variant="contained" color="success" disabled={cartItems.length === 0} onClick={() => window.location.href = `http://localhost:3000/patient/Checkout?total=${totalAmount}`}>GO TO CHECKOUT</Button>
         </Drawer>
       </React.Fragment>
     </div>
