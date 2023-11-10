@@ -20,7 +20,7 @@ const getMedicines = async (req, res) => {
 
 const addMedicine = async (req, res) => {
 	try {
-		const { name, description, price, activeIngredients, quantity, medicinalUse } = req.body;
+		const { name, description, price, activeIngredients, quantity, medicinalUse, sales } = req.body;
 		const newMedicine = {
 			name,
 			description,
@@ -28,6 +28,7 @@ const addMedicine = async (req, res) => {
 			activeIngredients,
 			quantity,
 			medicinalUse,
+			sales
 		};
 
 		const medicine = await Medicine.findOne({ name: newMedicine.name });
@@ -37,7 +38,7 @@ const addMedicine = async (req, res) => {
 
 		const returnedMedicine = await Medicine.create(newMedicine);
 
-		res.status(201).json(returnedMedicine);
+		res.status(200).json(returnedMedicine);
 	} catch (error) {
 		console.error("Error adding medicine:", error);
 		res.status(500).json({ error: error.message });
@@ -46,9 +47,9 @@ const addMedicine = async (req, res) => {
 
 const editMedicine = async (req, res) => {
 	try {
-		const { id } = req.params;
+		const { name } = req.params;
 
-		const updatedMedicine = await Medicine.updateOne({ _id: id }, { ...req.body });
+		const updatedMedicine = await Medicine.updateOne({ name: name }, { ...req.body });
 
 		// Check if the medicine was found and updated
 		if (!updatedMedicine) {

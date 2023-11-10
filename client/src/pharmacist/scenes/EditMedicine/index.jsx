@@ -14,28 +14,31 @@ import { useEditMedicineMutation } from '../../../store';
 
 const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const {name, price, quantity,  description, medicinalUse} = medicineDetails;
+  const { name, quantity, medicinalUse} = medicineDetails;
 
   const initialValues = {
     price: '',
     description: '',
     addQuantity: '',
-    medicinalUse: medicinalUse
+    medicinalUse: medicinalUse,
+    
   };
   // console.log(medicinalUse);
   // console.log(medicineDetails);
   const [editMedicine,results] = useEditMedicineMutation();
-  console.log('medicineDetails' , medicineDetails);
+  // console.log('medicineDetails' , medicineDetails);
   const onSubmit = async (values, {resetForm}) => {
-    console.log(values);
+    // console.log(values);
+    
     const cleanedValues = {...values};
-    cleanedValues.quantity = values.addQuantity ? parseInt(quantity) + parseInt(values.addQuantity) : '';
+    cleanedValues.quantity = values.addQuantity ? parseInt(values.addQuantity) : '';
     delete cleanedValues.addQuantity
     const dataBaseValues = Object.fromEntries(Object.entries(cleanedValues).filter(([_, v]) => v !== ''));
     // use name and cleanedvalues to do the update
     setIsLoading(true);
     console.log('dataBase', dataBaseValues);
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await editMedicine({name,dataBaseValues});
+    // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
     onClose();

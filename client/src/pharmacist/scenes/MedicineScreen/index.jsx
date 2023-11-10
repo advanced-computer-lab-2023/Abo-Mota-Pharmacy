@@ -12,55 +12,67 @@ import Header from "../../../shared/components/Header";
 import { Link } from "react-router-dom";
 import { useGetAllMedicinesQuery, useGetPharmacistQuery } from "../../../store";
 const MedicineScreen = ({isPharmacist = false}) => {
-  const [medicineArray,setMedicineArray] = useState([]);
+  // const [medicineArray,setMedicineArray] = useState([]);
   
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
   // const { data, error , isFetching } = useGetMedicinesQuery();
-  const [pharmacist,setPharmacist] = useState({});
-  const [pharmacistFetchingError, setPharmacistFetchingError] = useState('');
-  const { data: pharmacistData, error: pharmacistError, isFetching: isFetchingPharmacist } = useGetPharmacistQuery();
-
-  useEffect(() => {
-    if(pharmacistData && !isFetchingPharmacist){
-      setPharmacist(pharmacistData);
-      // console.log(pharmacistData);
-    }else if(pharmacistError && !isFetchingPharmacist){
-      setPharmacistFetchingError(pharmacistError.message);
-    }
-  },[pharmacistData,isFetchingPharmacist,pharmacistError]);
-  const { data, error , isFetching } = useGetAllMedicinesQuery(pharmacist);
+  // const [pharmacist,setPharmacist] = useState({});
+  // const [pharmacistFetchingError, setPharmacistFetchingError] = useState('');
+  // const { data: pharmacistData, error: pharmacistError, isFetching: isFetchingPharmacist } = useGetPharmacistQuery();
   
-  const [getMedicinesError, setGetMedicinesError] = useState('');
+  // useEffect(() => {
+  //   if(pharmacistData && !isFetchingPharmacist){
+  //     setPharmacist(pharmacistData);
+  //     // console.log(pharmacistData);
+  //   }else if(pharmacistError && !isFetchingPharmacist){
+  //     setPharmacistFetchingError(pharmacistError.message);
+  //   }
+  // },[pharmacistData,isFetchingPharmacist,pharmacistError]);
+  const { data, error , isFetching } = useGetAllMedicinesQuery();
+  let medicineArray = [];
+  let content = null;
+  if(!isFetching){
+    medicineArray = data;
+    
+    const filteredArray = medicineArray.filter((medicine) => {
+      return medicine.name.toLowerCase().includes(search.toLowerCase()) && medicine.medicinalUse.includes(filter);
+    });
+  
+    const mappedArray = filteredArray.map((medicine, index) => {
+      console.log(medicine);
+      return <Accordion 
+        isPharmacist = {isPharmacist} 
+        key={index} 
+        label={medicine.name} 
+        subLabel={medicine.description} 
+        price={`$${medicine.price}`} 
+        quantity={medicine.quantity}
+        medicinalUse={medicine.medicinalUse}
+        sales={medicine.sales}
+      />
+    });
+    content = mappedArray;
+    // console.log(data);
+  }else if(error && !isFetching){
+    content = <div className="loading-error-container">Error...</div>;
+    console.log(error);
+  }else{
+    content = <div className="loading-error-container"><LoadingIndicator size={40} /></div>;
+  }
+  
 
-  useEffect(() => {
-    if(data && !isFetching){
-      setMedicineArray(data);
-      // console.log(data);
-    }else if(error && !isFetching){
-      setGetMedicinesError(error.message);
-      console.log(error);
-    }
-  },[data,isFetching,error]);
+  // useEffect(() => {
+  //   if(data && !isFetching){
+  //     setMedicineArray(data);
+  //     // console.log(data);
+  //   }else if(error && !isFetching){
+  //     setGetMedicinesError(error.message);
+  //     console.log(error);
+  //   }
+  // },[data,isFetching,error]);
 
-  const filteredArray = medicineArray.filter((medicine) => {
-    return medicine.name.toLowerCase().includes(search.toLowerCase()) && medicine.medicinalUse.includes(filter);
-  });
-
-
-
-  const mappedArray = filteredArray.map((medicine, index) => {
-    return <Accordion 
-      isPharmacist = {isPharmacist} 
-      key={index} 
-      label={medicine.name} 
-      subLabel={medicine.description} 
-      price={`$${medicine.price}`} 
-      quantity={medicine.quantity}
-      medicinalUse={medicine.medicinalUse}
-      sales={medicine.sales}
-    />
-  });
+  
 
 
 
@@ -81,9 +93,7 @@ const MedicineScreen = ({isPharmacist = false}) => {
         </div>: null
         }
       </div>
-      {isFetching && <div className="loading-error-container"><LoadingIndicator size={40} /></div>}
-      {error && <div className="loading-error-container">Error...</div>}
-      {!isFetching && !error && mappedArray}
+      {content}
     </div>
   );
 };

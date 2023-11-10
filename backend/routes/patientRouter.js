@@ -2,9 +2,11 @@ const express= require('express');
 const router = express.Router();
 const {getMedicines, getPatient} = require('../controller/patientController');
 
-router.get('/',getPatient);
+const authorize = require("../middlewares/authorization");
 
-router.get('/medicines' , getMedicines);
+router.get('/',authorize,getPatient);
+
+router.get('/medicines' , authorize,getMedicines);
 
 
 module.exports = router;

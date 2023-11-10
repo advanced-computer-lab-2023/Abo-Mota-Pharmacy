@@ -2,9 +2,10 @@
 
 :root{
   --main-color: Blue;
+  --main-color-transparent: rgba(0, 0, 255, 0.8);
 }
 html{
-  font-size: 62.5%; /* 16 px * 62.5% = 10 px */
+  font-size: 80%; 
 }
 
 body{

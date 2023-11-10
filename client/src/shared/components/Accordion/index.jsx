@@ -4,7 +4,7 @@ import AspirinLogo from '../../assets/aspirin.jpg';
 import Button from '../Button'
 import {AiOutlineEdit} from 'react-icons/ai'
 import EditMedicine from '../../../pharmacist/scenes/EditMedicine';
-const Accordion = ({label, subLabel, price, isPharmacist = false, quantity, medicinalUse, sales}) => {
+const Accordion = ({ label, subLabel, price, isPharmacist = false, quantity, medicinalUse, sales}) => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const data = {
@@ -13,7 +13,7 @@ const Accordion = ({label, subLabel, price, isPharmacist = false, quantity, medi
     'description': subLabel,
     'quantity': quantity,
     'medicinalUse': medicinalUse,
-    'sales': sales
+    'sales': sales,
   }
 
   const onClick = () => {

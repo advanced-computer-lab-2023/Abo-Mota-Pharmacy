@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { medicines } from "../shared/assets/mockdata";
 import ProductCard from "../shared/components/Card";
-import ProductsGrid from "./MedList";
 import './style.css';
-//import '../shared/components/Card/card.css';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Button } from "@mui/material";
+import TempDrawer from "../shared/components/Drawer";
+import OrderCard from "./Order";
 
 
 const Filter = (props) => {
     const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
-    // Initialize the filteredMedicines state variable with all medicines
-    //const [filteredMedicines, setFilteredMedicines] = useState(props.mappedArray);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [cart, setCart] = useState([]);
 
 
     const filterMedicinesByMedicinalUse = (medicinalUse) => {
@@ -22,31 +23,105 @@ const Filter = (props) => {
           selectedMedicinalUse === "all"
         );
       });
+
+      const mappedOrders = cart.map((cartItem, index) => (
+        <OrderCard key={index} cartItem={cartItem} />
+      ));
+
+      const handleAddToCart = (medicine) => {
+        //console.log('Adding to cart:', medicine.name);
+        const updatedCart = [...cart];
+
+        const existingItem = updatedCart.find((item) => item.name === medicine.name);
+      
+        if (existingItem) {
+          // If the product is already in the cart, update its quantity
+          existingItem.quantity += 1;
+        } else {
+          // If the product is not in the cart, add it with a quantity of 1
+          const newItem = {
+            name: medicine.name,
+            price: medicine.price,
+            quantity: 1,
+          };
+          updatedCart.push(newItem);
+        }
+    
+        setCart(updatedCart);
+      };
+      
+      const handleQuantityInc = (medicine) => {
+        const updatedCart = [...cart];
+        const toChange = updatedCart.find((item) => item.name === medicine.name);
+      
+        if (toChange) {
+          toChange.quantity++;
+        }
+        setCart(updatedCart);
+        console.log("new quantity of ", medicine.name, "is: " , medicine.quantity);
+      };
+
+      const handleQuantityDec = (medicine) => {
+        const updatedCart = [...cart];
+        const toChange = updatedCart.find((item) => item.name === medicine.name);
+      
+        if (toChange) {
+          toChange.quantity--;
+        }
+        setCart(updatedCart);
+        console.log("new quantity of ", medicine.name, "is: " , medicine.quantity);
+      };
+      
+
+      const handleDeleteItem = (medicine) => {
+        //new cart without the removed med
+        const updatedCart = cart.filter((item) => item.name !== medicine.name);
+        setCart(updatedCart);
+      };
+
+      const handleCartIcon = () => {
+        setIsDrawerOpen(true); 
+    };
+
+    const closeDrawer = () => {
+        setIsDrawerOpen(false); 
+    };
       
     const mappedArray = filteredArray.map((medicine) => {
         return (
             <ProductCard
                 name={medicine.name}
                 description={medicine.description}
-                price={`$${medicine.price}`}
+                price={medicine.price}
                 extras={medicine.extras}
+                onAddToCart={handleAddToCart}
             />
         );
     });
-    
+
+
     return (
         <div>
+            <div className="cart-div">
+                <ShoppingCartOutlinedIcon  />
+                <Button className="add-button" onClick={handleCartIcon}>Cart</Button>
+            </div>
+            
             <div id="myBtnContainer">
+                
                 <button className={`btn ${selectedMedicinalUse === "all" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('all')}>Show all</button>
                 <button className={`btn ${selectedMedicinalUse === "Antiviral" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antiviral')}>Antiviral</button>
                 <button className={`btn ${selectedMedicinalUse === "Antifungal" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antifungal')}>Antifungal</button>
                 <button className={`btn ${selectedMedicinalUse === "Antipyretic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antipyretic')}>Antipyretic</button>
                 <button className={`btn ${selectedMedicinalUse === "Pain Reliever" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Pain Reliever')}>Pain Reliever</button>
                 <button className={`btn ${selectedMedicinalUse === "Antibiotic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antibiotic')}>Antibiotic</button>
+                
             </div>
             <div className="container">
-                {mappedArray};
-            </div>         
+                {mappedArray}
+            </div>
+            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} onQuantityInc={handleQuantityInc} onQuantityDec={handleQuantityDec} />
+                     
         </div>
     );
 }

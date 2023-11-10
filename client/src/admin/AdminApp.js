@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router";
 import ManageUsers from "./pages/ManageUsers";
-import ViewPharmacists from "./pages/ViewPharmacists";
+import ViewApplications from "./pages/ViewApplications";
 import ViewPatients from './pages/ViewPatients';
 import MedicineScreen from "../pharmacist/scenes/MedicineScreen";
 import NavBar from "../shared/components/NavBar";
-import Applications from "./pages/Applications";
+import ViewPharmacists from "./pages/ViewPharmacists";
 
 function AdminApp() {
 	const links =[
@@ -22,8 +22,8 @@ function AdminApp() {
 			<Route path='/' element={<ManageUsers/>}/>
 			<Route path='manageUsers' element={<ManageUsers/>}/>		
 			<Route path='viewPatients' element={<ViewPatients/>}/>	
-			<Route path='applications' element={<Applications/>}/>			
-			<Route path='viewPharmacists' element={<ViewPharmacists/>}/>
+			<Route path='viewPharmacists' element={<ViewPharmacists/>}/>	
+			<Route path='applications' element={<ViewApplications/>}/>
 			<Route path='medicine' element={<MedicineScreen/>}/>			
 		</Routes>
 		

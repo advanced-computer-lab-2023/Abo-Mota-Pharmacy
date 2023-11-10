@@ -7,7 +7,7 @@ import NavBar from '../../shared/components/NavBar';
 function PharmacistApp() {
   const links = [
     {name: 'Change App', to: '/'},
-    {name: 'Register', to: '/pharmacist/'},
+    {name: 'Register', to: '/pharmacist/registerPharmacist'},
     {name: 'MedicineInventory', to: '/pharmacist/medicine'},
   ]
 
@@ -16,7 +16,7 @@ function PharmacistApp() {
       <NavBar links={links}/>
       {/* <Outlet/> */}
       <Routes>
-        <Route path='/' element={<RegisterForm/>}/>
+        <Route path='/registerPharmacist' element={<RegisterForm/>}/>
         <Route path='medicine' element={<MedicineScreen isPharmacist/>}/>
         <Route path='addMedicine' element={<AddMedicine/>}/>
         
