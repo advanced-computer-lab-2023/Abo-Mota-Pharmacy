@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Modal from '@mui/material/Modal';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -65,7 +64,6 @@ export default function DataTable({ rows, headers }) {
         <Dialog open={true} onClose={handleCloseModal}>
           <DialogTitle>Details</DialogTitle>
           <DialogContent>
-            {/* Render modal content based on selectedRow */}
             {Object.keys(selectedRow).map((key) => (
               <div key={key}>
                 <DialogContentText>
