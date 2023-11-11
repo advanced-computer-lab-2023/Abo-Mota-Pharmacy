@@ -58,20 +58,20 @@ const registerPharmacist = async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-		// const medicalLicenseFile = req.files['medicalLicense'][0];
-		// const medicalDegreeFile = req.files['medicalDegree'][0];
+		const workingLicense = {
+			data: req.files.workingLicense[0].buffer,
+			contentType: req.files.workingLicense[0].mimetype
+		}
+		const pharmacyDegree = {
+			data: req.files.pharmacyDegree[0].buffer,
+			contentType: req.files.pharmacyDegree[0].mimetype
+		}
 
 		const newPharmacist = await Pharmacist.create({
 			...req.body,
 			password: hashedPassword,
-			// medicalLicense: {
-			// 	data: medicalLicenseFile.buffer,
-			// 	contentType: medicalLicenseFile.mimetype
-			// },
-			// medicalDegree: {
-			// 	data: medicalDegreeFile.buffer,
-			// 	contentType: medicalDegreeFile.mimetype
-			// }
+			workingLicense,
+			pharmacyDegree
 		});
 
 		const token = jwt.sign(

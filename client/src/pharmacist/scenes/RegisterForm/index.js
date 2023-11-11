@@ -44,7 +44,9 @@ const RegisterForm = () => {
       password: values.password,
       rate: values.hourlyRate,
       affiliation: values.affiliation,
-      educationalBackground: values.educationalBackground
+      educationalBackground: values.educationalBackground,
+      workingLicense: values.workingLiscense,
+      pharmacyDegree: values.pharmacyDegree
     }
     setIsLoading(true);
     await registerPharmacist(pharmacist);
