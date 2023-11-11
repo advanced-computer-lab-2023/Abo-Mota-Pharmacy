@@ -108,7 +108,7 @@ const LoginForm = () => {
         <p className="login-word">Login</p>
         {PharmacistForm}
         <div className="flex justify-between mr-8 ml-8">
-          <div className="flex space-x-4">
+          <div className="flex space-x-1">
             <button className="forget-password-button" onClick={() => {navigate("/pharmacist/registerPharmacist")}}>
                 Register as Pharmacist?
             </button>
