@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import DrawerItem from '../DrawerItem';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onDeleteItem, onQuantityInc, onQuantityDec, totalAmount}) {
   const toggleDrawer = (event) => {
@@ -15,6 +15,10 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onD
   totalAmount = cartItems.reduce((total, item) => {
     return total + item.quantity * item.price;
   }, 0);
+  
+  const navigate=useNavigate();
+  const handleRedirect=()=> navigate('../Checkout',{state: {totalAmount,cartItems} });
+  
 
   return (
     <div className="drawer">
@@ -43,7 +47,7 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onD
               />
             ))}
             <h2>Total: ${totalAmount}</h2>
-          <Button  className="checkout-button" variant="contained" color="success" disabled={cartItems.length === 0} onClick={() => window.location.href = `http://localhost:3000/patient/Checkout?total=${totalAmount}`}>GO TO CHECKOUT</Button>
+          <Button  className="checkout-button" variant="contained" color="success" disabled={cartItems.length === 0} onClick={handleRedirect}>GO TO CHECKOUT</Button>
         </Drawer>
       </React.Fragment>
     </div>

@@ -10,7 +10,10 @@ const pharmacistSchema = new Schema({
 	rate: Number,
 	affiliation: String,
 	educationalBackground: String,
-	nationalId: String,
+	nationalId: {
+		data: Buffer,
+		contentType: String
+	},
 	workingLicense: {
 		data: Buffer,
 		contentType: String
