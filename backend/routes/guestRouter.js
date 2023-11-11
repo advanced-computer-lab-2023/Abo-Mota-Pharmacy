@@ -10,6 +10,6 @@ router.post("/registerPatient", registerPatient);
 router.post("/registerPharmacist", registerPharmacist);
 
 router.post("/login" , login);
-router.get("/logout", logout);
+router.post("/logout", logout);
 
 module.exports = router;
