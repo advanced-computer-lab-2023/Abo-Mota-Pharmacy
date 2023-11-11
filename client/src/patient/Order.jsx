@@ -1,31 +1,41 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
-import Avatar from '@mui/joy/Avatar';
-import IconButton from '@mui/joy/IconButton';
 import Divider from '@mui/joy/Divider';
 import Box from '@mui/joy/Box';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { BiChat } from "react-icons/bi";
-import Chip from '@mui/joy/Chip';
 import { useLocation } from 'react-router-dom';
 import OrderItems from '../shared/components/OrderItems';
+import Button from '@mui/material/Button';
+import AlertDialogSlide from '../shared/components/Alert';
 
-function OrderCard({}) {
+
+
+function OrderCard() {
 
   const location = useLocation();
   const {totalAmount,cartItems}=location.state
   //const queryParams = new URLSearchParams(location.search);
   //const totalAmount = queryParams.get('total');
-  const status= "PENDING";
   const colors = {
     "upcoming": "warning",
     "cancelled": "error",
     "completed": "success"
   }
   //console.log("TOTAL AMOUNT",totalAmount);
-  
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [status, setStatus] = useState("PENDING");
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const cancelOrder = () => {
+    setStatus("CANCELLED");
+    setIsButtonDisabled(true);
+  };
+
+  const handleButtonClick = () => {
+    setDialogOpen(true);
+  };
+
   return (
     <Card
       variant="outlined"
@@ -81,6 +91,12 @@ function OrderCard({}) {
                 Estimated delivery: <strong>MAY 28th</strong><br />
                 <strong>YOUR ORDER IS ON ITS WAY</strong>
               </Typography>
+              <Button variant="outlined" color="error" onClick={handleButtonClick} disabled={isButtonDisabled}>CANCEL ORDER</Button>
+              <AlertDialogSlide
+                cancelOrder={cancelOrder}
+                open={dialogOpen}
+                setOpen={setDialogOpen}
+              />
             </Box>
           </Box>
 
