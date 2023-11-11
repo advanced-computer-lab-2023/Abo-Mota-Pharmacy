@@ -19,6 +19,7 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
   //const totalAmount=500;
 
   const navigate = useNavigate(); 
+  const handleRedirect=()=> navigate('/patient/order',{state: { totalAmount, cartItems }});
 
   const onClick = () => {
     setOpen(!open);
@@ -124,7 +125,7 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
       return (
         <>
           <p className="success-message">Payment Successful!</p>
-          <button className="viewOrderButton" onClick={() => window.location.href = `http://localhost:3000/patient/order?total=${totalAmount}`}>
+          <button className="viewOrderButton" onClick={handleRedirect}>
             View my order!
           </button>
         </>
@@ -133,15 +134,12 @@ const Accordion3 = ({ open,setOpen,totalAmount ,cartItems}) => {
     return null;
   };
 
-  const handleViewOrder = () => {
-    // Navigate to the /Order page
-    navigate('/order');
-  };
+ 
 
   const renderCashOnDeliveryButton = () => {
     if (selectedOption === 'cashOnDelivery') {
       return (
-        <button className='viewOrderButton'  onClick={() => window.location.href = `http://localhost:3000/patient/order?total=${totalAmount}`}>
+        <button className='viewOrderButton'  onClick={handleRedirect}>
           View my order!
         </button>
       );
