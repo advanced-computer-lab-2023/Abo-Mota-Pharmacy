@@ -4,10 +4,9 @@ import './style.css';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Button } from "@mui/material";
 import TempDrawer from "../shared/components/Drawer";
-import OrderCard from "./Order";
 
 
-const Filter = (props) => {
+const Filter = ({medicines}) => {
     const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [cart, setCart] = useState([]);
@@ -17,38 +16,38 @@ const Filter = (props) => {
         setSelectedMedicinalUse(medicinalUse);
       };
     
-      const filteredArray = props.propArray.filter((medicine) => {
+      const filteredArray = medicines.filter((medicine) => {
         return (
           medicine.extras.medicinalUse === selectedMedicinalUse ||
           selectedMedicinalUse === "all"
         );
       });
 
-      const mappedOrders = cart.map((cartItem, index) => (
-        <OrderCard key={index} cartItem={cartItem} />
-      ));
+      // const mappedOrders = cart.map((cartItem, index) => (
+      //   <OrderCard key={index} cartItem={cartItem} />
+      // ));
 
       const handleAddToCart = (medicine) => {
-        //console.log('Adding to cart:', medicine.name);
-        const updatedCart = [...cart];
-
-        const existingItem = updatedCart.find((item) => item.name === medicine.name);
+        if (medicine.extras.availableQuantity > 0) {
+          const updatedCart = [...cart];
       
-        if (existingItem) {
-          // If the product is already in the cart, update its quantity
-          existingItem.quantity += 1;
-        } else {
-          // If the product is not in the cart, add it with a quantity of 1
-          const newItem = {
-            name: medicine.name,
-            price: medicine.price,
-            quantity: 1,
-          };
-          updatedCart.push(newItem);
+          const existingItem = updatedCart.find((item) => item.name === medicine.name);
+      
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            const newItem = {
+              name: medicine.name,
+              price: medicine.price,
+              quantity: 1,
+            };
+            updatedCart.push(newItem);
+          }
+      
+          setCart(updatedCart);
         }
-    
-        setCart(updatedCart);
       };
+      
       
       const handleQuantityInc = (medicine) => {
         const updatedCart = [...cart];

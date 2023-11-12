@@ -26,12 +26,12 @@ export default function OrderItems({name,description,price,quantity}){
           </div>
     
           <div >
-            <div className='text-part'>
+            {/* <div className='text-part'> */}
               <h3 className="product-name2">{name}</h3>
               <p className="product-price2">${price}</p>
               <p className="product-description2">{description}</p>
               <p className="product-quantity">x{quantity}</p>
-            </div>
+            {/* </div> */}
             </div>
         </div>
     );

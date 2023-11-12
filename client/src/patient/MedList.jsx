@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ProductCard from "../shared/components/Card/index";
 import { medicines } from "../shared/assets/mockdata";
 import SearchBar from "../shared/components/SearchBar";
 import './style.css';
@@ -17,16 +16,16 @@ const ProductsGrid = () => {
         );
       });
       
-    const mappedArray = filteredArray.map((medicine) => {
-      return <ProductCard name={medicine.name} description={medicine.description} price={medicine.price} extras={medicine.extras}/>
-    });
+    // const mappedArray = filteredArray.map((medicine) => {
+    //   return <ProductCard name={medicine.name} description={medicine.description} price={medicine.price} extras={medicine.extras}/>
+    // });
 
          
     return (
       <div>
         <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
         {/* {mappedArray} */}
-        <Filter propArray={filteredArray}/>
+        <Filter medicines={filteredArray}/>
         </div>
     );
   };
