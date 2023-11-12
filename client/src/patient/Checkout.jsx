@@ -383,57 +383,57 @@ const getStepContent = (stepIndex) => {
   }
 };
   
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <Typography level="h1" sx={{ ml: 0.5 }}>
-          Checkout
+  // return (
+  //   <Box sx={{ width: '100%' }}>
+  //     <Stepper activeStep={activeStep} alternativeLabel>
+  //       {steps.map((label, index) => (
+  //         <Step key={label}>
+  //           <StepLabel>{label}</StepLabel>
+  //         </Step>
+  //       ))}
+  //     </Stepper>
+  //     <Typography level="h1" sx={{ ml: 0.5 }}>
+  //         Checkout
           
-        </Typography>
-        <Typography level="h4" sx={{ ml: 0.5 }}>
-        Required field *
+  //       </Typography>
+  //       <Typography level="h4" sx={{ ml: 0.5 }}>
+  //       Required field *
           
-        </Typography>
+  //       </Typography>
          
-      <div style={{ display:"flex",justifyContent:"center", alignItems: 'center', height: '40vh',gap:"10px" }}>
+  //     <div style={{ display:"flex",justifyContent:"center", alignItems: 'center', height: '40vh',gap:"10px" }}>
        
-          {getStepContent(activeStep)}
+  //         {getStepContent(activeStep)}
         
-      </div>
+  //     </div>
           
-      {activeStep === steps.length ? (
-        <Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <div >
-            <Button  disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }} >
-              Back
-            </Button>
-            </div>
-            <Box sx={{ flex: "1 1 auto" }} />
+  //     {activeStep === steps.length ? (
+  //       <Fragment>
+  //         <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
+  //         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+  //           <Box sx={{ flex: "1 1 auto" }} />
+  //           <Button onClick={handleReset}>Reset</Button>
+  //         </Box>
+  //       </Fragment>
+  //     ) : (
+  //       <Fragment>
+  //         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+  //           <div >
+  //           <Button  disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }} >
+  //             Back
+  //           </Button>
+  //           </div>
+  //           <Box sx={{ flex: "1 1 auto" }} />
 
             
-          {activeStep === steps.length - 1 ? renderPaymentStatus() : 
-              <Button onClick={handleNext}>
-                   Next
-              </Button>}
-          </Box>
-        </Fragment>
-      )}
-    </Box>
+  //         {activeStep === steps.length - 1 ? renderPaymentStatus() : 
+  //             <Button onClick={handleNext}>
+  //                  Next
+  //             </Button>}
+  //         </Box>
+  //       </Fragment>
+  //     )}
+  //   </Box>
     
   //const queryParams = new URLSearchParams(location.search);
   //const totalAmount = queryParams.get('total');

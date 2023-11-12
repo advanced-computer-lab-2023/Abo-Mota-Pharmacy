@@ -4,8 +4,13 @@ const pharmacistApi = createApi({
     reducerPath: 'pharmacistApi',
     baseQuery: fetchBaseQuery({ 
         baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/pharmacist` ,
-        credentials: "include"
-
+        credentials: "include",
+        prepareHeaders: (headers, { getState, endpoint }) => {
+            if (endpoint === "medicine") {
+                headers.delete("Content-Type");
+              }
+            return headers;
+          },
     }),
     endpoints(builder)  {
         return {
@@ -34,14 +39,26 @@ const pharmacistApi = createApi({
             }),
             addMedicine: builder.mutation({
                 invalidatesTags:(result,error,medicine)=>{
-                    // console.log([{type:'PharmacistMedicine', id:id}]);
                     return [{type:'PharmacistMedicine',val:"ID"}]
                 },
-                query: (medicine) => ({
-                    url: '/medicine',
-                    method: 'POST',
-                    body: medicine,
-                }),
+                query: ({name, description, price, activeIngredients, quantity, medicinalUse, medicineImage}) => {
+                    const formData = new FormData();
+                    formData.append("name", name);
+                    formData.append("description", description);
+                    formData.append("price", price);
+                    activeIngredients.forEach((ingredient) => {
+                        formData.append("activeIngredients", ingredient);
+                    });                    
+                    formData.append("quantity", quantity);
+                    formData.append("medicinalUse", medicinalUse);
+                    formData.append("medicineImage", medicineImage);
+                    return {
+                        url: '/medicine',
+                        method: 'POST',
+                        body: formData,
+                    }
+                    
+                },
             }),
             editMedicine: builder.mutation({
                 invalidatesTags:(result,error,medicine)=>{

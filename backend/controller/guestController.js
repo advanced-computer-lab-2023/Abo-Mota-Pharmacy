@@ -43,11 +43,11 @@ const registerPatient = async (req, res) => {
 
 const registerPharmacist = async (req, res) => {
 	try {
-		const { username, nationalId, password, email } = req.body;
+		const { username, password, email } = req.body;
 
 		const pharmacistExists = await Pharmacist.findOne({
 			$and: [
-				{ $or: [{ username }, { nationalId }, { email }] },
+				{ $or: [{ username }, { email }] },
 				{ registrationStatus: { $in: ["approved", "pending"] } },
 			],
 		});
@@ -58,6 +58,10 @@ const registerPharmacist = async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+		const nationalId = {
+			data: req.files.nationalId[0].buffer,
+			contentType: req.files.nationalId[0].mimetype
+		}
 		const workingLicense = {
 			data: req.files.workingLicense[0].buffer,
 			contentType: req.files.workingLicense[0].mimetype
@@ -70,6 +74,7 @@ const registerPharmacist = async (req, res) => {
 		const newPharmacist = await Pharmacist.create({
 			...req.body,
 			password: hashedPassword,
+			nationalId,
 			workingLicense,
 			pharmacyDegree
 		});

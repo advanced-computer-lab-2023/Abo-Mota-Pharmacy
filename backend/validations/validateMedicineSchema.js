@@ -34,11 +34,6 @@ const medicineValidationSchema = Joi.object({
 		"any.required": "Quantity is required.",
 	}),
 
-	image: Joi.string().uri().trim().messages({
-		"string.base": "Image URL must be a string.",
-		"string.uri": "Image URL must be a valid URI.",
-	}),
-
 	medicinalUse: Joi.string()
 		.max(30)
 		.trim()

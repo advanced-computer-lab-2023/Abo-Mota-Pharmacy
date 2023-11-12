@@ -11,12 +11,18 @@ const validateMedicine = require("../middlewares/validateMedicineMiddleware");
 
 const authorize = require("../middlewares/authorization");
 
-router.get("/", authorize,getPharmacist);
+router.get("/", authorize, getPharmacist);
 
-router.get("/medicine", authorize,getMedicines);
+router.get("/medicine", authorize, getMedicines);
 
-router.post("/medicine", authorize,validateMedicine, addMedicine);
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-router.patch("/medicine/:name", authorize,editMedicine);
+router.post("/medicine", upload.fields([
+	{name: "medicineImage", maxCount: 1}
+]), authorize, validateMedicine, addMedicine);
+
+router.patch("/medicine/:name", authorize, editMedicine);
 
 module.exports = router;

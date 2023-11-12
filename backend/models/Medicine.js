@@ -7,7 +7,10 @@ const medicineSchema = new Schema({
 	activeIngredients: [String],
 	price: Number,
 	quantity: Number,
-	image: String, //url
+	medicineImage: {
+		data: Buffer,
+		contentType: String
+	},
 	sales: 
 	{
 		type:Number,
