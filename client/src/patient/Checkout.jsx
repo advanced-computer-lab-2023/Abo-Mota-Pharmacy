@@ -19,11 +19,8 @@ import MenuItem from '@mui/joy/MenuItem';
 import LocationOn from '@mui/icons-material/LocationOn';
 import { BiSolidMobileVibration } from 'react-icons/bi';
 import { AiTwotoneMail } from 'react-icons/ai';
+import { BsArrowDownSquare } from 'react-icons/bs';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
-
-
-
-
 
 
 
@@ -43,11 +40,23 @@ const Checkout = ({}) => {
   const [openCity, setOpenCity] = React.useState(false);
   const [openSavedAddresses, setOpenSavedAddresses] = React.useState(false);
   const [showMap, setShowMap] = useState(false);
- 
+  const [selectedCity,setSelectedCity]=useState("");
+  const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
+  const cities = ['Cairo', 'Giza', 'Alex'];
+  const [selectedAddress, setSelectedAddress] = useState(null); // Initialize selectedAddress state
+
+
+const handleAddressSelection = (address) => {
+  setSelectedAddress(address); 
+};
 
   const handleLocateClick = () => {
     setShowMap(true);
     
+  };
+
+  const handleCitySelection = (city) => {
+    setSelectedCity(city); // Set the selected city in state
   };
 
 const handleOpenChangeCity = React.useCallback((event, isOpen) => {
@@ -219,6 +228,8 @@ const handleOpenChangeSavedAddresses = React.useCallback((event, isOpen) => {
       onClick:()=> setSelectedOption('cashOnDelivery')
     }
   ];
+
+  
  
 const getStepContent = (stepIndex) => {
   switch (stepIndex) {
@@ -260,15 +271,15 @@ const getStepContent = (stepIndex) => {
           </div>
 
           <div className="column">
-          <Typography level="h6" sx={{ ml: 0.5 }}> Landmark:</Typography>
+          <Typography level="h6" sx={{ ml: 0.5 }}> Address*:</Typography>
           <Stack spacing={1.5}>
-                <Input placeholder="Your location"
+                <Input placeholder="Your address"
                         startDecorator={
                           <Button variant="soft" color="neutral" startDecorator={<LocationOn />} onClick={handleLocateClick}>
                             Locate
                           </Button>
                         }
-                        sx={{ width: 300 }}
+                        sx={{ width: '100%' }}
             />
           </Stack>
           {showMap && (
@@ -283,31 +294,36 @@ const getStepContent = (stepIndex) => {
           <div className="column">
           <Typography level="h6" sx={{ mr: 0.5 }} > Saved Addresses*:
           <Dropdown open={openSavedAddresses} onOpenChange={handleOpenChangeSavedAddresses}>
-          <MenuButton style={{marginLeft:"10px"}}>Saved Addresses</MenuButton>
+          <MenuButton style={{marginLeft:"10px"}}>
+            {selectedAddress ? selectedAddress : 'Saved Addresses'} <BsArrowDownSquare style={{ marginLeft: '10px' }}/>
+          </MenuButton>
           <Menu>
             {savedAddresses.map((address, index) => (
-              <MenuItem key={index}>{address}</MenuItem>
+              <MenuItem style={{width:'100%'}} key={index} onClick={() => handleAddressSelection(address)}>
+                {address}
+              </MenuItem>
             ))}
           </Menu>
         </Dropdown>
           
           
           </Typography>
-            
-            
-            
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div>
             <Typography level="h6" sx={{ ml: 0.5 }} style={{ marginRight: '10px' }}> City*:
             <Dropdown open={openCity} onOpenChange={handleOpenChangeCity} >
-                <MenuButton style={{ marginLeft: '10px' }}>Cairo</MenuButton>
-                  <Menu>
-                    <MenuItem>Giza</MenuItem>
-                    <MenuItem>Alexandria</MenuItem>
-                    <MenuItem>Qalubiya</MenuItem>
-                  </Menu>
+              <MenuButton style={{ marginLeft: '10px' }}>
+                {selectedCity ? selectedCity : 'City'} <BsArrowDownSquare style={{ marginLeft: '10px' }}/>
+              </MenuButton>
+              <Menu>
+                {cities.map((city, index) => (
+                  <MenuItem key={index} onClick={() => setSelectedCity(city)}>
+                    {city}
+                  </MenuItem>
+                ))}
+              </Menu>
             </Dropdown>
             
             </Typography>
@@ -315,7 +331,7 @@ const getStepContent = (stepIndex) => {
             
             </div>
           <div style={{ marginLeft: '30px' }}>
-          <Typography level="h8" sx={{ ml: 0 }}> Set As Default
+          <Typography  style={{width:'100%'}} level="h8" sx={{ ml: 0 }}> Set As Default
           <input type="checkbox" id="isDefault" />
           
           </Typography>
@@ -439,19 +455,12 @@ const getStepContent = (stepIndex) => {
   //const totalAmount = queryParams.get('total');
 
   //array of each purchased item and the quantity purchsed to be deducted from "availableQuantity" AND added to "sold" in db
-  const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
+  
 
     
 
-  return (
-    <div>
-       
-        <h1 style={{ textAlign: 'center' }}>Checkout</h1>
-        
-         
-    </div>
-  );
-};
+  
+)};
 
 export default Checkout;
 
