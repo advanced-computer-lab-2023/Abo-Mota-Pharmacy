@@ -41,7 +41,7 @@ const ProductCard = ({name,description,price,extras,onAddToCart}) => {
         
       </div>
       <div className="button-div">
-        <Button className="add-button" onClick={handleClick}>Add to cart</Button>
+        <Button className="add-button" onClick={handleClick} disabled={extras.availableQuantity === 0}>{extras.availableQuantity > 0 ? "Add to Cart" : "Sold Out"}</Button>
       </div>
     </div>
   // </div>  
