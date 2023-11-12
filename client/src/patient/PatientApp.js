@@ -6,7 +6,6 @@ import NavBar from '../shared/components/NavBar'
 import { useGetMedicinesQuery } from '../store'
 import MedicineScreen from './scenes/MedicineScreen';
 import Checkout from './Checkout';
-import Accordion3 from '../shared/components/Accordion3';
 import Order from './Order';
 import OrderCard from './Order'
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
@@ -12,17 +12,14 @@ import AlertDialogSlide from '../shared/components/Alert';
 
 
 function OrderCard() {
-
   const location = useLocation();
   const {totalAmount,cartItems}=location.state
-  //const queryParams = new URLSearchParams(location.search);
-  //const totalAmount = queryParams.get('total');
-  const colors = {
-    "upcoming": "warning",
-    "cancelled": "error",
-    "completed": "success"
-  }
-  //console.log("TOTAL AMOUNT",totalAmount);
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
+  
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [status, setStatus] = useState("PENDING");
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -88,7 +85,7 @@ function OrderCard() {
               </Typography>
               <Typography level="h5" fontWeight={500}>Total Amount : ${totalAmount}</Typography>
               <Typography level="h5" aria-describedby="card-description" mb={1}>
-                Estimated delivery: <strong>MAY 28th</strong><br />
+                Estimated delivery: <strong>{currentDate}</strong><br />
                 <strong>YOUR ORDER IS ON ITS WAY</strong>
               </Typography>
               <Button variant="outlined" color="error" onClick={handleButtonClick} disabled={isButtonDisabled}>CANCEL ORDER</Button>

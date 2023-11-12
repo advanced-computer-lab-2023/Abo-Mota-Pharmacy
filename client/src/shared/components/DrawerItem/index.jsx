@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 //import Stepper from '../Stepper'
 import QuantityInput from './quantityField';
 
+
 export default function DrawerItem({name,description,price,quantity,onDelete, quantityInc, quantityDec}) {
   const handleDelete = () => {
     onDelete();
