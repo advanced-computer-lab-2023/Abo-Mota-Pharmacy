@@ -52,8 +52,15 @@ const addMedicine = async (req, res) => {
 const editMedicine = async (req, res) => {
 	try {
 		const { name } = req.params;
-
-		const updatedMedicine = await Medicine.updateOne({ name: name }, { ...req.body });
+		const oldMedicine = await Medicine.findOne({name});
+		let medicineImage = oldMedicine.medicineImage;
+		if(req.files.medicineImage){
+			medicineImage = {
+				data: req.files.medicineImage[0].buffer,
+				contentType: req.files.medicineImage[0].mimetype
+			}
+		}
+		const updatedMedicine = await Medicine.updateOne({ name: name }, { medicineImage, ...req.body });
 
 		// Check if the medicine was found and updated
 		if (!updatedMedicine) {

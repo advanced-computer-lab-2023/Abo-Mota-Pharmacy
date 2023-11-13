@@ -5,12 +5,6 @@ const pharmacistApi = createApi({
     baseQuery: fetchBaseQuery({ 
         baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/pharmacist` ,
         credentials: "include",
-        prepareHeaders: (headers, { getState, endpoint }) => {
-            if (endpoint === "medicine") {
-                headers.delete("Content-Type");
-              }
-            return headers;
-          },
     }),
     endpoints(builder)  {
         return {
@@ -64,15 +58,34 @@ const pharmacistApi = createApi({
                 invalidatesTags:(result,error,medicine)=>{
                     return [{type:'Medicine', val:medicine.name}]
                 },
-                query: (medicine) => ({
-                    url: `/medicine/${medicine.name}`,
-                    method: 'PATCH',
-                    body: medicine.dataBaseValues,
-                }),
+                query: ({name, dataBaseValues}) => {
+                    const formData = new FormData();
+                    if(dataBaseValues.description)
+                        formData.append("description", dataBaseValues.description);
+                    if(dataBaseValues.price)
+                        formData.append("price", dataBaseValues.price);
+                    if(dataBaseValues.activeIngredients)
+                        dataBaseValues.activeIngredients.forEach((ingredient) => {
+                            formData.append("activeIngredients", ingredient);
+                        });                    
+                    if(dataBaseValues.quantity)
+                        formData.append("quantity", dataBaseValues.quantity);
+                    if(dataBaseValues.medicinalUse)
+                        formData.append("medicinalUse", dataBaseValues.medicinalUse);
+                    if(dataBaseValues.medicineImage)
+                        formData.append("medicineImage", dataBaseValues.medicineImage);
+                    return {
+                        url: `/medicine/${name}`,
+                        method: 'PATCH',
+                        body: formData,
+                    }
+                },
             }),
         };
     },
 });
+
+
 
 export const {
     useGetPharmacistQuery, 

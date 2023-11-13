@@ -23,6 +23,8 @@ router.post("/medicine", upload.fields([
 	{name: "medicineImage", maxCount: 1}
 ]), authorize, validateMedicine, addMedicine);
 
-router.patch("/medicine/:name", authorize, editMedicine);
+router.patch("/medicine/:name", upload.fields([
+	{name: "medicineImage", maxCount: 1}
+]), authorize, editMedicine);
 
 module.exports = router;

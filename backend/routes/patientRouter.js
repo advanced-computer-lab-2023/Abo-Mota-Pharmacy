@@ -18,7 +18,7 @@ router.patch('/cancelOrder', authorize, cancelOrder);
 
 router.post('/createOrder', authorize, createOrder);
 
-router.patch('/removeFromCart', authorize, removeFromCart);
+router.delete('/removeFromCart', authorize, removeFromCart);
 
 router.patch('/addDeliveryAddress', authorize, addDeliveryAddress);
 

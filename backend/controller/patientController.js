@@ -52,6 +52,12 @@ const cancelOrder = async (req, res) => {
 			{ new: true }
 		);
 
+		const updatedMedicines = order.medicines.map(async (medicine) => {
+			const dbMedicine = await Medicine.findOne({ name: medicine.name });
+
+			const updatedMedicine = await Medicine.updateOne({ _id: dbMedicine._id }, { sales: dbMedicine.sales - medicine.quantity, quantity: dbMedicine.quantity + medicine.quantity });
+		})
+
 		const updatedOrder = await Order.updateOne({ _id: orderId }, { status: "cancelled" });
 
 
