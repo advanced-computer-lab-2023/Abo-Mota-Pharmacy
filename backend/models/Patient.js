@@ -57,6 +57,10 @@ const patientSchema = new Schema(
         city: String
       }
     ],
+    wallet: {
+      type: Number,
+      default: 0,
+    },
   },
   { toJSON: { virtuals: true } }
 );
