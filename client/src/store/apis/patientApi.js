@@ -2,13 +2,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const patientApi = createApi({
     reducerPath: 'patientApi',
-    baseQuery: fetchBaseQuery({ 
-        baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/patient` ,
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/patient`,
         credentials: "include"
 
     }),
     endpoints(builder) {
-        return{
+        return {
             getPatient: builder.query({
                 query: () => ({
                     url: '/',
@@ -17,15 +17,29 @@ const patientApi = createApi({
             }),
             getMedicines: builder.query({
                 query: () => ({
-                    url:'/medicines',
+                    url: '/medicines',
                     method: 'GET',
                 }),
             }),
+
+            payByWallet: builder.mutation({
+                query: (data) => {
+                    return {
+                        url: "/payByWallet",
+                        method: "PATCH",
+                        body: data,
+                    };
+                },
+            }),
+
+
         }
     },
 });
 
-export const { 
+export const {
     useGetPatientQuery,
-    useGetMedicinesQuery } = patientApi;
+    useGetMedicinesQuery,
+    usePayByWalletMutation,
+} = patientApi;
 export { patientApi };

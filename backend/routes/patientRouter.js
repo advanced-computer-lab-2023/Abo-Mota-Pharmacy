@@ -1,6 +1,6 @@
 const express= require('express');
 const router = express.Router();
-const {getMedicines, getPatient, getOrders, cancelOrder, addOrder, removeFromCart, addToCart} = require('../controller/patientController');
+const {getMedicines, getPatient, getOrders, cancelOrder, addOrder, removeFromCart, addToCart, addDeliveryAddress, payByWallet } = require('../controller/patientController');
 
 const authorize = require("../middlewares/authorization");
 
@@ -20,7 +20,9 @@ router.post('/addOrder', authorize, addOrder);
 
 router.patch('/removeFromCart', authorize, removeFromCart);
 
+router.patch('/addDeliveryAddress', authorize, addDeliveryAddress);
 
+router.patch('/payByWallet', authorize, payByWallet);
 
 module.exports = router;
 
