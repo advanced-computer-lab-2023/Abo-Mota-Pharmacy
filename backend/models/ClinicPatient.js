@@ -13,13 +13,16 @@ const patientSchema = new Schema(
     gender: String,
     mobile: String,
     nationalId: String,
+    wallet: {
+      type: Number,
+      default: 0,
+    },
+    familyDiscount: {
+      type: Number,
+      default: 0,
+    },
     familyMembers: [
       {
-        // _id: {
-        // 	type: Schema.Types.ObjectId,
-        // 	ref: "Patient",
-        // },
-        // relationToPatient: String, // Add your extra attribute here
         name: String,
         age: Number,
         gender: String,
@@ -30,19 +33,54 @@ const patientSchema = new Schema(
         nationalId: String,
       },
     ],
+    linkedFamily: [
+      {
+        member: {
+          type: Schema.Types.ObjectId,
+          ref: "ClinicPatient",
+        },
+        relationToPatient: {
+          type: String,
+        },
+      },
+    ],
     emergencyContact: {
       name: String,
       mobile: String,
       relation: String,
     },
     healthPackage: {
+      status: {
+        type: String,
+        default: null,
+        enum: ["subscribed", "unsubscribed", "cancelled", null],
+      },
       package: {
         type: Schema.Types.ObjectId,
+        default: null,
         ref: "HealthPackage",
       },
       endDate: Date,
+      cancelDate: Date,
+      unsubscribeDate: Date,
+      pricePaid: {
+        type: Number,
+        default: 0,
+      },
     },
-    healthRecords: [String],
+    healthRecords: [
+      {
+        data: Buffer,
+        contentType: String,
+      },
+    ],
+    medicalHistory: [
+      {
+        data: Buffer,
+        contentType: String,
+        fileName: String
+      },
+    ],
     // prescriptions: [
     //   {
     //     type: Schema.Types.ObjectId,

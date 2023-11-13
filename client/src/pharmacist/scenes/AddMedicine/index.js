@@ -36,19 +36,17 @@ const AddMedicine = () => {
       name: values.medicineName,
       price: values.price,
       description: values.description,
+      sales: values.sales,
       quantity: values.availableQuantity,
-      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()) // Remove spaces
-      .filter((ingredient) => ingredient),
-      medicinalUse: values.medicinalUse
+      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()), // Remove spaces
+      medicinalUse: values.medicinalUse,
+      medicineImage: values.medicineImage
     }
     setIsLoading(true);
     await addMedicine(medicineObj);
-    // console.log(medicineObj);
-    // await new Promise(resolve => setTimeout(resolve, 3000));
-    // Remove the above await and insert code for backend registeration here.
     navigate('/pharmacist/medicine');
     setIsLoading(false);
-    // resetForm({ values: '' });
+    resetForm({ values: '' });
   }
 
   const medicineForm = (

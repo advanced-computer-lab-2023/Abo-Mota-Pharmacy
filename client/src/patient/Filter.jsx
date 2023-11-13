@@ -11,6 +11,7 @@ const Filter = ({medicines}) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [cart, setCart] = useState([]);
 
+    console.log(medicines)
 
     const filterMedicinesByMedicinalUse = (medicinalUse) => {
         setSelectedMedicinalUse(medicinalUse);
@@ -18,7 +19,7 @@ const Filter = ({medicines}) => {
     
       const filteredArray = medicines.filter((medicine) => {
         return (
-          medicine.extras.medicinalUse === selectedMedicinalUse ||
+          medicine.medicinalUse === selectedMedicinalUse ||
           selectedMedicinalUse === "all"
         );
       });
@@ -28,7 +29,7 @@ const Filter = ({medicines}) => {
       // ));
 
       const handleAddToCart = (medicine) => {
-        if (medicine.extras.availableQuantity > 0) {
+        if (medicine.quantity > 0) {
           const updatedCart = [...cart];
       
           const existingItem = updatedCart.find((item) => item.name === medicine.name);
@@ -92,7 +93,9 @@ const Filter = ({medicines}) => {
                 name={medicine.name}
                 description={medicine.description}
                 price={medicine.price}
-                extras={medicine.extras}
+                sales={medicine.sales}
+                quantity={medicine.quantity}
+                medicinalUse={medicine.medicinalUse}
                 onAddToCart={handleAddToCart}
             />
         );
@@ -114,12 +117,19 @@ const Filter = ({medicines}) => {
                 <button className={`btn ${selectedMedicinalUse === "Antipyretic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antipyretic')}>Antipyretic</button>
                 <button className={`btn ${selectedMedicinalUse === "Pain Reliever" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Pain Reliever')}>Pain Reliever</button>
                 <button className={`btn ${selectedMedicinalUse === "Antibiotic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antibiotic')}>Antibiotic</button>
+
+                <button className={`btn ${selectedMedicinalUse === "Antiseptic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antiseptic')}>Antiseptic</button>
+                <button className={`btn ${selectedMedicinalUse === "Antispasmodic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antispasmodic')}>Antispasmodic</button>
+                <button className={`btn ${selectedMedicinalUse === "Antihistamine" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antihistamine')}>Antihistamine</button>
+                <button className={`btn ${selectedMedicinalUse === "Anti-inflammatory" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse("Anti-inflammatory")}>Anti-inflammatory</button>
+                <button className={`btn ${selectedMedicinalUse === "Diuretic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Diuretic')}>Diuretic</button>
+                
                 
             </div>
             <div className="container">
                 {mappedArray}
             </div>
-            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} onQuantityInc={handleQuantityInc} onQuantityDec={handleQuantityDec} />
+            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} onQuantityInc={handleQuantityInc} onQuantityDec={handleQuantityDec} medicines={medicines}/>
                      
         </div>
     );

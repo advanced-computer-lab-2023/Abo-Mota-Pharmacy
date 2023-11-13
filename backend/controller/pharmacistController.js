@@ -20,7 +20,11 @@ const getMedicines = async (req, res) => {
 
 const addMedicine = async (req, res) => {
 	try {
-		const { name, description, price, activeIngredients, quantity, medicinalUse, sales } = req.body;
+		const { name, description, price, activeIngredients, quantity, medicinalUse} = req.body;
+		const medicineImage = {
+			data: req.files.medicineImage[0].buffer,
+			contentType: req.files.medicineImage[0].mimetype
+		}
 		const newMedicine = {
 			name,
 			description,
@@ -28,10 +32,10 @@ const addMedicine = async (req, res) => {
 			activeIngredients,
 			quantity,
 			medicinalUse,
-			sales
+			medicineImage
 		};
 
-		const medicine = await Medicine.findOne({ name: newMedicine.name });
+		const medicine = await Medicine.findOne({ name });
 		if (medicine) {
 			return res.status(500).json({ error: "medicine already exists" });
 		}
