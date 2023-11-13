@@ -44,3 +44,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.pecial-case-edit-medicine{
+  display: flex;
+  align-items: flex-end;
+}

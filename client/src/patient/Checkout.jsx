@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef, useEffect} from 'react';
+import React, { useState, Fragment, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -23,58 +23,82 @@ import { BsArrowDownSquare } from 'react-icons/bs';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
 import CardPayment from "./stripe/CardPayment"
 import WalletPayment from './stripe/WalletPayment';
-
-
+import { useCreateOrderMutation } from '../store';
+import Toast from "./Toast";
+import { useAddToCartMutation, useGetPatientQuery } from '../store';
 
 
 const Checkout = ({ }) => {
-  const location = useLocation();
-  const { totalAmount, cartItems,medicines } = location.state
-  const [activeStep, setActiveStep] = React.useState(0);
-  const steps = ["Personal Info", "Delivery", "Payment"];
-  const savedAddresses = ['Address 1', 'Address 2', 'Address 3'];
-  const [paymentStatus, setPaymentStatus] = useState(null);
-  const walletAmount = 100;
-  const [selectedOption, setSelectedOption] = useState(null);
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const { totalAmount, cartItems, medicines } = location.state
   const handleRedirect = () => navigate('/patient/order', { state: { totalAmount, cartItems } });
+
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+
   const prevActiveStep = activeStep;
   const [openCity, setOpenCity] = React.useState(false);
   const [openSavedAddresses, setOpenSavedAddresses] = React.useState(false);
   const [showMap, setShowMap] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
-  const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
-  const cities = ['Cairo', 'Giza', 'Alex'];
+  // const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
+  
   const [selectedAddress, setSelectedAddress] = useState(null); // Initialize selectedAddress state
+  
+  const [toast, setToast] = useState({
+    open: false,
+    duration: 4000
+  });
 
+  const [createOrder] = useCreateOrderMutation();
+  
+  const onSuccessfulCheckout = () => {
+    createOrder({
+      medicines: cartItems
+    });
 
+    setToast({
+      ...toast,
+      open: true,
+      color: "success",
+      message: "Payment completed successfully!",
+    });
+
+    setTimeout(() => {
+      navigate("/patient/");
+    }, 1500);
+  }
+
+  const onFailedCheckout = () => {
+    setToast({
+      ...toast,
+      open: true,
+      color: "danger",
+      message: "Payment unsuccessful",
+    });
+  }
+
+  const steps = ["Personal Info", "Delivery", "Payment"];
+  const cities = ['Cairo', 'Giza', 'Alex'];
+  const savedAddresses = ['Address 1', 'Address 2', 'Address 3'];
+  const walletAmount = 100;
+  
+
+  const onToastClose = (event, reason) => {
+    if (reason === "clickaway") return;
+
+    setToast({
+      ...toast,
+      open: false,
+    });
+  };
+
+  
   //itemsAndQuantities is an array of each purchased item and the quantity purchsed to be deducted from "availableQuantity" 
   //AND added to "sold" in db
-
-  useEffect(() => {
-    updateAvailableQuantities();
-  }, []); 
-  console.log("medcines: " , medicines);
-  const updateAvailableQuantities = () => {
-    const updatedMedicines = [...medicines];
-    const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
-    console.log("itemsAndQuantities:" ,itemsAndQuantities);
-    itemsAndQuantities.forEach(item => {
-      console.log('Checking:', item[0]);
-      const medicineToUpdate = updatedMedicines.find(medicine => {
-        console.log('Medicine Name:', medicine.name);
-        return medicine.name === item[0];
-      });
-    
-      console.log('Found Medicine:', medicineToUpdate);
-      if (medicineToUpdate) {
-        medicineToUpdate.quantity -= item[1];
-        //console.log(" quantity is now ", medicineToUpdate.extras.availableQuantity)
-      }
-    });
-    console.log('Updated Medicines:', updatedMedicines);
-  };
-    
 
 
   const handleAddressSelection = (address) => {
@@ -149,11 +173,15 @@ const Checkout = ({ }) => {
     if (selectedOption === 'credit') {
       return (
         <>
-          <CardPayment
+          {/* <CardPayment
             deductible={500}
-            onSuccess={() => { }}
+            onSuccess={() => { 
+              createOrder({
+                medicines: []
+              })
+            }}
             onFailure={() => { }}
-          />
+          /> */}
         </>
       );
     } else if (selectedOption === 'wallet') {
@@ -364,7 +392,7 @@ const Checkout = ({ }) => {
 
           </div>
         );
-      
+
       case 2:
         return (
           <Card sx={{ borderRadius: 0, p: 4 }}>
@@ -394,17 +422,17 @@ const Checkout = ({ }) => {
 
             {selectedOption === "card" ? (
               <CardPayment
-                deductible={200}
-                onSuccess={() => { }}
-                onFailure={() => { }}
+                deductible={totalAmount}
+                onSuccess={onSuccessfulCheckout}
+                onFailure={onFailedCheckout}
               />
             ) : (
               selectedOption === "wallet" ?
                 (
                   <WalletPayment
-                    deductible={200}
-                    onSuccess={() => { }}
-                    onFailure={() => { }}
+                    deductible={totalAmount}
+                    onSuccess={onSuccessfulCheckout}
+                    onFailure={onFailedCheckout}
                   />
                 ) :
                 <button className='viewOrderButton' onClick={handleRedirect}>
@@ -469,6 +497,10 @@ const Checkout = ({ }) => {
           </Box>
         </Fragment>
       )}
+
+
+      <Toast {...toast} onClose={onToastClose} />
+
     </Box>
 
     // const queryParams = new URLSearchParams(location.search);

@@ -10,11 +10,16 @@ const patientApi = createApi({
     endpoints(builder) {
         return {
             getPatient: builder.query({
+                providesTags: (result, error) => {
+                    return ["Patient"];
+                },
+
                 query: () => ({
                     url: '/',
                     method: 'GET',
                 }),
             }),
+
             getMedicines: builder.query({
                 query: () => ({
                     url: '/medicines',
@@ -23,6 +28,10 @@ const patientApi = createApi({
             }),
 
             payByWallet: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+                
                 query: (data) => {
                     return {
                         url: "/payByWallet",
@@ -32,6 +41,44 @@ const patientApi = createApi({
                 },
             }),
 
+            createOrder: builder.mutation({
+                
+                query: (data) => {
+                    return {
+                        url: "/createOrder",
+                        method: "POST",
+                        body: data,
+                    };
+                },
+            }),
+
+            addToCart: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+
+                query: (data) => {
+                    return {
+                        url: "/medicines",
+                        method: "POST",
+                        body: data,
+                    };
+                },
+            }),
+
+            removeFromCart: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+
+                query: (data) => {
+                    return {
+                        url: "/medicines",
+                        method: "DELETE",
+                        body: data,
+                    };
+                },
+            }),
 
         }
     },
@@ -41,5 +88,8 @@ export const {
     useGetPatientQuery,
     useGetMedicinesQuery,
     usePayByWalletMutation,
+    useCreateOrderMutation,
+    useAddToCartMutation,
+    useRemoveFromCartMutation
 } = patientApi;
 export { patientApi };
