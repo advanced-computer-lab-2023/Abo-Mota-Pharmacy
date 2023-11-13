@@ -31,6 +31,11 @@ const medicineSchema = new Schema({
 			"Diuretic",
 		],
 	},
+	status: {
+		type: String,
+		enum: ["archived", "unarchived"],
+		default: "unarchived",
+	},
 });
 
 const Medicine = mongoose.model("Medicine", medicineSchema);

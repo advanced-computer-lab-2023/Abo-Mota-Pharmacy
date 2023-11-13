@@ -16,7 +16,7 @@ const authToken = (req, res, next) => {
                 next();
             else if(userType === 'pharmacist' && (req.baseUrl).includes('/pharmacist'))
                 next();
-            else if (userType === 'patient' && (req.baseUrl).includes('/patient'))
+            else if (userType === 'patient' && ((req.baseUrl).includes('/patient') || (req.baseUrl).includes('/stripe')))
                 next();
             else
                 return res.status(403).json({ message: "Forbidden"});

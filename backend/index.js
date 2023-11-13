@@ -9,6 +9,7 @@ const pharmacistRouter = require("./routes/pharmacistRouter");
 const adminRouter = require("./routes/adminRouter");
 const patientRouter = require("./routes/patientRouter");
 const guestRouter = require("./routes/guestRouter");
+const stripeRouter = require("./routes/stripeRouter");
 const mongoose = require('mongoose');
 mongoose.set('strictQuery',false);
 // const bodyParser = require("body-parser");
@@ -37,6 +38,7 @@ app.use("/pharmaApi/patient", patientRouter);
 app.use("/pharmaApi/pharmacist", pharmacistRouter);
 app.use("/pharmaApi/admin", adminRouter);
 app.use("/pharmaApi/guest", guestRouter);
+app.use("/pharmaApi/stripe", stripeRouter);
 
 // listen for requests
 // listen for requests
