@@ -5,6 +5,7 @@ const {
 	getMedicines,
 	addMedicine,
 	editMedicine,
+	changePassword,
 } = require("../controller/pharmacistController");
 
 const validateMedicine = require("../middlewares/validateMedicineMiddleware");
@@ -15,16 +16,22 @@ router.get("/", authorize, getPharmacist);
 
 router.get("/medicine", authorize, getMedicines);
 
-const multer = require('multer');
+const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post("/medicine", upload.fields([
-	{name: "medicineImage", maxCount: 1}
-]), authorize, validateMedicine, addMedicine);
+router.post(
+	"/medicine",
+	upload.fields([{ name: "medicineImage", maxCount: 1 }]),
+	authorize,
+	validateMedicine,
+	addMedicine
+);
 
 router.patch("/medicine/:name", upload.fields([
 	{name: "medicineImage", maxCount: 1}
 ]), authorize, editMedicine);
+
+router.patch("/changePassword", authorize, changePassword);
 
 module.exports = router;
