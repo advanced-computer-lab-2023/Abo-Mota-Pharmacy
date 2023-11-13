@@ -129,7 +129,7 @@ const Filter = ({medicines}) => {
             <div className="container">
                 {mappedArray}
             </div>
-            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} onQuantityInc={handleQuantityInc} onQuantityDec={handleQuantityDec} />
+            <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} onQuantityInc={handleQuantityInc} onQuantityDec={handleQuantityDec} medicines={medicines}/>
                      
         </div>
     );
