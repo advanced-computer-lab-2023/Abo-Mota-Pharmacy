@@ -11,6 +11,7 @@ const Filter = ({medicines}) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [cart, setCart] = useState([]);
 
+    console.log(medicines)
 
     const filterMedicinesByMedicinalUse = (medicinalUse) => {
         setSelectedMedicinalUse(medicinalUse);
@@ -18,7 +19,7 @@ const Filter = ({medicines}) => {
     
       const filteredArray = medicines.filter((medicine) => {
         return (
-          medicine.extras.medicinalUse === selectedMedicinalUse ||
+          medicine.medicinalUse === selectedMedicinalUse ||
           selectedMedicinalUse === "all"
         );
       });
@@ -28,7 +29,7 @@ const Filter = ({medicines}) => {
       // ));
 
       const handleAddToCart = (medicine) => {
-        if (medicine.extras.availableQuantity > 0) {
+        if (medicine.quantity > 0) {
           const updatedCart = [...cart];
       
           const existingItem = updatedCart.find((item) => item.name === medicine.name);
@@ -92,7 +93,9 @@ const Filter = ({medicines}) => {
                 name={medicine.name}
                 description={medicine.description}
                 price={medicine.price}
-                extras={medicine.extras}
+                sales={medicine.sales}
+                quantity={medicine.quantity}
+                medicinalUse={medicine.medicinalUse}
                 onAddToCart={handleAddToCart}
             />
         );

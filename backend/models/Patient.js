@@ -41,7 +41,22 @@ const patientSchema = new Schema(
       },
       endDate: Date,
     },
-    
+    cart: [
+      {
+        medicine: {
+          type: Schema.Types.ObjectId,
+          ref: "Medicine"
+        },
+        quantity: Number,
+      }
+    ],
+    deliveryAddresses: [
+      {
+        apartmentNumber: Number,
+        streetName: String,
+        city: String
+      }
+    ],
   },
   { toJSON: { virtuals: true } }
 );

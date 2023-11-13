@@ -3,9 +3,9 @@ import './card.css';
 import Button from '@mui/material/Button';
  
 
-const ProductCard = ({name,description,price,extras,onAddToCart}) => {
+const ProductCard = ({name,description,price,sales,quantity,medicinalUse,onAddToCart}) => {
   const handleClick = () => {
-    onAddToCart({ name, description, price, extras });   
+    onAddToCart({ name, description, price, sales,quantity,medicinalUse });   
    };
 
   return (
@@ -35,13 +35,13 @@ const ProductCard = ({name,description,price,extras,onAddToCart}) => {
         <p className="product-price">${price}</p>
         </div>
         <p className="product-description">{description}</p>
-        <p className="extras">→ Sold: {extras.sales}</p>
-        <p className="extras">→ In Stock: {extras.availableQuantity}</p>
-        <p className="extras">→ Use: {extras.medicinalUse}</p>
+        <p className="extras">→ Sold: {sales}</p>
+        <p className="extras">→ In Stock: {quantity}</p>
+        <p className="extras">→ Use: {medicinalUse}</p>
         
       </div>
       <div className="button-div">
-        <Button className="add-button" onClick={handleClick} disabled={extras.availableQuantity === 0}>{extras.availableQuantity > 0 ? "Add to Cart" : "Sold Out"}</Button>
+        <Button className="add-button" onClick={handleClick} disabled={quantity === 0}>{quantity > 0 ? "Add to Cart" : "Sold Out"}</Button>
       </div>
     </div>
   // </div>  
