@@ -35,8 +35,8 @@ const ProductCard = ({name,description,price,sales,quantity,medicinalUse,onAddTo
         <p className="product-price">${price}</p>
         </div>
         <p className="product-description">{description}</p>
-        <p className="extras">→ Sold: {sales}</p>
-        <p className="extras">→ In Stock: {quantity}</p>
+        {/* <p className="extras">→ Sold: {sales}</p>
+        <p className="extras">→ In Stock: {quantity}</p> */}
         <p className="extras">→ Use: {medicinalUse}</p>
         
       </div>

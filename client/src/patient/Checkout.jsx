@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef } from 'react';
+import React, { useState, Fragment, useRef, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -30,7 +30,7 @@ import Toast from "./Toast";
 const Checkout = ({ }) => {
 
   const location = useLocation();
-  const { totalAmount, cartItems } = location.state
+  const { totalAmount, cartItems,medicines } = location.state
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = ["Personal Info", "Delivery", "Payment"];
   const savedAddresses = ['Address 1', 'Address 2', 'Address 3'];
@@ -91,6 +91,34 @@ const Checkout = ({ }) => {
       message: "Payment unsuccessful",
     });
   }
+  //itemsAndQuantities is an array of each purchased item and the quantity purchsed to be deducted from "availableQuantity" 
+  //AND added to "sold" in db
+
+  useEffect(() => {
+    updateAvailableQuantities();
+  }, []); 
+  console.log("medcines: " , medicines);
+  const updateAvailableQuantities = () => {
+    const updatedMedicines = [...medicines];
+    const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
+    console.log("itemsAndQuantities:" ,itemsAndQuantities);
+    itemsAndQuantities.forEach(item => {
+      console.log('Checking:', item[0]);
+      const medicineToUpdate = updatedMedicines.find(medicine => {
+        console.log('Medicine Name:', medicine.name);
+        return medicine.name === item[0];
+      });
+    
+      console.log('Found Medicine:', medicineToUpdate);
+      if (medicineToUpdate) {
+        medicineToUpdate.quantity -= item[1];
+        //console.log(" quantity is now ", medicineToUpdate.extras.availableQuantity)
+      }
+    });
+    console.log('Updated Medicines:', updatedMedicines);
+  };
+    
+
 
   const handleAddressSelection = (address) => {
     setSelectedAddress(address);

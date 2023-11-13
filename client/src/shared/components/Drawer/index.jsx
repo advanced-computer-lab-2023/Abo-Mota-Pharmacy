@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import DrawerItem from '../DrawerItem';
 import { useNavigate } from 'react-router-dom';
 
-export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onDeleteItem, onQuantityInc, onQuantityDec, totalAmount}) {
+export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onDeleteItem, onQuantityInc, onQuantityDec, totalAmount, medicines}) {
   const toggleDrawer = (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -17,7 +17,8 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onD
   }, 0);
   
   const navigate=useNavigate();
-  const handleRedirect=()=> navigate('../Checkout',{state: {totalAmount,cartItems} });
+  console.log("medicines at drawer:", medicines);
+  const handleRedirect=()=> navigate('../Checkout',{state: {totalAmount,cartItems, medicines} });
   
 
   return (
