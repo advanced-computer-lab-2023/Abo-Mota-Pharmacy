@@ -72,16 +72,16 @@ const createOrder = async (req, res) => {
 
 		let totalPrice = 0;
 
+		const { medicines } = req.body
+
 		medicines.forEach((medicine) => {
 			totalPrice += medicine.price * medicine.quantity;
 		});
 
-		if (clinicPatientExists && (clinicPatientExists.healthPackage.status.equals('subscribed') || clinicPatientExists.healthPackage.status.equals('unsubscribed'))) {
+		if (clinicPatientExists && (clinicPatientExists.healthPackage.status === 'subscribed' || clinicPatientExists.healthPackage.status === 'unsubscribed')) {
 			totalPrice *= (1 - clinicPatientExists.healthPackage.pharmacyDiscount);
 		}
 
-		const { medicines} = req.body
-		
 		const updatedMedicines = medicines.map(async (medicine) => {
 			const dBMedicine = await Medicine.findOne({ name: medicine.name });
 			const updatedMedicine = await Medicine.updateOne({ _id: dBMedicine._id }, { sales: dBMedicine.sales + medicine.quantity, quantity: dBMedicine.quantity - medicine.quantity });

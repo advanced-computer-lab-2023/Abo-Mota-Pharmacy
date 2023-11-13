@@ -24,6 +24,7 @@ import { MdDriveFileRenameOutline } from 'react-icons/md';
 import CardPayment from "./stripe/CardPayment"
 import WalletPayment from './stripe/WalletPayment';
 import { useCreateOrderMutation } from '../store';
+import Toast from "./Toast";
 
 
 const Checkout = ({ }) => {
@@ -47,8 +48,49 @@ const Checkout = ({ }) => {
   const cities = ['Cairo', 'Giza', 'Alex'];
   const [selectedAddress, setSelectedAddress] = useState(null); // Initialize selectedAddress state
 
+
+
   // PAYMENT INTEGRATION
+  const [toast, setToast] = useState({
+    open: false,
+    duration: 4000
+  });
+
+  const onToastClose = (event, reason) => {
+    if (reason === "clickaway") return;
+
+    setToast({
+      ...toast,
+      open: false,
+    });
+  };
+
   const [createOrder] = useCreateOrderMutation();
+  const onSuccessfulCheckout = () => {
+    createOrder({
+      medicines: cartItems
+    });
+
+    setToast({
+      ...toast,
+      open: true,
+      color: "success",
+      message: "Payment completed successfully!",
+    });
+
+    setTimeout(() => {
+      navigate("/patient/");
+    }, 1500);
+  }
+
+  const onFailedCheckout = () => {
+    setToast({
+      ...toast,
+      open: true,
+      color: "danger",
+      message: "Payment unsuccessful",
+    });
+  }
 
   const handleAddressSelection = (address) => {
     setSelectedAddress(address);
@@ -372,32 +414,16 @@ const Checkout = ({ }) => {
             {selectedOption === "card" ? (
               <CardPayment
                 deductible={totalAmount}
-                onSuccess={() => {
-                  createOrder({
-                    medicines: cartItems
-                  });
-
-                  alert("Order created successfully!");
-                }}
-                onFailure={() => {
-                  alert("Order creation failed!");
-                }}
+                onSuccess={onSuccessfulCheckout}
+                onFailure={onFailedCheckout}
               />
             ) : (
               selectedOption === "wallet" ?
                 (
                   <WalletPayment
                     deductible={totalAmount}
-                    onSuccess={() => {
-                      createOrder({
-                        medicines: cartItems
-                      });
-
-                      alert("Order created successfully!");
-                    }}
-                    onFailure={() => {
-                      alert("Order creation failed!");
-                    }}
+                    onSuccess={onSuccessfulCheckout}
+                    onFailure={onFailedCheckout}
                   />
                 ) :
                 <button className='viewOrderButton' onClick={handleRedirect}>
@@ -462,6 +488,10 @@ const Checkout = ({ }) => {
           </Box>
         </Fragment>
       )}
+
+
+      <Toast {...toast} onClose={onToastClose} />
+
     </Box>
 
     // const queryParams = new URLSearchParams(location.search);
