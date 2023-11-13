@@ -29,9 +29,7 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
   // console.log(medicineDetails);
   const [editMedicine,results] = useEditMedicineMutation();
   // console.log('medicineDetails' , medicineDetails);
-  const onSubmit = async (values, {resetForm}) => {
-    console.log('here');
-    
+  const onSubmit = async (values, {resetForm}) => {    
     const cleanedValues = {...values};
     cleanedValues.quantity = values.addQuantity ? parseInt(values.addQuantity) : '';
     delete cleanedValues.addQuantity
@@ -39,9 +37,7 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
     // use name and cleanedvalues to do the update
     setIsLoading(true);
     console.log('dataBase', dataBaseValues);
-    // await editMedicine({name,dataBaseValues});
-    // await new Promise(resolve => setTimeout(resolve, 3000));
-    // Remove the above await and insert code for backend registeration here.
+    await editMedicine({name,dataBaseValues});
     setIsLoading(false);
     onClose();
   };
