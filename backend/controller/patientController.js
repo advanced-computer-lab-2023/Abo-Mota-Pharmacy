@@ -78,7 +78,7 @@ const createOrder = async (req, res) => {
 			totalPrice += medicine.price * medicine.quantity;
 		});
 
-		if (clinicPatientExists && (clinicPatientExists.healthPackage.status.equals('subscribed') || clinicPatientExists.healthPackage.status.equals('unsubscribed'))) {
+		if (clinicPatientExists && (clinicPatientExists.healthPackage.status === 'subscribed' || clinicPatientExists.healthPackage.status === 'unsubscribed')) {
 			totalPrice *= (1 - clinicPatientExists.healthPackage.pharmacyDiscount);
 		}
 

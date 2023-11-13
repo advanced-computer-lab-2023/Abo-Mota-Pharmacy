@@ -10,6 +10,10 @@ const patientApi = createApi({
     endpoints(builder) {
         return {
             getPatient: builder.query({
+                providesTags: (result, error) => {
+                    return ["Patient"];
+                },
+
                 query: () => ({
                     url: '/',
                     method: 'GET',
@@ -23,10 +27,25 @@ const patientApi = createApi({
             }),
 
             payByWallet: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+                
                 query: (data) => {
                     return {
                         url: "/payByWallet",
                         method: "PATCH",
+                        body: data,
+                    };
+                },
+            }),
+
+            createOrder: builder.mutation({
+                
+                query: (data) => {
+                    return {
+                        url: "/createOrder",
+                        method: "POST",
                         body: data,
                     };
                 },
@@ -41,5 +60,6 @@ export const {
     useGetPatientQuery,
     useGetMedicinesQuery,
     usePayByWalletMutation,
+    useCreateOrderMutation,
 } = patientApi;
 export { patientApi };
