@@ -4,19 +4,23 @@ import { guestApi } from "./apis/guestApi.js";
 import { pharmacistApi } from "./apis/pharmacistApi.js";
 import { patientApi } from "./apis/patientApi.js";
 import { adminApi } from "./apis/adminApi.js";
+import { stripeApi } from "./apis/stripeApi";
+
 export const store = configureStore({
   reducer: {
     [guestApi.reducerPath]: guestApi.reducer,
     [patientApi.reducerPath]: patientApi.reducer,
     [pharmacistApi.reducerPath]: pharmacistApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
+    [stripeApi.reducerPath]: stripeApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
       .concat(guestApi.middleware)
       .concat(pharmacistApi.middleware)
       .concat(patientApi.middleware)
-      .concat(adminApi.middleware);
+      .concat(adminApi.middleware)
+      .concat(stripeApi.middleware);
   },
 });
 
@@ -31,7 +35,11 @@ export {
   useGetAllMedicinesQuery,
 } from "./apis/pharmacistApi";
 
-export { useGetPatientQuery, useGetMedicinesQuery } from "./apis/patientApi";
+export {
+  useGetPatientQuery,
+  useGetMedicinesQuery,
+  usePayByWalletMutation,
+} from "./apis/patientApi";
 
 export {
   useFetchPharmacistsQuery,
@@ -43,3 +51,8 @@ export {
   useFetchPatientsQuery,
   useHandleApplicationMutation,
 } from "./apis/adminApi";
+
+export {
+  useCreatePaymentIntentMutation,
+  useFetchStripeConfigQuery,
+} from "./apis/stripeApi";
