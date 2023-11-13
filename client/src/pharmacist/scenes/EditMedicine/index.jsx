@@ -10,6 +10,7 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { useState } from 'react';
 import LoadingIndicator from '../../../shared/components/LoadingIndicator';
 import { useEditMedicineMutation } from '../../../store';
+import FileInput from '../../../shared/components/FileInput';
 
 
 const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
@@ -21,6 +22,7 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
     description: '',
     addQuantity: '',
     medicinalUse: medicinalUse,
+    medicineImage: null
     
   };
   // console.log(medicinalUse);
@@ -28,16 +30,16 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
   const [editMedicine,results] = useEditMedicineMutation();
   // console.log('medicineDetails' , medicineDetails);
   const onSubmit = async (values, {resetForm}) => {
-    // console.log(values);
+    console.log('here');
     
     const cleanedValues = {...values};
     cleanedValues.quantity = values.addQuantity ? parseInt(values.addQuantity) : '';
     delete cleanedValues.addQuantity
-    const dataBaseValues = Object.fromEntries(Object.entries(cleanedValues).filter(([_, v]) => v !== ''));
+    const dataBaseValues = Object.fromEntries(Object.entries(cleanedValues).filter(([_, v]) => (v !== '' && v !== null)));
     // use name and cleanedvalues to do the update
     setIsLoading(true);
     console.log('dataBase', dataBaseValues);
-    await editMedicine({name,dataBaseValues});
+    // await editMedicine({name,dataBaseValues});
     // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
@@ -92,6 +94,16 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
           touch={formik.touched.medicinalUse}
           onChange={formik.handleChange}
         />
+
+        <FileInput
+          label="Medicine Image"
+          id="medicineImage"
+          name="medicineImage" // Ensure this is set to correctly associate with Formik's `getFieldProps`
+          error={formik.errors.medicineImage}
+          touch={formik.touched.medicineImage}
+          onChange={(file) => formik.setFieldValue('medicineImage', file)}
+          onBlur={() => formik.setFieldTouched('medicineImage', true)} // To handle touch status
+          />
         </div>
         <div className='edit-medicine-button'>
 { isLoading ? <LoadingIndicator /> :<Button type="submit">
@@ -117,6 +129,10 @@ const EditMedicine = ({isOpen, onClose, medicineDetails}) => {
   );
 };
 
+const FILE_SIZE = 10000 * 1024; // e.g., 160 KB
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+
+
 const medicineSchema = yup.object().shape({
   price: yup.number().positive('Price should be a positive number'),
   
@@ -124,7 +140,29 @@ const medicineSchema = yup.object().shape({
   
   addQuantity: yup.number().integer('Available quantity should be an integer').min(0, 'Available quantity should be non-negative'),
 
-  medicinalUse: yup.string().min(5, 'Medicinal use should be at least 5 characters').max(500, 'Medicinal use is too long')
+  medicinalUse: yup.string().min(5, 'Medicinal use should be at least 5 characters').max(500, 'Medicinal use is too long'),
+
+  medicineImage: yup
+  .mixed()
+  .nullable()
+  .test(
+    'fileFormat',
+    'Unsupported Format',
+    (value) => {
+      if(!value) return true;
+      let file = value instanceof FileList ? value[0] : value;
+      return file && SUPPORTED_FORMATS.includes(file.type);
+    }
+  )
+  .test(
+    'fileSize',
+    'File too large',
+    (value) => {
+      if(!value) return true;
+      let file = value instanceof FileList ? value[0] : value;
+      return file && file.size <= FILE_SIZE;
+    }
+  ),
 });
 
 export default EditMedicine;
