@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import { Button, Typography, Card } from "@mui/joy";
+import { Button, Typography, Card,Divider } from "@mui/joy";
 import { useNavigate } from 'react-router-dom';
 import { FaRegCreditCard } from "react-icons/fa";
 import { IoWallet } from "react-icons/io5";
@@ -25,6 +25,7 @@ import CardPayment from "./stripe/CardPayment"
 import WalletPayment from './stripe/WalletPayment';
 import { useCreateOrderMutation } from '../store';
 import Toast from "./Toast";
+import { LuStethoscope, LuCalendarClock, LuBuilding } from "react-icons/lu";
 
 
 const Checkout = ({ }) => {
@@ -32,8 +33,8 @@ const Checkout = ({ }) => {
   const location = useLocation();
   const { totalAmount, cartItems,medicines } = location.state
   const [activeStep, setActiveStep] = React.useState(0);
-  const steps = ["Personal Info", "Delivery", "Payment"];
-  const savedAddresses = ['Address 1', 'Address 2', 'Address 3'];
+  const steps = ["Delivery",  "Payment"];
+  const savedAddresses = ['800,Nasr,Ciiro', 'Address 2', 'Address 3'];
   const [paymentStatus, setPaymentStatus] = useState(null);
   const walletAmount = 100;
   const [selectedOption, setSelectedOption] = useState(null);
@@ -47,7 +48,9 @@ const Checkout = ({ }) => {
   const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
   const cities = ['Cairo', 'Giza', 'Alex'];
   const [selectedAddress, setSelectedAddress] = useState(null); // Initialize selectedAddress state
-
+  const [apartmentNumber, setApartmentNumber] = useState('');
+  const [streetName, setStreetName] = useState('');
+  const [city, setCity] = useState('');
 
 
   // PAYMENT INTEGRATION
@@ -79,7 +82,7 @@ const Checkout = ({ }) => {
     });
 
     setTimeout(() => {
-      navigate("/patient/");
+      navigate("/patient/order" , { state: { totalAmount, cartItems } });
     }, 1500);
   }
 
@@ -119,9 +122,27 @@ const Checkout = ({ }) => {
   };
     
 
-
+  const handleAddAddress=()=>{
+    setToast({
+      ...toast,
+      open: true,
+      color: "success",
+      message: "Address added successfully!",
+    });
+  }
   const handleAddressSelection = (address) => {
+   // Split the address into components
+  const addressComponents = address.split(','); // Assuming the address follows a format like "Apt 123, Elm Street, New York"
+
+  // Extract components
+  const [apartment, street, selectedCity] = addressComponents;
+
+  // Update state for each component
+  setApartmentNumber(apartment);
+  setStreetName(street);
+  setCity(selectedCity);
     setSelectedAddress(address);
+
   };
 
   const handleLocateClick = () => {
@@ -148,7 +169,7 @@ const Checkout = ({ }) => {
   const handleBack = () => {
 
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    if (prevActiveStep === 2) {
+    if (prevActiveStep === 0) {
       setSelectedOption(null);
     }
   };
@@ -264,9 +285,12 @@ const Checkout = ({ }) => {
   const renderCashOnDeliveryButton = () => {
     if (selectedOption === 'cash') {
       return (
-        <button className='viewOrderButton' onClick={handleRedirect}>
-          View my order!
+        <>
+        <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
+        <button className='viewOrderButton' onClick={onSuccessfulCheckout}>
+          Place Order
         </button>
+        </>
       );
     }
     return null;
@@ -299,31 +323,10 @@ const Checkout = ({ }) => {
     switch (stepIndex) {
       case 0:
         return (
-          <div >
-            <div >
-              <Typography level="h6" sx={{ ml: 0.5 }}> <MdDriveFileRenameOutline />First Name*:</Typography>
-              <Input placeholder="" sx={{ width: '100%', fontSize: '1.5rem', '&::before': { display: 'none' }, '&:focus-within': { outline: '2px solid var(--Input-focusedHighlight)', outlineOffset: '2px' } }} />
-
-              <Typography level="h6" sx={{ ml: 0.5 }}> <MdDriveFileRenameOutline />Last Name*:</Typography>
-              <Input placeholder="" sx={{ width: '100%', fontSize: '1.5rem', '&::before': { display: 'none' }, '&:focus-within': { outline: '2px solid var(--Input-focusedHighlight)', outlineOffset: '2px' } }} />
-            </div>
-
-            <div >
-              <Typography level="h6" sx={{ ml: 0.5 }}> <AiTwotoneMail />Email address for notifications:</Typography>
-              <Input placeholder="" sx={{ width: '100%', fontSize: '1.5rem', '&::before': { display: 'none' }, '&:focus-within': { outline: '2px solid var(--Input-focusedHighlight)', outlineOffset: '2px' } }} />
-
-              <Typography level="h6" sx={{ ml: 0.5 }}> <BiSolidMobileVibration />Phone Number*:</Typography>
-              <Input placeholder="" sx={{ width: '100%', fontSize: '1.5rem', '&::before': { display: 'none' }, '&:focus-within': { outline: '2px solid var(--Input-focusedHighlight)', outlineOffset: '2px' } }} />
-            </div>
-          </div>
-        );
-
-      case 1:
-        return (
           <div>
             <div className="column">
               <Typography level="h6" sx={{ ml: 0.5 }}> Apartment Number*:</Typography>
-              <Input placeholder="" sx={{
+              <Input placeholder="Apartment Number" value={apartmentNumber} onChange={(e) => setApartmentNumber(e.target.value)} sx={{
                 width: '100%', fontSize: '1.5rem', '&::before':
                   { display: 'none' }, '&:focus-within': { outline: '2px solid var(--Input-focusedHighlight)', outlineOffset: '2px' }
               }} />
@@ -331,32 +334,21 @@ const Checkout = ({ }) => {
 
             <div className="column">
               <Typography level="h6" sx={{ ml: 0.5 }}> Street Name*:</Typography>
-              <Input placeholder="" sx={{
+              <Input placeholder="Street Name" value={streetName} onChange={(e) => setStreetName(e.target.value)} sx={{
                 width: '100%', fontSize: '1.5rem', '&::before':
                   { display: 'none' }, '&:focus-within': { outline: '2px solid var(--Input-focusedHighlight)', outlineOffset: '2px' }
               }} />
             </div>
 
             <div className="column">
-              <Typography level="h6" sx={{ ml: 0.5 }}> Address*:</Typography>
-              <Stack spacing={1.5}>
-                <Input placeholder="Your address"
-                  startDecorator={
-                    <Button variant="soft" color="neutral" startDecorator={<LocationOn />} onClick={handleLocateClick}>
-                      Locate
-                    </Button>
-                  }
-                  sx={{ width: '100%' }}
-                />
-              </Stack>
-              {showMap && (
-                // Render the map when showMap state is true
-                // You'll need to implement the map integration here
-                <div>
-                  {/* Your map component or integration */}
-                </div>
-              )}
+              <Typography level="h6" sx={{ ml: 0.5 }}> City*:</Typography>
+              <Input placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} sx={{
+                width: '100%', fontSize: '1.5rem', '&::before':
+                  { display: 'none' }, '&:focus-within': { outline: '2px solid var(--Input-focusedHighlight)', outlineOffset: '2px' }
+              }} />
             </div>
+
+           
 
             <div className="column">
               <Typography level="h6" sx={{ mr: 0.5 }} > Saved Addresses*:
@@ -377,30 +369,12 @@ const Checkout = ({ }) => {
               </Typography>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div>
-                <Typography level="h6" sx={{ ml: 0.5 }} style={{ marginRight: '10px' }}> City*:
-                  <Dropdown open={openCity} onOpenChange={handleOpenChangeCity} >
-                    <MenuButton style={{ marginLeft: '10px' }}>
-                      {selectedCity ? selectedCity : 'City'} <BsArrowDownSquare style={{ marginLeft: '10px' }} />
-                    </MenuButton>
-                    <Menu>
-                      {cities.map((city, index) => (
-                        <MenuItem key={index} onClick={() => setSelectedCity(city)}>
-                          {city}
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </Dropdown>
-
-                </Typography>
-
-
-              </div>
-              <div style={{ marginLeft: '30px' }}>
-                <Typography style={{ width: '100%' }} level="h8" sx={{ ml: 0 }}> Set As Default
-                  <input type="checkbox" id="isDefault" />
-
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: 10 }} className='flex justify-end'>
+              
+              <div style={{ marginLeft: '30px' }} >
+                <Typography style={{ width: '100%' }} level="h8" sx={{ ml: 0 }}> 
+                  
+                <Button onClick={handleAddAddress}>Add Address</Button>
                 </Typography>
 
               </div>
@@ -412,7 +386,10 @@ const Checkout = ({ }) => {
           </div>
         );
 
-      case 2:
+      
+        
+
+      case 1:
         return (
           <Card sx={{ borderRadius: 0, p: 4 }}>
             <Box id="button-group" sx={{ display: "flex", gap: 1 }} className="flex space-x-2 mb-5">
@@ -439,26 +416,27 @@ const Checkout = ({ }) => {
 
             {/* MAIN PAYMENT COMPONENT */}
 
-            {selectedOption === "card" ? (
+            {selectedOption === "card" && (
               <CardPayment
                 deductible={totalAmount}
+                totalAmount={totalAmount}
                 onSuccess={onSuccessfulCheckout}
                 onFailure={onFailedCheckout}
               />
-            ) : (
-              selectedOption === "wallet" ?
+            )}
+              {selectedOption === "wallet" &&
                 (
                   <WalletPayment
                     deductible={totalAmount}
                     onSuccess={onSuccessfulCheckout}
+                    totalAmount={totalAmount}
                     onFailure={onFailedCheckout}
                   />
-                ) :
-                <button className='viewOrderButton' onClick={handleRedirect}>
-                  View my order!
-                </button>
-            )
-            }
+                  
+                ) }
+                {selectedOption === "cash" &&(
+                  renderCashOnDeliveryButton()
+                )} 
           </Card>
         );
       default:
@@ -490,15 +468,7 @@ const Checkout = ({ }) => {
 
       </div>
 
-      {activeStep === steps.length ? (
-        <Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </Fragment>
-      ) : (
+      
         <Fragment>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <div >
@@ -509,27 +479,18 @@ const Checkout = ({ }) => {
             <Box sx={{ flex: "1 1 auto" }} />
 
 
-            {activeStep === steps.length - 1 ? renderPaymentStatus() :
+            {activeStep === steps.length -1 ? renderPaymentStatus() :
               <Button onClick={handleNext}>
                 Next
               </Button>}
           </Box>
         </Fragment>
-      )}
+      
 
 
       <Toast {...toast} onClose={onToastClose} />
 
     </Box>
-
-    // const queryParams = new URLSearchParams(location.search);
-    // const totalAmount = queryParams.get('total');
-
-    // array of each purchased item and the quantity purchsed to be deducted from "availableQuantity" AND added to "sold" in db
-
-
-
-
 
   )
 };
