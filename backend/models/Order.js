@@ -3,10 +3,16 @@ const { Schema } = mongoose;
 
 const orderSchema = new Schema({
         medicines: [{
-        type: Schema.Types.ObjectId,
-        ref: "Medicine"
+            name: String,
+            price: Number,
+	        quantity: Number,
+            medicineImage: {
+                data: Buffer,
+                contentType: String
+            }
       }],
         date: Date,
+        totalPrice: Number,
         status: {
             type: String,
             enum: ["cancelled", "pending", "completed"],

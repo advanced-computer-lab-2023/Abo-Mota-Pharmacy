@@ -117,6 +117,13 @@ const Filter = ({medicines}) => {
                 <button className={`btn ${selectedMedicinalUse === "Antipyretic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antipyretic')}>Antipyretic</button>
                 <button className={`btn ${selectedMedicinalUse === "Pain Reliever" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Pain Reliever')}>Pain Reliever</button>
                 <button className={`btn ${selectedMedicinalUse === "Antibiotic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antibiotic')}>Antibiotic</button>
+
+                <button className={`btn ${selectedMedicinalUse === "Antiseptic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antiseptic')}>Antiseptic</button>
+                <button className={`btn ${selectedMedicinalUse === "Antispasmodic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antispasmodic')}>Antispasmodic</button>
+                <button className={`btn ${selectedMedicinalUse === "Antihistamine" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Antihistamine')}>Antihistamine</button>
+                <button className={`btn ${selectedMedicinalUse === "Anti-inflammatory" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse("Anti-inflammatory")}>Anti-inflammatory</button>
+                <button className={`btn ${selectedMedicinalUse === "Diuretic" ? "active" : ""}`} onClick={() => filterMedicinesByMedicinalUse('Diuretic')}>Diuretic</button>
+                
                 
             </div>
             <div className="container">
