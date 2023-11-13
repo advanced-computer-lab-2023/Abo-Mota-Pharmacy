@@ -41,7 +41,7 @@ export default function DrawerItem({name,description,price,quantity,onDelete, qu
         <div className='nameWithPrice2'>
           <h3 className="product-name2">{name}</h3>
           <p className="product-price2">${price}</p>
-          <p className="product-description2">{description}</p>
+          {/* <p className="product-description2">{description}</p> */}
         </div>
         <div>
         {/* <p className="product-quantity">{quantity}</p> */}
