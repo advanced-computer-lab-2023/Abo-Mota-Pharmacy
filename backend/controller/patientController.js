@@ -70,6 +70,8 @@ const createOrder = async (req, res) => {
 		const patient = await Patient.findOne({ username });
 		const clinicPatientExists = await Patient.findOne({ username }).populate("healthPackage.package");
 
+		const {medicines} = req.body
+
 		let totalPrice = 0;
 
 		medicines.forEach((medicine) => {
@@ -80,13 +82,17 @@ const createOrder = async (req, res) => {
 			totalPrice *= (1 - clinicPatientExists.healthPackage.pharmacyDiscount);
 		}
 
-		const { medicines} = req.body
 		
 		const updatedMedicines = medicines.map(async (medicine) => {
-			const dBMedicine = await Medicine.findOne({ name: medicine.name });
-			const updatedMedicine = await Medicine.updateOne({ _id: dBMedicine._id }, { sales: dBMedicine.sales + medicine.quantity, quantity: dBMedicine.quantity - medicine.quantity });
+			const dbMedicine = await Medicine.findOne({ name: medicine.name });
+
+			if(!dbMedicine)
+				throw new Error(name, "does not exist")
+			const updatedMedicine = await Medicine.updateOne({ _id: dbMedicine._id }, { sales: dbMedicine.sales + medicine.quantity, quantity: dbMedicine.quantity - medicine.quantity });
 		})
 		const order = await Order.create({medicines, date: new Date (), patient: patient._id, totalPrice});
+
+		const updatedPatient = await Patient.updateOne({username, cart: []})
 
 		res.status(200).json({ order, updatedMedicines });
 
@@ -99,7 +105,15 @@ const createOrder = async (req, res) => {
 const addToCart = async (req, res) => {
 	try {
 		const username = req.userData.username;
-		const patient = await Patient.findOne({username}).populate("");
+		const patient = await Patient.findOne({username}).populate({
+			path: "cart",
+			populate: {
+			  path: "medicine",
+			  model: "Medicine",
+			},
+		  });
+
+		console.log(patient)
 		const name = req.body.name;
 		const medicine = await Medicine.findOne({ name });
 
@@ -109,7 +123,11 @@ const addToCart = async (req, res) => {
 			throw new Error("Not enough medicine in stock");
 		}
 
-		const existingCartItem = patient.cart.find((item) => item.medicine._id === medicine._id);
+		console.log("patient.cart:", patient.cart);
+		console.log("medicine:", medicine);
+		
+		const existingCartItem = patient.cart.find((item) => item.medicine._id.equals(medicine._id));
+		console.log("existingCartItem:", existingCartItem);		
 
 		if (existingCartItem) {
 			existingCartItem.quantity += 1;
@@ -118,7 +136,7 @@ const addToCart = async (req, res) => {
 			patient.cart.push({ medicine, quantity: 1 });
 		}
 		await patient.save();
-		res.status(200).json({cart: patient.cart});
+		res.status(200).json({patient});
 		
 	} catch(error){
 		res.status(500).json({ error: error.message });
@@ -128,26 +146,34 @@ const addToCart = async (req, res) => {
 const removeFromCart = async (req, res) => {
 	try {
 
-		const { medicineId, quantity } = req.body;
+		const { name, quantity } = req.body;
 
 		const username = req.userData.username;
-		const loggedIn = await Patient.findOne({ username });
+		const loggedIn = await Patient.findOne({ username }).populate({
+			path: "cart",
+			populate: {
+			  path: "medicine",
+			  model: "Medicine",
+			},
+		  });
 
 		const cart = loggedIn.cart;
+		console.log("CART", cart);
 
-		const existingCartItem = cart.find((item) => item.medicine._id === medicineId && item.quantity === 1);
+		updatedCart = cart.map((item) => {
+			if (item.medicine.name === name) {
+			  // Convert the Mongoose document to a plain JavaScript object
+			  const itemObject = item.toObject();
+			  return { ...itemObject, quantity: itemObject.quantity - quantity };
+			}
+			return item;
+		  }).filter((item) => item.quantity > 0);
+		  
+		
 
-		let updatedCart;
-		if (existingCartItem) {
-			updatedCart = cart.filter((item) => item.medicine._id !== existingCartItem._id);
-		} else {
-			updatedCart = cart.map((item) => {
-				if (item.medicine._id === medicineId)
-					return { ...item, quantity: item.quantity - quantity }
-			})
-		}
+		console.log("UPDATED" ,updatedCart)
 
-		const updatedPatient = await Patient.updateOne({ _id: loggedIn._id }, { cart: updatedCart });
+		const updatedPatient = await Patient.updateOne({ username }, { cart: updatedCart });
 		res.status(200).json({ updatedPatient });
 
 	} catch (error) {
