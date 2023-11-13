@@ -32,6 +32,16 @@ const patientApi = createApi({
                 },
             }),
 
+            createOrder: builder.mutation({
+                query: (data) => {
+                    return {
+                        url: "/createOrder",
+                        method: "POST",
+                        body: data,
+                    };
+                },
+            }),
+
 
         }
     },
@@ -41,5 +51,6 @@ export const {
     useGetPatientQuery,
     useGetMedicinesQuery,
     usePayByWalletMutation,
+    useCreateOrderMutation,
 } = patientApi;
 export { patientApi };

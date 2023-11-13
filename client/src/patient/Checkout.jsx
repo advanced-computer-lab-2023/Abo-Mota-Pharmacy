@@ -23,11 +23,11 @@ import { BsArrowDownSquare } from 'react-icons/bs';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
 import CardPayment from "./stripe/CardPayment"
 import WalletPayment from './stripe/WalletPayment';
-
-
+import { useCreateOrderMutation } from '../store';
 
 
 const Checkout = ({ }) => {
+
   const location = useLocation();
   const { totalAmount, cartItems } = location.state
   const [activeStep, setActiveStep] = React.useState(0);
@@ -47,6 +47,8 @@ const Checkout = ({ }) => {
   const cities = ['Cairo', 'Giza', 'Alex'];
   const [selectedAddress, setSelectedAddress] = useState(null); // Initialize selectedAddress state
 
+  // PAYMENT INTEGRATION
+  const [createOrder] = useCreateOrderMutation();
 
   const handleAddressSelection = (address) => {
     setSelectedAddress(address);
@@ -120,11 +122,15 @@ const Checkout = ({ }) => {
     if (selectedOption === 'credit') {
       return (
         <>
-          <CardPayment
+          {/* <CardPayment
             deductible={500}
-            onSuccess={() => { }}
+            onSuccess={() => { 
+              createOrder({
+                medicines: []
+              })
+            }}
             onFailure={() => { }}
-          />
+          /> */}
         </>
       );
     } else if (selectedOption === 'wallet') {
@@ -335,7 +341,7 @@ const Checkout = ({ }) => {
 
           </div>
         );
-      
+
       case 2:
         return (
           <Card sx={{ borderRadius: 0, p: 4 }}>
@@ -365,17 +371,33 @@ const Checkout = ({ }) => {
 
             {selectedOption === "card" ? (
               <CardPayment
-                deductible={200}
-                onSuccess={() => { }}
-                onFailure={() => { }}
+                deductible={totalAmount}
+                onSuccess={() => {
+                  createOrder({
+                    medicines: cartItems
+                  });
+
+                  alert("Order created successfully!");
+                }}
+                onFailure={() => {
+                  alert("Order creation failed!");
+                }}
               />
             ) : (
               selectedOption === "wallet" ?
                 (
                   <WalletPayment
-                    deductible={200}
-                    onSuccess={() => { }}
-                    onFailure={() => { }}
+                    deductible={totalAmount}
+                    onSuccess={() => {
+                      createOrder({
+                        medicines: cartItems
+                      });
+
+                      alert("Order created successfully!");
+                    }}
+                    onFailure={() => {
+                      alert("Order creation failed!");
+                    }}
                   />
                 ) :
                 <button className='viewOrderButton' onClick={handleRedirect}>

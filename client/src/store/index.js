@@ -39,6 +39,7 @@ export {
   useGetPatientQuery,
   useGetMedicinesQuery,
   usePayByWalletMutation,
+  useCreateOrderMutation,
 } from "./apis/patientApi";
 
 export {
