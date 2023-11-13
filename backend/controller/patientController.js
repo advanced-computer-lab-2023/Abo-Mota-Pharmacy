@@ -64,8 +64,8 @@ const cancelOrder = async (req, res) => {
 
 
 //Payment should be done before
-const addOrder = async (req, res) => {
-	try {
+const createOrder = async (req, res) => {
+	try{
 		const username = req.userData.username;
 		const patient = await Patient.findOne({ username });
 		const clinicPatientExists = await Patient.findOne({ username }).populate("healthPackage.package");
@@ -80,14 +80,13 @@ const addOrder = async (req, res) => {
 			totalPrice *= (1 - clinicPatientExists.healthPackage.pharmacyDiscount);
 		}
 
-		const { medicines, date } = req.body
-
+		const { medicines} = req.body
+		
 		const updatedMedicines = medicines.map(async (medicine) => {
 			const dBMedicine = await Medicine.findOne({ name: medicine.name });
 			const updatedMedicine = await Medicine.updateOne({ _id: dBMedicine._id }, { sales: dBMedicine.sales + medicine.quantity, quantity: dBMedicine.quantity - medicine.quantity });
 		})
-
-		const order = await Order.create({ medicines, date, patient: patient._id, totalPrice });
+		const order = await Order.create({medicines, date: new Date (), patient: patient._id, totalPrice});
 
 		res.status(200).json({ order, updatedMedicines });
 
@@ -100,11 +99,13 @@ const addOrder = async (req, res) => {
 const addToCart = async (req, res) => {
 	try {
 		const username = req.userData.username;
-		const patient = await Patient.findOne({ username });
+		const patient = await Patient.findOne({username}).populate("");
 		const name = req.body.name;
 		const medicine = await Medicine.findOne({ name });
 
-		if (medicine.quantity === 0) {
+		if(!medicine)
+			throw new Error("This medicine does not exist")
+		if(medicine.quantity === 0){
 			throw new Error("Not enough medicine in stock");
 		}
 
@@ -117,9 +118,9 @@ const addToCart = async (req, res) => {
 			patient.cart.push({ medicine, quantity: 1 });
 		}
 		await patient.save();
-		res.status(200).send(existingCartItem);
-
-	} catch (error) {
+		res.status(200).json({cart: patient.cart});
+		
+	} catch(error){
 		res.status(500).json({ error: error.message });
 	}
 }
@@ -201,7 +202,7 @@ module.exports = {
 	getMedicines,
 	getOrders,
 	cancelOrder,
-	addOrder,
+	createOrder,
 	removeFromCart,
 	addToCart,
 	addDeliveryAddress,
