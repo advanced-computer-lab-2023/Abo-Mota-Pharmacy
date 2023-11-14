@@ -10,6 +10,7 @@ import OtpScreen from "./shared/pages/OtpScreen";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterScreen from "./patient/scenes/RegisterScreen";
 import RegisterForm from "./pharmacist/scenes/RegisterForm";
+import ConnectAccountForm from "./patient/scenes/ConnectAccountsForm";
 
 function App() {
   return (

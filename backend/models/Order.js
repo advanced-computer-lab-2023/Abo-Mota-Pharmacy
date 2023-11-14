@@ -2,29 +2,30 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-        medicines: [{
-            name: String,
-            price: Number,
-	        quantity: Number,
-            medicineImage: {
-                data: Buffer,
-                contentType: String
-            }
-      }],
-        date: Date,
-        totalPrice: Number,
-        status: {
-            type: String,
-            enum: ["cancelled", "pending", "completed"],
-            default: "pending",
-      },
-      patient: {
-        type: Schema.Types.ObjectId,
-        ref: "Patient",
-      },
-    },
-  { toJSON: { virtuals: true } 
-});
+  medicines: [{
+    name: String,
+    price: Number,
+    quantity: Number,
+    medicineImage: {
+      data: Buffer,
+      contentType: String
+    }
+  }],
+  date: Date,
+  totalPrice: Number,
+  status: {
+    type: String,
+    enum: ["cancelled", "pending", "completed"],
+    default: "pending",
+  },
+  patient: {
+    type: Schema.Types.ObjectId,
+    ref: "Patient",
+  },
+},
+  {
+    toJSON: { virtuals: true }
+  });
 
 
 
