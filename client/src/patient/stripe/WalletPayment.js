@@ -3,7 +3,7 @@ import { useGetPatientQuery } from "../../store";
 import { Button, Typography } from "@mui/joy";
 import { useState } from "react";
 
-function WalletPayment({ deductible, onSuccess, onFailure }) {
+function WalletPayment({ deductible, onSuccess, onFailure,totalAmount }) {
 
   // const { data: patient, isFetching: isFetchingPatient, error: isFetchingPatientError } = useFetchPatientQuery();
   const [payByWallet, walletResults] = usePayByWalletMutation();
@@ -43,6 +43,7 @@ function WalletPayment({ deductible, onSuccess, onFailure }) {
   return (
     <form onSubmit={handlePayByWallet}>
       <Typography level="h3" fontWeight={500}>Available Balance - ${patient.wallet}</Typography>
+      <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
       <Button
         type="submit"
         variant="solid"
