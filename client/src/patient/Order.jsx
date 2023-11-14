@@ -79,7 +79,7 @@ function OrderCard() {
                 description={item.description}
                 price={item.price}
                 quantity={item.quantity}
-                
+                medicineImage={item.medicineImage}
               />
             ))}
               </Typography>
@@ -88,7 +88,7 @@ function OrderCard() {
                 Estimated delivery: <strong>{currentDate}</strong><br />
                 <strong>YOUR ORDER IS ON ITS WAY</strong>
               </Typography>
-              <Button variant="outlined" color="error" onClick={handleButtonClick} disabled={isButtonDisabled}>CANCEL ORDER</Button>
+              {/* <Button variant="outlined" color="error" onClick={handleButtonClick} disabled={isButtonDisabled}>CANCEL ORDER</Button> */}
               <AlertDialogSlide
                 cancelOrder={cancelOrder}
                 open={dialogOpen}

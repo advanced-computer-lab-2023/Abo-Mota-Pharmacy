@@ -42,6 +42,9 @@ app.use("/pharmaApi/stripe", stripeRouter);
 
 // listen for requests
 // listen for requests
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 app.listen(process.env.PORT, () => {
 	console.log(`listening on port ${process.env.PORT}`);
 });

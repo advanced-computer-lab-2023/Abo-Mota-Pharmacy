@@ -86,7 +86,7 @@ const RegisterScreen = () => {
           </div>
           <div className="form-container">
             <Input
-              label="Username*"
+              label="Username* (Link with clinic username)"
               type="text"
               id="userName"
               error={formik.errors.userName}

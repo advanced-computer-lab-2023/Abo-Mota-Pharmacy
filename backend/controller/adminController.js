@@ -118,9 +118,11 @@ const getMedicines = async (req, res) => {
 // Add an Admin
 const addAdmin = async (req, res) => {
 	try {
-		const { username, password } = req.body;
+		const { username, password, email } = req.body;
 
-		const existingUsername = await PharmacyAdmin.findOne({ username: username.toLowerCase() });
+		const existingUsername = await PharmacyAdmin.findOne({
+            $or: [{ username: username.toLowerCase() }, { email: email.toLowerCase() }],
+        });
 
 		if (existingUsername) {
 			return res.status(400).json({ error: "Username is already in use" });
@@ -130,10 +132,10 @@ const addAdmin = async (req, res) => {
 		const newAdmin = await PharmacyAdmin.create({
 			username: username.toLowerCase(),
 			password: hashedPassword,
+			email
 		});
 
-		// Save the new admin to the database
-		// await newAdmin.save();
+		
 
 		res.status(200).json(newAdmin);
 	} catch (error) {
@@ -185,6 +187,7 @@ const deletePharmacist = async (req, res) => {
 const changePassword = async (req, res) => {
 	try {
 		const { oldPassword, newPassword } = req.body;
+		console.log(oldPassword+" "+newPassword)
 		// ** REPLACE THIS LINE WITH LOGIC TO FIND CURRENTLY LOGGED IN DOCTOR ** DONE
 		const username = req.userData.username;
 		const loggedIn = await PharmacyAdmin.findOne({ username });
@@ -194,6 +197,7 @@ const changePassword = async (req, res) => {
 		if (!isMatch) {
 			throw new Error("Old Password is incorrect");
 		}
+		
 		const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 		const updatedUser = await PharmacyAdmin.updateOne(
 			{ _id: loggedIn._id },

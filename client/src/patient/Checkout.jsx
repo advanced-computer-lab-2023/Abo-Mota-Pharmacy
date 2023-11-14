@@ -73,6 +73,8 @@ const Checkout = ({ }) => {
 
   if (isFetching) return <div>Loading...</div>;
 
+  console.log("Patient", patient)
+
   const savedAddresses = patient.deliveryAddresses;
   const addressToString = (address) => {
     return `${address.apartmentNumber}, ${address.streetName}, ${address.city}`;

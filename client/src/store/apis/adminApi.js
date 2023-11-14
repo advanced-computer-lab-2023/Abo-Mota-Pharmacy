@@ -96,6 +96,15 @@ const adminApi = createApi({
           };
         },
       }),
+      changeAdminPassword: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/changePassword",
+            method: "PATCH",
+            body: data,
+          };
+        },
+      })
     };
   },
 });
@@ -108,7 +117,7 @@ export const {
   useRemovePatientMutation,
   useAddAdminMutation,
   useFetchPharmacistsQuery,
-  useFetch,
   useHandleApplicationMutation,
+  useChangeAdminPasswordMutation
 } = adminApi;
 export { adminApi };

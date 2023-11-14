@@ -34,7 +34,7 @@ router.get("/pharmacists", authorize, getPharmacists);
 
 router.get("/pharmacists/:id", authorize, getPharmacist);
 
-router.post("/admins", authorize, addAdmin);
+router.post("/admins", authorize,addAdmin);
 
 router.delete("/patients", authorize, deletePatient);
 
