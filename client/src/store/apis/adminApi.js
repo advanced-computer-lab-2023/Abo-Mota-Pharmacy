@@ -78,5 +78,5 @@ useRemovePharmacistMutation,
 useRemovePatientMutation,
 useAddAdminMutation,
 useFetchPharmacistsQuery,
-useFetch } = adminApi;
+} = adminApi;
 export { adminApi };
