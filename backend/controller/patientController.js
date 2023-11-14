@@ -33,8 +33,9 @@ const getMedicines = async (req, res) => {
 const getOrders = async (req, res) => {
 	try {
 		const username = req.userData.username;
-		const patient = await Patient.find({ username });
+		const patient = await Patient.findOne({ username });
 		const orders = await Order.find({ patient: patient._id });
+
 		if (!orders) throw new Error("You haven't made any orders yet");
 		res.status(200).json(orders);
 	} catch (error) {
@@ -97,9 +98,11 @@ const createOrder = async (req, res) => {
 		}
 
 		const updatedMedicines = medicines.map(async (medicine) => {
+			console.log("med", medicine);
 			const dbMedicine = await Medicine.findOne({ name: medicine.name });
 
-			if (!dbMedicine) throw new Error(name, "does not exist");
+			if (!dbMedicine) throw new Error("This medicine does not exist");
+			
 			const updatedMedicine = await Medicine.updateOne(
 				{ _id: dbMedicine._id },
 				{
@@ -108,6 +111,7 @@ const createOrder = async (req, res) => {
 				}
 			);
 		});
+
 		const order = await Order.create({
 			medicines,
 			date: new Date(),
@@ -200,6 +204,18 @@ const addDeliveryAddress = async (req, res) => {
 		const { apartmentNumber, streetName, city } = req.body;
 
 		const loggedIn = await Patient.findOne({ username });
+
+		loggedIn.deliveryAddresses.some((address) => {
+			if (
+				address.apartmentNumber === apartmentNumber &&
+				address.streetName === streetName &&
+				address.city === city
+			) {
+				throw new Error("This address already exists");
+			}
+		});
+
+
 		await Patient.updateOne(
 			{ username },
 			{

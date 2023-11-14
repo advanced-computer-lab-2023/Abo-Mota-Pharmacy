@@ -31,7 +31,7 @@ const patientApi = createApi({
                 invalidatesTags: (result, error, arg) => {
                     return ["Patient"];
                 },
-                
+
                 query: (data) => {
                     return {
                         url: "/payByWallet",
@@ -42,7 +42,10 @@ const patientApi = createApi({
             }),
 
             createOrder: builder.mutation({
-                
+                invalidatesTags: (result, error, arg) => {
+                    return ["orders"];
+                },
+
                 query: (data) => {
                     return {
                         url: "/createOrder",
@@ -80,6 +83,31 @@ const patientApi = createApi({
                 },
             }),
 
+            addDeliveryAddress: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+
+                query: (data) => {
+                    return {
+                        url: "/deliveryAddress",
+                        method: "PATCH",
+                        body: data,
+                    };
+                },
+            }),
+
+            getOrders: builder.query({
+                providesTags: (result, error) => {
+                    return ["orders"];
+                },
+
+                query: () => ({
+                    url: '/orders',
+                    method: 'GET',
+                }),
+            }),
+
         }
     },
 });
@@ -90,6 +118,8 @@ export const {
     usePayByWalletMutation,
     useCreateOrderMutation,
     useAddToCartMutation,
-    useRemoveFromCartMutation
+    useRemoveFromCartMutation,
+    useAddDeliveryAddressMutation,
+    useGetOrdersQuery,
 } = patientApi;
 export { patientApi };

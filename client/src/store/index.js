@@ -60,6 +60,8 @@ export {
   useCreateOrderMutation,
   useAddToCartMutation,
   useRemoveFromCartMutation,
+  useAddDeliveryAddressMutation,
+  useGetOrdersQuery
 } from "./apis/patientApi";
 
 export {

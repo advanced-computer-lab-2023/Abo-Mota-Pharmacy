@@ -31,7 +31,7 @@ router.post("/createOrder", authorize, createOrder);
 
 router.delete('/removeFromCart', authorize, removeFromCart);
 
-router.patch("/addDeliveryAddress", authorize, addDeliveryAddress);
+router.patch("/deliveryAddress", authorize, addDeliveryAddress);
 
 router.patch("/payByWallet", authorize, payByWallet);
 
