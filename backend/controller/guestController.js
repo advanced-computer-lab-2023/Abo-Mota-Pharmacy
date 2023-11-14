@@ -33,7 +33,7 @@ const registerPatient = async (req, res) => {
 
 		const token = jwt.sign(
 			{
-				username: username,
+				username: username.toLowerCase(),
 				userType: "patient",
 			},
 			JWT_SECRET,
@@ -90,7 +90,7 @@ const registerPharmacist = async (req, res) => {
 
 		const token = jwt.sign(
 			{
-				username: username,
+				username: username.toLowerCase(),
 				userType: "pharmacist",
 			},
 			JWT_SECRET,
@@ -136,7 +136,7 @@ const login = async (req, res) => {
 		//correct creds => create jwt token
 		if (isCorrect) {
 			const payload = {
-				username: username,
+				username: username.toLowerCase(),
 				userType: userType,
 			};
 			//create the token
