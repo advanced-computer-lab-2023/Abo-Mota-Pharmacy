@@ -8,12 +8,12 @@ import MedicineScreen from './scenes/MedicineScreen';
 import Checkout from './Checkout';
 import Order from './Order';
 import OrderCard from './Order'
+import MyOrders from './myOrders'
 
 function PatientApp() {
   const links = [
-    {name: 'MedicineInventory2', to: '/patient/medicine2'},
-    //
-    {name: 'Shop Medicines', to: '/patient/medicine'}
+    {name: 'Shop Medicines', to: '/patient/medicine'},
+    {name: 'View My Orders', to: '/patient/myOrders'}
   ]
   // console.log(data);
   return (
@@ -25,6 +25,8 @@ function PatientApp() {
         <Route path='medicine2' element={<MedicineScreen />} />
         <Route path='checkout' element={<Checkout/>}/>
         <Route path='/order' element={<OrderCard/>}/>
+        <Route path='/myOrders' element={<MyOrders/>}/>
+
         
         {/* </Route> */}
         
