@@ -26,17 +26,18 @@ import WalletPayment from "./stripe/WalletPayment";
 import { useCreateOrderMutation } from "../store";
 import Toast from "./Toast";
 import { LuStethoscope, LuCalendarClock, LuBuilding } from "react-icons/lu";
-import { useAddToCartMutation, useGetPatientQuery } from "../store";
+import { useAddToCartMutation, useGetPatientQuery, useAddDeliveryAddressMutation } from "../store";
 
-const Checkout = ({}) => {
+const Checkout = ({ }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalAmount, cartItems, medicines } = location.state;
+
   const handleRedirect = () => navigate("/patient/order", { state: { totalAmount, cartItems } });
 
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = ["Delivery", "Payment"];
-  const savedAddresses = ["800,Nasr,Ciiro", "Address 2", "Address 3"];
+  // const savedAddresses = ["800,Nasr,Ciiro", "Address 2", "Address 3"];
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -58,23 +59,51 @@ const Checkout = ({}) => {
     duration: 4000,
   });
 
+  const handleOpenChangeCity = React.useCallback((event, isOpen) => {
+    setOpenCity(isOpen);
+  }, []);
+
+  const handleOpenChangeSavedAddresses = React.useCallback((event, isOpen) => {
+    setOpenSavedAddresses(isOpen);
+  });
+
   const [createOrder] = useCreateOrderMutation();
+  const [addDeliveryAddress] = useAddDeliveryAddressMutation();
+  const { data: patient, isFetching, error } = useGetPatientQuery();
+
+  if (isFetching) return <div>Loading...</div>;
+
+  console.log("Patient", patient)
+
+  const savedAddresses = patient.deliveryAddresses;
+  const addressToString = (address) => {
+    return `${address.apartmentNumber}, ${address.streetName}, ${address.city}`;
+  }
 
   const onSuccessfulCheckout = () => {
+
+    console.log("Passed to createOrder")
+    console.log({
+      medicines: cartItems
+    })
+
     createOrder({
       medicines: cartItems,
-    });
+    }).unwrap()
+      .then(() => {
+        setToast({
+          ...toast,
+          open: true,
+          color: "success",
+          message: "Payment completed successfully!",
+        });
 
-    setToast({
-      ...toast,
-      open: true,
-      color: "success",
-      message: "Payment completed successfully!",
-    });
+        // setTimeout(() => {
+        //   navigate("/patient/order", { state: { totalAmount, cartItems } });
+        // }, 1500);
+      });
 
-    setTimeout(() => {
-      navigate("/patient/order", { state: { totalAmount, cartItems } });
-    }, 1500);
+
   };
 
   const onFailedCheckout = () => {
@@ -99,16 +128,13 @@ const Checkout = ({}) => {
   //AND added to "sold" in db
 
   const handleAddressSelection = (address) => {
-    // Split the address into components
-    const addressComponents = address.split(","); // Assuming the address follows a format like "Apt 123, Elm Street, New York"
 
-    // Extract components
-    const [apartment, street, selectedCity] = addressComponents;
+    const { apartmentNumber, streetName, city } = address;
 
     // Update state for each component
-    setApartmentNumber(apartment);
-    setStreetName(street);
-    setCity(selectedCity);
+    setApartmentNumber(apartmentNumber);
+    setStreetName(streetName);
+    setCity(city);
     setSelectedAddress(address);
   };
 
@@ -120,13 +146,7 @@ const Checkout = ({}) => {
     setSelectedCity(city); // Set the selected city in state
   };
 
-  const handleOpenChangeCity = React.useCallback((event, isOpen) => {
-    setOpenCity(isOpen);
-  }, []);
 
-  const handleOpenChangeSavedAddresses = React.useCallback((event, isOpen) => {
-    setOpenSavedAddresses(isOpen);
-  });
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -144,12 +164,29 @@ const Checkout = ({}) => {
   };
 
   const handleAddAddress = () => {
-    setToast({
-      ...toast,
-      open: true,
-      color: "success",
-      message: "Address added successfully!",
-    });
+
+    addDeliveryAddress({
+      apartmentNumber,
+      streetName,
+      city,
+    })
+      .unwrap()
+      .then(() => {
+        setToast({
+          ...toast,
+          open: true,
+          color: "success",
+          message: "Address added successfully!",
+        });
+      })
+      .catch((res) => {
+        setToast({
+          ...toast,
+          open: true,
+          color: "danger",
+          message: res.data.error,
+        });
+      })
   };
 
   // const handlePayment = () => {
@@ -371,7 +408,7 @@ const Checkout = ({}) => {
                 Saved Addresses*:
                 <Dropdown open={openSavedAddresses} onOpenChange={handleOpenChangeSavedAddresses}>
                   <MenuButton style={{ marginLeft: "10px" }}>
-                    {selectedAddress ? selectedAddress : "Saved Addresses"}{" "}
+                    {selectedAddress ? addressToString(selectedAddress) : "Saved Addresses"}{" "}
                     <BsArrowDownSquare style={{ marginLeft: "10px" }} />
                   </MenuButton>
                   <Menu>
@@ -381,7 +418,7 @@ const Checkout = ({}) => {
                         key={index}
                         onClick={() => handleAddressSelection(address)}
                       >
-                        {address}
+                        {addressToString(address)}
                       </MenuItem>
                     ))}
                   </Menu>

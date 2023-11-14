@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
@@ -16,64 +16,66 @@ import Button from '@mui/material/Button';
 import AlertDialogSlide from '../Alert';
 
 
-function MyOrderCard({sx, formattedDate,cartItems,totalAmount}) {
-//testing
+function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
+  //testing
   const formDate = "11-02-2023";
   const total = "50.00";
-//
-const [status, setStatus] = useState('pending');
-const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-const [dialogOpen, setDialogOpen] = React.useState(false);
+  //
+  const [status, setStatus] = useState('pending');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
 
 
-const colors = {
-  "pending": "warning",
-  "cancelled": "danger",
-  "completed": "success"
-}
+  const colors = {
+    "pending": "warning",
+    "cancelled": "danger",
+    "completed": "success"
+  }
 
-const currentDate = new Date();
-const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
+  const currentDate = new Date();
+  const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
     month: '2-digit',
     day: '2-digit',
     year: 'numeric',
   });
 
-//formattedDate is hardcoded for testing named "formDate" , ctrl+F w ghayarooh fl code
-useEffect(() => {
+  //formattedDate is hardcoded for testing named "formDate" , ctrl+F w ghayarooh fl code
+  useEffect(() => {
     if (formattedCurrentDate > formDate) {
       setStatus('completed');
     }
   }, [formattedCurrentDate, formDate]);
 
 
-useEffect( () => {
-  if(status !== "pending")
-  setIsButtonDisabled(true);
-});
+  useEffect(() => {
+    if (status !== "pending")
+      setIsButtonDisabled(true);
+  });
 
-  
-const handleClick = () => {
-  setDialogOpen(true);
-}
-const cancelOrder = () => {
-  setStatus('cancelled');
-  setIsButtonDisabled(true);
-};
+
+  const handleClick = () => {
+    setDialogOpen(true);
+  }
+  const cancelOrder = () => {
+    setStatus('cancelled');
+    setIsButtonDisabled(true);
+  };
 
   //testing
   const orderItems = cartItems.map((medicine) => {
+    console.log("here: ", medicine.medicineImage);
     return (
         <OrderItems
             name={medicine.name}
             price={medicine.price}
             quantity={medicine.quantity}
+            medicineImage={medicine.medicineImage}
         />
     );
-});
+  });
 
-const formattedStatus = capitalize(status);
-console.log(formattedStatus);
+  const formattedStatus = capitalize(status);
+  console.log(formattedStatus);
   return (
     <Card
       variant="outlined"
@@ -81,7 +83,7 @@ console.log(formattedStatus);
       sx={{
         width: "100%",
         '&:hover': { boxShadow: 'md', borderColor: 'neutral.outlinedHoverBorder' },
-         ...sx
+        ...sx
       }}
     >
       <CardContent>
@@ -116,21 +118,21 @@ console.log(formattedStatus);
 
         <Box className="flex justify-flex-start space-x-10">
           {orderItems}
-                
+
         </Box>
         <Typography
-              level="body-lg"
-              id="card-description"
-            // startDecorator={<AccessTimeIcon fontSize='10' />}
-            >
-              Total: ${total}
-            </Typography>
-        <Button variant="outlined" color="error" disabled={isButtonDisabled} onClick={handleClick} sx={{width: "10%"}}>CANCEL ORDER</Button>
+          level="body-lg"
+          id="card-description"
+        // startDecorator={<AccessTimeIcon fontSize='10' />}
+        >
+          Total: ${total}
+        </Typography>
+        <Button variant="outlined" color="error" disabled={isButtonDisabled} onClick={handleClick} sx={{ width: "10%" }}>CANCEL ORDER</Button>
         <AlertDialogSlide
-                cancelOrder={cancelOrder}
-                open={dialogOpen}
-                setOpen={setDialogOpen}
-              />
+          cancelOrder={cancelOrder}
+          open={dialogOpen}
+          setOpen={setDialogOpen}
+        />
       </CardContent>
     </Card>
 

@@ -12,15 +12,35 @@ const Filter = ({ medicines }) => {
   // const [cart, setCart] = useState([]);
 
   const { data: patient, isFetching, error } = useGetPatientQuery();
+  
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
 
   if (isFetching)
     return <div>Loading...</div>;
 
-  const cart = patient?.cart || [];
+  let cart = patient?.cart || [];
 
-  console.log(medicines)
+  console.log("Original cart", cart);
+
+
+  cart = cart.map((cartItem) => {
+
+    console.log("CartItem in Map", cartItem)
+
+    const { medicine, quantity } = cartItem;
+
+    return {
+      name: medicine.name,
+      price: medicine.price,
+      description: medicine.description,
+      medicineImage: medicine.medicineImage,
+      quantity,
+    };
+  });
+
+  console.log("Cart", cart);
+
 
   const filterMedicinesByMedicinalUse = (medicinalUse) => {
     setSelectedMedicinalUse(medicinalUse);
@@ -64,7 +84,7 @@ const Filter = ({ medicines }) => {
   };
 
 
-  const handleQuantityInc = (item) => {
+  const handleQuantityInc = (medicine) => {
     // const updatedCart = [...cart];
     // const toChange = updatedCart.find((item) => item.name === medicine.name);
 
@@ -75,11 +95,11 @@ const Filter = ({ medicines }) => {
     // console.log("new quantity of ", medicine.name, "is: ", medicine.quantity);
 
     addToCart({
-      name: item.medicine.name,
+      name: medicine.name,
     });
   };
 
-  const handleQuantityDec = (item) => {
+  const handleQuantityDec = (medicine) => {
     // const updatedCart = [...cart];
     // const toChange = updatedCart.find((item) => item.name === medicine.name);
 
@@ -90,20 +110,20 @@ const Filter = ({ medicines }) => {
     // console.log("new quantity of ", medicine.name, "is: ", medicine.quantity);
 
     removeFromCart({
-      name: item.medicine.name,
+      name: medicine.name,
       quantity: 1,
     });
   };
 
 
-  const handleDeleteItem = (item) => {
+  const handleDeleteItem = (medicine) => {
     // new cart without the removed med
     // const updatedCart = cart.filter((item) => item.name !== medicine.name);
     // setCart(updatedCart);
 
     removeFromCart({
-      name: item.medicine.name,
-      quantity: item.medicine.quantity,
+      name: medicine.name,
+      quantity: medicine.quantity,
     });
   };
 
@@ -131,6 +151,7 @@ const Filter = ({ medicines }) => {
         onAddToCart={
           () => { handleAddToCart({ medicine }) }
         }
+        medicineImage={medicine.medicineImage}
       />
     );
   });
@@ -163,7 +184,15 @@ const Filter = ({ medicines }) => {
       <div className="container">
         {mappedArray}
       </div>
-      <TempDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} cartItems={cart} onDeleteItem={handleDeleteItem} onQuantityInc={handleQuantityInc} onQuantityDec={handleQuantityDec} medicines={medicines} />
+
+      <TempDrawer
+        isOpen={isDrawerOpen}
+        closeDrawer={closeDrawer}
+        cartItems={cart}
+        onDeleteItem={handleDeleteItem}
+        onQuantityInc={handleQuantityInc}
+        onQuantityDec={handleQuantityDec}
+        medicines={medicines} />
 
     </div>
   );
