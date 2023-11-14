@@ -19,6 +19,7 @@ const patientApi = createApi({
                     method: 'GET',
                 }),
             }),
+
             getMedicines: builder.query({
                 query: () => ({
                     url: '/medicines',
@@ -51,6 +52,33 @@ const patientApi = createApi({
                 },
             }),
 
+            addToCart: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+
+                query: (data) => {
+                    return {
+                        url: "/medicines",
+                        method: "POST",
+                        body: data,
+                    };
+                },
+            }),
+
+            removeFromCart: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+
+                query: (data) => {
+                    return {
+                        url: "/medicines",
+                        method: "DELETE",
+                        body: data,
+                    };
+                },
+            }),
 
         }
     },
@@ -61,5 +89,7 @@ export const {
     useGetMedicinesQuery,
     usePayByWalletMutation,
     useCreateOrderMutation,
+    useAddToCartMutation,
+    useRemoveFromCartMutation
 } = patientApi;
 export { patientApi };

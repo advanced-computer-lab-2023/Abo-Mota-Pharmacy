@@ -3,8 +3,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import StripeForm from "./StripeForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { useFetchStripeConfigQuery, useCreatePaymentIntentMutation } from "../../store";
+import { Typography } from "@mui/joy";
 
-function Payment({ deductible, onSuccess, onFailure }) {
+function Payment({ deductible, onSuccess, onFailure ,totalAmount}) {
   const currencyMultiplier = 100;
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
@@ -35,6 +36,7 @@ function Payment({ deductible, onSuccess, onFailure }) {
 
   return (
     <>
+    <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
       <Elements stripe={stripePromise} options={{ appearance: { locale: "auto" }, clientSecret }}>
         <StripeForm
           deductible={deductible}
@@ -42,6 +44,7 @@ function Payment({ deductible, onSuccess, onFailure }) {
           onFailure={onFailure}
         />
       </Elements>
+      
     </>
     
   );

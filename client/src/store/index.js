@@ -40,6 +40,8 @@ export {
   useGetMedicinesQuery,
   usePayByWalletMutation,
   useCreateOrderMutation,
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
 } from "./apis/patientApi";
 
 export {

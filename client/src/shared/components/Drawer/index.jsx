@@ -13,7 +13,7 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onD
   };
 
   totalAmount = cartItems.reduce((total, item) => {
-    return total + item.quantity * item.price;
+    return total + item.quantity * item.medicine.price;
   }, 0);
   
   const navigate=useNavigate();
@@ -38,13 +38,13 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onD
           {cartItems.map((item, index) => (
               <DrawerItem
                 key={index}
-                name={item.name}
-                description={item.description}
-                price={item.price}
+                name={item.medicine.name}
+                description={item.medicine.description}
+                price={item.medicine.price}
                 quantity={item.quantity}
                 onDelete={() => onDeleteItem(item)}
-                quantityInc={() => onQuantityInc(item,item.quantity)}
-                quantityDec={() => onQuantityDec(item,item.quantity)}
+                quantityInc={() => onQuantityInc(item)}
+                quantityDec={() => onQuantityDec(item)}
               />
             ))}
             <h2>Total: ${totalAmount}</h2>
