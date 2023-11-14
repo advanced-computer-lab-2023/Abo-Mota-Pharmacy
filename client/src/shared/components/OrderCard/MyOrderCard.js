@@ -40,11 +40,11 @@ function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
   });
 
   //formattedDate is hardcoded for testing named "formDate" , ctrl+F w ghayarooh fl code
-  useEffect(() => {
-    if (formattedCurrentDate > formDate) {
-      setStatus('completed');
-    }
-  }, [formattedCurrentDate, formDate]);
+  // useEffect(() => {
+  //   if (formattedCurrentDate > formDate) {
+  //     setStatus('completed');
+  //   }
+  // }, [formattedCurrentDate, formDate]);
 
 
   useEffect(() => {
@@ -62,6 +62,7 @@ function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
   };
 
   //testing
+  
   const orderItems = cartItems.map((medicine) => {
     console.log("here: ", medicine.medicineImage);
     return (
