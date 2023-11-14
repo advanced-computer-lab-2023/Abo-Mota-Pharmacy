@@ -51,7 +51,7 @@ function OrderCard() {
               id="card-description"
             // startDecorator={<AccessTimeIcon fontSize='10' />}
             >
-              ORDER IS {status}
+              YOUR ORDER IS {status}
             </Typography>
 
             {/* <Chip color={colors[status]} variant='soft'> */}
