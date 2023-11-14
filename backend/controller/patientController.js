@@ -146,8 +146,9 @@ const addToCart = async (req, res) => {
 			},
 		});
 
-		console.log(patient);
+		console.log(patient, "PATIENT");
 		const name = req.body.name;
+		console.log(name , "NAME");
 		const medicine = await Medicine.findOne({ name });
 
 		if (!medicine) throw new Error("This medicine does not exist");

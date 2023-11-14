@@ -57,7 +57,7 @@ const Filter = ({ medicines }) => {
   //   <OrderCard key={index} cartItem={cartItem} />
   // ));
 
-  const handleAddToCart = (item) => {
+  const handleAddToCart = (medicine) => {
     // if (medicine.quantity > 0) {
     //   const updatedCart = [...cart];
 
@@ -76,10 +76,8 @@ const Filter = ({ medicines }) => {
 
     // }
 
-    console.log("Item @ Filter.jsx", item);
-
     addToCart({
-      name: item.medicine.name,
+      name: medicine.name,
     });
   };
 
