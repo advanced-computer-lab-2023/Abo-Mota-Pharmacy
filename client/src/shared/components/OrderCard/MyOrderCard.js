@@ -66,10 +66,10 @@ function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
     console.log("here: ", medicine.medicineImage);
     return (
         <OrderItems
-            name={medicine.name}
-            price={medicine.price}
-            quantity={medicine.quantity}
-            medicineImage={medicine.medicineImage}
+            name={medicine.medicine.name}
+            price={medicine.medicine.price}
+            quantity={medicine.medicine.quantity}
+            medicineImage={medicine.medicine.medicineImage}
         />
     );
   });

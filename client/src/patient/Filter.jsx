@@ -34,7 +34,7 @@ const Filter = ({ medicines }) => {
       name: medicine.name,
       price: medicine.price,
       description: medicine.description,
-      medicineImage: "balabizo",
+      medicineImage: medicine.medicineImage,
       quantity,
     };
   });
