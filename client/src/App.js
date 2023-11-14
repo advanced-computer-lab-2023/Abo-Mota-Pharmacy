@@ -10,12 +10,13 @@ import OtpScreen from "./shared/pages/OtpScreen";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterScreen from "./patient/scenes/RegisterScreen";
 import RegisterForm from "./pharmacist/scenes/RegisterForm";
+import ConnectAccountForm from "./patient/scenes/ConnectAccountsForm";
 
 function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<LoginForm />} />
+        <Route path="/" element={<ConnectAccountForm />} />
         <Route path="/registerPatient" element={<RegisterScreen />} />
         <Route path="/registerPharmacist" element={<RegisterForm />} />
 
