@@ -6,16 +6,33 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { useState } from "react";
 import Header from "../../components/Header";
 import './styles.css';
+import { useChangeAdminPasswordMutation, useChangePatientPasswordMutation, useChangePharmacistPasswordMutation } from '../../../store';
 
-const ChangePasswordScreen = () => {
+const ChangePasswordScreen = ({isAdmin, isPharmacist, isPatient}) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [changeAdminPassword]= useChangeAdminPasswordMutation();
+  const [changePharmacistPassword]= useChangePharmacistPasswordMutation();
+  const [changePatientPassword]= useChangePatientPasswordMutation();
 
+   
   const handleSubmit = async (values, {resetForm}) => {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    // Remove the above await and insert code for backend registeration here.
+    if(isAdmin)
+    {
+      changeAdminPassword({oldPassword:values.oldPassword, newPassword: values.password});
+    }
+    if(isPharmacist)
+    {
+      changePharmacistPassword({oldPassword:values.oldPassword, newPassword: values.password}); 
+    }
+    if(isPatient)
+    {
+      changePatientPassword({oldPassword:values.oldPassword, newPassword: values.password})
+    }
+    
     setIsLoading(false);
     resetForm({ values: '' });
+    
   };
   const changePasswordForm = (
     <Formik
@@ -62,7 +79,7 @@ const ChangePasswordScreen = () => {
           {isLoading ? <LoadingIndicator /> :
             // <Link to='medicine'>
               <Button type="submit">
-                Log in
+                Confirm
               </Button>
             // </Link>
           }

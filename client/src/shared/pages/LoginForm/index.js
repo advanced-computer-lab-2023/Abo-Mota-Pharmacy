@@ -17,6 +17,9 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [otpOpen, setOtpOpen] = useState(false);
+  const [email, setEmail] = useState("");
+
+
   const navigate = useNavigate();
   const [loginMutation, results] = useLoginMutation();
   const dispatch = useDispatch();
@@ -24,7 +27,6 @@ const LoginForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
     // console.log(values);
-    console.log(values);
     const user = {
       username: values.username,
       password: values.password,
@@ -34,7 +36,6 @@ const LoginForm = () => {
 
     try {
       const result = await loginMutation(user).unwrap();
-      console.log(result);
       // Use the result for navigation or other side effects
       if (result.userType === "patient") {
         dispatch(login({ role: "patient" }));
@@ -157,6 +158,7 @@ const LoginForm = () => {
           goToOtp={() => {
             setOtpOpen(true);
           }}
+          setEmail = {setEmail}
         />
       )}
       {otpOpen && (
@@ -164,6 +166,7 @@ const LoginForm = () => {
           closeForm={() => {
             setOtpOpen(false);
           }}
+          email = {email}
         />
       )}
     </div>

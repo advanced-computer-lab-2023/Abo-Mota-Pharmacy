@@ -98,9 +98,9 @@ const Checkout = ({ }) => {
           message: "Payment completed successfully!",
         });
 
-        // setTimeout(() => {
-        //   navigate("/patient/order", { state: { totalAmount, cartItems } });
-        // }, 1500);
+        setTimeout(() => {
+          navigate("/patient/order", { state: { totalAmount, cartItems } });
+        }, 1500);
       });
 
 
