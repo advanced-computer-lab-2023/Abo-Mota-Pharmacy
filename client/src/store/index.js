@@ -65,7 +65,8 @@ export {
   useRemoveFromCartMutation,
   useAddDeliveryAddressMutation,
   useGetOrdersQuery,
-  useChangePatientPasswordMutation
+  useChangePatientPasswordMutation,
+  useCancelOrderMutation,
 } from "./apis/patientApi";
 
 export {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MyOrderCard from '../shared/components/OrderCard/MyOrderCard';
 import Typography from '@mui/joy/Typography';
-import { useGetOrdersQuery } from '../store';
-
+import { useGetOrdersQuery, useCancelOrderMutation } from '../store';
+import dayjs from 'dayjs';
 
 function MyOrders() {
   // const [orders, setOrders] = useState([]);
@@ -40,11 +40,12 @@ function MyOrders() {
   const renderedOrders = orders.map((order) => {
     return (
       <MyOrderCard
-        formattedDate
-        status
+        formattedDate={order.formattedDate}
         cartItems={order.medicines}
-        totalAmount
+        totalAmount={order.totalPrice}
         sx
+        orderId={order._id}
+        status={order.status}
       />
     );
   });

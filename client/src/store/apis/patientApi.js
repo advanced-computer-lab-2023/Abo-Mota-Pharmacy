@@ -63,6 +63,9 @@ const patientApi = createApi({
             }),
 
             cancelOrder: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["orders"];
+                },
 
                 query: (data) => {
                     return {
