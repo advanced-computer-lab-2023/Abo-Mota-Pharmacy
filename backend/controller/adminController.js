@@ -185,6 +185,7 @@ const deletePharmacist = async (req, res) => {
 const changePassword = async (req, res) => {
 	try {
 		const { oldPassword, newPassword } = req.body;
+		console.log(oldPassword+" "+newPassword)
 		// ** REPLACE THIS LINE WITH LOGIC TO FIND CURRENTLY LOGGED IN DOCTOR ** DONE
 		const username = req.userData.username;
 		const loggedIn = await PharmacyAdmin.findOne({ username });
@@ -194,6 +195,7 @@ const changePassword = async (req, res) => {
 		if (!isMatch) {
 			throw new Error("Old Password is incorrect");
 		}
+		
 		const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 		const updatedUser = await PharmacyAdmin.updateOne(
 			{ _id: loggedIn._id },

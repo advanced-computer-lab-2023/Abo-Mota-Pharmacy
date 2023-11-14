@@ -5,6 +5,7 @@ import ViewPatients from './pages/ViewPatients';
 import MedicineScreen from "../pharmacist/scenes/MedicineScreen";
 import NavBar from "../shared/components/NavBar";
 import ViewPharmacists from "./pages/ViewPharmacists";
+import ChangePasswordScreen from "../shared/pages/ChangePasswordScreen";
 
 function AdminApp() {
 	const links =[
@@ -14,6 +15,8 @@ function AdminApp() {
 		{name: 'View Pharmacists', to: '/admin/viewPharmacists'},
 		{name: 'View Applications', to: '/admin/applications'},
 		{name: 'Medicine Inventory', to: '/admin/medicine'},
+		{name:"Change Password", to:"/admin/changePassword"
+		}
 	]
 	return (
 		<div>
@@ -24,7 +27,8 @@ function AdminApp() {
 			<Route path='viewPatients' element={<ViewPatients/>}/>	
 			<Route path='viewPharmacists' element={<ViewPharmacists/>}/>	
 			<Route path='applications' element={<ViewApplications/>}/>
-			<Route path='medicine' element={<MedicineScreen/>}/>			
+			<Route path='medicine' element={<MedicineScreen/>}/>	
+			<Route path="changePassword" element={<ChangePasswordScreen isAdmin/>}/>		
 		</Routes>
 		
 		</div>

@@ -27,7 +27,6 @@ const LoginForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
     // console.log(values);
-    console.log(values);
     const user = {
       username: values.username,
       password: values.password,
@@ -37,7 +36,6 @@ const LoginForm = () => {
 
     try {
       const result = await loginMutation(user).unwrap();
-      console.log(result);
       // Use the result for navigation or other side effects
       if (result.userType === "patient") {
         dispatch(login({ role: "patient" }));

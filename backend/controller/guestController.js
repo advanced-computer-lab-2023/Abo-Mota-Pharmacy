@@ -119,13 +119,13 @@ const login = async (req, res) => {
 
 	let dbUserPass;
 	let userType;
-	if (patientExists) {
+	if (patientExists){
 		dbUserPass = patientExists.password;
 		userType = "patient";
 	} else if (pharmacistExists) {
 		dbUserPass = pharmacistExists.password;
 		userType = "pharmacist";
-	} else {
+	} else{
 		dbUserPass = adminExists.password;
 		userType = "admin";
 	}
