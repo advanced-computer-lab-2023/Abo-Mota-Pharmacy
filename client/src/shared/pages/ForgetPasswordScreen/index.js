@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useRequestOtpMutation } from '../../../store';
 import Toast from "../../../patient/Toast";
 
-const ForgetPasswordScreen = ({closeForm, goToOtp}) => {
+const ForgetPasswordScreen = ({closeForm, goToOtp, setEmail}) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [requestOtp, results] = useRequestOtpMutation();
@@ -33,14 +33,23 @@ const ForgetPasswordScreen = ({closeForm, goToOtp}) => {
     console.log(values);
     await new Promise(resolve => setTimeout(resolve, 3000));
 
-    
+      
       requestOtp(values)
       .unwrap()
       .then((res) => {
+
         setIsLoading(false);
         closeForm();
+        setEmail(values.email);
         goToOtp();
         resetForm({ values: '' });
+
+        setToast({
+          ...toast,
+          open: true,
+          color: "success",
+          message: "OTP sent successfully",
+        });
       })
       .catch((res) => {
         setToast({
