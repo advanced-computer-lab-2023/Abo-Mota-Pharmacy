@@ -45,6 +45,7 @@ export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onD
                 onDelete={() => onDeleteItem(item)}
                 quantityInc={() => onQuantityInc(item)}
                 quantityDec={() => onQuantityDec(item)}
+                medicineImage={item.medicine.medicineImage}
               />
             ))}
             <h2>Total: ${totalAmount}</h2>

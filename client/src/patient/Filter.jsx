@@ -131,6 +131,7 @@ const Filter = ({ medicines }) => {
         onAddToCart={
           () => { handleAddToCart({ medicine }) }
         }
+        medicineImage={medicine.medicineImage}
       />
     );
   });

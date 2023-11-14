@@ -63,11 +63,13 @@ const cancelOrder = () => {
 
   //testing
   const orderItems = cartItems.map((medicine) => {
+    console.log("here: ", medicine.medicineImage);
     return (
         <OrderItems
             name={medicine.name}
             price={medicine.price}
             quantity={medicine.quantity}
+            medicineImage={medicine.medicineImage}
         />
     );
 });
