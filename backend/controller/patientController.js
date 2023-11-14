@@ -85,7 +85,7 @@ const createOrder = async (req, res) => {
 	try {
 		const username = req.userData.username;
 		const patient = await Patient.findOne({ username });
-		const clinicPatientExists = await Patient.findOne({ username }).populate(
+		const clinicPatientExists = await ClinicPatient.findOne({ username }).populate(
 			"healthPackage.package"
 		);
 
