@@ -117,8 +117,7 @@ const patientApi = createApi({
                     body: data,
                   };
                 },
-            }),
-            
+            })
 
         }
     },
