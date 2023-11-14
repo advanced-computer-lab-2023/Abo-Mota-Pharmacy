@@ -42,6 +42,14 @@ export default function DataTable({ rows, headers }) {
     setEmergencyContact(contact);
   };
 
+  const handleViewClick = (file)=>{
+    console.log(file);
+    const arrayBuffer = new Uint8Array(file.data.data).buffer;
+    const blob = new Blob([arrayBuffer], {type: file.contentType});
+    const fileUrl = URL.createObjectURL(blob);
+    window.open(fileUrl, '_blank');
+  };
+
   const headerValues = Object.values(headers);
   const headerKeys = Object.keys(headers);
 
@@ -73,10 +81,10 @@ export default function DataTable({ rows, headers }) {
                         </Button>
                       </TableCell>
                     );
-                  } else if (headerKey === 'workingLicense' || headerKey === 'pharmacyDegree') {
+                  } else if (headerKey === 'workingLicense' || headerKey === 'pharmacyDegree' || headerKey==='nationalId') {
                     return (
                       <TableCell key={row._id} align="center">
-                        <Button>View</Button>
+                        <Button onClick={()=>{ handleViewClick(row[headerKey])}}>View</Button>
                       </TableCell>
                     );
                   }

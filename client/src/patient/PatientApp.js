@@ -9,11 +9,13 @@ import Checkout from "./Checkout";
 import Order from "./Order";
 import OrderCard from "./Order";
 import MyOrders from "./myOrders";
+import ChangePasswordScreen from "../shared/pages/ChangePasswordScreen";
 
 function PatientApp() {
   const links = [
     { name: "Shop Medicines", to: "/patient/medicine" },
     { name: "View My Orders", to: "/patient/myOrders" },
+    {name:"Change password", to:"/patient/changePassword"}
   ];
   // console.log(data);
   return (
@@ -25,7 +27,7 @@ function PatientApp() {
         <Route path="checkout" element={<Checkout />} />
         <Route path="/order" element={<OrderCard />} />
         <Route path="/myOrders" element={<MyOrders />} />
-
+        <Route path="/changePassword" element={<ChangePasswordScreen isPatient />}/>
         {/* </Route> */}
       </Routes>
     </div>

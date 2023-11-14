@@ -81,6 +81,16 @@ const pharmacistApi = createApi({
                     }
                 },
             }),
+
+            changePharmacistPassword: builder.mutation({
+                query: (data) => {
+                  return {
+                    url: "/changePassword",
+                    method: "PATCH",
+                    body: data
+                  };
+                },
+              })
         };
     },
 });
@@ -91,6 +101,7 @@ export const {
     useGetPharmacistQuery, 
     useGetAllMedicinesQuery, 
     useAddMedicineMutation, 
-    useEditMedicineMutation 
+    useEditMedicineMutation,
+    useChangePharmacistPasswordMutation 
 } = pharmacistApi;
 export { pharmacistApi };

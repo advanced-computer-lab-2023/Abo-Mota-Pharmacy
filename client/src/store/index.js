@@ -53,6 +53,7 @@ export {
   useAddMedicineMutation,
   useEditMedicineMutation,
   useGetAllMedicinesQuery,
+  useChangePharmacistPasswordMutation
 } from "./apis/pharmacistApi";
 
 export {
@@ -63,7 +64,8 @@ export {
   useAddToCartMutation,
   useRemoveFromCartMutation,
   useAddDeliveryAddressMutation,
-  useGetOrdersQuery
+  useGetOrdersQuery,
+  useChangePatientPasswordMutation
 } from "./apis/patientApi";
 
 export {
@@ -75,6 +77,8 @@ export {
   useAddAdminMutation,
   useFetchPatientsQuery,
   useHandleApplicationMutation,
+  useChangeAdminPasswordMutation,
+  
 } from "./apis/adminApi";
 
 export { useCreatePaymentIntentMutation, useFetchStripeConfigQuery } from "./apis/stripeApi";

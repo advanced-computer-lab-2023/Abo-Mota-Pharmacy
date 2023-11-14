@@ -13,8 +13,10 @@ const { JWT_SECRET, OTP_SENDER_MAIL } = process.env;
 const registerPatient = async (req, res) => {
 	try {
 		const { username, nationalId, password, email } = req.body;
+		const lowerCaseUser = username.toLowerCase();
+
 		// 1. Check if the user already exists
-		const userExists = await Patient.findOne({ $or: [{ username }, { nationalId }, { email }] });
+		const userExists = await Patient.findOne({ $or: [{ username: lowerCaseUser }, { nationalId }, { email }] });
 		if (userExists) {
 			throw new Error("User with these credentials already exists");
 		}
@@ -48,10 +50,11 @@ const registerPatient = async (req, res) => {
 const registerPharmacist = async (req, res) => {
 	try {
 		const { username, password, email } = req.body;
+		const lowerCaseUser = username.toLowerCase();
 
 		const pharmacistExists = await Pharmacist.findOne({
 			$and: [
-				{ $or: [{ username }, { email }] },
+				{ $or: [{ username: lowerCaseUser }, { email }] },
 				{ registrationStatus: { $in: ["approved", "pending"] } },
 			],
 		});
@@ -104,9 +107,9 @@ const registerPharmacist = async (req, res) => {
 const login = async (req, res) => {
 	const { username, password } = req.body;
 
-	const patientExists = await Patient.findOne({ username: username });
-	const pharmacistExists = await Pharmacist.findOne({ username: username });
-	const adminExists = await Admin.findOne({ username: username });
+	const patientExists = await Patient.findOne({ username: username.toLowerCase() });
+	const pharmacistExists = await Pharmacist.findOne({ username: username.toLowerCase() });
+	const adminExists = await Admin.findOne({ username: username.toLowerCase() });
 
 	if (!patientExists && !pharmacistExists && !adminExists) {
 		return res.status(404).json({
@@ -116,13 +119,13 @@ const login = async (req, res) => {
 
 	let dbUserPass;
 	let userType;
-	if (patientExists) {
+	if (patientExists){
 		dbUserPass = patientExists.password;
 		userType = "patient";
 	} else if (pharmacistExists) {
 		dbUserPass = pharmacistExists.password;
 		userType = "pharmacist";
-	} else {
+	} else{
 		dbUserPass = adminExists.password;
 		userType = "admin";
 	}
