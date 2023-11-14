@@ -17,6 +17,9 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [otpOpen, setOtpOpen] = useState(false);
+  const [email, setEmail] = useState("");
+
+
   const navigate = useNavigate();
   const [loginMutation, results] = useLoginMutation();
   const dispatch = useDispatch();
@@ -157,6 +160,7 @@ const LoginForm = () => {
           goToOtp={() => {
             setOtpOpen(true);
           }}
+          setEmail = {setEmail}
         />
       )}
       {otpOpen && (
@@ -164,6 +168,7 @@ const LoginForm = () => {
           closeForm={() => {
             setOtpOpen(false);
           }}
+          email = {email}
         />
       )}
     </div>
