@@ -81,6 +81,9 @@ const patientSchema = new Schema(
         fileName: String
       },
     ],
+    dosage: Number,
+        frequency: String,
+        duration: String,
     // prescriptions: [
     //   {
     //     type: Schema.Types.ObjectId,

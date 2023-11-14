@@ -2,19 +2,21 @@ const Medicine = require("../models/Medicine");
 const Patient = require("../models/Patient");
 const Order = require("../models/Order");
 const ClinicPatient = require("../models/ClinicPatient");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const getPatient = async (req, res) => {
 	try {
 		const username = req.userData.username;
 		const patient = await Patient.findOne({ username })
 			.populate({
-				path: 'cart',
+				path: "cart",
 				populate: {
-					path: 'medicine',
-					model: 'Medicine',
+					path: "medicine",
+					model: "Medicine",
 				},
 			})
-			.populate('healthPackage.package');
+			.populate("healthPackage.package");
 		res.status(200).json(patient);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -33,8 +35,9 @@ const getMedicines = async (req, res) => {
 const getOrders = async (req, res) => {
 	try {
 		const username = req.userData.username;
-		const patient = await Patient.find({ username });
+		const patient = await Patient.findOne({ username });
 		const orders = await Order.find({ patient: patient._id });
+
 		if (!orders) throw new Error("You haven't made any orders yet");
 		res.status(200).json(orders);
 	} catch (error) {
@@ -60,8 +63,14 @@ const cancelOrder = async (req, res) => {
 		const updatedMedicines = order.medicines.map(async (medicine) => {
 			const dbMedicine = await Medicine.findOne({ name: medicine.name });
 
-			const updatedMedicine = await Medicine.updateOne({ _id: dbMedicine._id }, { sales: dbMedicine.sales - medicine.quantity, quantity: dbMedicine.quantity + medicine.quantity });
-		})
+			const updatedMedicine = await Medicine.updateOne(
+				{ _id: dbMedicine._id },
+				{
+					sales: dbMedicine.sales - medicine.quantity,
+					quantity: dbMedicine.quantity + medicine.quantity,
+				}
+			);
+		});
 
 		const updatedOrder = await Order.updateOne({ _id: orderId }, { status: "cancelled" });
 
@@ -97,9 +106,11 @@ const createOrder = async (req, res) => {
 		}
 
 		const updatedMedicines = medicines.map(async (medicine) => {
+			console.log("med", medicine);
 			const dbMedicine = await Medicine.findOne({ name: medicine.name });
 
-			if (!dbMedicine) throw new Error(name, "does not exist");
+			if (!dbMedicine) throw new Error("This medicine does not exist");
+			
 			const updatedMedicine = await Medicine.updateOne(
 				{ _id: dbMedicine._id },
 				{
@@ -108,6 +119,7 @@ const createOrder = async (req, res) => {
 				}
 			);
 		});
+
 		const order = await Order.create({
 			medicines,
 			date: new Date(),
@@ -143,7 +155,6 @@ const addToCart = async (req, res) => {
 			throw new Error("Not enough medicine in stock");
 		}
 
-
 		const existingCartItem = patient.cart.find((item) => item.medicine._id.equals(medicine._id));
 
 		if (existingCartItem) {
@@ -174,7 +185,7 @@ const removeFromCart = async (req, res) => {
 		const cart = loggedIn.cart;
 		console.log("CART", cart);
 
-		updatedCart = cart
+		const updatedCart = cart
 			.map((item) => {
 				if (item.medicine.name === name) {
 					// Convert the Mongoose document to a plain JavaScript object
@@ -200,6 +211,18 @@ const addDeliveryAddress = async (req, res) => {
 		const { apartmentNumber, streetName, city } = req.body;
 
 		const loggedIn = await Patient.findOne({ username });
+
+		loggedIn.deliveryAddresses.some((address) => {
+			if (
+				address.apartmentNumber === apartmentNumber &&
+				address.streetName === streetName &&
+				address.city === city
+			) {
+				throw new Error("This address already exists");
+			}
+		});
+
+
 		await Patient.updateOne(
 			{ username },
 			{

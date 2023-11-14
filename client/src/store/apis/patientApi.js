@@ -27,11 +27,18 @@ const patientApi = createApi({
                 }),
             }),
 
+            getOrders: builder.query({
+                query: () => ({
+                    url: '/orders',
+                    method: 'GET',
+                }),
+            }),
+
             payByWallet: builder.mutation({
                 invalidatesTags: (result, error, arg) => {
                     return ["Patient"];
                 },
-                
+
                 query: (data) => {
                     return {
                         url: "/payByWallet",
@@ -42,11 +49,25 @@ const patientApi = createApi({
             }),
 
             createOrder: builder.mutation({
-                
+                invalidatesTags: (result, error, arg) => {
+                    return ["orders"];
+                },
+
                 query: (data) => {
                     return {
                         url: "/createOrder",
                         method: "POST",
+                        body: data,
+                    };
+                },
+            }),
+
+            cancelOrder: builder.mutation({
+
+                query: (data) => {
+                    return {
+                        url: "/cancelOrder",
+                        method: "PATCH",
                         body: data,
                     };
                 },
@@ -59,7 +80,7 @@ const patientApi = createApi({
 
                 query: (data) => {
                     return {
-                        url: "/medicines",
+                        url: "/addToCart",
                         method: "POST",
                         body: data,
                     };
@@ -73,12 +94,47 @@ const patientApi = createApi({
 
                 query: (data) => {
                     return {
-                        url: "/medicines",
+                        url: "/removeFromCart",
                         method: "DELETE",
                         body: data,
                     };
                 },
             }),
+
+            addDeliveryAddress: builder.mutation({
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+
+                query: (data) => {
+                    return {
+                        url: "/deliveryAddress",
+                        method: "PATCH",
+                        body: data,
+                    };
+                },
+            }),
+
+            getOrders: builder.query({
+                providesTags: (result, error) => {
+                    return ["orders"];
+                },
+
+                query: () => ({
+                    url: '/orders',
+                    method: 'GET',
+                }),
+            }),
+            changePassword: builder.mutation({
+                query: (data) => {
+                    return {
+                        url: "/changePassword",
+                        method: "PATCH",
+                        body: data,
+                    };
+                },
+            }),
+
 
         }
     },
@@ -89,7 +145,11 @@ export const {
     useGetMedicinesQuery,
     usePayByWalletMutation,
     useCreateOrderMutation,
+    useCancelOrderMutation,
     useAddToCartMutation,
-    useRemoveFromCartMutation
+    useRemoveFromCartMutation,
+    useAddDeliveryAddressMutation,
+    useGetOrdersQuery,
+    useChangePasswordMutation,
 } = patientApi;
 export { patientApi };
