@@ -10,6 +10,8 @@ import DropDown from "../../../shared/components/DropDown";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import { useEffect, useState } from "react";
 import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
+import FileInput from "../../../shared/components/FileInput";
+
 import {useNavigate} from 'react-router-dom';
 
 const AddMedicine = () => {
@@ -34,19 +36,17 @@ const AddMedicine = () => {
       name: values.medicineName,
       price: values.price,
       description: values.description,
+      sales: values.sales,
       quantity: values.availableQuantity,
-      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()) // Remove spaces
-      .filter((ingredient) => ingredient),
-      medicinalUse: values.medicinalUse
+      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()), // Remove spaces
+      medicinalUse: values.medicinalUse,
+      medicineImage: values.medicineImage
     }
     setIsLoading(true);
     await addMedicine(medicineObj);
-    // console.log(medicineObj);
-    // await new Promise(resolve => setTimeout(resolve, 3000));
-    // Remove the above await and insert code for backend registeration here.
     navigate('/pharmacist/medicine');
     setIsLoading(false);
-    // resetForm({ values: '' });
+    resetForm({ values: '' });
   }
 
   const medicineForm = (
@@ -66,6 +66,15 @@ const AddMedicine = () => {
           type="text"
           {...formik.getFieldProps('medicineName')}
           />
+            <FileInput
+            label="Medicine Image*"
+            id="medicineImage"
+            name="medicineImage" // Ensure this is set to correctly associate with Formik's `getFieldProps`
+            error={formik.errors.medicineImage}
+            touch={formik.touched.medicineImage}
+            onChange={(file) => formik.setFieldValue('medicineImage', file)}
+            onBlur={() => formik.setFieldTouched('medicineImage', true)} // To handle touch status
+            />
         </div>
 
         <div className="form-container">
@@ -77,9 +86,7 @@ const AddMedicine = () => {
           touch={formik.touched.description}
           {...formik.getFieldProps('description')}
           />
-        </div>
-        <div className="form-container">
-        <Input
+          <Input
             label="Active Ingredients"
             id="activeIngredients" 
             type="text"
@@ -133,6 +140,8 @@ const AddMedicine = () => {
     {medicineForm}
   </div>);
 }
+const FILE_SIZE = 160 * 1024; // e.g., 160 KB
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 
 const MedicineSchema = yup.object().shape({
   medicineName: yup.string().min(2, 'The medicine name entered is too short').max(100, 'The medicine name enteres is too long').required("Please Enter a medicine name"),
@@ -140,7 +149,26 @@ const MedicineSchema = yup.object().shape({
   description: yup.string().min(10, 'Description should be atleast 10 characters').max(1000, 'Your description is too long').required('Please enter a description'),
   availableQuantity: yup.number().integer('Available Quantity should be an integer').min(0, 'Available Quantitiy should be non negative').required('Please enter the available quantity'),
   activeIngredients: yup.string().min(2, 'Too Short!').max(500, 'Too Long!').required('Active ingredients are required'),
-  medicinalUse: yup.string().required('Please select a medicinal use')
+  medicinalUse: yup.string().required('Please select a medicinal use'),
+  medicineImage: yup
+  .mixed()
+  .required('A file is required')
+  .test(
+    'fileFormat',
+    'Unsupported Format',
+    (value) => {
+      let file = value instanceof FileList ? value[0] : value;
+      return file && SUPPORTED_FORMATS.includes(file.type);
+    }
+  )
+  .test(
+    'fileSize',
+    'File too large',
+    (value) => {
+      let file = value instanceof FileList ? value[0] : value;
+      return file && file.size <= FILE_SIZE;
+    }
+  )
 })
 
 const formInitialValues = {
@@ -149,7 +177,9 @@ const formInitialValues = {
   description: '',
   availableQuantity: '',
   activeIngredients: '',
-  medicinalUse: 'Antibiotic'
+  medicinalUse: 'Antibiotic',
+  medicineImage: null
+  
 }
 
 export default AddMedicine;

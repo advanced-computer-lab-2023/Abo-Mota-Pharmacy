@@ -1,12 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
+
 // express app
 const app = express();
 const pharmacistRouter = require("./routes/pharmacistRouter");
 const adminRouter = require("./routes/adminRouter");
 const patientRouter = require("./routes/patientRouter");
 const guestRouter = require("./routes/guestRouter");
+const stripeRouter = require("./routes/stripeRouter");
 const mongoose = require('mongoose');
 mongoose.set('strictQuery',false);
 // const bodyParser = require("body-parser");
@@ -26,16 +29,22 @@ app.use((req, res, next) => {
 	next();
 });
 app.use(express.json());
-app.use(cors({origin: 'http://localhost:3000'}));
+app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+app.use(cookieParser());
+
 
 // routes
 app.use("/pharmaApi/patient", patientRouter);
 app.use("/pharmaApi/pharmacist", pharmacistRouter);
 app.use("/pharmaApi/admin", adminRouter);
 app.use("/pharmaApi/guest", guestRouter);
+app.use("/pharmaApi/stripe", stripeRouter);
 
 // listen for requests
 // listen for requests
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 app.listen(process.env.PORT, () => {
 	console.log(`listening on port ${process.env.PORT}`);
 });

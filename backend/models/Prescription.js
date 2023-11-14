@@ -8,12 +8,15 @@ const prescriptionSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Doctor",
     },
-    medicines: [
-      {
+    medicines: [{
+      medicine: {
         type: Schema.Types.ObjectId,
         ref: "Medicine",
       },
-    ],
+      dosage: Number,
+      frequency: String,
+      duration: String,
+    }],
     patient: {
       type: Schema.Types.ObjectId,
       ref: "ClinicPatient",

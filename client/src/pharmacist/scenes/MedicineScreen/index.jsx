@@ -10,7 +10,7 @@ import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import './styles.css';
 import Header from "../../../shared/components/Header";
 import { Link } from "react-router-dom";
-import { useGetAllMedicinesQuery, useGetPharmacistQuery } from "../../../store";
+import { useGetAllMedicinesQuery } from "../../../store";
 const MedicineScreen = ({isPharmacist = false}) => {
   // const [medicineArray,setMedicineArray] = useState([]);
   
@@ -40,6 +40,7 @@ const MedicineScreen = ({isPharmacist = false}) => {
     });
   
     const mappedArray = filteredArray.map((medicine, index) => {
+      console.log(medicine);
       return <Accordion 
         isPharmacist = {isPharmacist} 
         key={index} 

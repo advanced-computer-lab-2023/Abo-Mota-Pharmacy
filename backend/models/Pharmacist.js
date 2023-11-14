@@ -10,9 +10,18 @@ const pharmacistSchema = new Schema({
 	rate: Number,
 	affiliation: String,
 	educationalBackground: String,
-	nationalId: String,
-	workingLicense: Buffer,
-	pharmacyDegree: Buffer,
+	nationalId: {
+		data: Buffer,
+		contentType: String
+	},
+	workingLicense: {
+		data: Buffer,
+		contentType: String
+	},
+	pharmacyDegree: {
+		data: Buffer,
+		contentType: String
+	},
 	registrationStatus: {
         type: String,
         enum: ["pending", "approved", "rejected"],

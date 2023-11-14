@@ -1,5 +1,8 @@
 const Medicine = require("../models/Medicine");
 const Pharmacist = require("../models/Pharmacist");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 const getPharmacist = async (req, res) => {
 	try {
 		const pharmacist = await Pharmacist.findOne({}).select("-password");
@@ -20,7 +23,11 @@ const getMedicines = async (req, res) => {
 
 const addMedicine = async (req, res) => {
 	try {
-		const { name, description, price, activeIngredients, quantity, medicinalUse, sales } = req.body;
+		const { name, description, price, activeIngredients, quantity, medicinalUse } = req.body;
+		const medicineImage = {
+			data: req.files.medicineImage[0].buffer,
+			contentType: req.files.medicineImage[0].mimetype,
+		};
 		const newMedicine = {
 			name,
 			description,
@@ -28,10 +35,10 @@ const addMedicine = async (req, res) => {
 			activeIngredients,
 			quantity,
 			medicinalUse,
-			sales
+			medicineImage,
 		};
 
-		const medicine = await Medicine.findOne({ name: newMedicine.name });
+		const medicine = await Medicine.findOne({ name });
 		if (medicine) {
 			return res.status(500).json({ error: "medicine already exists" });
 		}
@@ -48,8 +55,18 @@ const addMedicine = async (req, res) => {
 const editMedicine = async (req, res) => {
 	try {
 		const { name } = req.params;
-
-		const updatedMedicine = await Medicine.updateOne({ name: name }, { ...req.body });
+		const oldMedicine = await Medicine.findOne({ name });
+		let medicineImage = oldMedicine.medicineImage;
+		if (req.files.medicineImage) {
+			medicineImage = {
+				data: req.files.medicineImage[0].buffer,
+				contentType: req.files.medicineImage[0].mimetype,
+			};
+		}
+		const updatedMedicine = await Medicine.updateOne(
+			{ name: name },
+			{ medicineImage, ...req.body }
+		);
 
 		// Check if the medicine was found and updated
 		if (!updatedMedicine) {
@@ -65,9 +82,32 @@ const editMedicine = async (req, res) => {
 	}
 };
 
+const changePassword = async (req, res) => {
+	try {
+		const { oldPassword, newPassword } = req.body;
+
+		const username = req.userData.username;
+		const loggedIn = await Pharmacist.findOne({ username });
+
+		const isMatch = await bcrypt.compare(oldPassword, loggedIn.password);
+		if (!isMatch) {
+			throw new Error("Old Password is incorrect");
+		}
+		const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+		const updatedUser = await Pharmacist.updateOne(
+			{ _id: loggedIn._id },
+			{ password: hashedPassword }
+		);
+		res.status(200).json(updatedUser);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	getPharmacist,
 	getMedicines,
 	addMedicine,
 	editMedicine,
+	changePassword,
 };

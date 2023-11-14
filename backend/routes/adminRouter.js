@@ -1,42 +1,45 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const {getMedicines,
-    getApplications,
-    addAdmin,
-    deleteAdmin,
-    deletePatient,
-    deletePharmacist,
-    getPatients,
-    getPatient,
-    getPharmacist,
-    getPharmacists,
-    getApplication} = require('../controller/adminController');
+const {
+	getMedicines,
+	getApplications,
+	addAdmin,
+	deleteAdmin,
+	deletePatient,
+	deletePharmacist,
+	getPatients,
+	getPatient,
+	getPharmacist,
+	getPharmacists,
+	getApplication,
+	handleApplication,
+	changePassword,
+} = require("../controller/adminController");
 
+//to be added in routes after log in page added
+const authorize = require("../middlewares/authorization");
+router.get("/medicines", authorize, getMedicines);
 
+router.get("/applications", authorize, getApplications);
 
+router.get("/applications/:id", authorize, getApplication);
 
-router.get('/medicines', getMedicines);
+router.patch("/applications/:id", authorize, handleApplication);
 
-router.get('/applications', getApplications);
+router.get("/patients", authorize, getPatients);
 
-router.get('/applications/:id', getApplication)
+router.get("/patients/:id", authorize, getPatient);
 
-router.get('/patients', getPatients);
+router.get("/pharmacists", authorize, getPharmacists);
 
-router.get('/patients/:id', getPatient);
+router.get("/pharmacists/:id", authorize, getPharmacist);
 
-router.get('/pharmacists', getPharmacists);
+router.post("/admins", authorize,addAdmin);
 
-router.get('/pharmacists/:id',getPharmacist);
+router.delete("/patients", authorize, deletePatient);
 
-router.post('/admins', addAdmin);
+router.delete("/pharmacists", authorize, deletePharmacist);
 
+router.patch("/changePassword", authorize, changePassword);
 
-
-router.delete('/patients', deletePatient);
-
-router.delete('/pharmacists', deletePharmacist);
-
-
-module.exports= router;
-
+module.exports = router;

@@ -1,10 +1,13 @@
 import React from 'react';
-import panadol from './panadol.jpeg';
 import './card.css';
-import { medicines } from '../../assets/mockdata';
+import Button from '@mui/material/Button';
  
 
-const ProductCard = ({name,description,price,extras}) => {
+const ProductCard = ({name,description,price,sales,quantity,medicinalUse,onAddToCart}) => {
+  const handleClick = () => {
+    onAddToCart({ name, description, price, sales,quantity,medicinalUse });   
+   };
+
   return (
   // <div className="container"> 
     <div className="product-card">
@@ -22,24 +25,28 @@ const ProductCard = ({name,description,price,extras}) => {
       ? 'https://www.binsina.ae/media/catalog/product/m/48932_1.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=300&width=300&canvas=300:300'
       : ''
   }
-  alt={name}
-  className="product-image"
-/>
+        alt={name}
+        className="product-image"
+        />
 
       <div className="product-details">
         <div className='nameWithPrice'>
         <h3 className="product-name">{name}</h3>
-        <p className="product-price">{price}</p>
+        <p className="product-price">${price}</p>
         </div>
         <p className="product-description">{description}</p>
-        <p className="extras">→ Sold: {extras.sales}</p>
-        <p className="extras">→ In Stock: {extras.availableQuantity}</p>
-        <p className="extras">→ Use: {extras.medicinalUse}</p>
+        {/* <p className="extras">→ Sold: {sales}</p>
+        <p className="extras">→ In Stock: {quantity}</p> */}
+        <p className="extras">→ Use: {medicinalUse}</p>
+        
+      </div>
+      <div className="button-div">
+        <Button className="add-button" onClick={handleClick} disabled={quantity === 0}>{quantity > 0 ? "Add to Cart" : "Sold Out"}</Button>
       </div>
     </div>
   // </div>  
   );
-};
+}
 
 
 export default ProductCard;
