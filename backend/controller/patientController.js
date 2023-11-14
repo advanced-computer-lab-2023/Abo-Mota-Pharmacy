@@ -107,7 +107,7 @@ const createOrder = async (req, res) => {
 		const updatedMedicines = medicines.map(async (medicine) => {
 			const dbMedicine = await Medicine.findOne({ name: medicine.name });
 
-			if (!dbMedicine) throw new Error(name, "does not exist");
+			if (!dbMedicine) throw new Error(dbMedicine.name, "does not exist");
 			const updatedMedicine = await Medicine.updateOne(
 				{ _id: dbMedicine._id },
 				{
@@ -181,7 +181,7 @@ const removeFromCart = async (req, res) => {
 		const cart = loggedIn.cart;
 		console.log("CART", cart);
 
-		updatedCart = cart
+		const updatedCart = cart
 			.map((item) => {
 				if (item.medicine.name === name) {
 					// Convert the Mongoose document to a plain JavaScript object
