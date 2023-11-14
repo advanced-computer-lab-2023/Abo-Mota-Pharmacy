@@ -38,7 +38,7 @@ const patientApi = createApi({
                 invalidatesTags: (result, error, arg) => {
                     return ["Patient"];
                 },
-                
+
                 query: (data) => {
                     return {
                         url: "/payByWallet",
@@ -49,7 +49,10 @@ const patientApi = createApi({
             }),
 
             createOrder: builder.mutation({
-                
+                invalidatesTags: (result, error, arg) => {
+                    return ["orders"];
+                },
+
                 query: (data) => {
                     return {
                         url: "/createOrder",
@@ -60,7 +63,7 @@ const patientApi = createApi({
             }),
 
             cancelOrder: builder.mutation({
-                
+
                 query: (data) => {
                     return {
                         url: "/cancelOrder",
@@ -99,25 +102,39 @@ const patientApi = createApi({
             }),
 
             addDeliveryAddress: builder.mutation({
-                
+                invalidatesTags: (result, error, arg) => {
+                    return ["Patient"];
+                },
+
                 query: (data) => {
                     return {
-                        url: "/addDeliveryAddress",
+                        url: "/deliveryAddress",
                         method: "PATCH",
                         body: data,
                     };
                 },
             }),
 
+            getOrders: builder.query({
+                providesTags: (result, error) => {
+                    return ["orders"];
+                },
+
+                query: () => ({
+                    url: '/orders',
+                    method: 'GET',
+                }),
+            }),
             changePassword: builder.mutation({
                 query: (data) => {
-                  return {
-                    url: "/changePassword",
-                    method: "PATCH",
-                    body: data,
-                  };
+                    return {
+                        url: "/changePassword",
+                        method: "PATCH",
+                        body: data,
+                    };
                 },
-            })
+            }),
+
 
         }
     },
@@ -126,13 +143,13 @@ const patientApi = createApi({
 export const {
     useGetPatientQuery,
     useGetMedicinesQuery,
-    useGetOrdersQuery,
     usePayByWalletMutation,
     useCreateOrderMutation,
     useCancelOrderMutation,
     useAddToCartMutation,
     useRemoveFromCartMutation,
     useAddDeliveryAddressMutation,
+    useGetOrdersQuery,
     useChangePasswordMutation,
 } = patientApi;
 export { patientApi };

@@ -31,6 +31,8 @@ router.post("/createOrder", authorize, createOrder); //done
 
 router.patch("/addDeliveryAddress", authorize, addDeliveryAddress); //done
 
+router.patch("/deliveryAddress", authorize, addDeliveryAddress);
+
 router.patch("/payByWallet", authorize, payByWallet); //done
 
 router.patch("/changePassword", authorize, changePassword);
