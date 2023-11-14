@@ -83,8 +83,6 @@ const OtpScreen = ({closeForm}) => {
   const handleSubmit = async (values, {resetForm}) => {
     setIsLoading(true);
     console.log(values);
-    if(values.email)
-      setEmail(values.email);
     await new Promise(resolve => setTimeout(resolve, 3000));
 
     setNewPassword(values)
