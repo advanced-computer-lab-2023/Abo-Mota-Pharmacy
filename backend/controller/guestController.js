@@ -28,6 +28,7 @@ const registerPatient = async (req, res) => {
 		const newPatient = await Patient.create({
 			...req.body,
 			password: hashedPassword,
+			username: lowerCaseUser
 		});
 
 		const token = jwt.sign(
@@ -39,7 +40,7 @@ const registerPatient = async (req, res) => {
 			{ expiresIn: 86400 } //expires after 1 day
 		);
 		return res
-			.cookie("jwt", token, { httpOnly: true, maxAge: 86400 * 1000, secure: false, path: "/" })
+			// .cookie("jwt", token, { httpOnly: true, maxAge: 86400 * 1000, secure: false, path: "/" })
 			.status(200)
 			.json({ newPatient, token: "Bearer " + token });
 	} catch (error) {
@@ -81,6 +82,7 @@ const registerPharmacist = async (req, res) => {
 		const newPharmacist = await Pharmacist.create({
 			...req.body,
 			password: hashedPassword,
+			username : lowerCaseUser,
 			nationalId,
 			workingLicense,
 			pharmacyDegree,
@@ -96,7 +98,7 @@ const registerPharmacist = async (req, res) => {
 		);
 
 		return res
-			.cookie("jwt", token, { httpOnly: true, maxAge: 86400 * 1000, secure: false, path: "/" })
+			// .cookie("jwt", token, { httpOnly: true, maxAge: 86400 * 1000, secure: false, path: "/" })
 			.status(200)
 			.json({ newPharmacist, token: "Bearer " + token });
 	} catch (error) {
