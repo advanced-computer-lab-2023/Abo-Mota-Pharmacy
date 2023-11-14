@@ -125,15 +125,17 @@ const patientApi = createApi({
                     method: 'GET',
                 }),
             }),
-            changePassword: builder.mutation({
+            
+
+            changePatientPassword: builder.mutation({
                 query: (data) => {
-                    return {
-                        url: "/changePassword",
-                        method: "PATCH",
-                        body: data,
-                    };
+                  return {
+                    url: "/changePassword",
+                    method: "PATCH",
+                    body: data,
+                  };
                 },
-            }),
+              })
 
 
         }
@@ -150,6 +152,6 @@ export const {
     useRemoveFromCartMutation,
     useAddDeliveryAddressMutation,
     useGetOrdersQuery,
-    useChangePasswordMutation,
+    useChangePatientPasswordMutation
 } = patientApi;
 export { patientApi };

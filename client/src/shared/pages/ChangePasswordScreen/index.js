@@ -6,17 +6,30 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { useState } from "react";
 import Header from "../../components/Header";
 import './styles.css';
-import { useChangeAdminPasswordMutation } from '../../../store';
+import { useChangeAdminPasswordMutation, useChangePatientPasswordMutation, useChangePharmacistPasswordMutation } from '../../../store';
 
 const ChangePasswordScreen = ({isAdmin, isPharmacist, isPatient}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [changePassword]= useChangeAdminPasswordMutation();
+  const [changeAdminPassword]= useChangeAdminPasswordMutation();
+  const [changePharmacistPassword]= useChangePharmacistPasswordMutation();
+  const [changePatientPassword]= useChangePatientPasswordMutation();
+
+   
   const handleSubmit = async (values, {resetForm}) => {
     setIsLoading(true);
     if(isAdmin)
     {
-      changePassword({oldPassword:values.oldPassword, newPassword: values.newPassword});
+      changeAdminPassword({oldPassword:values.oldPassword, newPassword: values.password});
     }
+    if(isPharmacist)
+    {
+      changePharmacistPassword({oldPassword:values.oldPassword, newPassword: values.password}); 
+    }
+    if(isPatient)
+    {
+      changePatientPassword({oldPassword:values.oldPassword, newPassword: values.password})
+    }
+    
     setIsLoading(false);
     resetForm({ values: '' });
     
