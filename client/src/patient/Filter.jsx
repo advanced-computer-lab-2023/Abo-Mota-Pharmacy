@@ -12,13 +12,17 @@ const Filter = ({ medicines }) => {
   // const [cart, setCart] = useState([]);
 
   const { data: patient, isFetching, error } = useGetPatientQuery();
+  
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
 
-  // if (isFetching)
-  //   return <div>Loading...</div>;
+  if (isFetching)
+    return <div>Loading...</div>;
 
   let cart = patient?.cart || [];
+
+  console.log("Original cart", cart);
+
 
   cart = cart.map((cartItem) => {
 
@@ -30,7 +34,7 @@ const Filter = ({ medicines }) => {
       name: medicine.name,
       price: medicine.price,
       description: medicine.description,
-      medicineImage: medicine.medicineImage,
+      medicineImage: "balabizo",
       quantity,
     };
   });

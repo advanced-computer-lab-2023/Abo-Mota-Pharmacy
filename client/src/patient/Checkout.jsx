@@ -73,6 +73,8 @@ const Checkout = ({ }) => {
 
   if (isFetching) return <div>Loading...</div>;
 
+  console.log("Patient", patient)
+
   const savedAddresses = patient.deliveryAddresses;
   const addressToString = (address) => {
     return `${address.apartmentNumber}, ${address.streetName}, ${address.city}`;
@@ -96,9 +98,9 @@ const Checkout = ({ }) => {
           message: "Payment completed successfully!",
         });
 
-        setTimeout(() => {
-          navigate("/patient/order", { state: { totalAmount, cartItems } });
-        }, 1500);
+        // setTimeout(() => {
+        //   navigate("/patient/order", { state: { totalAmount, cartItems } });
+        // }, 1500);
       });
 
 

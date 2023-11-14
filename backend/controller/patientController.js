@@ -110,7 +110,7 @@ const createOrder = async (req, res) => {
 			const dbMedicine = await Medicine.findOne({ name: medicine.name });
 
 			if (!dbMedicine) throw new Error("This medicine does not exist");
-			
+
 			const updatedMedicine = await Medicine.updateOne(
 				{ _id: dbMedicine._id },
 				{
@@ -127,7 +127,7 @@ const createOrder = async (req, res) => {
 			totalPrice,
 		});
 
-		const updatedPatient = await Patient.updateOne({ username, cart: [] });
+		const updatedPatient = await Patient.updateOne({ username }, { cart: [] });
 
 		res.status(200).json({ order, updatedMedicines });
 	} catch (error) {
