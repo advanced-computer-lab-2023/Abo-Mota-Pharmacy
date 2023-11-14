@@ -14,16 +14,21 @@ import capitalize from '../../utils/capitalize';
 import OrderItems from "../OrderItems";
 import Button from '@mui/material/Button';
 import AlertDialogSlide from '../Alert';
+import { useCancelOrderMutation } from '../../../store';
 
 
-function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
+
+function MyOrderCard({ sx, formattedDate, cartItems, totalAmount, orderId, status }) {
   //testing
   const formDate = "11-02-2023";
   const total = "50.00";
   //
-  const [status, setStatus] = useState('pending');
+  // const [status, setStatus] = useState('pending');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const [cancelOrderMutation] = useCancelOrderMutation();
+
 
 
   const colors = {
@@ -57,21 +62,22 @@ function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
     setDialogOpen(true);
   }
   const cancelOrder = () => {
-    setStatus('cancelled');
+    // setStatus('cancelled');
     setIsButtonDisabled(true);
+    cancelOrderMutation({ orderId });
   };
 
   //testing
-  
+
   const orderItems = cartItems.map((medicine) => {
     console.log("here: ", medicine.medicineImage);
     return (
-        <OrderItems
-            name={medicine.name}
-            price={medicine.price}
-            quantity={medicine.quantity}
-            medicineImage={medicine.medicineImage}
-        />
+      <OrderItems
+        name={medicine.name}
+        price={medicine.price}
+        quantity={medicine.quantity}
+        medicineImage={medicine.medicineImage}
+      />
     );
   });
 
@@ -111,7 +117,7 @@ function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
             mb={1}
             startDecorator={<AccessTimeIcon fontSize='10' />}
           >
-            {formDate.replace(",", " -")}
+            {formattedDate.split(', ')[0]}
           </Typography>
         </Box>
 
@@ -126,7 +132,7 @@ function MyOrderCard({ sx, formattedDate, cartItems, totalAmount }) {
           id="card-description"
         // startDecorator={<AccessTimeIcon fontSize='10' />}
         >
-          Total: ${total}
+          Total: ${totalAmount}
         </Typography>
         <Button variant="outlined" color="error" disabled={isButtonDisabled} onClick={handleClick} sx={{ width: "10%" }}>CANCEL ORDER</Button>
         <AlertDialogSlide

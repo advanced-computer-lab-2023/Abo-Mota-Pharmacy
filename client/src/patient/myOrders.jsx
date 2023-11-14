@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MyOrderCard from '../shared/components/OrderCard/MyOrderCard';
 import Typography from '@mui/joy/Typography';
-import { useGetOrdersQuery } from '../store';
+import { useGetOrdersQuery, useCancelOrderMutation } from '../store';
 import dayjs from 'dayjs';
 
 function MyOrders() {
@@ -37,16 +37,15 @@ function MyOrders() {
 
   console.log("Orders @ MyOrders.jsx", orders)
 
-  console.log(dayjs("2023-11-13T06:39:45.602+00:00"));
-
   const renderedOrders = orders.map((order) => {
     return (
       <MyOrderCard
-        formattedDate
-        status
+        formattedDate={order.formattedDate}
         cartItems={order.medicines}
-        totalAmount
+        totalAmount={order.totalPrice}
         sx
+        orderId={order._id}
+        status={order.status}
       />
     );
   });
