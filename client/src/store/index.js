@@ -44,6 +44,8 @@ export {
   useRegisterPatientMutation,
   useLoginMutation,
   useLogoutMutation,
+  useForgetPasswordMutation,
+  useRequestOtpMutation,
 } from "./apis/guestApi";
 
 export {

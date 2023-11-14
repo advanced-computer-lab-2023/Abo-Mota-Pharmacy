@@ -1,5 +1,7 @@
 const Medicine = require("../models/Medicine");
 const Pharmacist = require("../models/Pharmacist");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const getPharmacist = async (req, res) => {
 	try {
@@ -53,15 +55,18 @@ const addMedicine = async (req, res) => {
 const editMedicine = async (req, res) => {
 	try {
 		const { name } = req.params;
-		const oldMedicine = await Medicine.findOne({name});
+		const oldMedicine = await Medicine.findOne({ name });
 		let medicineImage = oldMedicine.medicineImage;
-		if(req.files.medicineImage){
+		if (req.files.medicineImage) {
 			medicineImage = {
 				data: req.files.medicineImage[0].buffer,
-				contentType: req.files.medicineImage[0].mimetype
-			}
+				contentType: req.files.medicineImage[0].mimetype,
+			};
 		}
-		const updatedMedicine = await Medicine.updateOne({ name: name }, { medicineImage, ...req.body });
+		const updatedMedicine = await Medicine.updateOne(
+			{ name: name },
+			{ medicineImage, ...req.body }
+		);
 
 		// Check if the medicine was found and updated
 		if (!updatedMedicine) {
@@ -82,7 +87,7 @@ const changePassword = async (req, res) => {
 		const { oldPassword, newPassword } = req.body;
 
 		const username = req.userData.username;
-		const loggedIn = await Doctor.findOne({ username });
+		const loggedIn = await Pharmacist.findOne({ username });
 
 		const isMatch = await bcrypt.compare(oldPassword, loggedIn.password);
 		if (!isMatch) {

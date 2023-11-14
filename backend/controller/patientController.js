@@ -2,19 +2,21 @@ const Medicine = require("../models/Medicine");
 const Patient = require("../models/Patient");
 const Order = require("../models/Order");
 const ClinicPatient = require("../models/ClinicPatient");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const getPatient = async (req, res) => {
 	try {
 		const username = req.userData.username;
 		const patient = await Patient.findOne({ username })
 			.populate({
-				path: 'cart',
+				path: "cart",
 				populate: {
-					path: 'medicine',
-					model: 'Medicine',
+					path: "medicine",
+					model: "Medicine",
 				},
 			})
-			.populate('healthPackage.package');
+			.populate("healthPackage.package");
 		res.status(200).json(patient);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -61,8 +63,14 @@ const cancelOrder = async (req, res) => {
 		const updatedMedicines = order.medicines.map(async (medicine) => {
 			const dbMedicine = await Medicine.findOne({ name: medicine.name });
 
-			const updatedMedicine = await Medicine.updateOne({ _id: dbMedicine._id }, { sales: dbMedicine.sales - medicine.quantity, quantity: dbMedicine.quantity + medicine.quantity });
-		})
+			const updatedMedicine = await Medicine.updateOne(
+				{ _id: dbMedicine._id },
+				{
+					sales: dbMedicine.sales - medicine.quantity,
+					quantity: dbMedicine.quantity + medicine.quantity,
+				}
+			);
+		});
 
 		const updatedOrder = await Order.updateOne({ _id: orderId }, { status: "cancelled" });
 
@@ -147,7 +155,6 @@ const addToCart = async (req, res) => {
 			throw new Error("Not enough medicine in stock");
 		}
 
-
 		const existingCartItem = patient.cart.find((item) => item.medicine._id.equals(medicine._id));
 
 		if (existingCartItem) {
@@ -178,7 +185,7 @@ const removeFromCart = async (req, res) => {
 		const cart = loggedIn.cart;
 		console.log("CART", cart);
 
-		updatedCart = cart
+		const updatedCart = cart
 			.map((item) => {
 				if (item.medicine.name === name) {
 					// Convert the Mongoose document to a plain JavaScript object
