@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import { Button, Typography, Card,Divider } from "@mui/joy";
+import { Button, Typography, Card, Divider } from "@mui/joy";
 import { useNavigate } from 'react-router-dom';
 import { FaRegCreditCard } from "react-icons/fa";
 import { IoWallet } from "react-icons/io5";
@@ -37,7 +37,7 @@ const Checkout = ({ }) => {
   const handleRedirect = () => navigate('/patient/order', { state: { totalAmount, cartItems } });
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const steps = ["Delivery",  "Payment"];
+  const steps = ["Delivery", "Payment"];
   const savedAddresses = ['800,Nasr,Ciiro', 'Address 2', 'Address 3'];
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -48,7 +48,7 @@ const Checkout = ({ }) => {
   const [showMap, setShowMap] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   // const itemsAndQuantities = cartItems.map(item => [item.name, item.quantity]);
-  
+
   const [selectedAddress, setSelectedAddress] = useState(null); // Initialize selectedAddress state
   const [apartmentNumber, setApartmentNumber] = useState('');
   const [streetName, setStreetName] = useState('');
@@ -62,7 +62,7 @@ const Checkout = ({ }) => {
   });
 
   const [createOrder] = useCreateOrderMutation();
-  
+
   const onSuccessfulCheckout = () => {
     createOrder({
       medicines: cartItems
@@ -76,7 +76,7 @@ const Checkout = ({ }) => {
     });
 
     setTimeout(() => {
-      navigate("/patient/order" , { state: { totalAmount, cartItems } });
+      navigate("/patient/order", { state: { totalAmount, cartItems } });
     }, 1500);
   }
 
@@ -89,8 +89,8 @@ const Checkout = ({ }) => {
     });
   }
 
- 
-  
+
+
 
   const onToastClose = (event, reason) => {
     if (reason === "clickaway") return;
@@ -101,22 +101,22 @@ const Checkout = ({ }) => {
     });
   };
 
-  
+
   //itemsAndQuantities is an array of each purchased item and the quantity purchsed to be deducted from "availableQuantity" 
   //AND added to "sold" in db
 
 
   const handleAddressSelection = (address) => {
-   // Split the address into components
-  const addressComponents = address.split(','); // Assuming the address follows a format like "Apt 123, Elm Street, New York"
+    // Split the address into components
+    const addressComponents = address.split(','); // Assuming the address follows a format like "Apt 123, Elm Street, New York"
 
-  // Extract components
-  const [apartment, street, selectedCity] = addressComponents;
+    // Extract components
+    const [apartment, street, selectedCity] = addressComponents;
 
-  // Update state for each component
-  setApartmentNumber(apartment);
-  setStreetName(street);
-  setCity(selectedCity);
+    // Update state for each component
+    setApartmentNumber(apartment);
+    setStreetName(street);
+    setCity(selectedCity);
     setSelectedAddress(address);
 
   };
@@ -155,84 +155,93 @@ const Checkout = ({ }) => {
     setActiveStep(0);
   };
 
-
-  const handlePayment = () => {
-    switch (selectedOption) {
-      case 'wallet':
-        if (totalAmount <= walletAmount) {
-          // Implement wallet payment logic
-          console.log('Paying with wallet');
-
-          setPaymentStatus('success');
-        } else {
-          console.log('Not enough amount');
-
-
-        }
-        break;
-      case 'card':
-        // You can handle credit card payment logic here if needed
-        setPaymentStatus('success');
-        break;
-      case 'cashOnDelivery':
-        // Implement cash on delivery logic
-        console.log('Cash on delivery selected');
-
-        setPaymentStatus('success');
-        break;
-      default:
-        return null;
-    }
+  const handleAddAddress = () => {
+    setToast({
+      ...toast,
+      open: true,
+      color: "success",
+      message: "Address added successfully!",
+    });
   };
 
-  const renderPaymentInputs = () => {
-    if (selectedOption === 'credit') {
-      return (
-        <>
-          {/* <CardPayment
-            deductible={500}
-            onSuccess={() => { 
-              createOrder({
-                medicines: []
-              })
-            }}
-            onFailure={() => { }}
-          /> */}
-        </>
-      );
-    } else if (selectedOption === 'wallet') {
-      return (
-        <>
-          <form >
-            <Typography level="h3" fontWeight={500}>Available Balance - ${walletAmount}</Typography>
-            <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
-            {totalAmount <= walletAmount ? (
-              <>
-                {paymentStatus !== 'success' ? (
-                  <Button
-                    //type="submit"
-                    variant="solid"
+  // const handlePayment = () => {
+  //   switch (selectedOption) {
+  //     case 'wallet':
+  //       if (totalAmount <= walletAmount) {
+  //         // Implement wallet payment logic
+  //         console.log('Paying with wallet');
 
-                    id="submit"
-                    sx={{ width: "25%", my: 3, borderRadius: 1 }}
-                    onClick={handlePayment}
-                  >
-                    <span id="Button-text">{"Pay"}</span>
-                  </Button>
-                ) : null}
-              </>
-            ) : (<Stack sx={{ width: '25%' }} spacing={2}>
-              <Alert severity="error">Not enough amount in the wallet!</Alert>
-
-            </Stack>)}
+  //         setPaymentStatus('success');
+  //       } else {
+  //         console.log('Not enough amount');
 
 
-          </form>
-        </>
-      );
-    }
-    return null;
-  };
+  //       }
+  //       break;
+  //     case 'card':
+  //       // You can handle credit card payment logic here if needed
+  //       setPaymentStatus('success');
+  //       break;
+  //     case 'cashOnDelivery':
+  //       // Implement cash on delivery logic
+  //       console.log('Cash on delivery selected');
+
+  //       setPaymentStatus('success');
+  //       break;
+  //     default:
+  //       return null;
+  //   }
+  // };
+
+  // const renderPaymentInputs = () => {
+  //   if (selectedOption === 'credit') {
+  //     return (
+  //       <>
+  //         {/* <CardPayment
+  //           deductible={500}
+  //           onSuccess={() => { 
+  //             createOrder({
+  //               medicines: []
+  //             })
+  //           }}
+  //           onFailure={() => { }}
+  //         /> */}
+  //       </>
+  //     );
+  //   } else if (selectedOption === 'wallet') {
+  //     return (
+  //       <>
+  //         <form >
+  //           <Typography level="h3" fontWeight={500}>Available Balance - ${walletAmount}</Typography>
+  //           <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
+  //           {totalAmount <= walletAmount ? (
+  //             <>
+  //               {paymentStatus !== 'success' ? (
+  //                 <Button
+  //                   //type="submit"
+  //                   variant="solid"
+
+  //                   id="submit"
+  //                   sx={{ width: "25%", my: 3, borderRadius: 1 }}
+  //                   onClick={handlePayment}
+  //                 >
+  //                   <span id="Button-text">{"Pay"}</span>
+  //                 </Button>
+  //               ) : null}
+  //             </>
+  //           ) : (<Stack sx={{ width: '25%' }} spacing={2}>
+  //             <Alert severity="error">Not enough amount in the wallet!</Alert>
+
+  //           </Stack>)}
+
+
+  //         </form>
+  //       </>
+  //     );
+  //   }
+  //   return null;
+  // };
+
   const renderPaymentStatus = () => {
     if (paymentStatus === 'success') {
       return (
@@ -262,10 +271,10 @@ const Checkout = ({ }) => {
     if (selectedOption === 'cash') {
       return (
         <>
-        <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
-        <button className='viewOrderButton' onClick={onSuccessfulCheckout}>
-          Place Order
-        </button>
+          <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
+          <button className='viewOrderButton' onClick={onSuccessfulCheckout}>
+            Place Order
+          </button>
         </>
       );
     }
@@ -324,7 +333,7 @@ const Checkout = ({ }) => {
               }} />
             </div>
 
-           
+
 
             <div className="column">
               <Typography level="h6" sx={{ mr: 0.5 }} > Saved Addresses*:
@@ -346,11 +355,11 @@ const Checkout = ({ }) => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', marginTop: 10 }} className='flex justify-end'>
-              
+
               <div style={{ marginLeft: '30px' }} >
-                <Typography style={{ width: '100%' }} level="h8" sx={{ ml: 0 }}> 
-                  
-                <Button onClick={handleAddAddress}>Add Address</Button>
+                <Typography style={{ width: '100%' }} level="h8" sx={{ ml: 0 }}>
+
+                  <Button onClick={handleAddAddress}>Add Address</Button>
                 </Typography>
 
               </div>
@@ -362,8 +371,8 @@ const Checkout = ({ }) => {
           </div>
         );
 
-      
-        
+
+
 
       case 1:
         return (
@@ -400,19 +409,19 @@ const Checkout = ({ }) => {
                 onFailure={onFailedCheckout}
               />
             )}
-              {selectedOption === "wallet" &&
-                (
-                  <WalletPayment
-                    deductible={totalAmount}
-                    onSuccess={onSuccessfulCheckout}
-                    totalAmount={totalAmount}
-                    onFailure={onFailedCheckout}
-                  />
-                  
-                ) }
-                {selectedOption === "cash" &&(
-                  renderCashOnDeliveryButton()
-                )} 
+            {selectedOption === "wallet" &&
+              (
+                <WalletPayment
+                  deductible={totalAmount}
+                  onSuccess={onSuccessfulCheckout}
+                  totalAmount={totalAmount}
+                  onFailure={onFailedCheckout}
+                />
+
+              )}
+            {selectedOption === "cash" && (
+              renderCashOnDeliveryButton()
+            )}
           </Card>
         );
       default:
@@ -444,24 +453,24 @@ const Checkout = ({ }) => {
 
       </div>
 
-      
-        <Fragment>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <div >
-              <Button disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }} >
-                Back
-              </Button>
-            </div>
-            <Box sx={{ flex: "1 1 auto" }} />
+
+      <Fragment>
+        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+          <div >
+            <Button disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }} >
+              Back
+            </Button>
+          </div>
+          <Box sx={{ flex: "1 1 auto" }} />
 
 
-            {activeStep === steps.length -1 ? renderPaymentStatus() :
-              <Button onClick={handleNext}>
-                Next
-              </Button>}
-          </Box>
-        </Fragment>
-      
+          {activeStep === steps.length - 1 ? renderPaymentStatus() :
+            <Button onClick={handleNext}>
+              Next
+            </Button>}
+        </Box>
+      </Fragment>
+
 
 
       <Toast {...toast} onClose={onToastClose} />
