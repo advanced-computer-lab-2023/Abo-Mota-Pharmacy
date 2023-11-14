@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<ConnectAccountForm />} />
+        <Route path="/" element={<LoginForm />} />
         <Route path="/registerPatient" element={<RegisterScreen />} />
         <Route path="/registerPharmacist" element={<RegisterForm />} />
 
