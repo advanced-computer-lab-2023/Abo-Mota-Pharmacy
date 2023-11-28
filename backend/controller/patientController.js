@@ -290,6 +290,30 @@ const viewWallet = async (req, res) => {
 	}
 };
 
+const viewAlternatives = async (req, res) => {
+	try {
+		const { medicineName } = req.body;
+
+		const selectedMedicine = await Medicine.findOne({ name: medicineName });
+
+		const mainActiveIngredient = selectedMedicine.activeIngredients[0];
+
+		const alternatives = await Medicine.find({
+			"activeIngredients.0": mainActiveIngredient,
+			status: "unarchived",
+			quantity: { $gt: 0 },
+		});
+
+		if (alternatives.length === 0) {
+			throw new Error("There are no available alternatives");
+		}
+
+		res.status(200).json({ alternatives });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	getPatient,
 	getMedicines,
@@ -302,4 +326,5 @@ module.exports = {
 	payByWallet,
 	changePassword,
 	viewWallet,
+	viewAlternatives,
 };

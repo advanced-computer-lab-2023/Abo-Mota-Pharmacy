@@ -12,6 +12,7 @@ const {
 	payByWallet,
 	changePassword,
 	viewWallet,
+	viewAlternatives,
 } = require("../controller/patientController");
 
 const authorize = require("../middlewares/authorization");
@@ -39,5 +40,7 @@ router.patch("/payByWallet", authorize, payByWallet); //done
 router.patch("/changePassword", authorize, changePassword);
 
 router.get("/wallet", authorize, viewWallet);
+
+router.get("/alternatives", authorize, viewAlternatives);
 
 module.exports = router;
