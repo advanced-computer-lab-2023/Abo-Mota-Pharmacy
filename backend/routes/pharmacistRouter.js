@@ -6,6 +6,7 @@ const {
 	addMedicine,
 	editMedicine,
 	changePassword,
+	viewWallet,
 } = require("../controller/pharmacistController");
 
 const validateMedicine = require("../middlewares/validateMedicineMiddleware");
@@ -28,10 +29,15 @@ router.post(
 	addMedicine
 );
 
-router.patch("/medicine/:name", upload.fields([
-	{name: "medicineImage", maxCount: 1}
-]), authorize, editMedicine);
+router.patch(
+	"/medicine/:name",
+	upload.fields([{ name: "medicineImage", maxCount: 1 }]),
+	authorize,
+	editMedicine
+);
 
 router.patch("/changePassword", authorize, changePassword);
+
+router.get("/wallet", authorize, viewWallet);
 
 module.exports = router;
