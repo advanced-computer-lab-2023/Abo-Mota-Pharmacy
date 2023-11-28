@@ -115,6 +115,30 @@ const viewWallet = async (req, res) => {
 	}
 };
 
+const archiveMedicine = async (req, res) => {
+	try {
+		const { medicineName } = req.body;
+
+		const medicine = await Medicine.updateOne({ name: medicineName }, { status: "archived" });
+
+		res.status(200).json({ medicine });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+const unarchiveMedicine = async (req, res) => {
+	try {
+		const { medicineName } = req.body;
+
+		const medicine = await Medicine.updateOne({ name: medicineName }, { status: "unarchived" });
+
+		res.status(200).json({ medicine });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 module.exports = {
 	getPharmacist,
 	getMedicines,
@@ -122,4 +146,6 @@ module.exports = {
 	editMedicine,
 	changePassword,
 	viewWallet,
+	archiveMedicine,
+	unarchiveMedicine,
 };

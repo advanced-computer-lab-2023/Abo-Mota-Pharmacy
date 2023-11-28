@@ -25,7 +25,7 @@ const getPatient = async (req, res) => {
 
 const getMedicines = async (req, res) => {
 	try {
-		const medicines = await Medicine.find();
+		const medicines = await Medicine.find({ status: "unarchived" });
 		res.status(200).json(medicines);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
