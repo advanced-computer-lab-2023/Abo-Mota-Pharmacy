@@ -1,0 +1,41 @@
+.view-financials-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.view-financials-wallet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wallet-header {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-decoration: underline;
+}
+
+.wallet-amount {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.transaction-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 2rem;
+  box-shadow: 10px 5px 5px silver;
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
