@@ -26,14 +26,19 @@ import WalletPayment from "./stripe/WalletPayment";
 import { useCreateOrderMutation } from "../store";
 import Toast from "./Toast";
 import { LuStethoscope, LuCalendarClock, LuBuilding } from "react-icons/lu";
-import { useAddToCartMutation, useGetPatientQuery, useAddDeliveryAddressMutation } from "../store";
+import {
+  useAddToCartMutation,
+  useGetPatientQuery,
+  useAddDeliveryAddressMutation,
+} from "../store";
 
-const Checkout = ({ }) => {
+const Checkout = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalAmount, cartItems, medicines } = location.state;
 
-  const handleRedirect = () => navigate("/patient/order", { state: { totalAmount, cartItems } });
+  const handleRedirect = () =>
+    navigate("/patient/order", { state: { totalAmount, cartItems } });
 
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = ["Delivery", "Payment"];
@@ -73,23 +78,23 @@ const Checkout = ({ }) => {
 
   if (isFetching) return <div>Loading...</div>;
 
-  console.log("Patient", patient)
+  console.log("Patient", patient);
 
   const savedAddresses = patient.deliveryAddresses;
   const addressToString = (address) => {
     return `${address.apartmentNumber}, ${address.streetName}, ${address.city}`;
-  }
+  };
 
   const onSuccessfulCheckout = () => {
-
-    console.log("Passed to createOrder")
+    console.log("Passed to createOrder");
     console.log({
-      medicines: cartItems
-    })
+      medicines: cartItems,
+    });
 
     createOrder({
       medicines: cartItems,
-    }).unwrap()
+    })
+      .unwrap()
       .then(() => {
         setToast({
           ...toast,
@@ -102,8 +107,6 @@ const Checkout = ({ }) => {
           navigate("/patient/order", { state: { totalAmount, cartItems } });
         }, 1500);
       });
-
-
   };
 
   const onFailedCheckout = () => {
@@ -128,7 +131,6 @@ const Checkout = ({ }) => {
   //AND added to "sold" in db
 
   const handleAddressSelection = (address) => {
-
     const { apartmentNumber, streetName, city } = address;
 
     // Update state for each component
@@ -146,8 +148,6 @@ const Checkout = ({ }) => {
     setSelectedCity(city); // Set the selected city in state
   };
 
-
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -164,7 +164,6 @@ const Checkout = ({ }) => {
   };
 
   const handleAddAddress = () => {
-
     addDeliveryAddress({
       apartmentNumber,
       streetName,
@@ -186,7 +185,7 @@ const Checkout = ({ }) => {
           color: "danger",
           message: res.data.error,
         });
-      })
+      });
   };
 
   // const handlePayment = () => {
@@ -199,7 +198,6 @@ const Checkout = ({ }) => {
   //         setPaymentStatus('success');
   //       } else {
   //         console.log('Not enough amount');
-
 
   //       }
   //       break;
@@ -224,7 +222,7 @@ const Checkout = ({ }) => {
   //       <>
   //         {/* <CardPayment
   //           deductible={500}
-  //           onSuccess={() => { 
+  //           onSuccess={() => {
   //             createOrder({
   //               medicines: []
   //             })
@@ -259,7 +257,6 @@ const Checkout = ({ }) => {
 
   //           </Stack>)}
 
-
   //         </form>
   //       </>
   //     );
@@ -282,11 +279,11 @@ const Checkout = ({ }) => {
           >
             <div>
               <Stack sx={{ width: "100%" }} spacing={2}>
-                <Alert severity="success">Payment Successful</Alert>
+                <Alert severity='success'>Payment Successful</Alert>
               </Stack>
             </div>
             <div>
-              <button className="viewOrderButton" onClick={handleRedirect}>
+              <button className='viewOrderButton' onClick={handleRedirect}>
                 View my order!
               </button>
             </div>
@@ -301,10 +298,16 @@ const Checkout = ({ }) => {
     if (selectedOption === "cash") {
       return (
         <>
-          <Typography level="h3" fontWeight={500}>
-            Total Amount - ${totalAmount}
+          <Typography level='h3' fontWeight={500}>
+            Amount Due ${totalAmount}
           </Typography>
-          <button className="viewOrderButton" onClick={onSuccessfulCheckout}>
+          <Typography level='h3' fontWeight={500}>
+            Wallet -${tempWallet}
+          </Typography>
+          <Typography level='h3' fontWeight={500}>
+            Total Amount ${totalAmount - tempWallet}
+          </Typography>
+          <button className='viewOrderButton' onClick={onSuccessfulCheckout}>
             Place Order
           </button>
         </>
@@ -334,18 +337,20 @@ const Checkout = ({ }) => {
     },
   ];
 
+  const tempWallet = 30;
+
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
         return (
           <div>
-            <div className="column">
-              <Typography level="h6" sx={{ ml: 0.5 }}>
+            <div className='column'>
+              <Typography level='h6' sx={{ ml: 0.5 }}>
                 {" "}
                 Apartment Number*:
               </Typography>
               <Input
-                placeholder="Apartment Number"
+                placeholder='Apartment Number'
                 value={apartmentNumber}
                 onChange={(e) => setApartmentNumber(e.target.value)}
                 sx={{
@@ -360,13 +365,13 @@ const Checkout = ({ }) => {
               />
             </div>
 
-            <div className="column">
-              <Typography level="h6" sx={{ ml: 0.5 }}>
+            <div className='column'>
+              <Typography level='h6' sx={{ ml: 0.5 }}>
                 {" "}
                 Street Name*:
               </Typography>
               <Input
-                placeholder="Street Name"
+                placeholder='Street Name'
                 value={streetName}
                 onChange={(e) => setStreetName(e.target.value)}
                 sx={{
@@ -381,13 +386,13 @@ const Checkout = ({ }) => {
               />
             </div>
 
-            <div className="column">
-              <Typography level="h6" sx={{ ml: 0.5 }}>
+            <div className='column'>
+              <Typography level='h6' sx={{ ml: 0.5 }}>
                 {" "}
                 City*:
               </Typography>
               <Input
-                placeholder="City"
+                placeholder='City'
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 sx={{
@@ -402,13 +407,18 @@ const Checkout = ({ }) => {
               />
             </div>
 
-            <div className="column">
-              <Typography level="h6" sx={{ mr: 0.5 }}>
+            <div className='column'>
+              <Typography level='h6' sx={{ mr: 0.5 }}>
                 {" "}
                 Saved Addresses*:
-                <Dropdown open={openSavedAddresses} onOpenChange={handleOpenChangeSavedAddresses}>
+                <Dropdown
+                  open={openSavedAddresses}
+                  onOpenChange={handleOpenChangeSavedAddresses}
+                >
                   <MenuButton style={{ marginLeft: "10px" }}>
-                    {selectedAddress ? addressToString(selectedAddress) : "Saved Addresses"}{" "}
+                    {selectedAddress
+                      ? addressToString(selectedAddress)
+                      : "Saved Addresses"}{" "}
                     <BsArrowDownSquare style={{ marginLeft: "10px" }} />
                   </MenuButton>
                   <Menu>
@@ -428,10 +438,10 @@ const Checkout = ({ }) => {
 
             <div
               style={{ display: "flex", alignItems: "center", marginTop: 10 }}
-              className="flex justify-end"
+              className='flex justify-end'
             >
               <div style={{ marginLeft: "30px" }}>
-                <Typography style={{ width: "100%" }} level="h8" sx={{ ml: 0 }}>
+                <Typography style={{ width: "100%" }} level='h8' sx={{ ml: 0 }}>
                   <Button onClick={handleAddAddress}>Add Address</Button>
                 </Typography>
               </div>
@@ -442,11 +452,15 @@ const Checkout = ({ }) => {
       case 1:
         return (
           <Card sx={{ borderRadius: 0, p: 4 }}>
-            <Box id="button-group" sx={{ display: "flex", gap: 1 }} className="flex space-x-2 mb-5">
+            <Box
+              id='button-group'
+              sx={{ display: "flex", gap: 1 }}
+              className='flex space-x-2 mb-5'
+            >
               {buttonGroup.map((button) => (
                 <Button
                   key={button.id}
-                  variant="outlined"
+                  variant='outlined'
                   onClick={button.onClick}
                   startDecorator={button.icon}
                   sx={{
@@ -455,7 +469,7 @@ const Checkout = ({ }) => {
                       ? { borderColor: "#0b6bcb", borderWidth: 2 }
                       : {}),
                   }}
-                  className="h-16 w-24"
+                  className='h-16 w-24'
                 >
                   {button.label}
                 </Button>
@@ -497,10 +511,10 @@ const Checkout = ({ }) => {
           </Step>
         ))}
       </Stepper>
-      <Typography level="h1" sx={{ ml: 0.5 }}>
+      <Typography level='h1' sx={{ ml: 0.5 }}>
         Checkout
       </Typography>
-      <Typography level="h4" sx={{ ml: 0.5 }}>
+      <Typography level='h4' sx={{ ml: 0.5 }}>
         Required field *
       </Typography>
 
@@ -519,7 +533,11 @@ const Checkout = ({ }) => {
       <Fragment>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <div>
-            <Button disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+            <Button
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
               Back
             </Button>
           </div>

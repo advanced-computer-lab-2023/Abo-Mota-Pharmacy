@@ -13,6 +13,7 @@ const Accordion = ({
   quantity,
   medicinalUse,
   sales,
+  status,
   image = AspirinLogo,
 }) => {
   const [open, setOpen] = useState(false);
@@ -50,12 +51,16 @@ const Accordion = ({
     urlImage = URL.createObjectURL(blobImage);
   }
 
+  const extraClass = status === "archived" ? "accordion-header-archived" : "";
+
   const className = `accordion ${open ? "open" : "closed"}`;
   return (
     <div className='accordion-container'>
       <div className={className} onClick={onClick}>
         <div className='accordion-titles'>
-          <div className='accordion-header'>{label}</div>
+          <div className={`accordion-header ${extraClass}`}>
+            {label} {status == "archived" ? " (Archived)" : ""}
+          </div>
           <div className='accordion-subheader'>{subLabel}</div>
         </div>
         <div className='accordion-price'>{price}</div>
