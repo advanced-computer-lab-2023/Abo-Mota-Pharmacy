@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const {
-	getMedicines,
-	getApplications,
-	addAdmin,
-	deleteAdmin,
-	deletePatient,
-	deletePharmacist,
-	getPatients,
-	getPatient,
-	getPharmacist,
-	getPharmacists,
-	getApplication,
-	handleApplication,
-	changePassword,
+  getMedicines,
+  getApplications,
+  addAdmin,
+  deletePatient,
+  deletePharmacist,
+  getPatients,
+  getPatient,
+  getPharmacist,
+  getPharmacists,
+  getApplication,
+  handleApplication,
+  changePassword,
+  getAdmin,
 } = require("../controller/adminController");
 
 //to be added in routes after log in page added
@@ -34,12 +34,14 @@ router.get("/pharmacists", authorize, getPharmacists);
 
 router.get("/pharmacists/:id", authorize, getPharmacist);
 
-router.post("/admins", authorize,addAdmin);
+router.post("/admins", authorize, addAdmin);
 
 router.delete("/patients", authorize, deletePatient);
 
 router.delete("/pharmacists", authorize, deletePharmacist);
 
 router.patch("/changePassword", authorize, changePassword);
+
+router.get("/admin", authorize, getAdmin);
 
 module.exports = router;
