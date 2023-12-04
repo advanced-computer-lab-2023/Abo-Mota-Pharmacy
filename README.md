@@ -75,6 +75,19 @@ The technology stack for the pharmacy module includes:
 - Sales information of medicines is retained for reference even after archiving.
 - Patient privacy is safeguarded by restricting administrator access to prescription details.
 
+## Code Examples
+
+*Code snippets highlighting key functionalities and usage will be provided here.*
+
+## Installation
+
+Step-by-step instructions for setting up the pharmacy module, including environment setup and dependency management, will be detailed in this section.
+
+## API Reference
+
+API documentation is available at `/api/docs`, which provides a comprehensive guide to the endpoints and their usage.
+
+## How to Use?
 
 ## Contribute
 
