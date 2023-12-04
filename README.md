@@ -1,0 +1,62 @@
+# Pharmacy Management System - Virtual Clinic
+
+## Features
+
+- **Guests** can register as a patient or pharmacist, providing comprehensive personal and professional details.
+- **Users** can easily login and logout using their credentials to ensure security and privacy.
+- **Administrators** have the ability to manage user accounts and oversee pharmacist verification processes.
+- **Pharmacists** are enabled to upload necessary documentation for verification and manage medicine inventories.
+- **Patients** have functionalities tailored to their needs, from viewing and managing cart items to checking out orders and handling prescriptions.
+- **Order Management**: Patients can handle their orders, including adding new delivery addresses, choosing payment methods, and viewing order histories.
+- **Medicine Management**: Pharmacists can add new medicines, update details, and archive/unarchive medicines to ensure up-to-date inventory management.
+- **Reporting**: Pharmacists and administrators can generate and filter sales reports for efficient business tracking.
+- **Communication**: Patients and pharmacists can engage in chats, enhancing the consultation process.
+- **Notifications**: Pharmacists receive alerts when medicines are out of stock, ensuring timely restocking.
+
+## Detailed Features
+
+1. **Account Registration and Management**
+   - Register with detailed personal information.
+   - Submit requests for pharmacist registration with professional credentials.
+   - Change and reset passwords securely, adhering to stringent validation rules.
+
+2. **Medicine Inventory Management**
+   - View and manage available medicines with detailed descriptions.
+   - Search and filter medicines based on various criteria.
+   - Add, edit, and manage medicine details and images.
+
+3. **Sales and Reporting**
+   - Access sales reports and filter based on specific criteria.
+   - Archive medicines to maintain sales history.
+
+4. **Shopping Cart and Orders**
+   - Add over-the-counter and prescription medicines to the cart.
+   - View, modify, and checkout cart items.
+   - Manage delivery addresses and payment options.
+
+5. **User Interaction**
+   - Chat with pharmacists and doctors for guidance.
+   - View wallet balance and transaction history.
+
+6. **Notifications**
+   - Receive notifications for medicine stock levels.
+
+## Comments and Security Measures
+
+- Passwords must follow specific validation criteria.
+- Prescription medicines can only be added based on recent prescriptions.
+- Sales information of medicines is retained for reference even after archiving.
+- Patient privacy is safeguarded by restricting administrator access to prescription details.
+
+
+## Contribute
+
+We welcome contributions that help enhance the features and functionalities of the Pharmacy Management System. Please refer to the contribution guidelines for the process and standards we follow.
+
+## Credits
+
+
+
+## License
+
+
