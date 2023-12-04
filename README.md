@@ -1,4 +1,31 @@
 # Pharmacy Management System - Virtual Clinic
+## Project Title
+
+Pharmacy Management Module of Virtual Clinic - Seamless Healthcare and Medication Management
+
+## Motivation
+
+The Pharmacy Management Module is a vital component of the Virtual Clinic, aimed at streamlining the process of medication management. It facilitates a secure and efficient interface for patients to purchase medicines and pharmacists to manage inventory, ultimately enhancing the healthcare experience for all users.
+
+## Build Status
+
+Currently, the pharmacy module is in the beta stage, with primary features deployed for testing. Ongoing efforts are focused on improving functionality and addressing user feedback.
+
+## Code Style
+
+We follow the "standard" coding style to ensure our code is clean and consistent. Contributions are expected to adhere to this style guide to maintain code quality.
+
+## Screenshots
+
+*Images showcasing the interface and functionality of the pharmacy module will be placed here.*
+
+## Tech/Framework Used
+The technology stack for the pharmacy module includes:
+- **Backend**: Node.js with Express
+- **Database**: MongoDB for data storage
+- **Frontend**: React.js with Redux for state management
+- **Authentication**: JWT for session security
+- **Payment Processing**: Stripe for secure financial transactions
 
 ## Features
 
