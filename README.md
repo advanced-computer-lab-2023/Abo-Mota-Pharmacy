@@ -94,12 +94,6 @@ Clone the repository:
   cd client
   npm install
 ```
-
-# Install client dependencies
-  ```bash
-    cd client
-    npm install
-```
 # Install server dependencies
   ```bash
     cd backend
