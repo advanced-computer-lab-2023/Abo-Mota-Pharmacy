@@ -79,9 +79,47 @@ The technology stack for the pharmacy module includes:
 
 *Code snippets highlighting key functionalities and usage will be provided here.*
 
-## Installation
+### Installation
 
-Step-by-step instructions for setting up the pharmacy module, including environment setup and dependency management, will be detailed in this section.
+Clone the repository:
+
+   ```bash
+   git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
+   cd Abo-Mota-Pharmacy
+   ```
+   
+# Install client dependencies
+
+  ```bash
+  cd client
+  npm install
+```
+
+# Install client dependencies
+  ```bash
+    cd client
+    npm install
+```
+# Install server dependencies
+  ```bash
+    cd backend
+    npm install
+```
+# Running the Application
+## Start the client:
+ ```bash
+cd client
+cd src
+npm start
+```
+The API server will run on http://localhost:3000.
+## Start the server:
+ ```bash
+cd backend
+nodemon index.js
+ ```
+
+Open your browser and navigate to http://localhost:3000 to access the simulator.
 
 ## API Reference
 
