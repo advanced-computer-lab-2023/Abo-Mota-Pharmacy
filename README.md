@@ -106,7 +106,7 @@ cd client
 cd src
 npm start
 ```
-The API server will run on http://localhost:3000.
+The client server will run on http://localhost:3000.
 ## Start the server:
  ```bash
 cd backend
