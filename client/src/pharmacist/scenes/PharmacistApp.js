@@ -6,6 +6,7 @@ import AddMedicine from "./AddMedicine";
 import NavBar from "../../shared/components/NavBar";
 import ChangePasswordScreen from "../../shared/pages/ChangePasswordScreen";
 import ViewFinancials from "./ViewFinancials";
+import SalesReport from "../../shared/pages/SalesReport";
 function PharmacistApp() {
   const links = [
     { name: "Change App", to: "/" },
@@ -13,6 +14,7 @@ function PharmacistApp() {
     { name: "Medicine Inventory", to: "/pharmacist/medicine" },
     { name: "Change password", to: "/pharmacist/changePassword" },
     { name: "View Financials", to: "/pharmacist/viewFinancials" },
+    { name: "Sales Report", to: "/pharmacist/salesReport" },
   ];
 
   return (
@@ -27,6 +29,7 @@ function PharmacistApp() {
           element={<ChangePasswordScreen isPharmacist />}
         />
         <Route path='viewFinancials' element={<ViewFinancials />} />
+        <Route path='salesReport' element={<SalesReport />} />
       </Routes>
     </div>
   );
