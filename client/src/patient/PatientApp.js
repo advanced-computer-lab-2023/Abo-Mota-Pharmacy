@@ -12,12 +12,14 @@ import MyOrders from "./myOrders";
 import ChangePasswordScreen from "../shared/pages/ChangePasswordScreen";
 import AlternativesScreen from "./scenes/AlternativesScreen/AlternativesScreen";
 import ViewFinancials from "./scenes/ViewFinancials";
+import ConnectAccountForm from "./scenes/ConnectAccountsForm";
 function PatientApp() {
   const links = [
     { name: "Shop Medicines", to: "/patient/medicine" },
     { name: "View My Orders", to: "/patient/myOrders" },
     { name: "Change password", to: "/patient/changePassword" },
     { name: "View Financials", to: "/patient/viewFinancials" },
+    { name: "Connect Account Form", to: "/patient/connectAccountForm" },
   ];
   // console.log(data);
   return (
@@ -34,6 +36,7 @@ function PatientApp() {
           path='/medicine/alternativesScreen'
           element={<AlternativesScreen />}
         />
+        <Route path='/connectAccountForm' element={<ConnectAccountForm />} />
         <Route
           path='/changePassword'
           element={<ChangePasswordScreen isPatient />}
