@@ -1,160 +1,160 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const patientApi = createApi({
-    reducerPath: 'patientApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/patient`,
-        credentials: "include"
+  reducerPath: "patientApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/patient`,
+    credentials: "include",
+  }),
+  endpoints(builder) {
+    return {
+      getPatient: builder.query({
+        providesTags: (result, error) => {
+          return ["Patient"];
+        },
 
-    }),
-    endpoints(builder) {
-        return {
-            getPatient: builder.query({
-                providesTags: (result, error) => {
-                    return ["Patient"];
-                },
+        query: () => ({
+          url: "/",
+          method: "GET",
+        }),
+      }),
 
-                query: () => ({
-                    url: '/',
-                    method: 'GET',
-                }),
-            }),
+      getMedicines: builder.query({
+        query: () => ({
+          url: "/medicines",
+          method: "GET",
+        }),
+      }),
 
-            getMedicines: builder.query({
-                query: () => ({
-                    url: '/medicines',
-                    method: 'GET',
-                }),
-            }),
+      payByWallet: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["Patient"];
+        },
 
-            getOrders: builder.query({
-                query: () => ({
-                    url: '/orders',
-                    method: 'GET',
-                }),
-            }),
+        query: (data) => {
+          return {
+            url: "/payByWallet",
+            method: "PATCH",
+            body: data,
+          };
+        },
+      }),
 
-            payByWallet: builder.mutation({
-                invalidatesTags: (result, error, arg) => {
-                    return ["Patient"];
-                },
+      createOrder: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["orders"];
+        },
 
-                query: (data) => {
-                    return {
-                        url: "/payByWallet",
-                        method: "PATCH",
-                        body: data,
-                    };
-                },
-            }),
+        query: (data) => {
+          return {
+            url: "/createOrder",
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
 
-            createOrder: builder.mutation({
-                invalidatesTags: (result, error, arg) => {
-                    return ["orders"];
-                },
+      cancelOrder: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["orders", "Patient"];
+        },
 
-                query: (data) => {
-                    return {
-                        url: "/createOrder",
-                        method: "POST",
-                        body: data,
-                    };
-                },
-            }),
+        query: (data) => {
+          return {
+            url: "/cancelOrder",
+            method: "PATCH",
+            body: data,
+          };
+        },
+      }),
 
-            cancelOrder: builder.mutation({
-                invalidatesTags: (result, error, arg) => {
-                    return ["orders", "Patient"];
-                },
+      addToCart: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["Patient"];
+        },
 
-                query: (data) => {
-                    return {
-                        url: "/cancelOrder",
-                        method: "PATCH",
-                        body: data,
-                    };
-                },
-            }),
+        query: (data) => {
+          return {
+            url: "/addToCart",
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
 
-            addToCart: builder.mutation({
-                invalidatesTags: (result, error, arg) => {
-                    return ["Patient"];
-                },
+      removeFromCart: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["Patient"];
+        },
 
-                query: (data) => {
-                    return {
-                        url: "/addToCart",
-                        method: "POST",
-                        body: data,
-                    };
-                },
-            }),
+        query: (data) => {
+          return {
+            url: "/removeFromCart",
+            method: "DELETE",
+            body: data,
+          };
+        },
+      }),
 
-            removeFromCart: builder.mutation({
-                invalidatesTags: (result, error, arg) => {
-                    return ["Patient"];
-                },
+      addDeliveryAddress: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["Patient"];
+        },
 
-                query: (data) => {
-                    return {
-                        url: "/removeFromCart",
-                        method: "DELETE",
-                        body: data,
-                    };
-                },
-            }),
+        query: (data) => {
+          return {
+            url: "/deliveryAddress",
+            method: "PATCH",
+            body: data,
+          };
+        },
+      }),
 
-            addDeliveryAddress: builder.mutation({
-                invalidatesTags: (result, error, arg) => {
-                    return ["Patient"];
-                },
+      getOrders: builder.query({
+        providesTags: (result, error) => {
+          return ["orders"];
+        },
 
-                query: (data) => {
-                    return {
-                        url: "/deliveryAddress",
-                        method: "PATCH",
-                        body: data,
-                    };
-                },
-            }),
+        query: () => ({
+          url: "/orders",
+          method: "GET",
+        }),
+      }),
 
-            getOrders: builder.query({
-                providesTags: (result, error) => {
-                    return ["orders"];
-                },
+      changePatientPassword: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/changePassword",
+            method: "PATCH",
+            body: data,
+          };
+        },
+      }),
 
-                query: () => ({
-                    url: '/orders',
-                    method: 'GET',
-                }),
-            }),
-            
-
-            changePatientPassword: builder.mutation({
-                query: (data) => {
-                  return {
-                    url: "/changePassword",
-                    method: "PATCH",
-                    body: data,
-                  };
-                },
-              })
-
-
-        }
-    },
+      linkWithClinic: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/linkWithClinic",
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
+    };
+  },
 });
 
 export const {
-    useGetPatientQuery,
-    useGetMedicinesQuery,
-    usePayByWalletMutation,
-    useCreateOrderMutation,
-    useCancelOrderMutation,
-    useAddToCartMutation,
-    useRemoveFromCartMutation,
-    useAddDeliveryAddressMutation,
-    useGetOrdersQuery,
-    useChangePatientPasswordMutation
+  useGetPatientQuery,
+  useGetMedicinesQuery,
+  usePayByWalletMutation,
+  useCreateOrderMutation,
+  useCancelOrderMutation,
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+  useAddDeliveryAddressMutation,
+  useGetOrdersQuery,
+  useChangePatientPasswordMutation,
+  useLinkWithClinicMutation,
 } = patientApi;
 export { patientApi };

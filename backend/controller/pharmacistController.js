@@ -25,7 +25,15 @@ const getMedicines = async (req, res) => {
 
 const addMedicine = async (req, res) => {
   try {
-    const { name, description, price, activeIngredients, quantity, medicinalUse } = req.body;
+    const {
+      name,
+      description,
+      price,
+      activeIngredients,
+      quantity,
+      medicinalUse,
+      isOverTheCounter,
+    } = req.body;
     const medicineImage = {
       data: req.files.medicineImage[0].buffer,
       contentType: req.files.medicineImage[0].mimetype,
@@ -38,6 +46,7 @@ const addMedicine = async (req, res) => {
       quantity,
       medicinalUse,
       medicineImage,
+      isOverTheCounter,
     };
 
     const medicine = await Medicine.findOne({ name });

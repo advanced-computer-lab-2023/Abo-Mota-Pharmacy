@@ -3,13 +3,15 @@ const Patient = require("../models/Patient");
 const Order = require("../models/Order");
 const SalesReport = require("../models/SalesReport");
 const ClinicPatient = require("../models/ClinicPatient");
+const Prescription = require("../models/Prescription");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 const saltRounds = 10;
 
 const getPatient = async (req, res) => {
   try {
     const username = req.userData.username;
-    const patient = await Patient.findOne({ username })
+    let patient = await Patient.findOne({ username })
       .populate({
         path: "cart",
         populate: {
@@ -18,6 +20,39 @@ const getPatient = async (req, res) => {
         },
       })
       .populate("healthPackage.package");
+    // .populate("clinicPatient");
+
+    if (patient.clinicPatient !== null || patient.clinicPatient !== undefined) {
+      const prescriptions = await Prescription.find({
+        patient: patient.clinicPatient,
+      }).populate([
+        {
+          path: "medicines.medicine",
+          model: "Medicine",
+        },
+      ]);
+      // console.log(patient);
+      patient = patient.toObject();
+      patient.prescriptions = prescriptions.map((prescription) => {
+        // Convert prescription to a plain object if it's a Mongoose document
+        prescription =
+          prescription instanceof mongoose.Document ? prescription.toObject() : prescription;
+        // console.log(prescription);
+        if (Array.isArray(prescription.medicines)) {
+          prescription.medicines = prescription.medicines.map((medicineObj) => {
+            console.log(medicineObj.medicine);
+            const medicineClone = medicineObj.medicine;
+            delete medicineClone.medicineImage;
+            // console.log(medicineClone);
+
+            medicineObj.medicine = medicineClone;
+
+            return medicineObj;
+          });
+        }
+        return prescription;
+      });
+    }
     res.status(200).json(patient);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -329,6 +364,28 @@ const viewAlternatives = async (req, res) => {
   }
 };
 
+const linkWithClinic = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const clinicPatient = await ClinicPatient.findOne({ username });
+    if (!clinicPatient) {
+      throw new Error("Clinic patient not found");
+    }
+    const isMatch = await bcrypt.compare(password, clinicPatient.password);
+    if (!isMatch) {
+      throw new Error("Password is incorrect");
+    }
+    const pharmacyUsername = req.userData.username;
+
+    const updatedPatient = await Patient.updateOne(
+      { username: pharmacyUsername },
+      { clinicPatient: clinicPatient._id }
+    );
+    res.status(200).json({ message: updatedPatient });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 module.exports = {
   getPatient,
   getMedicines,
@@ -342,4 +399,5 @@ module.exports = {
   changePassword,
   viewWallet,
   viewAlternatives,
+  linkWithClinic,
 };
