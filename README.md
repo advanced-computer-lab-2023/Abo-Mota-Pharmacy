@@ -115,10 +115,6 @@ nodemon index.js
 
 Open your browser and navigate to http://localhost:3000 to access the simulator.
 
-## API Reference
-
-API documentation is available at `/api/docs`, which provides a comprehensive guide to the endpoints and their usage.
-
 ## How to Use
 
 This guide will help you understand how to navigate and utilize the features of the Pharmacy Management Module of Virtual Clinic.
@@ -173,7 +169,5 @@ We welcome contributions that help enhance the features and functionalities of t
 ## Credits
 
 
-
-## License
 
 
