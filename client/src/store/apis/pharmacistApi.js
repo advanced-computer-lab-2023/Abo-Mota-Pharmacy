@@ -103,6 +103,28 @@ const pharmacistApi = createApi({
           method: "GET",
         }),
       }),
+
+      archiveMedicine: builder.mutation({
+        invalidatesTags: (result, error, medicine) => {
+          return [{ type: "Medicine", val: medicine.name }];
+        },
+        query: (name) => ({
+          url: "/archive",
+          method: "PATCH",
+          body: name,
+        }),
+      }),
+
+      unarchiveMedicine: builder.mutation({
+        invalidatesTags: (result, error, medicine) => {
+          return [{ type: "Medicine", val: medicine.name }];
+        },
+        query: (name) => ({
+          url: "/unarchive",
+          method: "PATCH",
+          body: name,
+        }),
+      }),
     };
   },
 });
@@ -114,5 +136,7 @@ export const {
   useEditMedicineMutation,
   useChangePharmacistPasswordMutation,
   useGetSalesReportsQuery,
+  useArchiveMedicineMutation,
+  useUnarchiveMedicineMutation,
 } = pharmacistApi;
 export { pharmacistApi };

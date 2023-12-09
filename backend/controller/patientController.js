@@ -40,7 +40,7 @@ const getPatient = async (req, res) => {
         // console.log(prescription);
         if (Array.isArray(prescription.medicines)) {
           prescription.medicines = prescription.medicines.map((medicineObj) => {
-            console.log(medicineObj.medicine);
+            // console.log(medicineObj.medicine);
             const medicineClone = medicineObj.medicine;
             delete medicineClone.medicineImage;
             // console.log(medicineClone);
@@ -73,9 +73,24 @@ const getOrders = async (req, res) => {
     const username = req.userData.username;
     const patient = await Patient.findOne({ username });
     const orders = await Order.find({ patient: patient._id });
-
     if (!orders) throw new Error("You haven't made any orders yet");
-    res.status(200).json(orders);
+    const ordersWithImages = await Promise.all(
+      orders.map(async (order) => {
+        const formattedDate = order.formattedDate;
+        const orderClone = order.toObject();
+        orderClone.formattedDate = formattedDate;
+        orderClone.medicines = await Promise.all(
+          order.medicines.map(async (medicineObj) => {
+            const medWithImg = await Medicine.findOne({ name: medicineObj.name });
+            medicineObj.medicineImage = medWithImg.medicineImage;
+            return medicineObj;
+          })
+        );
+        return orderClone;
+      })
+    );
+    // console.log(ordersWithImages);
+    res.status(200).json(ordersWithImages);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -96,25 +111,29 @@ const cancelOrder = async (req, res) => {
       { new: true }
     );
 
-    const updatedMedicines = order.medicines.map(async (medicine) => {
-      const dbMedicine = await Medicine.findOne({ name: medicine.name });
+    const updatedMedicines = await Promise.all(
+      order.medicines.map(async (medicine) => {
+        const dbMedicine = await Medicine.findOne({ name: medicine.name });
 
-      const updatedMedicine = await Medicine.updateOne(
-        { _id: dbMedicine._id },
-        {
-          sales: dbMedicine.sales - medicine.quantity,
-          quantity: dbMedicine.quantity + medicine.quantity,
-        }
-      );
+        const updatedMedicine = await Medicine.updateOne(
+          { _id: dbMedicine._id },
+          {
+            sales: dbMedicine.sales - medicine.quantity,
+            quantity: dbMedicine.quantity + medicine.quantity,
+          }
+        );
 
-      // removing sales report, sprint 3
-      const removeSalesReport = await SalesReport.deleteOne({
-        medicineId: dbMedicine._id,
-        sales: medicine.quantity,
-        date: order.date,
-      });
-    });
-
+        // removing sales report, sprint 3
+        // console.log("order", order);
+        const removeSalesReport = await SalesReport.deleteOne({
+          medicineId: dbMedicine._id,
+          sales: medicine.quantity,
+          purchaseDate: order.date,
+        });
+        // console.log("removeSalesReport", removeSalesReport);
+      })
+    );
+    // console.log("updatedMedicines", updatedMedicines);
     const updatedOrder = await Order.updateOne({ _id: orderId }, { status: "cancelled" });
 
     res.status(200).json({ updatedOrder, updatedPatient });
@@ -147,32 +166,34 @@ const createOrder = async (req, res) => {
     ) {
       totalPrice *= 1 - clinicPatientExists.healthPackage.pharmacyDiscount;
     }
+    const purchaseDate = new Date();
+    const updatedMedicines = await Promise.all(
+      medicines.map(async (medicine) => {
+        console.log("med", medicine);
+        const dbMedicine = await Medicine.findOne({ name: medicine.name }).select("-medicineImage");
 
-    const updatedMedicines = medicines.map(async (medicine) => {
-      console.log("med", medicine);
-      const dbMedicine = await Medicine.findOne({ name: medicine.name });
+        if (!dbMedicine) throw new Error("This medicine does not exist");
 
-      if (!dbMedicine) throw new Error("This medicine does not exist");
+        const updatedMedicine = await Medicine.updateOne(
+          { _id: dbMedicine._id },
+          {
+            sales: dbMedicine.sales + medicine.quantity,
+            quantity: dbMedicine.quantity - medicine.quantity,
+          }
+        );
 
-      const updatedMedicine = await Medicine.updateOne(
-        { _id: dbMedicine._id },
-        {
-          sales: dbMedicine.sales + medicine.quantity,
-          quantity: dbMedicine.quantity - medicine.quantity,
-        }
-      );
-
-      // adding sales report, sprint 3
-      const addedSalesReport = await SalesReport.create({
-        medicineId: dbMedicine._id,
-        sales: medicine.quantity,
-        date: new Date(),
-      });
-    });
+        // adding sales report, sprint 3
+        const addedSalesReport = await SalesReport.create({
+          medicineId: dbMedicine._id,
+          sales: medicine.quantity,
+          purchaseDate: purchaseDate,
+        });
+      })
+    );
 
     const order = await Order.create({
       medicines,
-      date: new Date(),
+      date: purchaseDate,
       patient: patient._id,
       totalPrice,
     });

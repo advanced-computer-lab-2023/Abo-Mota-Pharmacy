@@ -95,8 +95,8 @@ const editMedicine = async (req, res) => {
 
 const getSalesReports = async (req, res) => {
   try {
-    const { medicineId } = req.body;
-    const salesReport = await SalesReport.find({ medicineId }).populate("medicineId");
+    // const { medicineId } = req.body;
+    const salesReport = await SalesReport.find().populate("medicineId");
     res.status(200).json(salesReport);
   } catch (error) {
     res.status(500).json({ error: error.message });

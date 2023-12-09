@@ -1,9 +1,16 @@
+import { useGetSalesReportsQuery } from "../../../store";
+import LoadingIndicator from "../../components/LoadingIndicator";
 import SearchBar from "../../components/SearchBar";
 import { useState } from "react";
 
 const SalesReport = () => {
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
+  const { data, isFetching, error } = useGetSalesReportsQuery();
+  if (isFetching) {
+    return <LoadingIndicator />;
+  }
+  console.log(data);
   const orders = [
     {
       date: "2023-10-01",
@@ -71,14 +78,14 @@ const SalesReport = () => {
   return (
     <div>
       <SearchBar
-        className='search-bar-medicine'
+        className="search-bar-medicine"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <label htmlFor='dateInput'> Choose A Month: </label>
+      <label htmlFor="dateInput"> Choose A Month: </label>
       <input
-        type='month'
-        id='dateInput'
+        type="month"
+        id="dateInput"
         value={dateFilter}
         onChange={(e) => setDateFilter(e.target.value)}
       />

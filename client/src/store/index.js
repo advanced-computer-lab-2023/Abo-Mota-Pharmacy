@@ -55,6 +55,8 @@ export {
   useGetAllMedicinesQuery,
   useChangePharmacistPasswordMutation,
   useGetSalesReportsQuery,
+  useArchiveMedicineMutation,
+  useUnarchiveMedicineMutation,
 } from "./apis/pharmacistApi";
 
 export {
