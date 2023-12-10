@@ -34,8 +34,8 @@ const ConnectAccountForm = () => {
     await linkWithClinic(values);
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
-    // resetForm({ values: "" });
-    //navigate("/");
+    resetForm({ values: "" });
+    navigate("/patient/medicine");
   };
 
   const changePasswordForm = (

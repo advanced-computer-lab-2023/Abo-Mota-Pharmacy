@@ -19,8 +19,8 @@ const getPatient = async (req, res) => {
           model: "Medicine",
         },
       })
-      .populate("healthPackage.package");
-    // .populate("clinicPatient");
+      .populate("healthPackage.package")
+      .populate("clinicPatient");
 
     if (patient.clinicPatient !== null || patient.clinicPatient !== undefined) {
       const prescriptions = await Prescription.find({
@@ -72,7 +72,7 @@ const getOrders = async (req, res) => {
   try {
     const username = req.userData.username;
     const patient = await Patient.findOne({ username });
-    const orders = await Order.find({ patient: patient._id });
+    const orders = await Order.find({ patient: patient._id }).sort({ date: -1 });
     if (!orders) throw new Error("You haven't made any orders yet");
     const ordersWithImages = await Promise.all(
       orders.map(async (order) => {

@@ -132,6 +132,9 @@ const patientApi = createApi({
       }),
 
       linkWithClinic: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["Patient"];
+        },
         query: (data) => {
           return {
             url: "/linkWithClinic",
