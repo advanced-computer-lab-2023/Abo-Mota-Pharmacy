@@ -1,4 +1,5 @@
 # Pharmacy Management System - Virtual Clinic
+
 ## Project Title
 
 Pharmacy Management Module of Virtual Clinic - Seamless Healthcare and Medication Management
@@ -20,6 +21,16 @@ We follow the "standard" coding style to ensure our code is clean and consistent
 *Images showcasing the interface and functionality of the pharmacy module will be placed here.*
 
 ## Tech/Framework Used
+
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![Redux](https://img.shields.io/badge/Built%20with-Redux-%23f44336?style=for-the-badge)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+
 The technology stack for the pharmacy module includes:
 - **Backend**: Node.js with Express
 - **Database**: MongoDB for data storage
