@@ -43,6 +43,7 @@ const pharmacistApi = createApi({
           quantity,
           medicinalUse,
           medicineImage,
+          isOverTheCounter,
         }) => {
           const formData = new FormData();
           formData.append("name", name);
@@ -54,6 +55,7 @@ const pharmacistApi = createApi({
           formData.append("quantity", quantity);
           formData.append("medicinalUse", medicinalUse);
           formData.append("medicineImage", medicineImage);
+          formData.append("isOverTheCounter", isOverTheCounter);
           return {
             url: "/medicine",
             method: "POST",
@@ -69,12 +71,14 @@ const pharmacistApi = createApi({
           const formData = new FormData();
           if (dataBaseValues.description)
             formData.append("description", dataBaseValues.description);
-          if (dataBaseValues.price) formData.append("price", dataBaseValues.price);
+          if (dataBaseValues.price)
+            formData.append("price", dataBaseValues.price);
           if (dataBaseValues.activeIngredients)
             dataBaseValues.activeIngredients.forEach((ingredient) => {
               formData.append("activeIngredients", ingredient);
             });
-          if (dataBaseValues.quantity) formData.append("quantity", dataBaseValues.quantity);
+          if (dataBaseValues.quantity)
+            formData.append("quantity", dataBaseValues.quantity);
           if (dataBaseValues.medicinalUse)
             formData.append("medicinalUse", dataBaseValues.medicinalUse);
           if (dataBaseValues.medicineImage)
