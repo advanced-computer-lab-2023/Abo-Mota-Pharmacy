@@ -5,7 +5,10 @@ import Button from "../Button";
 import { AiOutlineEdit } from "react-icons/ai";
 import { FaArchive } from "react-icons/fa";
 import EditMedicine from "../../../pharmacist/scenes/EditMedicine";
-import { useArchiveMedicineMutation, useUnarchiveMedicineMutation } from "../../../store";
+import {
+  useArchiveMedicineMutation,
+  useUnarchiveMedicineMutation,
+} from "../../../store";
 const Accordion = ({
   label,
   subLabel,
@@ -41,13 +44,21 @@ const Accordion = ({
     await archiveMedicine(name);
     console.log("archive");
   };
+
+  const unarchiveOnClick = async () => {
+    const name = {
+      medicineName: label,
+    };
+    await unarchiveMedicine(name);
+    console.log("unarchive");
+  };
   // console.log(expanded);
   // console.log('data' , data);
   const extension = Object.entries(data).map(([key, value], index) => {
     if (!isPharmacist && (key === "sales" || key === "quantity")) return null;
     return (
-      <div key={index} className="accordion-entry">
-        <span className="accordion-key">{key}</span>: {value}
+      <div key={index} className='accordion-entry'>
+        <span className='accordion-key'>{key}</span>: {value}
       </div>
     );
   });
@@ -62,36 +73,43 @@ const Accordion = ({
 
   const className = `accordion ${open ? "open" : "closed"}`;
   return (
-    <div className="accordion-container">
+    <div className='accordion-container'>
       <div className={className} onClick={onClick}>
-        <div className="accordion-titles">
+        <div className='accordion-titles'>
           <div className={`accordion-header ${extraClass}`}>
             {label} {status == "archived" ? " (Archived)" : ""}
           </div>
-          <div className="accordion-subheader">{subLabel}</div>
+          <div className='accordion-subheader'>{subLabel}</div>
         </div>
-        <div className="accordion-price">{price}</div>
+        <div className='accordion-price'>{price}</div>
       </div>
       {open ? (
-        <div className="accordion-extension">
-          <div className="extension-header">Extra Information</div>
+        <div className='accordion-extension'>
+          <div className='extension-header'>Extra Information</div>
           <img
-            className="accordion-image"
+            className='accordion-image'
             src={urlImage ? urlImage : AspirinLogo}
-            alt="Aspirin Logo"
+            alt='Aspirin Logo'
           />
           {extension}
           {isPharmacist ? (
-            <div className="accordion-button-container">
-              <div className="accordion-button">
-                <Button onClick={archiveOnClick} type="button">
-                  <FaArchive size={20} color="#fff" />
-                  Archive
-                </Button>
+            <div className='accordion-button-container'>
+              <div className='accordion-button'>
+                {status !== "archived" ? (
+                  <Button onClick={archiveOnClick} type='button'>
+                    <FaArchive size={20} color='#fff' />
+                    Archive
+                  </Button>
+                ) : (
+                  <Button onClick={unarchiveOnClick} type='button'>
+                    <FaArchive size={20} color='#fff' />
+                    Unarchive
+                  </Button>
+                )}
               </div>
-              <div className="accordion-button">
-                <Button onClick={() => setEdit(true)} type="button">
-                  <AiOutlineEdit size={20} color="#fff" />
+              <div className='accordion-button'>
+                <Button onClick={() => setEdit(true)} type='button'>
+                  <AiOutlineEdit size={20} color='#fff' />
                   Edit
                 </Button>
               </div>
@@ -102,7 +120,11 @@ const Accordion = ({
         <></>
       )}
       {isPharmacist ? (
-        <EditMedicine isOpen={edit} onClose={() => setEdit(false)} medicineDetails={data} />
+        <EditMedicine
+          isOpen={edit}
+          onClose={() => setEdit(false)}
+          medicineDetails={data}
+        />
       ) : null}
     </div>
   );
