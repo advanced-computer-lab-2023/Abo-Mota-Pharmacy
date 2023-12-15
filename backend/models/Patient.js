@@ -45,21 +45,26 @@ const patientSchema = new Schema(
       {
         medicine: {
           type: Schema.Types.ObjectId,
-          ref: "Medicine"
+          ref: "Medicine",
         },
         quantity: Number,
-      }
+      },
     ],
     deliveryAddresses: [
       {
         apartmentNumber: Number,
         streetName: String,
-        city: String
-      }
+        city: String,
+      },
     ],
     wallet: {
       type: Number,
       default: 0,
+    },
+    clinicPatient: {
+      type: Schema.Types.ObjectId,
+      ref: "ClinicPatient",
+      default: null,
     },
   },
   { toJSON: { virtuals: true } }

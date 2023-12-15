@@ -28,7 +28,7 @@ import Toast from "./Toast";
 import { LuStethoscope, LuCalendarClock, LuBuilding } from "react-icons/lu";
 import { useAddToCartMutation, useGetPatientQuery, useAddDeliveryAddressMutation } from "../store";
 
-const Checkout = ({ }) => {
+const Checkout = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalAmount, cartItems, medicines } = location.state;
@@ -73,23 +73,28 @@ const Checkout = ({ }) => {
 
   if (isFetching) return <div>Loading...</div>;
 
-  console.log("Patient", patient)
+  console.log("Patient", patient);
 
   const savedAddresses = patient.deliveryAddresses;
   const addressToString = (address) => {
     return `${address.apartmentNumber}, ${address.streetName}, ${address.city}`;
-  }
+  };
 
   const onSuccessfulCheckout = () => {
-
-    console.log("Passed to createOrder")
+    console.log("Passed to createOrder");
     console.log({
-      medicines: cartItems
-    })
-
-    createOrder({
       medicines: cartItems,
-    }).unwrap()
+    });
+
+    const cartItemsWithoutImage = cartItems.map((item) => {
+      const { medicineImage, ...rest } = item;
+      return rest;
+    });
+    console.log("cartItemsWithoutImage", cartItemsWithoutImage);
+    createOrder({
+      medicines: cartItemsWithoutImage,
+    })
+      .unwrap()
       .then(() => {
         setToast({
           ...toast,
@@ -102,8 +107,6 @@ const Checkout = ({ }) => {
           navigate("/patient/order", { state: { totalAmount, cartItems } });
         }, 1500);
       });
-
-
   };
 
   const onFailedCheckout = () => {
@@ -128,7 +131,6 @@ const Checkout = ({ }) => {
   //AND added to "sold" in db
 
   const handleAddressSelection = (address) => {
-
     const { apartmentNumber, streetName, city } = address;
 
     // Update state for each component
@@ -146,8 +148,6 @@ const Checkout = ({ }) => {
     setSelectedCity(city); // Set the selected city in state
   };
 
-
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -164,7 +164,6 @@ const Checkout = ({ }) => {
   };
 
   const handleAddAddress = () => {
-
     addDeliveryAddress({
       apartmentNumber,
       streetName,
@@ -186,7 +185,7 @@ const Checkout = ({ }) => {
           color: "danger",
           message: res.data.error,
         });
-      })
+      });
   };
 
   // const handlePayment = () => {
@@ -199,7 +198,6 @@ const Checkout = ({ }) => {
   //         setPaymentStatus('success');
   //       } else {
   //         console.log('Not enough amount');
-
 
   //       }
   //       break;
@@ -224,7 +222,7 @@ const Checkout = ({ }) => {
   //       <>
   //         {/* <CardPayment
   //           deductible={500}
-  //           onSuccess={() => { 
+  //           onSuccess={() => {
   //             createOrder({
   //               medicines: []
   //             })
@@ -258,7 +256,6 @@ const Checkout = ({ }) => {
   //             <Alert severity="error">Not enough amount in the wallet!</Alert>
 
   //           </Stack>)}
-
 
   //         </form>
   //       </>
@@ -302,7 +299,13 @@ const Checkout = ({ }) => {
       return (
         <>
           <Typography level="h3" fontWeight={500}>
-            Total Amount - ${totalAmount}
+            Amount Due ${totalAmount}
+          </Typography>
+          <Typography level="h3" fontWeight={500}>
+            Wallet -${tempWallet}
+          </Typography>
+          <Typography level="h3" fontWeight={500}>
+            Total Amount ${totalAmount - tempWallet}
           </Typography>
           <button className="viewOrderButton" onClick={onSuccessfulCheckout}>
             Place Order
@@ -333,6 +336,8 @@ const Checkout = ({ }) => {
       onClick: () => setSelectedOption("cash"),
     },
   ];
+
+  const tempWallet = 30;
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {

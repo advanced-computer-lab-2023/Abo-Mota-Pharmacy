@@ -1,57 +1,55 @@
-.accordion-container{
+.accordion-container {
   display: flex;
   flex-direction: column;
   margin: 5px;
   border-radius: 20px;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.accordion-header{
+.accordion-header {
   font-size: 2.5rem;
   font-weight: bold;
   color: var(--main-color);
-
 }
 
-.accordion-subheader{
+.accordion-subheader {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.accordion-price{
+.accordion-price {
   align-self: center;
   font-size: 2rem;
   font-weight: bold;
 }
 
-.accordion{
+.accordion {
   display: flex;
   flex-direction: row;
-  justify-content: space-between; 
+  justify-content: space-between;
   padding: 15px;
   cursor: pointer;
 }
 
-.accordion-extension{
+.accordion-extension {
   padding: 10px;
   display: flex;
   flex-direction: column;
 }
-.open{
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.open {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-.accordion-entry{
+.accordion-entry {
   font-size: 1.5rem;
 }
 
-.accordion-key{
+.accordion-key {
   font-weight: bold;
   text-transform: capitalize;
 }
 
-.accordion-image{
+.accordion-image {
   width: 400px;
   height: auto;
   object-fit: cover;
@@ -59,21 +57,21 @@
   align-self: center;
 }
 
-.extension-header{
+.extension-header {
   font-size: 2rem;
   font-weight: bold;
 }
-.accordion-button-container{
+.accordion-button-container {
   display: flex;
   justify-content: flex-end;
   padding: 10px;
-  height: 60px;
+  height: 120px;
+  gap: 40px;
 }
 
-.accordion-button{
+.accordion-button {
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 10px;
   display: flex;
   border-radius: 10px;
   width: 100px;
@@ -82,4 +80,8 @@
   color: #fff;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+}
+
+.accordion-header-archived {
+  color: red;
 }
