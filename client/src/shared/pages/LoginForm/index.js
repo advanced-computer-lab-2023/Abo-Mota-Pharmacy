@@ -12,17 +12,24 @@ import ForgetPasswordScreen from "../ForgetPasswordScreen";
 import OtpScreen from "../OtpScreen";
 import { login, useLoginMutation } from "../../../store";
 import { useDispatch } from "react-redux";
+import FormErrorDialog from "../../components/FormErrorDialog";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [otpOpen, setOtpOpen] = useState(false);
   const [email, setEmail] = useState("");
-
+  const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
   const [loginMutation, results] = useLoginMutation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (results.error) {
+      setOpenDialog(true);
+    }
+  }, [results]);
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
@@ -64,35 +71,35 @@ const LoginForm = () => {
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
           {console.log(formik.values)}
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Username*"
+              label='Username*'
               icon
-              type="text"
-              id="username"
+              type='text'
+              id='username'
               error={formik.errors.username}
               touch={formik.touched.username}
               {...formik.getFieldProps("username")}
             />
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Password*"
+              label='Password*'
               icon
-              type="password"
-              id="password"
+              type='password'
+              id='password'
               error={formik.errors.password}
               touch={formik.touched.password}
               {...formik.getFieldProps("password")}
             />
           </div>
-          <div className="submit-add-medicine-button-container">
+          <div className='submit-add-medicine-button-container'>
             {
               isLoading ? (
                 <LoadingIndicator />
               ) : (
                 // <Link to='medicine'>
-                <Button type="submit">Log in</Button>
+                <Button type='submit'>Log in</Button>
               )
               // </Link>
             }
@@ -102,20 +109,21 @@ const LoginForm = () => {
     </Formik>
   );
 
+  console.log("res", results);
   return (
-    <div className="login-div">
-      <div className="login-portal">
-        <div className="login-part">
-          <div className="login-logo-div">
+    <div className='login-div'>
+      <div className='login-portal'>
+        <div className='login-part'>
+          <div className='login-logo-div'>
             {" "}
-            <img className="login-logo" src={logo} alt="logo" />{" "}
+            <img className='login-logo' src={logo} alt='logo' />{" "}
           </div>
-          <Header header="Welcome Back!" type="login-header" />
+          <Header header='Welcome Back!' type='login-header' />
         </div>
-        <p className="login-word">Login</p>
+        <p className='login-word'>Login</p>
         {PharmacistForm}
         <div
-          className="flex justify-between mr-8 ml-8"
+          className='flex justify-between mr-8 ml-8'
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -124,7 +132,7 @@ const LoginForm = () => {
           }}
         >
           <button
-            className="forget-password-button"
+            className='forget-password-button'
             onClick={() => {
               navigate("/registerPharmacist");
             }}
@@ -132,7 +140,7 @@ const LoginForm = () => {
             Register as Pharmacist?
           </button>
           <button
-            className="forget-password-button"
+            className='forget-password-button'
             onClick={() => {
               navigate("/registerPatient");
             }}
@@ -141,7 +149,7 @@ const LoginForm = () => {
           </button>
 
           <button
-            className="forget-password-button"
+            className='forget-password-button'
             onClick={() => {
               setForgetPassword(true);
             }}
@@ -158,7 +166,7 @@ const LoginForm = () => {
           goToOtp={() => {
             setOtpOpen(true);
           }}
-          setEmail = {setEmail}
+          setEmail={setEmail}
         />
       )}
       {otpOpen && (
@@ -166,9 +174,15 @@ const LoginForm = () => {
           closeForm={() => {
             setOtpOpen(false);
           }}
-          email = {email}
+          email={email}
         />
       )}
+      <FormErrorDialog
+        isError={openDialog}
+        setClose={() => {
+          setOpenDialog(false);
+        }}
+      />
     </div>
   );
 };
