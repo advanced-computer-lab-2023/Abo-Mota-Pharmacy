@@ -16,6 +16,8 @@ const ProductCard = ({
   medicineImage,
   mainActiveIngredient,
   similarMedicines,
+  isOverTheCounter,
+  isPrescribed,
 }) => {
   const handleClick = () => {
     onAddToCart({ name, description, price, sales, quantity, medicinalUse });
@@ -40,6 +42,34 @@ const ProductCard = ({
     type: medicineImage.contentType,
   });
   const urlDegree = URL.createObjectURL(blobDegree);
+
+  const buttons = (
+    <>
+      <Button
+        className='add-button'
+        onClick={handleClick}
+        disabled={quantity === 0}
+      >
+        {quantity > 0 ? "Add to Cart" : "Sold Out"}
+      </Button>
+      {quantity > 0 ? null : (
+        <Button className='add-button' onClick={findAltClick}>
+          Find Alternatives
+        </Button>
+      )}
+    </>
+  );
+
+  const toBeRenderedButtons = isOverTheCounter ? (
+    buttons
+  ) : isPrescribed ? (
+    buttons
+  ) : (
+    <Button className='add-button' disabled>
+      {" "}
+      Needs Prescription{" "}
+    </Button>
+  );
   return (
     // <div className="container">
     <div className='product-card'>
@@ -60,20 +90,7 @@ const ProductCard = ({
         <p className="extras">→ In Stock: {quantity}</p> */}
         <p className='extras'>→ Use: {medicinalUse}</p>
       </div>
-      <div className='button-div'>
-        <Button
-          className='add-button'
-          onClick={handleClick}
-          disabled={quantity === 0}
-        >
-          {quantity > 0 ? "Add to Cart" : "Sold Out"}
-        </Button>
-        {quantity > 0 ? null : (
-          <Button className='add-button' onClick={findAltClick}>
-            Find Alternatives
-          </Button>
-        )}
-      </div>
+      <div className='button-div'>{toBeRenderedButtons}</div>
     </div>
     // </div>
   );

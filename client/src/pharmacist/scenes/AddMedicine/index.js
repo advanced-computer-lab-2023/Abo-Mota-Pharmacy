@@ -11,6 +11,7 @@ import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import { useEffect, useState } from "react";
 import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 import FileInput from "../../../shared/components/FileInput";
+import FormErrorDialog from "../../../shared/components/FormErrorDialog/index.js";
 
 import { useNavigate } from "react-router-dom";
 
@@ -28,10 +29,6 @@ const AddMedicine = () => {
   }, [results]);
 
   const handleSubmit = async (values, { resetForm }) => {
-    // values contains all the data needed for registeration
-    // console.log(values);
-    // console.log(data);
-
     const medicineObj = {
       name: values.medicineName,
       price: values.price,
@@ -160,6 +157,11 @@ const AddMedicine = () => {
         subheader='Please Enter new medicine info'
       />
       {medicineForm}
+      <FormErrorDialog
+        isError={addMedicineError !== ""}
+        setClose={() => setAddMedicineError("")}
+        message={addMedicineError}
+      />
     </div>
   );
 };
