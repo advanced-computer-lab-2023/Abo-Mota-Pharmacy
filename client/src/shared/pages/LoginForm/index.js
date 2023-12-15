@@ -190,12 +190,7 @@ const LoginForm = () => {
 const PharmacistSchema = yup.object().shape({
   username: yup.string().required("Please enter a valid username"),
 
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[a-zA-Z]/, "Password must contain at least one letter")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .required("Please enter a valid password"),
+  password: yup.string(),
 });
 
 const initialPharmacistValues = {
