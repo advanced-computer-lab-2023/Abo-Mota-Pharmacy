@@ -9,6 +9,7 @@ import ChangePasswordScreen from "../../shared/pages/ChangePasswordScreen";
 import SalesReport from "../../shared/pages/SalesReport";
 import { useGetPharmacistQuery, useFetchNotificationQuery } from "../../store";
 import ViewSettings from "./ViewSettings";
+import Notifications from "../../shared/pages/Notification";
 
 function PharmacistApp({socket}) {
   const links = [
@@ -17,6 +18,7 @@ function PharmacistApp({socket}) {
     { name: "Medicine Inventory", to: "/pharmacist/medicine" },
     { name: "View Settings", to: "/pharmacist/viewSettings" },
     { name: "Sales Report", to: "/pharmacist/salesReport" },
+    
   ];
 
   const { data, isFetching } = useGetPharmacistQuery();
@@ -35,6 +37,8 @@ function PharmacistApp({socket}) {
         .filter((notification) => notification != null)
         .map((notification, index) => notification.content);
       setNotifications(notif);
+
+      console.log(notifs);
     }
   }, [isFetchingNotifs]);
 
@@ -71,6 +75,7 @@ function PharmacistApp({socket}) {
         />
         <Route path='viewSettings' element={<ViewSettings />} />
         <Route path='salesReport' element={<SalesReport />} />
+        <Route path = 'notifications' element={<Notifications/>}/>
       </Routes>
     </div>
   );
