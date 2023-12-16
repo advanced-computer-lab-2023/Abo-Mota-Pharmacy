@@ -20,11 +20,14 @@ export default function Notifications(){
 
     console.log(data.notifications);
 
-    const content = data.notifications.map((notification) => {
+    //some are null in the db need to be deleted
+    const notifications = data.notifications.filter((notification) => notification != null);
+
+    const content = notifications.map((notification) => {
         return <NotificationCard {...notification} />
     });
 
-    let todayContent = data.notifications.filter((notification) => {
+    let todayContent = notifications.filter((notification) => {
         const notificationDate = dayjs(notification.formattedDate, {format: "MM/DD/YYYY"});
         const today = dayjs();
         return notificationDate.isSame(today, "day");

@@ -1,38 +1,12 @@
 import {CircularProgress , Typography, Card, CardContent, Avatar, Box, Divider} from '@mui/joy';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import capitalizeFirstLetter from '../utils/capitalizeFirstLetter';
+import { GiMedicinePills } from "react-icons/gi";
 
 
-export default function NotificationCard({content, formattedDate, sender, recipient}){
+export default function NotificationCard({content, formattedDate}){
 
-    let title;
-
-    if(recipient.userType === "patient"){
-        if(content.includes("rescheduled")){
-            title = <Typography level="title-lg" id="card-description"> Appointment Rescheduled</Typography>
-        }else if(content.includes("cancelled")){
-            title = <Typography level="title-lg" id="card-description"> Appointment Cancelled</Typography>
-        }else
-            title = <Typography level="title-lg" id="card-description"> Appointment Confirmation</Typography>
-
-    }else{
-        if(content.includes("rescheduled")){
-            title = <Typography level="title-lg" id="card-description"> Appointment Rescheduled</Typography>
-        }else if(content.includes("cancelled"))
-            title = <Typography level="title-lg" id="card-description"> Appointment Cancelled</Typography>
-        else
-            title = <Typography level="title-lg" id="card-description">{capitalizeFirstLetter(sender.username)}</Typography>
-        }
-
-    let avatar;
-    if(recipient.userType === "patient" || content.includes("cancelled") || content.includes("rescheduled")){
-        // avatar = <Avatar src={image} />
-    }else {
-        avatar = <Avatar size="md"> {capitalizeFirstLetter((sender.username).charAt(0))}</Avatar>
-
-    }
-
-
+   
     return (
         <Card
           variant="outlined"
@@ -47,11 +21,10 @@ export default function NotificationCard({content, formattedDate, sender, recipi
             
           <Box className="flex justify-between">
               <Box className="flex space-x-4">
-                {avatar}
+                    <Avatar size="lg"> <GiMedicinePills /> </Avatar>
                 
                 <Box className="mr-10">
-                    
-                    {title}
+                    <Typography level="title-lg" id="card-description"> Medicine Out of Stock</Typography>
                   <Box className="">
                     <Typography level="body-md" aria-describedby="card-description" mb={1}>
                       {content}
@@ -72,9 +45,6 @@ export default function NotificationCard({content, formattedDate, sender, recipi
                 {formattedDate.includes(",") ? formattedDate.replace(",", " -") : formattedDate}
               </Typography>
             </Box>
-    
-            
-            
     
           </CardContent>
         </Card>

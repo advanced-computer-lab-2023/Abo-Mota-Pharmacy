@@ -23,49 +23,47 @@ function PharmacistApp({socket}) {
 
   const { data, isFetching } = useGetPharmacistQuery();
   
-  const { data: notifs, isFetching: isFetchingNotifs } = useFetchNotificationQuery();
+  // const { data: notifs, isFetching: isFetchingNotifs } = useFetchNotificationQuery();
 
-  const [notifications, setNotifications] = useState([]);
+  // const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    !isFetching && socket.emit("user_connected", data._id)
-  }, [isFetching]);
+  // useEffect(() => {
+  //   !isFetching && socket.emit("user_connected", data._id)
+  // }, [isFetching]);
 
-  useEffect(() => {
-    if (!isFetchingNotifs) {
-      const notif = notifs.notifications
-        .filter((notification) => notification != null)
-        .map((notification, index) => notification.content);
-      setNotifications(notif);
+  // useEffect(() => {
+  //   if (!isFetchingNotifs) {
+  //     const notif = notifs.notifications
+  //       .filter((notification) => notification != null)
+  //       .map((notification, index) => notification.content);
+  //     setNotifications(notif);
 
-      console.log(notifs);
-    }
-  }, [isFetchingNotifs]);
+  //     console.log(notifs);
+  //   }
+  // }, [isFetchingNotifs]);
 
-  useEffect(() => {
-    const handleReceiveNotification = ({ content }) => setNotifications((prev) => [...prev, content]);
+  // useEffect(() => {
+  //   const handleReceiveNotification = ({ content }) => setNotifications((prev) => [...prev, content]);
 
-    // Attach the event listener
-    socket.on("receive_notification_stock", handleReceiveNotification);
+  //   // Attach the event listener
+  //   socket.on("receive_notification_stock", handleReceiveNotification);
     
-  }, [socket]);
+  // }, [socket]);
 
-  let content = '';
-  if(!isFetchingNotifs){
-  content = notifications.map((notif, index) => {
-    return <div key={index}>
-      {notif}
-    </div>
-  })
-}
+  // let content = '';
+  // if(!isFetchingNotifs){
+  // content = notifications.map((notif, index) => {
+  //   return <div key={index}>
+  //     {notif}
+  //   </div>
+  // })
+// }
 
   return (
     <div>
-      <NavBar links={links} notifications={notifications}/>
+      <NavBar links={links}/>
       {/* <Outlet/> */}
-      <div>
-        {content}
-      </div>
+     
       <Routes>
         <Route path='medicine' element={<MedicineScreen isPharmacist />} />
         <Route path='addMedicine' element={<AddMedicine />} />
