@@ -108,7 +108,7 @@ const MedicineScreen = ({ isPharmacist = false }) => {
             >
               <Button type='button'>
                 <AiOutlinePlus color='#fff' size={20} />
-                Add Medicine
+                Add
               </Button>
             </Link>
           </div>

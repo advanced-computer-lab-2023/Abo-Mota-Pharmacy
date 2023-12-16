@@ -11,30 +11,34 @@ import OrderCard from "./Order";
 import MyOrders from "./myOrders";
 import ChangePasswordScreen from "../shared/pages/ChangePasswordScreen";
 import AlternativesScreen from "./scenes/AlternativesScreen/AlternativesScreen";
-import ViewFinancials from "./scenes/ViewFinancials";
+import ViewSettings from "./scenes/ViewSettings";
 import ConnectAccountForm from "./scenes/ConnectAccountsForm";
 function PatientApp() {
   const links = [
     { name: "Shop Medicines", to: "/patient/medicine" },
     { name: "View My Orders", to: "/patient/myOrders" },
-    { name: "Change password", to: "/patient/changePassword" },
-    { name: "View Financials", to: "/patient/viewFinancials" },
-    { name: "Connect Account Form", to: "/patient/connectAccountForm" },
+    { name: "View Account", to: "/patient/viewSettings" },
   ];
   // console.log(data);
   return (
     <div>
       <NavBar links={links} />
       <Routes>
-        <Route path="medicine" element={<MedList />} />
-        <Route path="medicine2" element={<MedicineScreen />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="/order" element={<OrderCard />} />
-        <Route path="/myOrders" element={<MyOrders />} />
-        <Route path="/viewFinancials" element={<ViewFinancials />} />
-        <Route path="/medicine/alternativesScreen" element={<AlternativesScreen />} />
-        <Route path="/connectAccountForm" element={<ConnectAccountForm />} />
-        <Route path="/changePassword" element={<ChangePasswordScreen isPatient />} />
+        <Route path='medicine' element={<MedList />} />
+        <Route path='medicine2' element={<MedicineScreen />} />
+        <Route path='checkout' element={<Checkout />} />
+        <Route path='/order' element={<OrderCard />} />
+        <Route path='/myOrders' element={<MyOrders />} />
+        <Route path='/viewSettings' element={<ViewSettings />} />
+        <Route
+          path='/medicine/alternativesScreen'
+          element={<AlternativesScreen />}
+        />
+        <Route path='/connectAccountForm' element={<ConnectAccountForm />} />
+        <Route
+          path='/changePassword'
+          element={<ChangePasswordScreen isPatient />}
+        />
         {/* </Route> */}
       </Routes>
     </div>
