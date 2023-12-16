@@ -24,7 +24,7 @@ function PatientApp({socket}) {
     <div>
       <NavBar links={links} socket={socket}/>
       <Routes>
-        <Route path="medicine" element={<MedList socket={socket}/>} />
+        <Route path="medicine" element={<MedList />} />
         <Route path="medicine2" element={<MedicineScreen />} />
         <Route path="checkout" element={<Checkout socket={socket}/>} />
         <Route path="/order" element={<OrderCard />} />

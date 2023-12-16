@@ -13,7 +13,7 @@ import RegisterForm from "./pharmacist/scenes/RegisterForm";
 import ConnectAccountForm from "./patient/scenes/ConnectAccountsForm";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("http://localhost:8000");
 
 function App() {
   return (
