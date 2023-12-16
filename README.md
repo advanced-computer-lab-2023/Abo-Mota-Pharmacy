@@ -797,10 +797,6 @@ export default LoginForm;
 <details>
 <summary>As a Patient I can</summary>
 
-- Login with my username and password.
-- Logout of the system.
-- Change my password.
-- Reset a forgotten password via OTP sent to email.
 - View a list of all available medicines, including pictures, prices, and descriptions.
 - Search for medicines based on name.
 - Filter medicines based on their medicinal use.
@@ -823,9 +819,6 @@ export default LoginForm;
 <details>
 <summary>As a Pharmacist I can</summary>
 
-- Login and logout of the system.
-- Change my password.
-- Reset my password via OTP sent to email.
 - Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
 - view a list of all available medicines (including picture of medicine, price, description)
 - search for medicine based on name
@@ -838,6 +831,7 @@ export default LoginForm;
 - Filter sales reports based on medicine or date.
 - Receive notifications when a medicine is out of stock.
 - Chat with a doctor.
+- View total sales reports based on a chosen month.
 - View the amount in my wallet.
 
 </details>
@@ -845,8 +839,7 @@ export default LoginForm;
 <details>
 <summary>As an Administrator I can</summary>
    
-- Login with my username and password.
-- Logout of the system.
+
 - Add another administrator with a set username and password.
 - Remove a pharmacist or patient from the system.
 - View all the information uploaded by a pharmacist when they apply to join the platform.
@@ -860,6 +853,19 @@ export default LoginForm;
 - search for medicine based on name
 - filter medicines based on medicinal use
   
+</details>
+
+<details>
+<summary>Common Features for Patient/Pharmacist/Administrator</summary>
+   
+- Login with my username and password.
+- Logout of the system.
+- Change my password.
+- Reset my password via OTP sent to email.
+- View a list of all available medicines including picture, price, and description.
+- Search for medicine based on name.
+- Filter medicines based on medicinal use.
+
 </details>
 
 ## Installation
