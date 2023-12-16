@@ -13,10 +13,17 @@ import { useEditMedicineMutation } from "../../../store";
 import FileInput from "../../../shared/components/FileInput";
 import FormErrorDialog from "../../../shared/components/FormErrorDialog";
 
-const EditMedicine = ({ isOpen, onClose, medicineDetails }) => {
+const EditMedicine = ({
+  isOpen,
+  onClose,
+  medicineDetails,
+  isOverTheCounter,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const { name, quantity, medicinalUse } = medicineDetails;
   const [editMedicineError, setEditMedicineError] = useState(false);
+
+  console.log("afa", isOverTheCounter);
 
   const initialValues = {
     price: "",
@@ -24,6 +31,7 @@ const EditMedicine = ({ isOpen, onClose, medicineDetails }) => {
     addQuantity: "",
     medicinalUse: medicinalUse,
     medicineImage: null,
+    isOverTheCounter: isOverTheCounter,
   };
   const [editMedicine, results] = useEditMedicineMutation();
   const onSubmit = async (values, { resetForm }) => {
@@ -84,6 +92,16 @@ const EditMedicine = ({ isOpen, onClose, medicineDetails }) => {
               type='number'
               {...formik.getFieldProps("addQuantity")}
             />
+
+            <DropDown
+              options={["true", "false"]}
+              id='isOverTheCounter'
+              label='Change is Over The Counter'
+              error={formik.errors.isOverTheCounter}
+              value={formik.values.isOverTheCounter}
+              touch={formik.touched.isOverTheCounter}
+              onChange={formik.handleChange}
+            />
           </div>
           <div className='form-container'>
             <DropDown
@@ -94,16 +112,6 @@ const EditMedicine = ({ isOpen, onClose, medicineDetails }) => {
               value={formik.values.medicinalUse}
               touch={formik.touched.medicinalUse}
               onChange={formik.handleChange}
-            />
-
-            <FileInput
-              label='Medicine Image'
-              id='medicineImage'
-              name='medicineImage' // Ensure this is set to correctly associate with Formik's `getFieldProps`
-              error={formik.errors.medicineImage}
-              touch={formik.touched.medicineImage}
-              onChange={(file) => formik.setFieldValue("medicineImage", file)}
-              onBlur={() => formik.setFieldTouched("medicineImage", true)} // To handle touch status
             />
           </div>
           <div className='edit-medicine-button'>
@@ -147,6 +155,8 @@ const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
 const medicineSchema = yup.object().shape({
   price: yup.number().positive("Price should be a positive number"),
+
+  isOverTheCounter: yup.string(),
 
   description: yup
     .string()

@@ -19,6 +19,7 @@ const Accordion = ({
   sales,
   status,
   image = AspirinLogo,
+  isOverTheCounter,
 }) => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -77,7 +78,7 @@ const Accordion = ({
       <div className={className} onClick={onClick}>
         <div className='accordion-titles'>
           <div className={`accordion-header ${extraClass}`}>
-            {label} {status == "archived" ? " (Archived)" : ""}
+            {label} {status === "archived" ? " (Archived)" : ""}
           </div>
           <div className='accordion-subheader'>{subLabel}</div>
         </div>
@@ -92,6 +93,11 @@ const Accordion = ({
             alt='Aspirin Logo'
           />
           {extension}
+          <div className='accordion-entry'>
+            {isOverTheCounter
+              ? "This Medicine is Over the Counter"
+              : "This Medicine needs a prescription"}
+          </div>
           {isPharmacist ? (
             <div className='accordion-button-container'>
               <div className='accordion-button'>
@@ -124,6 +130,7 @@ const Accordion = ({
           isOpen={edit}
           onClose={() => setEdit(false)}
           medicineDetails={data}
+          isOverTheCounter={isOverTheCounter}
         />
       ) : null}
     </div>

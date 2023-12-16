@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Recursive:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Recursive:wght@500&display=swap");
 
-.app-header{
+.app-header {
   color: var(--main-color);
   font-size: 4rem;
   font-weight: 900;
@@ -8,7 +8,7 @@
   padding-left: 10px;
 }
 
-.app-subheader{
+.app-subheader {
   color: silver;
   font-size: 2rem;
   font-weight: 400;
@@ -16,13 +16,13 @@
   padding-left: 15px;
 }
 
-.login-header{
+.login-header {
   color: #fff;
-  font-size:5rem;
+  font-size: 5rem;
   font-weight: 900;
   font-style: italic;
   padding-left: 10px;
   align-self: center;
-  font-family: 'Great Vibes', cursive;
+  font-family: "Great Vibes", cursive;
   text-align: center;
 }

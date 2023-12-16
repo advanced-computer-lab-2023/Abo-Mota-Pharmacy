@@ -143,6 +143,18 @@ const patientApi = createApi({
           };
         },
       }),
+      updatePrescriptionsQuantity: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["Patient"];
+        },
+        query: (data) => {
+          return {
+            url: "/updatePrescriptionsQuantity",
+            method: "PATCH",
+            body: data,
+          };
+        },
+      }),
     };
   },
 });
@@ -159,5 +171,6 @@ export const {
   useGetOrdersQuery,
   useChangePatientPasswordMutation,
   useLinkWithClinicMutation,
+  useUpdatePrescriptionsQuantityMutation,
 } = patientApi;
 export { patientApi };
