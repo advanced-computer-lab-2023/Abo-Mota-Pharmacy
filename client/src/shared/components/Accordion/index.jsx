@@ -77,7 +77,7 @@ const Accordion = ({
       <div className={className} onClick={onClick}>
         <div className='accordion-titles'>
           <div className={`accordion-header ${extraClass}`}>
-            {label} {status == "archived" ? " (Archived)" : ""}
+            {label} {status === "archived" ? " (Archived)" : ""}
           </div>
           <div className='accordion-subheader'>{subLabel}</div>
         </div>

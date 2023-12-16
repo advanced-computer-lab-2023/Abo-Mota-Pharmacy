@@ -1,0 +1,35 @@
+.blue-imp-button {
+  background-color: var(--main-color) !important;
+  width: 120px !important;
+  align-items: flex-end !important;
+  display: flex !important ;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: transform 0.3s ease; /* Add transition for the transform property */
+}
+
+.blue-imp-button:hover {
+  transform: scale(1.1); /* Increase the scale to 110% on hover */
+  background-color: black !important;
+}
+
+.blue-imp-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.prescription-image {
+  border-radius: 40px;
+  border: 1px solid black;
+  height: 80px;
+  width: auto;
+}
+
+.prescription-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
