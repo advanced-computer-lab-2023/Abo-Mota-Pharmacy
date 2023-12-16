@@ -147,9 +147,12 @@ const createOrder = async (req, res) => {
   try {
     const username = req.userData.username;
     const patient = await Patient.findOne({ username });
-    const clinicPatientExists = await ClinicPatient.findOne({ username }).populate(
-      "healthPackage.package"
-    );
+    let clinicPatientExists;
+		if (patient.hasOwnProperty('clinicPatient') && patient.clinicPatient !== null) {
+			clinicPatientExists = await ClinicPatient.findOne({ _id: patient.clinicPatient }).populate(
+				"healthPackage.package"
+			);
+		}
 
     const { medicines } = req.body;
 
