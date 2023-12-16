@@ -154,7 +154,6 @@ const createOrder = async (req, res) => {
 				"healthPackage.package"
 			);
 		}
-
     const { medicines } = req.body;
 
     let totalPrice = 0;
