@@ -366,6 +366,425 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - **APIs**: Stripe
 - **Development tools**: Postman, Git, GitHub
 
+## Code Examples 🐱‍💻
+
+<details>
+    <summary>
+    Stripe Controller
+    </summary>
+
+```javascript
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2022-08-01",
+});
+
+const createPaymentIntent = async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: parseInt(amount),
+      currency: "usd",
+    });
+
+    res.status(200).json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const config = (req, res) => {
+  res.send({
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  });
+};
+
+module.exports = {
+  createPaymentIntent,
+  config,
+};
+```
+
+
+</details>
+
+<details>
+    
+<summary>Medicine Model</summary>
+
+```javascript
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+const medicineSchema = new Schema({
+  name: String,
+  description: String,
+  activeIngredients: [String],
+  price: Number,
+  quantity: Number,
+  medicineImage: {
+    data: Buffer,
+    contentType: String,
+  },
+  sales: {
+    type: Number,
+    default: 0,
+  },
+  medicinalUse: {
+    type: String,
+    enum: [
+      "Antibiotic",
+      "Pain Reliever",
+      "Antipyretic",
+      "Antifungal",
+      "Antiviral",
+      "Antiseptic",
+      "Antispasmodic",
+      "Antihistamine",
+      "Anti-inflammatory",
+      "Diuretic",
+    ],
+  },
+  status: {
+    type: String,
+    enum: ["archived", "unarchived"],
+    default: "unarchived",
+  },
+  isOverTheCounter: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const Medicine = mongoose.model("Medicine", medicineSchema);
+module.exports = Medicine;
+```
+
+
+</details>
+
+<details>
+
+<summary>
+    Patient Routes
+</summary> 
+
+```javascript
+const express = require("express");
+const router = express.Router();
+const {
+  getMedicines,
+  getPatient,
+  getOrders,
+  cancelOrder,
+  createOrder,
+  removeFromCart,
+  addToCart,
+  addDeliveryAddress,
+  payByWallet,
+  changePassword,
+  viewWallet,
+  viewAlternatives,
+  linkWithClinic,
+  updatePrescriptionsQuantity,
+} = require("../controller/patientController");
+
+const authorize = require("../middlewares/authorization");
+
+router.get("/", authorize, getPatient); //done
+
+router.get("/medicines", authorize, getMedicines); //done
+
+router.post("/addToCart", authorize, addToCart); //done
+
+router.delete(`/removeFromCart`, authorize, removeFromCart); //done
+
+router.get("/orders", authorize, getOrders); //done
+
+router.patch("/cancelOrder", authorize, cancelOrder); //done
+
+router.post("/createOrder", authorize, createOrder); //done
+
+router.patch("/addDeliveryAddress", authorize, addDeliveryAddress); //done
+
+router.patch("/deliveryAddress", authorize, addDeliveryAddress);
+
+router.patch("/payByWallet", authorize, payByWallet); //done
+
+router.patch("/changePassword", authorize, changePassword);
+
+router.get("/wallet", authorize, viewWallet);
+
+router.get("/alternatives", authorize, viewAlternatives);
+
+router.post("/linkWithClinic", authorize, linkWithClinic);
+
+router.patch("/updatePrescriptionsQuantity", authorize, updatePrescriptionsQuantity);
+
+module.exports = router;
+
+```
+
+</details>
+
+
+<details>
+    <summary>
+        Authorization middleware
+    </summary> 
+
+```javascript
+const jwt = require("jsonwebtoken");
+
+const authToken = (req, res, next) => {
+    const token = req.cookies.jwt;
+    console.log(token);
+    if(token){
+        jwt.verify(token, process.env.JWT_SECRET, (err, userData) => {
+            if(err)
+                return res.status(500).json({message: "Unauthorized", isLoggedIn: false});
+            
+            req.userData = userData;  //userData is the payload included in the token
+            const userType = userData.userType;
+            //check if the user type allowed for the current route
+            console.log("baseUrl", req.baseUrl)
+            if(userType === 'admin' && (req.baseUrl).includes('/admin'))
+                next();
+            else if(userType === 'pharmacist' && (req.baseUrl).includes('/pharmacist'))
+                next();
+            else if (userType === 'patient' && ((req.baseUrl).includes('/patient') || (req.baseUrl).includes('/stripe')))
+                next();
+            else
+                return res.status(403).json({ message: "Forbidden"});
+        })
+    }else{
+        res.status(500).json({message: 'Unauthorized', isLoggedIn: false})
+    }
+
+}
+
+module.exports = authToken;
+```
+
+</details>
+
+
+<details>
+
+   <summary>
+        Login Form
+   </summary> 
+   
+```javascript
+import Button from "../../components/Button";
+import { useEffect, useState } from "react";
+import Input from "../../components/InputField";
+import "./styles.css";
+import logo from "../../../shared/assets/logo.png";
+import * as yup from "yup";
+import Header from "../../components/Header";
+import { Formik } from "formik";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import { useNavigate } from "react-router-dom";
+import ForgetPasswordScreen from "../ForgetPasswordScreen";
+import OtpScreen from "../OtpScreen";
+import { login, useLoginMutation } from "../../../store";
+import { useDispatch } from "react-redux";
+import FormErrorDialog from "../../components/FormErrorDialog";
+
+const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [forgetPassword, setForgetPassword] = useState(false);
+  const [otpOpen, setOtpOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const navigate = useNavigate();
+  const [loginMutation, results] = useLoginMutation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (results.error) {
+      setOpenDialog(true);
+    }
+  }, [results]);
+
+  const handleSubmit = async (values, { resetForm }) => {
+    // values contains all the data needed for registeration
+    const user = {
+      username: values.username,
+      password: values.password,
+    };
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    try {
+      const result = await loginMutation(user).unwrap();
+      // Use the result for navigation or other side effects
+      if (result.userType === "patient") {
+        dispatch(login({ role: "patient" }));
+        navigate("/patient/medicine");
+      } else if (result.userType === "pharmacist") {
+        dispatch(login({ role: "pharmacist" }));
+        navigate("/pharmacist");
+      } else if (result.userType === "admin") {
+        dispatch(login({ role: "admin" }));
+        navigate("/admin");
+      }
+      resetForm({ values: "" });
+    } catch (error) {
+      console.error("Failed to login:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const PharmacistForm = (
+    <Formik
+      initialValues={initialPharmacistValues}
+      validationSchema={PharmacistSchema}
+      onSubmit={handleSubmit}
+    >
+      {(formik) => (
+        <form onSubmit={formik.handleSubmit}>
+          {console.log(formik.values)}
+          <div className='form-container'>
+            <Input
+              label='Username*'
+              icon
+              type='text'
+              id='username'
+              error={formik.errors.username}
+              touch={formik.touched.username}
+              {...formik.getFieldProps("username")}
+            />
+          </div>
+          <div className='form-container'>
+            <Input
+              label='Password*'
+              icon
+              type='password'
+              id='password'
+              error={formik.errors.password}
+              touch={formik.touched.password}
+              {...formik.getFieldProps("password")}
+            />
+          </div>
+          <div className='submit-add-medicine-button-container'>
+            {isLoading ? (
+              <LoadingIndicator />
+            ) : (
+              <Button type='submit'>Log in</Button>
+            )}
+          </div>
+        </form>
+      )}
+    </Formik>
+  );
+
+  console.log("res", results);
+  return (
+    <div className='login-div'>
+      <div className='login-portal'>
+        <div className='login-part'>
+          <div className='login-logo-div'>
+            {" "}
+            <img className='login-logo' src={logo} alt='logo' />{" "}
+          </div>
+          <Header header='Welcome Back!' type='login-header' />
+        </div>
+        <p className='login-word'>Login</p>
+        {PharmacistForm}
+        <div
+          className='flex justify-between mr-8 ml-8'
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginRight: "8px",
+            marginLeft: "8px",
+          }}
+        >
+          <button
+            className='forget-password-button'
+            onClick={() => {
+              navigate("/registerPharmacist");
+            }}
+          >
+            Register as Pharmacist?
+          </button>
+          <button
+            className='forget-password-button'
+            onClick={() => {
+              navigate("/registerPatient");
+            }}
+          >
+            Register as Patient?
+          </button>
+
+          <button
+            className='forget-password-button'
+            onClick={() => {
+              setForgetPassword(true);
+            }}
+          >
+            Forgot Password?
+          </button>
+        </div>
+      </div>
+      {forgetPassword && (
+        <ForgetPasswordScreen
+          closeForm={() => {
+            setForgetPassword(false);
+          }}
+          goToOtp={() => {
+            setOtpOpen(true);
+          }}
+          setEmail={setEmail}
+        />
+      )}
+      {otpOpen && (
+        <OtpScreen
+          closeForm={() => {
+            setOtpOpen(false);
+          }}
+          email={email}
+        />
+      )}
+      <FormErrorDialog
+        isError={openDialog}
+        setClose={() => {
+          setOpenDialog(false);
+        }}
+      />
+    </div>
+  );
+};
+
+const PharmacistSchema = yup.object().shape({
+  username: yup.string().required("Please enter a valid username"),
+
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .matches(/[a-zA-Z]/, "Password must contain at least one letter")
+    .matches(/[0-9]/, "Password must contain at least one number")
+    .required("Please enter a valid password"),
+});
+
+const initialPharmacistValues = {
+  username: "",
+  password: "",
+};
+
+export default LoginForm;
+
+```
+
+</details>
+
+
+
+
 ## Features
 <details>
 <summary>As a Guest I can</summary>
