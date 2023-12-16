@@ -3,10 +3,9 @@ import './card.css';
 import Button from '@mui/material/Button';
 import '../../assets/aspirin.jpg';
  
-
 const ProductCard = ({name,description,price,sales,quantity,medicinalUse,onAddToCart,medicineImage}) => {
   const handleClick = () => {
-    onAddToCart({ name, description, price, sales,quantity,medicinalUse });   
+    onAddToCart();   
    };
    const bytesDegree = new Uint8Array(medicineImage.data.data);
    const blobDegree = new Blob([bytesDegree], { type: medicineImage.contentType });
@@ -33,7 +32,7 @@ const ProductCard = ({name,description,price,sales,quantity,medicinalUse,onAddTo
         
       </div>
       <div className="button-div">
-        <Button className="add-button" onClick={handleClick} disabled={quantity === 0}>{quantity > 0 ? "Add to Cart" : "Sold Out"}</Button>
+        <Button className="add-button" onClick={onAddToCart} disabled={quantity === 0}>{quantity > 0 ? "Add to Cart" : "Sold Out"}</Button>
       </div>
     </div>
   // </div>  

@@ -11,6 +11,9 @@ const Filter = ({ medicines }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [cart, setCart] = useState([]);
 
+
+  console.log("all medicines", medicines)
+
   const { data: patient, isFetching, error } = useGetPatientQuery();
   
   const [addToCart] = useAddToCartMutation();
@@ -26,7 +29,7 @@ const Filter = ({ medicines }) => {
 
   cart = cart.map((cartItem) => {
 
-    console.log("CartItem in Map", cartItem)
+    // console.log("CartItem in Map", cartItem)
 
     const { medicine, quantity } = cartItem;
 
@@ -39,7 +42,7 @@ const Filter = ({ medicines }) => {
     };
   });
 
-  console.log("Cart", cart);
+  console.log("Modified Cart", cart);
 
 
   const filterMedicinesByMedicinalUse = (medicinalUse) => {
@@ -57,7 +60,7 @@ const Filter = ({ medicines }) => {
   //   <OrderCard key={index} cartItem={cartItem} />
   // ));
 
-  const handleAddToCart = (item) => {
+  const handleAddToCart = (medicine) => {
     // if (medicine.quantity > 0) {
     //   const updatedCart = [...cart];
 
@@ -76,10 +79,10 @@ const Filter = ({ medicines }) => {
 
     // }
 
-    console.log("Item @ Filter.jsx", item);
+    console.log("Item @ Filter.jsx", medicine);
 
     addToCart({
-      name: item.medicine.name,
+      name: medicine.name,
     });
   };
 
@@ -149,7 +152,7 @@ const Filter = ({ medicines }) => {
         quantity={medicine.quantity}
         medicinalUse={medicine.medicinalUse}
         onAddToCart={
-          () => { handleAddToCart({ medicine }) }
+          () => { handleAddToCart(medicine) }
         }
         medicineImage={medicine.medicineImage}
       />
