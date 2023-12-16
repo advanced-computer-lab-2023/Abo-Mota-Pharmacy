@@ -366,7 +366,7 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - **APIs**: Stripe
 - **Development tools**: Postman, Git, GitHub
 
-## Code Examples 🐱‍💻
+## Code Examples
 
 <details>
     <summary>
