@@ -26,6 +26,7 @@ const getPatient = async (req, res) => {
     if (patient.clinicPatient !== null || patient.clinicPatient !== undefined) {
       const prescriptions = await Prescription.find({
         patient: patient.clinicPatient,
+        status: "unfilled",
       }).populate([
         {
           path: "medicines.medicine",

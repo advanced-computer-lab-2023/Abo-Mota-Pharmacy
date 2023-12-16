@@ -142,6 +142,9 @@ const getSalesReports = async (req, res) => {
           },
         },
       },
+      {
+        $sort: { purchaseDate: -1 }, // Sorting by purchaseDate in descending order
+      },
     ]);
 
     res.status(200).json(salesReport);
