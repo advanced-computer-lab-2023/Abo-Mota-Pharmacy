@@ -14,6 +14,7 @@ const {
   viewWallet,
   viewAlternatives,
   linkWithClinic,
+  updatePrescriptionsQuantity,
 } = require("../controller/patientController");
 
 const authorize = require("../middlewares/authorization");
@@ -45,5 +46,7 @@ router.get("/wallet", authorize, viewWallet);
 router.get("/alternatives", authorize, viewAlternatives);
 
 router.post("/linkWithClinic", authorize, linkWithClinic);
+
+router.patch("/updatePrescriptionsQuantity", authorize, updatePrescriptionsQuantity);
 
 module.exports = router;

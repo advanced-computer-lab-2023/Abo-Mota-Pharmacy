@@ -18,7 +18,7 @@ const Filter = ({ medicines }) => {
   const [removeFromCart] = useRemoveFromCartMutation();
 
   if (isFetching) return <LoadingIndicator />;
-  // console.log("patient: ", patient);
+  console.log("patient: ", patient);
   let cart = patient?.cart || [];
 
   cart = cart.map((cartItem) => {
@@ -131,6 +131,7 @@ const Filter = ({ medicines }) => {
   // medicine
 
   const mappedArray = filteredArray.map((medicine) => {
+    if (!medicine.isOverTheCounter) return null;
     console.log("medicine: ", medicine);
     return (
       <ProductCard
