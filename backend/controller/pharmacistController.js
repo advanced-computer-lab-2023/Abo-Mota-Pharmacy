@@ -16,6 +16,7 @@ const getPharmacist = async (req, res) => {
 const getMedicines = async (req, res) => {
   try {
     const medicines = await Medicine.find();
+    console.log(medicines);
     res.status(200).json(medicines);
   } catch (error) {
     console.error("Error editing medicine:", error);
@@ -74,6 +75,7 @@ const editMedicine = async (req, res) => {
         contentType: req.files.medicineImage[0].mimetype,
       };
     }
+    // console.log(req.body);
     const updatedMedicine = await Medicine.updateOne(
       { name: name },
       { medicineImage, ...req.body }
