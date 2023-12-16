@@ -12,6 +12,9 @@ const Filter = ({ medicines }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [cart, setCart] = useState([]);
 
+
+  console.log("all medicines", medicines)
+
   const { data: patient, isFetching, error } = useGetPatientQuery();
 
   const [addToCart] = useAddToCartMutation();
