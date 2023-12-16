@@ -309,6 +309,9 @@ We welcome contributions that help enhance the features and functionalities of t
 - [JWT](https://www.youtube.com/watch?v=mbsmsi7l3r4)
 - [Sockets.io docs](https://socket.io/)
 - [Tailwind docs](https://tailwindcss.com/docs/)
+- [Formik docs](https://formik.org/docs/tutorial)
+- [React pro sidebar](https://www.npmjs.com/package/react-pro-sidebar)
+- [React Router](https://reactrouter.com/en/main) 
 
 
 ## License
