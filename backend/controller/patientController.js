@@ -11,6 +11,7 @@ const saltRounds = 10;
 
 const getPatient = async (req, res) => {
   try {
+    console.log(req.userData);
     const username = req.userData.username;
     let patient = await Patient.findOne({ username })
       .populate({
@@ -21,11 +22,12 @@ const getPatient = async (req, res) => {
         },
       })
       .populate("healthPackage.package")
-      .populate("clinicPatient");
-
+      .populate("clinicPatient")
+      .populate("clinicPatient.healthPackage.package");
     if (patient.clinicPatient !== null || patient.clinicPatient !== undefined) {
       const prescriptions = await Prescription.find({
         patient: patient.clinicPatient,
+        status: "unfilled",
       }).populate([
         {
           path: "medicines.medicine",
@@ -34,25 +36,26 @@ const getPatient = async (req, res) => {
       ]);
       // console.log(patient);
       patient = patient.toObject();
-      patient.prescriptions = prescriptions.map((prescription) => {
-        // Convert prescription to a plain object if it's a Mongoose document
-        prescription =
-          prescription instanceof mongoose.Document ? prescription.toObject() : prescription;
-        // console.log(prescription);
-        if (Array.isArray(prescription.medicines)) {
-          prescription.medicines = prescription.medicines.map((medicineObj) => {
-            // console.log(medicineObj.medicine);
-            const medicineClone = medicineObj.medicine;
-            delete medicineClone.medicineImage;
-            // console.log(medicineClone);
+      patient.prescriptions = prescriptions;
+      // patient.prescriptions = prescriptions.map((prescription) => {
+      //   // Convert prescription to a plain object if it's a Mongoose document
+      //   prescription =
+      //     prescription instanceof mongoose.Document ? prescription.toObject() : prescription;
+      //   // console.log(prescription);
+      //   if (Array.isArray(prescription.medicines)) {
+      //     prescription.medicines = prescription.medicines.map((medicineObj) => {
+      //       // console.log(medicineObj.medicine);
+      //       const medicineClone = medicineObj.medicine;
+      //       delete medicineClone.medicineImage;
+      //       // console.log(medicineClone);
 
-            medicineObj.medicine = medicineClone;
+      //       medicineObj.medicine = medicineClone;
 
-            return medicineObj;
-          });
-        }
-        return prescription;
-      });
+      //       return medicineObj;
+      //     });
+      //   }
+      //   return prescription;
+      // });
     }
     res.status(200).json(patient);
   } catch (error) {
@@ -69,6 +72,29 @@ const getMedicines = async (req, res) => {
   }
 };
 
+const updatePrescriptionsQuantity = async (req, res) => {
+  try {
+    const { prescriptionId, medicineId } = req.body;
+    const prescription = await Prescription.findOne({ _id: prescriptionId });
+    const newMedicines = prescription.medicines.map((medicine) => {
+      // console.log(medicine);
+      if (medicine.medicine.equals(medicineId)) {
+        return { ...medicine.toObject(), quantity: medicine.quantity - 1 };
+      }
+      return medicine;
+    });
+    // console.log(newMedicines);
+    const updatedPrescription = await Prescription.updateOne(
+      { _id: prescriptionId },
+      {
+        medicines: newMedicines,
+      }
+    );
+    res.status(200).json(updatedPrescription);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 const getOrders = async (req, res) => {
   try {
     const username = req.userData.username;
@@ -158,10 +184,12 @@ const createOrder = async (req, res) => {
   try {
     const username = req.userData.username;
     const patient = await Patient.findOne({ username });
-    const clinicPatientExists = await ClinicPatient.findOne({ username }).populate(
-      "healthPackage.package"
-    );
-
+    let clinicPatientExists;
+		if (patient.hasOwnProperty('clinicPatient') && patient.clinicPatient !== null) {
+			clinicPatientExists = await ClinicPatient.findOne({ _id: patient.clinicPatient }).populate(
+				"healthPackage.package"
+			);
+		}
     const { medicines } = req.body;
 
     let totalPrice = 0;
@@ -198,6 +226,28 @@ const createOrder = async (req, res) => {
           sales: medicine.quantity,
           purchaseDate: purchaseDate,
         });
+        // const targetDate = new Date(purchaseDate).getDate();
+        // const nextDay = new Date(targetDate);
+        // nextDay.setDate(targetDate.getDate() + 1);
+        // const findSimilarSalesReport = await SalesReport.findOne({
+        //   medicineId: dbMedicine._id,
+        //   purchaseDate: {
+        //     $gte: targetDate,
+        //     $lt: nextDay,
+        //   },
+        // });
+        // if (findSimilarSalesReport) {
+        //   const updatedSalesReport = await SalesReport.updateOne(
+        //     { medicineId: dbMedicine._id, purchaseDate: targetDate },
+        //     { sales: findSimilarSalesReport.sales + medicine.quantity }
+        //   );
+        // } else {
+        //   const addedSalesReport = await SalesReport.create({
+        //     medicineId: dbMedicine._id,
+        //     sales: medicine.quantity,
+        //     purchaseDate: targetDate,
+        //   });
+        // }
       })
     );
 
@@ -416,7 +466,13 @@ const linkWithClinic = async (req, res) => {
       { username: pharmacyUsername },
       { clinicPatient: clinicPatient._id }
     );
-    res.status(200).json({ message: updatedPatient });
+    const loggedInPatient = await Patient.findOne({ username: pharmacyUsername });
+    const updatedClinicPatient = await ClinicPatient.updateOne(
+      { username: username },
+      { pharmacyPatient: loggedInPatient._id }
+    );
+
+    res.status(200).json({ message: updatedClinicPatient });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -436,4 +492,5 @@ module.exports = {
   viewWallet,
   viewAlternatives,
   linkWithClinic,
+  updatePrescriptionsQuantity,
 };

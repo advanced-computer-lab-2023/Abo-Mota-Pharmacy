@@ -94,8 +94,58 @@ const editMedicine = async (req, res) => {
 
 const getSalesReports = async (req, res) => {
   try {
-    // const { medicineId } = req.body;
-    const salesReport = await SalesReport.find().populate("medicineId");
+    const salesReport = await SalesReport.aggregate([
+      {
+        $group: {
+          _id: {
+            medicineId: "$medicineId",
+            year: { $year: "$purchaseDate" },
+            month: { $month: "$purchaseDate" },
+            day: { $dayOfMonth: "$purchaseDate" },
+          },
+          totalSales: { $sum: "$sales" },
+        },
+      },
+      {
+        $lookup: {
+          from: "medicines", // Replace with your actual collection name for medicines
+          localField: "_id.medicineId",
+          foreignField: "_id",
+          as: "medicineInfo",
+        },
+      },
+      {
+        $unwind: "$medicineInfo",
+      },
+      {
+        $project: {
+          purchaseDate: {
+            $dateFromParts: {
+              year: "$_id.year",
+              month: "$_id.month",
+              day: "$_id.day",
+            },
+          },
+          sales: "$totalSales",
+          medicineId: {
+            _id: "$medicineInfo._id",
+            name: "$medicineInfo.name",
+            description: "$medicineInfo.description",
+            activeIngredients: "$medicineInfo.activeIngredients",
+            price: "$medicineInfo.price",
+            quantity: "$medicineInfo.quantity",
+            sales: "$medicineInfo.sales",
+            medicinalUse: "$medicineInfo.medicinalUse",
+            status: "$medicineInfo.status",
+            isOverTheCounter: "$medicineInfo.isOverTheCounter",
+          },
+        },
+      },
+      {
+        $sort: { purchaseDate: -1 }, // Sorting by purchaseDate in descending order
+      },
+    ]);
+
     res.status(200).json(salesReport);
   } catch (error) {
     res.status(500).json({ error: error.message });

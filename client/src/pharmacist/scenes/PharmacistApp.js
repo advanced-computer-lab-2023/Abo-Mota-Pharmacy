@@ -6,17 +6,16 @@ import MedicineScreen from "./MedicineScreen";
 import AddMedicine from "./AddMedicine";
 import NavBar from "../../shared/components/NavBar";
 import ChangePasswordScreen from "../../shared/pages/ChangePasswordScreen";
-import ViewFinancials from "./ViewFinancials";
 import SalesReport from "../../shared/pages/SalesReport";
 import { useGetPharmacistQuery, useFetchNotificationQuery } from "../../store";
+import ViewSettings from "./ViewSettings";
 
 function PharmacistApp({socket}) {
   const links = [
     { name: "Change App", to: "/" },
     { name: "Register", to: "/pharmacist/registerPharmacist" },
     { name: "Medicine Inventory", to: "/pharmacist/medicine" },
-    { name: "Change password", to: "/pharmacist/changePassword" },
-    { name: "View Financials", to: "/pharmacist/viewFinancials" },
+    { name: "View Settings", to: "/pharmacist/viewSettings" },
     { name: "Sales Report", to: "/pharmacist/salesReport" },
   ];
 
@@ -70,7 +69,7 @@ function PharmacistApp({socket}) {
           path='changePassword'
           element={<ChangePasswordScreen isPharmacist />}
         />
-        <Route path='viewFinancials' element={<ViewFinancials />} />
+        <Route path='viewSettings' element={<ViewSettings />} />
         <Route path='salesReport' element={<SalesReport />} />
       </Routes>
     </div>

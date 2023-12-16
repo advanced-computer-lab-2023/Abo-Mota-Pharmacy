@@ -8,15 +8,16 @@ import OrderCard from "./Order";
 import MyOrders from "./myOrders";
 import ChangePasswordScreen from "../shared/pages/ChangePasswordScreen";
 import AlternativesScreen from "./scenes/AlternativesScreen/AlternativesScreen";
-import ViewFinancials from "./scenes/ViewFinancials";
+import ViewSettings from "./scenes/ViewSettings";
 import ConnectAccountForm from "./scenes/ConnectAccountsForm";
+import PrescriptionsScreen from "./scenes/PrescriptionsScreen";
+
 function PatientApp({socket}) {
   const links = [
     { name: "Shop Medicines", to: "/patient/medicine" },
     { name: "View My Orders", to: "/patient/myOrders" },
-    { name: "Change password", to: "/patient/changePassword" },
-    { name: "View Financials", to: "/patient/viewFinancials" },
-    { name: "Connect Account Form", to: "/patient/connectAccountForm" },
+    { name: "View Account", to: "/patient/viewSettings" },
+    { name: "Prescription", to: "/patient/prescription" },
   ];
   // console.log(data);
   return (
@@ -28,10 +29,11 @@ function PatientApp({socket}) {
         <Route path="checkout" element={<Checkout socket={socket}/>} />
         <Route path="/order" element={<OrderCard />} />
         <Route path="/myOrders" element={<MyOrders />} />
-        <Route path="/viewFinancials" element={<ViewFinancials />} />
         <Route path="/medicine/alternativesScreen" element={<AlternativesScreen />} />
         <Route path="/connectAccountForm" element={<ConnectAccountForm />} />
         <Route path="/changePassword" element={<ChangePasswordScreen isPatient />} />
+        <Route path='/viewSettings' element={<ViewSettings />} />
+        <Route path='/prescription' element={<PrescriptionsScreen />} />
         {/* </Route> */}
       </Routes>
     </div>

@@ -75,6 +75,7 @@ export {
   useChangePatientPasswordMutation,
   useCancelOrderMutation,
   useLinkWithClinicMutation,
+  useUpdatePrescriptionsQuantityMutation,
 } from "./apis/patientApi";
 
 export {

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const stripeApi = createApi({
   reducerPath: "stripe",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/pharmaApi/stripe",
+    baseUrl: `${process.env.REACT_APP_API_URL}/pharmaApi/stripe`,
     fetchFn: async (...args) => {
       return fetch(...args, { credentials: "include" });
     },

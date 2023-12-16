@@ -32,7 +32,7 @@ const registerPatient = async (req, res) => {
 
 		const token = jwt.sign(
 			{
-				username: username,
+				username: username.toLowerCase(),
 				userType: "patient",
 			},
 			JWT_SECRET,
@@ -88,7 +88,7 @@ const registerPharmacist = async (req, res) => {
 
 		const token = jwt.sign(
 			{
-				username: username,
+				username: username.toLowerCase(),
 				userType: "pharmacist",
 			},
 			JWT_SECRET,

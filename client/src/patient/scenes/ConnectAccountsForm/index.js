@@ -5,38 +5,35 @@ import * as yup from "yup";
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
-import { login, useLinkWithClinicMutation, useRegisterPatientMutation } from "../../../store";
+import {
+  login,
+  useLinkWithClinicMutation,
+  useRegisterPatientMutation,
+} from "../../../store";
 import { useNavigate } from "react-router-dom";
+import FormErrorDialog from "../../../shared/components/FormErrorDialog";
 
 const ConnectAccountForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [registerPatient, results] = useRegisterPatientMutation();
   const [error, setError] = useState("");
-  const [patient, setPatient] = useState({});
+  const [linkWithClinic, results] = useLinkWithClinicMutation();
   const navigate = useNavigate();
   useEffect(() => {
     if (results.isError) {
-      setError(results.error.data.message);
-      // console.log(error);
+      setError(results.error.data.error);
     } else if (results.isSuccess) {
-      setPatient(results.data);
-      // console.log(patient);
     }
   }, [results]);
-  const [linkWithClinic, results2] = useLinkWithClinicMutation();
   const handleSubmit = async (values, { resetForm }) => {
-    // values contains all the data needed for registeration
     console.log(values);
 
     setIsLoading(true);
-    // dispatch(login({ role: "patient" }));
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
     await linkWithClinic(values);
-    // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
     resetForm({ values: "" });
-    navigate("/patient/medicine");
   };
+
+  console.log(results);
 
   const changePasswordForm = (
     <Formik
@@ -46,35 +43,35 @@ const ConnectAccountForm = () => {
     >
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Username*"
+              label='Username*'
               icon
-              type="username"
-              id="username"
+              type='username'
+              id='username'
               error={formik.errors.username}
               touch={formik.touched.username}
               {...formik.getFieldProps("username")}
             />
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Password*"
+              label='Password*'
               icon
-              type="password"
-              id="password"
+              type='password'
+              id='password'
               error={formik.errors.password}
               touch={formik.touched.password}
               {...formik.getFieldProps("password")}
             />
           </div>
-          <div className="submit-add-medicine-button-container">
+          <div className='submit-add-medicine-button-container'>
             {
               isLoading ? (
                 <LoadingIndicator />
               ) : (
                 // <Link to='medicine'>
-                <Button type="submit">Connect</Button>
+                <Button type='submit'>Connect</Button>
               )
               // </Link>
             }
@@ -85,9 +82,10 @@ const ConnectAccountForm = () => {
   );
 
   return (
-    <div className="change-password-container">
-      <div className="change-password-screen">
-        <Header header="Connect Account Form" />
+    <div className='change-password-container'>
+      <FormErrorDialog isError={error !== ""} setClose={() => setError("")} />
+      <div className='change-password-screen'>
+        <Header header='Connect Account Form' />
         {changePasswordForm}
       </div>
     </div>

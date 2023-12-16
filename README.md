@@ -1,10 +1,12 @@
-<div id="top"></div>
+
+<!-- <div id="top"></div> -->
 
 
 
 
 
 <!-- badges -->
+<!--
 <div align="center" >
    
 [![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com)
@@ -31,9 +33,9 @@
 </div>
 
 
-<a href=""><h1 align="center">Welcome to Abo Mota Pharmacy</h1></a>
+<a href=""><h1 align="center">Welcome to Abo Mota Pharmacy</h1></a> --> 
 
-
+<!--
 # Pharmacy Management System - Virtual Clinic
 
 ## Project Title
@@ -76,7 +78,84 @@ The technology stack for the pharmacy module includes:
 - **Payment Processing**: Stripe for secure financial transactions
 
 ## Features
+<details>
+<summary>As a Guest I can</summary>
 
+- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
+- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+
+</details>
+
+<details>
+<summary>As a Patient I can</summary>
+
+- Login with my username and password.
+- Logout of the system.
+- Change my password.
+- Reset a forgotten password via OTP sent to email.
+- View a list of all available medicines, including pictures, prices, and descriptions.
+- Search for medicines based on name.
+- Filter medicines based on their medicinal use.
+- Add over-the-counter medicines to my cart.
+- Add prescription medicines to my cart based on my prescription.
+- View items in my cart.
+- Remove items from my cart.
+- Change the quantity of items in my cart.
+- Checkout my order.
+- Add new delivery addresses and choose from existing ones.
+- Select payment methods including wallet, credit card, or cash on delivery.
+- View my current and past orders along with their details and status.
+- Cancel orders.
+- View alternatives to medicines that are out of stock.
+- Chat with a pharmacist.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As a Pharmacist I can</summary>
+
+- Login and logout of the system.
+- Change my password.
+- Reset my password via OTP sent to email.
+- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+- Add a medicine with its details like active ingredients, price, and quantity.
+- Upload images for medicines.
+- Edit details and prices of medicines.
+- Archive or unarchive a medicine.
+- View the available quantity and sales of each medicine.
+- Filter sales reports based on medicine or date.
+- Receive notifications when a medicine is out of stock.
+- Chat with a doctor.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As an Administrator I can</summary>
+   
+- Login with my username and password.
+- Logout of the system.
+- Add another administrator with a set username and password.
+- Remove a pharmacist or patient from the system.
+- View all the information uploaded by a pharmacist when they apply to join the platform.
+- Accept or reject the request of a pharmacist to join the platform.
+- View total sales reports based on a chosen month.
+- View a pharmacist's information.
+- View a patient's basic information.
+- Change my password.
+- Reset my password via OTP sent to email.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+  
+</details>
+
+
+<!--
 - **Guests** can register as a patient or pharmacist, providing comprehensive personal and professional details.
 - **Users** can easily login and logout using their credentials to ensure security and privacy.
 - **Administrators** have the ability to manage user accounts and oversee pharmacist verification processes.
@@ -115,8 +194,8 @@ The technology stack for the pharmacy module includes:
 
 6. **Notifications**
    - Receive notifications for medicine stock levels.
-
-## Comments and Security Measures
+-->
+<!-- ## Comments and Security Measures
 
 - Passwords must follow specific validation criteria.
 - Prescription medicines can only be added based on recent prescriptions.
@@ -232,10 +311,636 @@ We welcome contributions that help enhance the features and functionalities of t
 - [JWT](https://www.youtube.com/watch?v=mbsmsi7l3r4)
 - [Sockets.io docs](https://socket.io/)
 - [Tailwind docs](https://tailwindcss.com/docs/)
+- [Formik docs](https://formik.org/docs/tutorial)
+- [React pro sidebar](https://www.npmjs.com/package/react-pro-sidebar)
+- [React Router](https://reactrouter.com/en/main) 
 
 
 ## License
 - The software is open source under the Apache 2.0 License.
 
 - The Stripe is licensed under the Apache License 2.0
+-->
+
+# Abo Mota Pharmacy
+
+## Motivation
+
+Abo Mota Pharmacy is a full pharmacy platform created as an additional module for the Abo Mota Clinic platform, using the MERN stack. Abo Mota Pharmacy's goal is to provide a user friendly ecommerce shopping experience for over the counter medications as well as full cross platform prescription support from the clinic platform. Abo Mota Pharmacy also gives pharmacists the opportunity to apply and manage medicine inventory to provide the highest quality medications to the customer.
+
+## Build Status
+
+- The project is currently in development.
+- The project needs to be deployed through services.
+- The project needs a robust unit test suite made with frameworks such as Jest.
+- A message broker needs to be added to the application to handle asynchronous tasks such as sending emails and notifications.
+
+## Code Style
+
+- [Eslint](https://eslint.org/docs/latest/user-guide/getting-started) : in the backend and the frontend to write the most optimum clean code possible and to define rules for the team to be able to write code in the same code style
+- [Prettier](https://prettier.io/) : it is a code formatter that runs automatically before each commit on the whole code so that the codes looks well formatted across the whole project
+
+## Tech Stack
+
+<div align="center" >
+   
+[![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com)
+[![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/html5/)
+![Redux](https://img.shields.io/badge/Built%20with-Redux-%23f44336?style=for-the-badge)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+[![Nodejs](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en/)
+[![ExpressJs](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://GitHub.com/Naereen/badges/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://github.com/omar-sherif9992)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+![Tailwind](https://img.shields.io/badge/tailwindcss-0F172A?&logo=tailwindcss)
+
+</div>
+
+- **Backend**: Node.js, Express, Mongoose, Socket.io, Nodemailer
+- **Frontend**: React.js, Material-UI, Ant ,Redux , Socket.io, Tailwind
+- **Database**: MongoDB
+- **Authentication**: JWT
+- **APIs**: Stripe
+- **Development tools**: Postman, Git, GitHub
+
+## Code Examples
+
+<details>
+    <summary>
+    Stripe Controller
+    </summary>
+
+```javascript
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2022-08-01",
+});
+
+const createPaymentIntent = async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: parseInt(amount),
+      currency: "usd",
+    });
+
+    res.status(200).json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const config = (req, res) => {
+  res.send({
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  });
+};
+
+module.exports = {
+  createPaymentIntent,
+  config,
+};
+```
+
+
+</details>
+
+<details>
+    
+<summary>Medicine Model</summary>
+
+```javascript
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+const medicineSchema = new Schema({
+  name: String,
+  description: String,
+  activeIngredients: [String],
+  price: Number,
+  quantity: Number,
+  medicineImage: {
+    data: Buffer,
+    contentType: String,
+  },
+  sales: {
+    type: Number,
+    default: 0,
+  },
+  medicinalUse: {
+    type: String,
+    enum: [
+      "Antibiotic",
+      "Pain Reliever",
+      "Antipyretic",
+      "Antifungal",
+      "Antiviral",
+      "Antiseptic",
+      "Antispasmodic",
+      "Antihistamine",
+      "Anti-inflammatory",
+      "Diuretic",
+    ],
+  },
+  status: {
+    type: String,
+    enum: ["archived", "unarchived"],
+    default: "unarchived",
+  },
+  isOverTheCounter: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const Medicine = mongoose.model("Medicine", medicineSchema);
+module.exports = Medicine;
+```
+
+
+</details>
+
+<details>
+
+<summary>
+    Patient Routes
+</summary> 
+
+```javascript
+const express = require("express");
+const router = express.Router();
+const {
+  getMedicines,
+  getPatient,
+  getOrders,
+  cancelOrder,
+  createOrder,
+  removeFromCart,
+  addToCart,
+  addDeliveryAddress,
+  payByWallet,
+  changePassword,
+  viewWallet,
+  viewAlternatives,
+  linkWithClinic,
+  updatePrescriptionsQuantity,
+} = require("../controller/patientController");
+
+const authorize = require("../middlewares/authorization");
+
+router.get("/", authorize, getPatient); //done
+
+router.get("/medicines", authorize, getMedicines); //done
+
+router.post("/addToCart", authorize, addToCart); //done
+
+router.delete(`/removeFromCart`, authorize, removeFromCart); //done
+
+router.get("/orders", authorize, getOrders); //done
+
+router.patch("/cancelOrder", authorize, cancelOrder); //done
+
+router.post("/createOrder", authorize, createOrder); //done
+
+router.patch("/addDeliveryAddress", authorize, addDeliveryAddress); //done
+
+router.patch("/deliveryAddress", authorize, addDeliveryAddress);
+
+router.patch("/payByWallet", authorize, payByWallet); //done
+
+router.patch("/changePassword", authorize, changePassword);
+
+router.get("/wallet", authorize, viewWallet);
+
+router.get("/alternatives", authorize, viewAlternatives);
+
+router.post("/linkWithClinic", authorize, linkWithClinic);
+
+router.patch("/updatePrescriptionsQuantity", authorize, updatePrescriptionsQuantity);
+
+module.exports = router;
+
+```
+
+</details>
+
+
+<details>
+    <summary>
+        Authorization middleware
+    </summary> 
+
+```javascript
+const jwt = require("jsonwebtoken");
+
+const authToken = (req, res, next) => {
+    const token = req.cookies.jwt;
+    console.log(token);
+    if(token){
+        jwt.verify(token, process.env.JWT_SECRET, (err, userData) => {
+            if(err)
+                return res.status(500).json({message: "Unauthorized", isLoggedIn: false});
+            
+            req.userData = userData;  //userData is the payload included in the token
+            const userType = userData.userType;
+            //check if the user type allowed for the current route
+            console.log("baseUrl", req.baseUrl)
+            if(userType === 'admin' && (req.baseUrl).includes('/admin'))
+                next();
+            else if(userType === 'pharmacist' && (req.baseUrl).includes('/pharmacist'))
+                next();
+            else if (userType === 'patient' && ((req.baseUrl).includes('/patient') || (req.baseUrl).includes('/stripe')))
+                next();
+            else
+                return res.status(403).json({ message: "Forbidden"});
+        })
+    }else{
+        res.status(500).json({message: 'Unauthorized', isLoggedIn: false})
+    }
+
+}
+
+module.exports = authToken;
+```
+
+</details>
+
+
+<details>
+
+   <summary>
+        Login Form
+   </summary> 
+   
+```javascript
+import Button from "../../components/Button";
+import { useEffect, useState } from "react";
+import Input from "../../components/InputField";
+import "./styles.css";
+import logo from "../../../shared/assets/logo.png";
+import * as yup from "yup";
+import Header from "../../components/Header";
+import { Formik } from "formik";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import { useNavigate } from "react-router-dom";
+import ForgetPasswordScreen from "../ForgetPasswordScreen";
+import OtpScreen from "../OtpScreen";
+import { login, useLoginMutation } from "../../../store";
+import { useDispatch } from "react-redux";
+import FormErrorDialog from "../../components/FormErrorDialog";
+
+const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [forgetPassword, setForgetPassword] = useState(false);
+  const [otpOpen, setOtpOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const navigate = useNavigate();
+  const [loginMutation, results] = useLoginMutation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (results.error) {
+      setOpenDialog(true);
+    }
+  }, [results]);
+
+  const handleSubmit = async (values, { resetForm }) => {
+    // values contains all the data needed for registeration
+    const user = {
+      username: values.username,
+      password: values.password,
+    };
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    try {
+      const result = await loginMutation(user).unwrap();
+      // Use the result for navigation or other side effects
+      if (result.userType === "patient") {
+        dispatch(login({ role: "patient" }));
+        navigate("/patient/medicine");
+      } else if (result.userType === "pharmacist") {
+        dispatch(login({ role: "pharmacist" }));
+        navigate("/pharmacist");
+      } else if (result.userType === "admin") {
+        dispatch(login({ role: "admin" }));
+        navigate("/admin");
+      }
+      resetForm({ values: "" });
+    } catch (error) {
+      console.error("Failed to login:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const PharmacistForm = (
+    <Formik
+      initialValues={initialPharmacistValues}
+      validationSchema={PharmacistSchema}
+      onSubmit={handleSubmit}
+    >
+      {(formik) => (
+        <form onSubmit={formik.handleSubmit}>
+          {console.log(formik.values)}
+          <div className='form-container'>
+            <Input
+              label='Username*'
+              icon
+              type='text'
+              id='username'
+              error={formik.errors.username}
+              touch={formik.touched.username}
+              {...formik.getFieldProps("username")}
+            />
+          </div>
+          <div className='form-container'>
+            <Input
+              label='Password*'
+              icon
+              type='password'
+              id='password'
+              error={formik.errors.password}
+              touch={formik.touched.password}
+              {...formik.getFieldProps("password")}
+            />
+          </div>
+          <div className='submit-add-medicine-button-container'>
+            {isLoading ? (
+              <LoadingIndicator />
+            ) : (
+              <Button type='submit'>Log in</Button>
+            )}
+          </div>
+        </form>
+      )}
+    </Formik>
+  );
+
+  console.log("res", results);
+  return (
+    <div className='login-div'>
+      <div className='login-portal'>
+        <div className='login-part'>
+          <div className='login-logo-div'>
+            {" "}
+            <img className='login-logo' src={logo} alt='logo' />{" "}
+          </div>
+          <Header header='Welcome Back!' type='login-header' />
+        </div>
+        <p className='login-word'>Login</p>
+        {PharmacistForm}
+        <div
+          className='flex justify-between mr-8 ml-8'
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginRight: "8px",
+            marginLeft: "8px",
+          }}
+        >
+          <button
+            className='forget-password-button'
+            onClick={() => {
+              navigate("/registerPharmacist");
+            }}
+          >
+            Register as Pharmacist?
+          </button>
+          <button
+            className='forget-password-button'
+            onClick={() => {
+              navigate("/registerPatient");
+            }}
+          >
+            Register as Patient?
+          </button>
+
+          <button
+            className='forget-password-button'
+            onClick={() => {
+              setForgetPassword(true);
+            }}
+          >
+            Forgot Password?
+          </button>
+        </div>
+      </div>
+      {forgetPassword && (
+        <ForgetPasswordScreen
+          closeForm={() => {
+            setForgetPassword(false);
+          }}
+          goToOtp={() => {
+            setOtpOpen(true);
+          }}
+          setEmail={setEmail}
+        />
+      )}
+      {otpOpen && (
+        <OtpScreen
+          closeForm={() => {
+            setOtpOpen(false);
+          }}
+          email={email}
+        />
+      )}
+      <FormErrorDialog
+        isError={openDialog}
+        setClose={() => {
+          setOpenDialog(false);
+        }}
+      />
+    </div>
+  );
+};
+
+const PharmacistSchema = yup.object().shape({
+  username: yup.string().required("Please enter a valid username"),
+
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .matches(/[a-zA-Z]/, "Password must contain at least one letter")
+    .matches(/[0-9]/, "Password must contain at least one number")
+    .required("Please enter a valid password"),
+});
+
+const initialPharmacistValues = {
+  username: "",
+  password: "",
+};
+
+export default LoginForm;
+
+```
+
+</details>
+
+
+
+
+## Features
+<details>
+<summary>As a Guest I can</summary>
+
+- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
+- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+
+</details>
+
+<details>
+<summary>As a Patient I can</summary>
+
+- View a list of all available medicines, including pictures, prices, and descriptions.
+- Search for medicines based on name.
+- Filter medicines based on their medicinal use.
+- Add over-the-counter medicines to my cart.
+- Add prescription medicines to my cart based on my prescription.
+- View items in my cart.
+- Remove items from my cart.
+- Change the quantity of items in my cart.
+- Checkout my order.
+- Add new delivery addresses and choose from existing ones.
+- Select payment methods including wallet, credit card, or cash on delivery.
+- View my current and past orders along with their details and status.
+- Cancel orders.
+- View alternatives to medicines that are out of stock.
+- Chat with a pharmacist.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As a Pharmacist I can</summary>
+
+- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+- Add a medicine with its details like active ingredients, price, and quantity.
+- Upload images for medicines.
+- Edit details and prices of medicines.
+- Archive or unarchive a medicine.
+- View the available quantity and sales of each medicine.
+- Filter sales reports based on medicine or date.
+- Receive notifications when a medicine is out of stock.
+- Chat with a doctor.
+- View total sales reports based on a chosen month.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As an Administrator I can</summary>
+   
+
+- Add another administrator with a set username and password.
+- Remove a pharmacist or patient from the system.
+- View all the information uploaded by a pharmacist when they apply to join the platform.
+- Accept or reject the request of a pharmacist to join the platform.
+- View total sales reports based on a chosen month.
+- View a pharmacist's information.
+- View a patient's basic information.
+- Change my password.
+- Reset my password via OTP sent to email.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+  
+</details>
+
+<details>
+<summary>Common Features for Patient/Pharmacist/Administrator</summary>
+   
+- Login with my username and password.
+- Logout of the system.
+- Change my password.
+- Reset my password via OTP sent to email.
+- View a list of all available medicines including picture, price, and description.
+- Search for medicine based on name.
+- Filter medicines based on medicinal use.
+
+</details>
+
+## Installation
+
+### Clone the repository:
+
+```bash
+git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
+cd Abo-Mota-Pharmacy
+```
+
+### Install client dependencies
+
+```bash
+cd client
+npm install
+```
+
+### Install server dependencies
+
+```bash
+  cd backend
+  npm install
+```
+
+## How to use
+
+#### Start the client:
+
+```bash
+cd client
+cd src
+npm start
+```
+
+The client server will run on http://localhost:3000.
+
+#### Start the server:
+
+```bash
+cd backend
+nodemon index.js
+```
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
+
+## Credits
+
+- [Mongoose docs](https://mongoosejs.com/docs/)
+- [MongoDB docs](https://www.mongodb.com/)
+- [Express docs](https://expressjs.com/en/4x/api.html)
+- [ReactJs docs](https://reactjs.org/docs/getting-started.html)
+- [Redux docs](https://redux.js.org/api/api-reference)
+- [NodeJs docs](https://nodejs.org/en/docs/)
+- [Ant Design website](https://ant.design/)
+- [Material UI website](https://mui.com/)
+- [Stripe docs](https://stripe.com/docs/)
+- [MERN Youtube](https://www.youtube.com/channel/UC29ju8bIPH5as8OGnQzwJyA)
+- [Stripe Youtube](https://youtu.be/1r-F3FIONl8)
+- [JWT](https://www.youtube.com/watch?v=mbsmsi7l3r4)
+- [Sockets.io docs](https://socket.io/)
+- [Tailwind docs](https://tailwindcss.com/docs/)
+- [Formik docs](https://formik.org/docs/tutorial)
+- [React pro sidebar](https://www.npmjs.com/package/react-pro-sidebar)
+- [React Router](https://reactrouter.com/en/main)
+
+## License
+
+Portions of this software utilize Stripe, which is licensed under the Apache License 2.0. You can find the details of this license [here](https://www.apache.org/licenses/LICENSE-2.0).
+
+The rest of the software is open source and licensed under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/).
 
