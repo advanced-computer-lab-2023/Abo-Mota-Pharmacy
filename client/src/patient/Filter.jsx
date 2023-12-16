@@ -12,8 +12,7 @@ const Filter = ({ medicines }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [cart, setCart] = useState([]);
 
-
-  console.log("all medicines", medicines)
+  console.log("all medicines", medicines);
 
   const { data: patient, isFetching, error } = useGetPatientQuery();
 
@@ -150,6 +149,7 @@ const Filter = ({ medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
+        healthPackage={patient.clinicPatient.healthPackage}
       />
     );
   });

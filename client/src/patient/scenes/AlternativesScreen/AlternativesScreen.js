@@ -2,19 +2,40 @@ import { useLocation } from "react-router";
 import { Box, Card, Typography, Divider, Button, Avatar } from "@mui/joy";
 import { FaCartPlus } from "react-icons/fa";
 import { useAddToCartMutation } from "../../../store";
-import { message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Toast from "../../Toast";
 const AlternativesScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
   console.log("kimo", location.state.filteredArray);
-  const [addToCart] = useAddToCartMutation();
+  const [addToCart, results] = useAddToCartMutation();
   const [toast, setToast] = useState({
     open: false,
     duration: 2000,
   });
+  useEffect(() => {
+    console.log(results);
+    if (results.isSuccess) {
+      setToast({
+        ...toast,
+        open: true,
+        color: "success",
+        message: "Added to cart!",
+      });
+      setTimeout(() => {
+        navigate("/patient/medicine");
+      }, 1500);
+    }
+    if (results.isError) {
+      setToast({
+        ...toast,
+        open: true,
+        color: "danger",
+        message: results.error.data.error,
+      });
+    }
+  }, [results]);
   const onToastClose = (event, reason) => {
     if (reason === "clickaway") return;
 
@@ -35,15 +56,6 @@ const AlternativesScreen = () => {
     await addToCart({
       name,
     });
-    setToast({
-      ...toast,
-      open: true,
-      color: "success",
-      message: "Added to cart!",
-    });
-    setTimeout(() => {
-      navigate("/patient/medicine");
-    }, 1500);
   };
 
   const mappedArray = location.state.filteredArray.map((item) => {

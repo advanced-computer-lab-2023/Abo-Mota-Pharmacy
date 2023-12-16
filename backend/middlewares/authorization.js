@@ -16,7 +16,7 @@ const authToken = (req, res, next) => {
         (req.baseUrl.includes("/admin") || req.baseUrl.includes("/pharmacist"))
       )
         next();
-      else if (userType === "pharmacist" && req.baseUrl.includes("/pharmacist")) next();
+      else if (userType === "pharmacist" && (req.baseUrl.includes("/pharmacist") || (req.baseUrl).includes('/common'))) next();
       else if (
         userType === "patient" &&
         (req.baseUrl.includes("/patient") || req.baseUrl.includes("/stripe"))

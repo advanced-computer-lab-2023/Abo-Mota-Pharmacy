@@ -5,6 +5,7 @@ const Order = require("../models/Order");
 const SalesReport = require("../models/SalesReport");
 const ClinicPatient = require("../models/ClinicPatient");
 const Prescription = require("../models/Prescription");
+const HealthPackage = require("../models/HealthPackage");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const saltRounds = 10;
@@ -23,7 +24,13 @@ const getPatient = async (req, res) => {
       })
       .populate("healthPackage.package")
       .populate("clinicPatient")
-      .populate("clinicPatient.healthPackage.package");
+      .populate({
+        path: "clinicPatient",
+        populate: {
+          path: "healthPackage.package",
+          model: "HealthPackage",
+        },
+      });
     if (patient.clinicPatient !== null || patient.clinicPatient !== undefined) {
       const prescriptions = await Prescription.find({
         patient: patient.clinicPatient,
@@ -185,11 +192,11 @@ const createOrder = async (req, res) => {
     const username = req.userData.username;
     const patient = await Patient.findOne({ username });
     let clinicPatientExists;
-		if (patient.hasOwnProperty('clinicPatient') && patient.clinicPatient !== null) {
-			clinicPatientExists = await ClinicPatient.findOne({ _id: patient.clinicPatient }).populate(
-				"healthPackage.package"
-			);
-		}
+    if (patient.hasOwnProperty("clinicPatient") && patient.clinicPatient !== null) {
+      clinicPatientExists = await ClinicPatient.findOne({ _id: patient.clinicPatient }).populate(
+        "healthPackage.package"
+      );
+    }
     const { medicines } = req.body;
 
     let totalPrice = 0;
@@ -295,10 +302,12 @@ const addToCart = async (req, res) => {
 
     const existingCartItem = patient.cart.find((item) => item.medicine._id.equals(medicine._id));
 
-    if (existingCartItem) {
+    if (existingCartItem && existingCartItem.quantity < medicine.quantity) {
       existingCartItem.quantity += 1;
-    } else {
+    } else if (!existingCartItem) {
       patient.cart.push({ medicine, quantity: 1 });
+    } else if (existingCartItem.quantity === medicine.quantity) {
+      throw new Error("Not enough medicine in stock");
     }
     await patient.save();
     res.status(200).json({ patient });
