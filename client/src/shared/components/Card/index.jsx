@@ -4,7 +4,10 @@ import Button from "@mui/material/Button";
 import "../../assets/aspirin.jpg";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-
+import Chip from "@mui/material/Chip";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { red, green } from "@mui/material/colors";
+import { FaArrowDown } from "react-icons/fa";
 const ProductCard = ({
   _id,
   name,
@@ -20,13 +23,17 @@ const ProductCard = ({
   isOverTheCounter,
   isPrescribed,
   socket,
+  healthPackage,
 }) => {
-
   const handleClick = () => {
     onAddToCart({ name, description, price, sales, quantity, medicinalUse });
   };
   const navigate = useNavigate();
-
+  let newPrice = price;
+  if (healthPackage.package !== null) {
+    // console.log("healthPackage: ", healthPackage);
+    newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
+  }
   const findAltClick = () => {
     const filteredArray = similarMedicines.filter((medicine) => {
       console.log("medsssssssssssss: ", medicine.isOverTheCounter);
@@ -50,11 +57,7 @@ const ProductCard = ({
 
   const buttons = (
     <>
-      <Button
-        className="add-button"
-        onClick={handleClick}
-        disabled={quantity === 0}
-      >
+      <Button className="add-button" onClick={handleClick} disabled={quantity === 0}>
         {quantity > 0 ? "Add to Cart" : "Sold Out"}
       </Button>
       {quantity > 0 ? null : (
@@ -89,7 +92,19 @@ const ProductCard = ({
       <div className="product-details">
         <div className="nameWithPrice">
           <h3 className="product-name">{name}</h3>
-          <p className="product-price">${price}</p>
+          <div className="ml-2">
+            <Chip
+              label={`$${price}`}
+              icon={<CancelIcon />}
+              style={{ backgroundColor: red[200], color: "white", textDecoration: "line-through" }}
+            />
+            <Chip
+              label={`$${newPrice}`}
+              icon={<FaArrowDown />}
+              style={{ backgroundColor: green[300], color: "white" }}
+              sx={{ ml: 1 }} // Adds margin to separate the chips
+            />
+          </div>
         </div>
         <p className="product-description">{description}</p>
         {/* <p className="extras">→ Sold: {sales}</p>
