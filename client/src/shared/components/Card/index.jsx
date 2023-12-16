@@ -26,9 +26,11 @@ const ProductCard = ({
 
   const findAltClick = () => {
     const filteredArray = similarMedicines.filter((medicine) => {
+      console.log("medsssssssssssss: ", medicine.isOverTheCounter);
       return (
         medicine.activeIngredients[0] === mainActiveIngredient &&
-        medicine.name !== name
+        medicine.name !== name &&
+        medicine.isOverTheCounter
       );
     });
     navigate("/patient/medicine/alternativesScreen", {
