@@ -1,3 +1,4 @@
+
 <div id="top"></div>
 
 
@@ -33,7 +34,7 @@
 
 <a href=""><h1 align="center">Welcome to Abo Mota Pharmacy</h1></a>
 
-
+<!--
 # Pharmacy Management System - Virtual Clinic
 
 ## Project Title
@@ -318,4 +319,4 @@ We welcome contributions that help enhance the features and functionalities of t
 - The software is open source under the Apache 2.0 License.
 
 - The Stripe is licensed under the Apache License 2.0
-
+-->
