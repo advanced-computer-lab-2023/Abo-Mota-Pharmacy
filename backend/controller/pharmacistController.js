@@ -7,7 +7,7 @@ const saltRounds = 10;
 const getPharmacist = async (req, res) => {
   try {
     const username = req.userData.username;
-    const pharmacist = Pharmacist.findOne({ username });
+    const pharmacist = await Pharmacist.findOne({ username });
     res.status(200).json(pharmacist);
   } catch (error) {
     res.status(500).json({ error: error.message });
