@@ -4,6 +4,7 @@ const {
   getMedicines,
   getPatient,
   getOrders,
+  getPharmacists,
   cancelOrder,
   createOrder,
   removeFromCart,
@@ -21,6 +22,8 @@ const authorize = require("../middlewares/authorization");
 router.get("/", authorize, getPatient); //done
 
 router.get("/medicines", authorize, getMedicines); //done
+
+router.get("/pharmacists", authorize, getPharmacists);
 
 router.post("/addToCart", authorize, addToCart); //done
 

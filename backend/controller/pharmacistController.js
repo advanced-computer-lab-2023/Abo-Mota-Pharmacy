@@ -7,18 +7,18 @@ const saltRounds = 10;
 const getPharmacist = async (req, res) => {
   try {
     const username = req.userData.username;
-    const pharmacist = Pharmacist.findOne({ username });
+    const pharmacist = await Pharmacist.findOne({ username });
     res.status(200).json(pharmacist);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 const getMedicines = async (req, res) => {
   try {
     const medicines = await Medicine.find();
     res.status(200).json(medicines);
   } catch (error) {
-    console.error("Error editing medicine:", error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -58,7 +58,6 @@ const addMedicine = async (req, res) => {
 
     res.status(200).json(returnedMedicine);
   } catch (error) {
-    console.error("Error adding medicine:", error);
     res.status(500).json({ error: error.message });
   }
 };

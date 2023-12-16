@@ -1,5 +1,6 @@
 const Medicine = require("../models/Medicine");
 const Patient = require("../models/Patient");
+const Pharmacist = require("../models/Pharmacist");
 const Order = require("../models/Order");
 const SalesReport = require("../models/SalesReport");
 const ClinicPatient = require("../models/ClinicPatient");
@@ -96,6 +97,16 @@ const getOrders = async (req, res) => {
   }
 };
 
+const getPharmacists = async (req, res) => {
+  try {
+    const pharmacists = await Pharmacist.find();
+    console.log(pharmacists);
+    res.status(200).json(pharmacists);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const cancelOrder = async (req, res) => {
   try {
     const { orderId } = req.body;
@@ -169,7 +180,6 @@ const createOrder = async (req, res) => {
     const purchaseDate = new Date();
     const updatedMedicines = await Promise.all(
       medicines.map(async (medicine) => {
-        console.log("med", medicine);
         const dbMedicine = await Medicine.findOne({ name: medicine.name }).select("-medicineImage");
 
         if (!dbMedicine) throw new Error("This medicine does not exist");
@@ -200,7 +210,15 @@ const createOrder = async (req, res) => {
 
     const updatedPatient = await Patient.updateOne({ username }, { cart: [] });
 
-    res.status(200).json({ order, updatedMedicines });
+    let soldOutMedicine = [];
+    for (const medicine of medicines) {
+      const dbMedicine = await Medicine.findOne({ name: medicine.name }).select("-medicineImage");
+      if (dbMedicine && dbMedicine.quantity === 0) {
+        soldOutMedicine.push(dbMedicine);
+      }
+    }
+
+    res.status(200).json({ order, updatedMedicines, soldOutMedicine });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -217,7 +235,6 @@ const addToCart = async (req, res) => {
       },
     });
 
-    console.log(patient);
     const name = req.body.name;
     const medicine = await Medicine.findOne({ name });
 
@@ -254,7 +271,6 @@ const removeFromCart = async (req, res) => {
     });
 
     const cart = loggedIn.cart;
-    console.log("CART", cart);
 
     const updatedCart = cart
       .map((item) => {
@@ -266,8 +282,6 @@ const removeFromCart = async (req, res) => {
         return item;
       })
       .filter((item) => item.quantity > 0);
-
-    console.log("UPDATED", updatedCart);
 
     const updatedPatient = await Patient.updateOne({ username }, { cart: updatedCart });
     res.status(200).json({ updatedPatient });
@@ -411,6 +425,7 @@ module.exports = {
   getPatient,
   getMedicines,
   getOrders,
+  getPharmacists,
   cancelOrder,
   createOrder,
   removeFromCart,

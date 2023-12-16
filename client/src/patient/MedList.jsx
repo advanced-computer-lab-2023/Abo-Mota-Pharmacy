@@ -6,7 +6,7 @@ import Filter from "./Filter";
 import { useGetMedicinesQuery } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const MedList = () => {
+const MedList = ({socket}) => {
   // const [medicineArray, setMedicineArray] = useState(medicines);
   const [search, setSearch] = useState("");
 
@@ -27,6 +27,7 @@ const MedList = () => {
     medicineArray = data;
     // console.log(data);
   }
+
   const filteredArray = medicineArray.filter((medicine) => {
     return (
       medicine.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -42,7 +43,7 @@ const MedList = () => {
     <div>
       <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
       {/* {mappedArray} */}
-      <Filter medicines={filteredArray} />
+      <Filter medicines={filteredArray} socket={socket} />
     </div>
   );
 };

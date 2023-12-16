@@ -11,7 +11,7 @@ import {
 } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const Filter = ({ medicines }) => {
+const Filter = ({ socket, medicines }) => {
   const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [cart, setCart] = useState([]);
@@ -125,21 +125,19 @@ const Filter = ({ medicines }) => {
     setIsDrawerOpen(false);
   };
 
-  console.log("test: ", patient.prescriptions[0].medicines[0].medicine.name);
   const arr = [];
   for (let i = 0; i < patient.prescriptions.length; i++) {
     for (let j = 0; j < patient.prescriptions[i].medicines.length; j++) {
       arr.push(patient.prescriptions[i].medicines[j].medicine.name);
     }
   }
-  console.log("arr: ", arr);
 
   // medicine
 
   const mappedArray = filteredArray.map((medicine) => {
-    console.log("medicine: ", medicine);
     return (
       <ProductCard
+      _id={medicine._id}
         name={medicine.name}
         description={medicine.description}
         price={medicine.price}
@@ -154,6 +152,7 @@ const Filter = ({ medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
+        socket = {socket}
       />
     );
   });

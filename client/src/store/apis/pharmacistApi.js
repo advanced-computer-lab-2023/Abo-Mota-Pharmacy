@@ -17,6 +17,7 @@ const pharmacistApi = createApi({
           method: "GET",
         }),
       }),
+      
       getAllMedicines: builder.query({
         providesTags: (result, error) => {
           const tags = result.map((medicine) => {

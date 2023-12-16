@@ -8,8 +8,7 @@ import { useLocation } from 'react-router-dom';
 import OrderItems from '../shared/components/OrderItems';
 import Button from '@mui/material/Button';
 import AlertDialogSlide from '../shared/components/Alert';
-
-
+import { useSendEmailMutation, useSendNotificationMutation, useGetPharmacistsQuery, useGetMedicineByIdQuery } from "../store";
 
 function OrderCard() {
   const location = useLocation();
@@ -32,6 +31,7 @@ function OrderCard() {
   const handleButtonClick = () => {
     setDialogOpen(true);
   };
+  
 
   return (
     <Card

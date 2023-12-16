@@ -4,6 +4,7 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import DrawerItem from '../DrawerItem';
 import { useNavigate } from 'react-router-dom';
+import { useGetMedicineByIdQuery } from '../../../store';
 
 export default function TemporaryDrawer({ isOpen, closeDrawer, cartItems=[], onDeleteItem, onQuantityInc, onQuantityDec, totalAmount, medicines}) {
   const toggleDrawer = (event) => {

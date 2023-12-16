@@ -134,7 +134,7 @@ const login = async (req, res) => {
 		//correct creds => create jwt token
 		if (isCorrect) {
 			const payload = {
-				username: username,
+				username: username.toLowerCase(),
 				userType: userType,
 			};
 			//create the token
