@@ -1,11 +1,12 @@
 
-<div id="top"></div>
+<!-- <div id="top"></div> -->
 
 
 
 
 
 <!-- badges -->
+<!--
 <div align="center" >
    
 [![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com)
@@ -32,7 +33,7 @@
 </div>
 
 
-<a href=""><h1 align="center">Welcome to Abo Mota Pharmacy</h1></a>
+<a href=""><h1 align="center">Welcome to Abo Mota Pharmacy</h1></a> --> 
 
 <!--
 # Pharmacy Management System - Virtual Clinic
@@ -194,7 +195,7 @@ The technology stack for the pharmacy module includes:
 6. **Notifications**
    - Receive notifications for medicine stock levels.
 -->
-## Comments and Security Measures
+<!-- ## Comments and Security Measures
 
 - Passwords must follow specific validation criteria.
 - Prescription medicines can only be added based on recent prescriptions.
@@ -320,3 +321,201 @@ We welcome contributions that help enhance the features and functionalities of t
 
 - The Stripe is licensed under the Apache License 2.0
 -->
+
+# Abo Mota Pharmacy
+
+## Motivation
+
+Abo Mota Pharmacy is a full pharmacy platform created as an additional module for the Abo Mota Clinic platform, using the MERN stack. Abo Mota Pharmacy's goal is to provide a user friendly ecommerce shopping experience for over the counter medications as well as full cross platform prescription support from the clinic platform. Abo Mota Pharmacy also gives pharmacists the opportunity to apply and manage medicine inventory to provide the highest quality medications to the customer.
+
+## Build Status
+
+- The project is currently in development.
+- The project needs to be deployed through services.
+- The project needs a robust unit test suite made with frameworks such as Jest.
+- A message broker needs to be added to the application to handle asynchronous tasks such as sending emails and notifications.
+
+## Code Style
+
+- [Eslint](https://eslint.org/docs/latest/user-guide/getting-started) : in the backend and the frontend to write the most optimum clean code possible and to define rules for the team to be able to write code in the same code style
+- [Prettier](https://prettier.io/) : it is a code formatter that runs automatically before each commit on the whole code so that the codes looks well formatted across the whole project
+
+## Tech Stack
+
+<div align="center" >
+   
+[![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com)
+[![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/html5/)
+![Redux](https://img.shields.io/badge/Built%20with-Redux-%23f44336?style=for-the-badge)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+[![Nodejs](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en/)
+[![ExpressJs](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://GitHub.com/Naereen/badges/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://github.com/omar-sherif9992)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+![Tailwind](https://img.shields.io/badge/tailwindcss-0F172A?&logo=tailwindcss)
+
+</div>
+
+- **Backend**: Node.js, Express, Mongoose, Socket.io, Nodemailer
+- **Frontend**: React.js, Material-UI, Ant ,Redux , Socket.io, Tailwind
+- **Database**: MongoDB
+- **Authentication**: JWT
+- **APIs**: Stripe
+- **Development tools**: Postman, Git, GitHub
+
+## Features
+<details>
+<summary>As a Guest I can</summary>
+
+- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
+- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+
+</details>
+
+<details>
+<summary>As a Patient I can</summary>
+
+- Login with my username and password.
+- Logout of the system.
+- Change my password.
+- Reset a forgotten password via OTP sent to email.
+- View a list of all available medicines, including pictures, prices, and descriptions.
+- Search for medicines based on name.
+- Filter medicines based on their medicinal use.
+- Add over-the-counter medicines to my cart.
+- Add prescription medicines to my cart based on my prescription.
+- View items in my cart.
+- Remove items from my cart.
+- Change the quantity of items in my cart.
+- Checkout my order.
+- Add new delivery addresses and choose from existing ones.
+- Select payment methods including wallet, credit card, or cash on delivery.
+- View my current and past orders along with their details and status.
+- Cancel orders.
+- View alternatives to medicines that are out of stock.
+- Chat with a pharmacist.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As a Pharmacist I can</summary>
+
+- Login and logout of the system.
+- Change my password.
+- Reset my password via OTP sent to email.
+- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+- Add a medicine with its details like active ingredients, price, and quantity.
+- Upload images for medicines.
+- Edit details and prices of medicines.
+- Archive or unarchive a medicine.
+- View the available quantity and sales of each medicine.
+- Filter sales reports based on medicine or date.
+- Receive notifications when a medicine is out of stock.
+- Chat with a doctor.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As an Administrator I can</summary>
+   
+- Login with my username and password.
+- Logout of the system.
+- Add another administrator with a set username and password.
+- Remove a pharmacist or patient from the system.
+- View all the information uploaded by a pharmacist when they apply to join the platform.
+- Accept or reject the request of a pharmacist to join the platform.
+- View total sales reports based on a chosen month.
+- View a pharmacist's information.
+- View a patient's basic information.
+- Change my password.
+- Reset my password via OTP sent to email.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+  
+</details>
+
+## Installation
+
+### Clone the repository:
+
+```bash
+git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
+cd Abo-Mota-Pharmacy
+```
+
+### Install client dependencies
+
+```bash
+cd client
+npm install
+```
+
+### Install server dependencies
+
+```bash
+  cd backend
+  npm install
+```
+
+## How to use
+
+#### Start the client:
+
+```bash
+cd client
+cd src
+npm start
+```
+
+The client server will run on http://localhost:3000.
+
+#### Start the server:
+
+```bash
+cd backend
+nodemon index.js
+```
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
+
+## Credits
+
+- [Mongoose docs](https://mongoosejs.com/docs/)
+- [MongoDB docs](https://www.mongodb.com/)
+- [Express docs](https://expressjs.com/en/4x/api.html)
+- [ReactJs docs](https://reactjs.org/docs/getting-started.html)
+- [Redux docs](https://redux.js.org/api/api-reference)
+- [NodeJs docs](https://nodejs.org/en/docs/)
+- [Ant Design website](https://ant.design/)
+- [Material UI website](https://mui.com/)
+- [Stripe docs](https://stripe.com/docs/)
+- [MERN Youtube](https://www.youtube.com/channel/UC29ju8bIPH5as8OGnQzwJyA)
+- [Stripe Youtube](https://youtu.be/1r-F3FIONl8)
+- [JWT](https://www.youtube.com/watch?v=mbsmsi7l3r4)
+- [Sockets.io docs](https://socket.io/)
+- [Tailwind docs](https://tailwindcss.com/docs/)
+- [Formik docs](https://formik.org/docs/tutorial)
+- [React pro sidebar](https://www.npmjs.com/package/react-pro-sidebar)
+- [React Router](https://reactrouter.com/en/main)
+
+## License
+
+Portions of this software utilize Stripe, which is licensed under the Apache License 2.0. You can find the details of this license [here](https://www.apache.org/licenses/LICENSE-2.0).
+
+The rest of the software is open source and licensed under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/).
+
