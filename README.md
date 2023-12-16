@@ -79,23 +79,34 @@ The technology stack for the pharmacy module includes:
 <details>
 <summary>As a Guest I can</summary>
 
-- Register as a patient with username, name, email, password, date of birth, gender, mobile number, and emergency contact.
-- Submit a request to register as a pharmacist with username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
+- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
 
 </details>
 
 <details>
 <summary>As a Patient I can</summary>
 
-- Login and logout of the system using my credentials.
-- Change and reset my password through OTP sent to my email.
-- Search for and filter medicines based on name and medicinal use.
-- Add over-the-counter and prescription medicines to my cart.
-- View, adjust quantities, and remove items from my cart.
-- Checkout my order with options for multiple delivery addresses and various payment methods, including wallet, credit card, or cash on delivery.
-- View current and past orders, their details, and status.
-- Cancel orders and view alternatives for out-of-stock medicines based on the main active ingredient.
-- Chat with a pharmacist and view the amount in my wallet.
+- Login with my username and password.
+- Logout of the system.
+- Change my password.
+- Reset a forgotten password via OTP sent to email.
+- View a list of all available medicines, including pictures, prices, and descriptions.
+- Search for medicines based on name.
+- Filter medicines based on their medicinal use.
+- Add over-the-counter medicines to my cart.
+- Add prescription medicines to my cart based on my prescription.
+- View items in my cart.
+- Remove items from my cart.
+- Change the quantity of items in my cart.
+- Checkout my order.
+- Add new delivery addresses and choose from existing ones.
+- Select payment methods including wallet, credit card, or cash on delivery.
+- View my current and past orders along with their details and status.
+- Cancel orders.
+- View alternatives to medicines that are out of stock.
+- Chat with a pharmacist.
+- View the amount in my wallet.
 
 </details>
 
@@ -103,27 +114,34 @@ The technology stack for the pharmacy module includes:
 <summary>As a Pharmacist I can</summary>
 
 - Login and logout of the system.
-- Change my password and reset it via OTP.
-- Upload and submit required registration documents like ID, pharmacy degree, and working licenses.
-- Add medicines with details (active ingredients, price, quantity) and upload images.
-- Edit medicine details and prices, and archive/unarchive medicines.
+- Change my password.
+- Reset my password via OTP sent to email.
+- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
+- Add a medicine with its details like active ingredients, price, and quantity.
+- Upload images for medicines.
+- Edit details and prices of medicines.
+- Archive or unarchive a medicine.
 - View the available quantity and sales of each medicine.
 - Filter sales reports based on medicine or date.
-- Receive notifications when a medicine is out of stock via the system and email.
+- Receive notifications when a medicine is out of stock.
+- Chat with a doctor.
+- View the amount in my wallet.
 
 </details>
 
 <details>
 <summary>As an Administrator I can</summary>
 
-- Login and logout of the system.
-- Change my password and reset it via OTP.
-- Add and remove administrators, pharmacists, and patients from the system with set usernames and passwords.
-- View all information uploaded by a pharmacist applying to join the platform.
-- Accept or reject pharmacist registration requests.
-- View total sales reports by month, and view basic information of pharmacists and patients.
+- Add another administrator with a set username and password.
+- Remove a pharmacist or patient from the system.
+- View all the information uploaded by a pharmacist when they apply to join the platform.
+- Accept or reject the request of a pharmacist to join the platform.
+- View total sales reports based on a chosen month.
+- View a pharmacist's information.
+- View a patient's basic information.
 
 </details>
+
 
 <!--
 - **Guests** can register as a patient or pharmacist, providing comprehensive personal and professional details.
