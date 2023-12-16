@@ -16,19 +16,6 @@ const MedicineScreen = ({ isPharmacist = false }) => {
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
-  // const { data, error , isFetching } = useGetMedicinesQuery();
-  // const [pharmacist,setPharmacist] = useState({});
-  // const [pharmacistFetchingError, setPharmacistFetchingError] = useState('');
-  // const { data: pharmacistData, error: pharmacistError, isFetching: isFetchingPharmacist } = useGetPharmacistQuery();
-
-  // useEffect(() => {
-  //   if(pharmacistData && !isFetchingPharmacist){
-  //     setPharmacist(pharmacistData);
-  //     // console.log(pharmacistData);
-  //   }else if(pharmacistError && !isFetchingPharmacist){
-  //     setPharmacistFetchingError(pharmacistError.message);
-  //   }
-  // },[pharmacistData,isFetchingPharmacist,pharmacistError]);
   const { data, error, isFetching } = useGetAllMedicinesQuery();
   let medicineArray = [];
   let content = null;
@@ -63,42 +50,42 @@ const MedicineScreen = ({ isPharmacist = false }) => {
     content = mappedArray;
     // console.log(data);
   } else if (error && !isFetching) {
-    content = <div className="loading-error-container">Error...</div>;
+    content = <div className='loading-error-container'>Error...</div>;
     console.log(error);
   } else {
     content = (
-      <div className="loading-error-container">
+      <div className='loading-error-container'>
         <LoadingIndicator size={40} />
       </div>
     );
   }
 
-  // useEffect(() => {
-  //   if(data && !isFetching){
-  //     setMedicineArray(data);
-  //     // console.log(data);
-  //   }else if(error && !isFetching){
-  //     setGetMedicinesError(error.message);
-  //     console.log(error);
-  //   }
-  // },[data,isFetching,error]);
-
   return (
-    <div className="medicine-screen-pharmacist">
-      <Header header="Medicine Inventory" subheader="Here you can check your Inventory" />
-      <div className="search-filter-div">
+    <div className='medicine-screen-pharmacist'>
+      <Header
+        header='Medicine Inventory'
+        subheader='Here you can check your Inventory'
+      />
+      <div className='search-filter-div'>
         <SearchBar
-          className="search-bar-medicine"
+          className='search-bar-medicine'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <FilterButton options={medicinalUses} filter={filter} setFilter={setFilter} />
+        <FilterButton
+          options={medicinalUses}
+          filter={filter}
+          setFilter={setFilter}
+        />
 
         {isPharmacist ? (
-          <div className="add-medicine-container">
-            <Link to="/pharmacist/addMedicine" className="add-medicine-button-container">
-              <Button type="button">
-                <AiOutlinePlus color="#fff" size={20} />
+          <div className='add-medicine-container'>
+            <Link
+              to='/pharmacist/addMedicine'
+              className='add-medicine-button-container'
+            >
+              <Button type='button'>
+                <AiOutlinePlus color='#fff' size={20} />
                 Add
               </Button>
             </Link>

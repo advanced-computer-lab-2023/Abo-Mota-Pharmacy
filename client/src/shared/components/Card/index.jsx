@@ -9,7 +9,6 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { red, green } from "@mui/material/colors";
 import { FaArrowDown } from "react-icons/fa";
 const ProductCard = ({
-  _id,
   name,
   description,
   price,
@@ -22,7 +21,6 @@ const ProductCard = ({
   similarMedicines,
   isOverTheCounter,
   isPrescribed,
-  socket,
   healthPackage,
 }) => {
   const handleClick = () => {
