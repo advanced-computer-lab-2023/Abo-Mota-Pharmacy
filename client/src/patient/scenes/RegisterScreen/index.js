@@ -12,6 +12,7 @@ import DropDown from "../../../shared/components/DropDown";
 import { login, useRegisterPatientMutation } from "../../../store";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import FormErrorDialog from "../../../shared/components/FormErrorDialog";
 
 const RegisterScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,11 +23,10 @@ const RegisterScreen = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (results.isError) {
-      setError(results.error.data.message);
-      // console.log(error);
+      setError(results.error.data.error);
     } else if (results.isSuccess) {
       setPatient(results.data);
-      // console.log(patient);
+      navigate("/");
     }
   }, [results]);
 
@@ -54,9 +54,11 @@ const RegisterScreen = () => {
     // await new Promise(resolve => setTimeout(resolve, 3000));
     // Remove the above await and insert code for backend registeration here.
     setIsLoading(false);
-    resetForm({ values: "" });
-    navigate("/");
+    console.log("in: ", results);
+    // resetForm({ values: "" });
   };
+
+  console.log("out: ", results);
 
   const clientForm = (
     <Formik
@@ -66,73 +68,73 @@ const RegisterScreen = () => {
     >
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Email*"
-              type="text"
-              id="email"
+              label='Email*'
+              type='text'
+              id='email'
               error={formik.errors.email}
               touch={formik.touched.email}
               {...formik.getFieldProps("email")}
             />
             <Input
-              label="Phone number*"
-              type="tel"
-              id="mobileNumber"
+              label='Phone number*'
+              type='tel'
+              id='mobileNumber'
               error={formik.errors.mobileNumber}
               touch={formik.touched.mobileNumber}
               {...formik.getFieldProps("mobileNumber")}
             />
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Username*"
-              type="text"
-              id="userName"
+              label='Username* (Link with clinic username)'
+              type='text'
+              id='userName'
               error={formik.errors.userName}
               touch={formik.touched.userName}
               {...formik.getFieldProps("userName")}
             />
             <Input
-              label="NationalID*"
-              type="text"
-              id="nationalId"
+              label='NationalID*'
+              type='text'
+              id='nationalId'
               error={formik.errors.nationalId}
               touch={formik.touched.nationalId}
               {...formik.getFieldProps("nationalId")}
             />
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="First Name*"
-              type="text"
-              id="firstName"
+              label='First Name*'
+              type='text'
+              id='firstName'
               error={formik.errors.firstName}
               touch={formik.touched.firstName}
               {...formik.getFieldProps("firstName")}
             />
             <Input
-              label="Last Name*"
-              type="text"
-              id="lastName"
+              label='Last Name*'
+              type='text'
+              id='lastName'
               error={formik.errors.lastName}
               touch={formik.touched.lastName}
               {...formik.getFieldProps("lastName")}
             />
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             <DateInput
-              label="Date of Birth*"
-              id="dob"
+              label='Date of Birth*'
+              id='dob'
               error={formik.errors.dateOfBirth}
               touch={formik.touched.dateOfBirth}
               {...formik.getFieldProps("dateOfBirth")}
               onChange={formik.handleChange}
             />
             <DropDown
-              label="Gender*"
-              type="text"
-              id="gender"
+              label='Gender*'
+              type='text'
+              id='gender'
               error={formik.errors.gender}
               onChange={formik.handleChange}
               touch={formik.touched.gender}
@@ -140,63 +142,69 @@ const RegisterScreen = () => {
               {...formik.getFieldProps("gender")}
             />
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Password*"
-              type="password"
-              id="password"
+              label='Password*'
+              type='password'
+              id='password'
               error={formik.errors.password}
               touch={formik.touched.password}
               {...formik.getFieldProps("password")}
             />
             <Input
-              label="Confirm Password*"
-              type="password"
-              id="confirmPassword"
+              label='Confirm Password*'
+              type='password'
+              id='confirmPassword'
               error={formik.errors.confirmPassword}
               touch={formik.touched.confirmPassword}
               {...formik.getFieldProps("confirmPassword")}
             />
           </div>
-          <div className="register-emergency-contact-title">Emergency Contact:</div>
-          <div className="form-container">
+          <div className='register-emergency-contact-title'>
+            Emergency Contact:
+          </div>
+          <div className='form-container'>
             <Input
-              label="First Name*"
-              type="text"
-              id="emergencyContactFirstName"
+              label='First Name*'
+              type='text'
+              id='emergencyContactFirstName'
               error={formik.errors.emergencyContactFirstName}
               touch={formik.touched.emergencyContactFirstName}
               {...formik.getFieldProps("emergencyContactFirstName")}
             />
             <Input
-              label="Last Name*"
-              type="text"
-              id="emergencyContactLastName"
+              label='Last Name*'
+              type='text'
+              id='emergencyContactLastName'
               error={formik.errors.emergencyContactLastName}
               touch={formik.touched.emergencyContactLastName}
               {...formik.getFieldProps("emergencyContactLastName")}
             />
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             <Input
-              label="Phone number*"
-              type="tel"
-              id="emergencyContactMobileNumber"
+              label='Phone number*'
+              type='tel'
+              id='emergencyContactMobileNumber'
               error={formik.errors.emergencyContactMobileNumber}
               touch={formik.touched.emergencyContactMobileNumber}
               {...formik.getFieldProps("emergencyContactMobileNumber")}
             />
             <Input
-              label="Contact Relation*"
-              type="text"
-              id="emergencyContactRelation"
+              label='Contact Relation*'
+              type='text'
+              id='emergencyContactRelation'
               error={formik.errors.emergencyContactRelation}
               touch={formik.touched.emergencyContactRelation}
               {...formik.getFieldProps("emergencyContactRelation")}
             />
           </div>
-          <div className="submit-add-medicine-button-container">
-            {isLoading ? <LoadingIndicator /> : <Button type="submit">Submit Form</Button>}
+          <div className='submit-add-medicine-button-container'>
+            {isLoading ? (
+              <LoadingIndicator />
+            ) : (
+              <Button type='submit'>Submit Form</Button>
+            )}
           </div>
         </form>
       )}
@@ -204,15 +212,20 @@ const RegisterScreen = () => {
   );
 
   return (
-    <div className="registesr-div">
-      <div className="register-portal">
-        <div className="register-part">
-          <Header header="Welcome to Abo Mouta Clinic!" subheader="" />
+    <div className='registesr-div'>
+      <FormErrorDialog
+        isError={error !== ""}
+        setClose={() => setError("")}
+        message={error}
+      />
+      <div className='register-portal'>
+        <div className='register-part'>
+          <Header header='Welcome to Abo Mouta Clinic!' subheader='' />
           {clientForm}
         </div>
-        <div className="logo-div">
+        <div className='logo-div'>
           {" "}
-          <img className="register-logo" src={logo} alt="logo" />{" "}
+          <img className='register-logo' src={logo} alt='logo' />{" "}
         </div>
       </div>
     </div>
@@ -238,7 +251,10 @@ const clientSchema = yup.object().shape({
     .max(50, "Last Name must be at most 50 characters long")
     .required("Please enter a valid Last Name"),
 
-  email: yup.string().email("Invalid email").required("Please enter a valid email address"),
+  email: yup
+    .string()
+    .email("Invalid email")
+    .required("Please enter a valid email address"),
 
   password: yup
     .string()

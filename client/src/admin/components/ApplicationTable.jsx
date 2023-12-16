@@ -17,21 +17,26 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { GiConsoleController } from "react-icons/gi";
 import { useHandleApplicationMutation } from "../../store";
+
+
 function Row({ row }) {
   const [open, setOpen] = React.useState(false);
-  console.log(row);
   const [handleApplication, results] = useHandleApplicationMutation();
   const handleAccept = async () => {
     await handleApplication({ id: row._id, registrationStatus: "approved" });
-    // console.log(data._id);
-    // console.log(results);
+    
+  };
+  const handleViewClick = (file)=>{
+    const arrayBuffer = new Uint8Array(file.data.data).buffer;
+    const blob = new Blob([arrayBuffer], {type: file.contentType});
+    const fileUrl = URL.createObjectURL(blob);
+    window.open(fileUrl, '_blank');
   };
 
   const handleReject = async () => {
-    // Handle the reject action here
     await handleApplication({ id: row._id, registrationStatus: "rejected" });
-    // console.log(results);
   };
+
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -46,6 +51,7 @@ function Row({ row }) {
           </IconButton>
         </TableCell>
         {Object.keys(row).map((key) =>
+          key==="_id"||
           key === "educationalBackground" ||
           key === "pharmacyDegree" ||
           key === "workingLicense" ? null : (
@@ -93,14 +99,14 @@ function Row({ row }) {
                   style={{ display: "flex", alignItems: "center", gap: "65px" }}
                 >
                   <p style={{ fontWeight: "bold" }}>Pharmacy Degree</p>
-                  <Link to={`${row.pharmacyDegree}`}>View Degree</Link>
+                  <Button onClick={()=>{handleViewClick(row.pharmacyDegree)}}>View Degree</Button>
                 </Typography>
                 <Typography
                   variant="subtitle1"
                   style={{ display: "flex", alignItems: "center", gap: "70px" }}
                 >
                   <p style={{ fontWeight: "bold" }}>Working License</p>
-                  <Link to={`${row.workingLicense}`}>View License</Link>
+                  <Button onClick={()=>{handleViewClick(row.workingLicense)}}>View License</Button>
                 </Typography>
                 <div style={{ display: "flex", gap: "20px", marginLeft: "250px" }}>
                   <Button onClick={handleAccept} variant="outlined" color="success">
@@ -124,7 +130,6 @@ Row.propTypes = {
 };
 
 function CollapsibleTable({ data, headers }) {
-  console.log(data);
   return (
     <TableContainer component={Paper} style={{ width: "100%", marginLeft: "20px" }}>
       <Table aria-label="collapsible table">
@@ -154,6 +159,8 @@ function CollapsibleTable({ data, headers }) {
               affiliation,
               rate,
               educationalBackground,
+              workingLicense,
+              pharmacyDegree
             } = row;
             return (
               <Row
@@ -167,6 +174,8 @@ function CollapsibleTable({ data, headers }) {
                   affiliation,
                   rate,
                   educationalBackground,
+                  workingLicense,
+                  pharmacyDegree
                 }}
               />
             );

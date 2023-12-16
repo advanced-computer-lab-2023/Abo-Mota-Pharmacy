@@ -6,13 +6,25 @@ const { Schema } = mongoose;
 const patientSchema = new Schema(
   {
     name: String,
-    username: String,
+    username: {
+      type: String,
+      unique: true,
+    },
     password: String,
-    email: String,
+    email: {
+      type: String,
+      unique: true,
+    },
     dob: Date,
     gender: String,
-    mobile: String,
-    nationalId: String,
+    mobile: {
+      type: String,
+      unique: true,
+    },
+    nationalId: {
+      type: String,
+      unique: true,
+    },
     wallet: {
       type: Number,
       default: 0,
@@ -72,18 +84,27 @@ const patientSchema = new Schema(
       {
         data: Buffer,
         contentType: String,
+        fileName: String,
       },
     ],
     medicalHistory: [
       {
         data: Buffer,
         contentType: String,
-        fileName: String
+        fileName: String,
       },
     ],
-    dosage: Number,
-        frequency: String,
-        duration: String,
+    notifications: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Notification",
+      },
+    ],
+    pharmacyPatient: {
+      type: Schema.Types.ObjectId,
+      ref: "PharmacyPatient",
+      default: null,
+    },
     // prescriptions: [
     //   {
     //     type: Schema.Types.ObjectId,
@@ -110,6 +131,6 @@ patientSchema.virtual("formattedDob").get(function () {
   return new Intl.DateTimeFormat("en-US", options).format(this.dob);
 });
 
-const Patient = mongoose.model("ClinicPatient", patientSchema);
+const ClinicPatient = mongoose.model("ClinicPatient", patientSchema);
 
-module.exports = Patient;
+module.exports = ClinicPatient;

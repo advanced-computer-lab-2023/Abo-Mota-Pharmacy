@@ -5,96 +5,95 @@ import * as yup from "yup";
 import Header from "../../../shared/components/Header";
 import { Formik } from "formik";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
-import { login, useRegisterPatientMutation } from "../../../store";
+import {
+  login,
+  useLinkWithClinicMutation,
+  useRegisterPatientMutation,
+} from "../../../store";
 import { useNavigate } from "react-router-dom";
+import FormErrorDialog from "../../../shared/components/FormErrorDialog";
 
 const ConnectAccountForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [registerPatient, results] = useRegisterPatientMutation();
   const [error, setError] = useState("");
-  const [patient, setPatient] = useState({});
+  const [linkWithClinic, results] = useLinkWithClinicMutation();
   const navigate = useNavigate();
   useEffect(() => {
     if (results.isError) {
-      setError(results.error.data.message);
-      // console.log(error);
+      setError(results.error.data.error);
     } else if (results.isSuccess) {
-      setPatient(results.data);
-      // console.log(patient);
     }
   }, [results]);
-
   const handleSubmit = async (values, { resetForm }) => {
-    // values contains all the data needed for registeration
     console.log(values);
-  
+
     setIsLoading(true);
-    // dispatch(login({ role: "patient" }));
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    // Remove the above await and insert code for backend registeration here.
+    await linkWithClinic(values);
     setIsLoading(false);
     resetForm({ values: "" });
-    //navigate("/");
   };
+
+  console.log(results);
 
   const changePasswordForm = (
     <Formik
-    initialValues={connectAccountSchema}
-    validationSchema={connectInitialValues}
-    onSubmit={handleSubmit}
+      initialValues={connectInitialValues}
+      validationSchema={connectAccountSchema}
+      onSubmit={handleSubmit}
     >
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
-          <div className="form-container">         
-            <Input 
-            label="User Name*" 
-            icon
-            type="userName" 
-            id="userName"
-            error={formik.errors.userName}
-            touch={formik.touched.userName}
-            {...formik.getFieldProps('userName')}
+          <div className='form-container'>
+            <Input
+              label='Username*'
+              icon
+              type='username'
+              id='username'
+              error={formik.errors.username}
+              touch={formik.touched.username}
+              {...formik.getFieldProps("username")}
             />
           </div>
-          <div className="form-container">
-            <Input 
-            label="Password*" 
-            icon
-            type="password" 
-            id="password"
-            error={formik.errors.password}
-            touch={formik.touched.password}
-            {...formik.getFieldProps('password')}
+          <div className='form-container'>
+            <Input
+              label='Password*'
+              icon
+              type='password'
+              id='password'
+              error={formik.errors.password}
+              touch={formik.touched.password}
+              {...formik.getFieldProps("password")}
             />
           </div>
-          <div className="submit-add-medicine-button-container">
-          {isLoading ? <LoadingIndicator /> :
-            // <Link to='medicine'>
-              <Button type="submit">
-                Connect
-              </Button>
-            // </Link>
-          }
-        </div>
+          <div className='submit-add-medicine-button-container'>
+            {
+              isLoading ? (
+                <LoadingIndicator />
+              ) : (
+                // <Link to='medicine'>
+                <Button type='submit'>Connect</Button>
+              )
+              // </Link>
+            }
+          </div>
         </form>
       )}
-
     </Formik>
-    );
-
+  );
 
   return (
     <div className='change-password-container'>
-          <div className="change-password-screen">
-          <Header header="Connect Account Form" />
-          {changePasswordForm}
-        </div>
+      <FormErrorDialog isError={error !== ""} setClose={() => setError("")} />
+      <div className='change-password-screen'>
+        <Header header='Connect Account Form' />
+        {changePasswordForm}
       </div>
+    </div>
   );
 };
 
 const connectAccountSchema = yup.object().shape({
-  userName: yup
+  username: yup
     .string()
     .min(3, "Username must be at least 3 characters long")
     .max(50, "Username must be at most 50 characters long")
@@ -109,7 +108,7 @@ const connectAccountSchema = yup.object().shape({
 });
 
 const connectInitialValues = {
-  userName: "",
+  username: "",
   password: "",
 };
 

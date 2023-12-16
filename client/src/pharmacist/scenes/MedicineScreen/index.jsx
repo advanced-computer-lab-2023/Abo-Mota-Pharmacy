@@ -55,17 +55,18 @@ const MedicineScreen = ({ isPharmacist = false }) => {
           medicinalUse={medicine.medicinalUse}
           sales={medicine.sales}
           image={medicine.medicineImage}
+          status={medicine.status}
         />
       );
     });
     content = mappedArray;
     // console.log(data);
   } else if (error && !isFetching) {
-    content = <div className="loading-error-container">Error...</div>;
+    content = <div className='loading-error-container'>Error...</div>;
     console.log(error);
   } else {
     content = (
-      <div className="loading-error-container">
+      <div className='loading-error-container'>
         <LoadingIndicator size={40} />
       </div>
     );
@@ -82,22 +83,32 @@ const MedicineScreen = ({ isPharmacist = false }) => {
   // },[data,isFetching,error]);
 
   return (
-    <div className="medicine-screen-pharmacist">
-      <Header header="Medicine Inventory" subheader="Here you can check your Inventory" />
-      <div className="search-filter-div">
+    <div className='medicine-screen-pharmacist'>
+      <Header
+        header='Medicine Inventory'
+        subheader='Here you can check your Inventory'
+      />
+      <div className='search-filter-div'>
         <SearchBar
-          className="search-bar-medicine"
+          className='search-bar-medicine'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <FilterButton options={medicinalUses} filter={filter} setFilter={setFilter} />
+        <FilterButton
+          options={medicinalUses}
+          filter={filter}
+          setFilter={setFilter}
+        />
 
         {isPharmacist ? (
-          <div className="add-medicine-container">
-            <Link to="/pharmacist/addMedicine" className="add-medicine-button-container">
-              <Button type="button">
-                <AiOutlinePlus color="#fff" size={20} />
-                Add Medicine
+          <div className='add-medicine-container'>
+            <Link
+              to='/pharmacist/addMedicine'
+              className='add-medicine-button-container'
+            >
+              <Button type='button'>
+                <AiOutlinePlus color='#fff' size={20} />
+                Add
               </Button>
             </Link>
           </div>

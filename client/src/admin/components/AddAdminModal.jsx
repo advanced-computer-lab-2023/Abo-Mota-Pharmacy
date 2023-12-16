@@ -23,6 +23,7 @@ function AddAdminModal() {
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const[email, setEmail]= useState(''); 
   const [addAdmin, results]= useAddAdminMutation();
 
   const handleOpen = () => {
@@ -32,6 +33,10 @@ function AddAdminModal() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleEmailChange= (event)=>{
+    setEmail(event.target.value)
+  }
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -43,9 +48,10 @@ function AddAdminModal() {
 
   const handleSubmit = () => {
     
-    addAdmin({username, password});
+    addAdmin({username, password,email});
     setUsername('');
     setPassword('');
+    setEmail('');
     setOpen(false);
   };
 
@@ -66,6 +72,15 @@ function AddAdminModal() {
         <div style={modalPaperStyle}>
           <h2 id="add-admin-modal-title">Add Administrator</h2>
           <form onSubmit={handleSubmit}>
+          <TextField
+              label="Email"
+              variant="outlined"
+              fullWidth
+              value={email}
+              onChange={handleEmailChange}
+              required
+              margin="normal"
+            />
             <TextField
               label="Username"
               variant="outlined"
