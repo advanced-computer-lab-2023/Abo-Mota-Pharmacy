@@ -13,13 +13,13 @@ const getPharmacist = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const getMedicines = async (req, res) => {
   try {
     const medicines = await Medicine.find();
     console.log(medicines);
     res.status(200).json(medicines);
   } catch (error) {
-    console.error("Error editing medicine:", error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -59,7 +59,6 @@ const addMedicine = async (req, res) => {
 
     res.status(200).json(returnedMedicine);
   } catch (error) {
-    console.error("Error adding medicine:", error);
     res.status(500).json({ error: error.message });
   }
 };

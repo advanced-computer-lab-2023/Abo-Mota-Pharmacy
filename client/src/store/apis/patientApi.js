@@ -26,6 +26,13 @@ const patientApi = createApi({
         }),
       }),
 
+      getPharmacists: builder.query({
+        query: () => ({
+          url: "/pharmacists",
+          method: "GET",
+        }),
+      }),
+
       payByWallet: builder.mutation({
         invalidatesTags: (result, error, arg) => {
           return ["Patient"];
@@ -162,6 +169,7 @@ const patientApi = createApi({
 export const {
   useGetPatientQuery,
   useGetMedicinesQuery,
+  useGetPharmacistsQuery,
   usePayByWalletMutation,
   useCreateOrderMutation,
   useCancelOrderMutation,

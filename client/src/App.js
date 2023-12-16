@@ -11,6 +11,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import RegisterScreen from "./patient/scenes/RegisterScreen";
 import RegisterForm from "./pharmacist/scenes/RegisterForm";
 import ConnectAccountForm from "./patient/scenes/ConnectAccountsForm";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:5000");
 
 function App() {
   return (
@@ -22,10 +25,10 @@ function App() {
 
         <Route path="/home" element={<HomePage />} />
         <Route element={<ProtectedRoute roles={["pharmacist"]} />}>
-          <Route path="pharmacist/*" element={<PharmacistApp />} />
+          <Route path="pharmacist/*" element={<PharmacistApp socket={socket}/>} />
         </Route>
         <Route element={<ProtectedRoute roles={["patient"]} />}>
-          <Route path="/patient/*" element={<PatientApp />} />
+          <Route path="/patient/*" element={<PatientApp socket={socket}/>} />
         </Route>
         <Route element={<ProtectedRoute roles={["admin"]} />}>
           <Route path="/admin/*" element={<AdminApp />} />

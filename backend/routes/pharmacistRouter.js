@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getPharmacist,
+  getPharmacists,
   getMedicines,
   addMedicine,
   editMedicine,
