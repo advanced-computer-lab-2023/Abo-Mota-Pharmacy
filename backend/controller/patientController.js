@@ -26,6 +26,7 @@ const getPatient = async (req, res) => {
     if (patient.clinicPatient !== null || patient.clinicPatient !== undefined) {
       const prescriptions = await Prescription.find({
         patient: patient.clinicPatient,
+        status: "unfilled",
       }).populate([
         {
           path: "medicines.medicine",
@@ -149,11 +150,11 @@ const createOrder = async (req, res) => {
     const username = req.userData.username;
     const patient = await Patient.findOne({ username });
     let clinicPatientExists;
-		if (patient.hasOwnProperty('clinicPatient') && patient.clinicPatient !== null) {
-			clinicPatientExists = await ClinicPatient.findOne({ _id: patient.clinicPatient }).populate(
-				"healthPackage.package"
-			);
-		}
+    if (patient.hasOwnProperty("clinicPatient") && patient.clinicPatient !== null) {
+      clinicPatientExists = await ClinicPatient.findOne({ _id: patient.clinicPatient }).populate(
+        "healthPackage.package"
+      );
+    }
 
     const { medicines } = req.body;
 
@@ -192,6 +193,28 @@ const createOrder = async (req, res) => {
           sales: medicine.quantity,
           purchaseDate: purchaseDate,
         });
+        // const targetDate = new Date(purchaseDate).getDate();
+        // const nextDay = new Date(targetDate);
+        // nextDay.setDate(targetDate.getDate() + 1);
+        // const findSimilarSalesReport = await SalesReport.findOne({
+        //   medicineId: dbMedicine._id,
+        //   purchaseDate: {
+        //     $gte: targetDate,
+        //     $lt: nextDay,
+        //   },
+        // });
+        // if (findSimilarSalesReport) {
+        //   const updatedSalesReport = await SalesReport.updateOne(
+        //     { medicineId: dbMedicine._id, purchaseDate: targetDate },
+        //     { sales: findSimilarSalesReport.sales + medicine.quantity }
+        //   );
+        // } else {
+        //   const addedSalesReport = await SalesReport.create({
+        //     medicineId: dbMedicine._id,
+        //     sales: medicine.quantity,
+        //     purchaseDate: targetDate,
+        //   });
+        // }
       })
     );
 
