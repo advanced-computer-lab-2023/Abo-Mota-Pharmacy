@@ -10,6 +10,7 @@ const saltRounds = 10;
 
 const getPatient = async (req, res) => {
   try {
+    console.log(req.userData);
     const username = req.userData.username;
     let patient = await Patient.findOne({ username })
       .populate({
@@ -405,7 +406,13 @@ const linkWithClinic = async (req, res) => {
       { username: pharmacyUsername },
       { clinicPatient: clinicPatient._id }
     );
-    res.status(200).json({ message: updatedPatient });
+    const loggedInPatient = await Patient.findOne({ username: pharmacyUsername });
+    const updatedClinicPatient = await ClinicPatient.updateOne(
+      { username: username },
+      { pharmacyPatient: loggedInPatient._id }
+    );
+
+    res.status(200).json({ message: updatedClinicPatient });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
