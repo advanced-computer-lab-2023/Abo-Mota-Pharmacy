@@ -131,7 +131,9 @@ The technology stack for the pharmacy module includes:
 
 <details>
 <summary>As an Administrator I can</summary>
-
+   
+- Login with my username and password.
+- Logout of the system.
 - Add another administrator with a set username and password.
 - Remove a pharmacist or patient from the system.
 - View all the information uploaded by a pharmacist when they apply to join the platform.
