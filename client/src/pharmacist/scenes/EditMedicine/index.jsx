@@ -13,12 +13,7 @@ import { useEditMedicineMutation } from "../../../store";
 import FileInput from "../../../shared/components/FileInput";
 import FormErrorDialog from "../../../shared/components/FormErrorDialog";
 
-const EditMedicine = ({
-  isOpen,
-  onClose,
-  medicineDetails,
-  isOverTheCounter,
-}) => {
+const EditMedicine = ({ isOpen, onClose, medicineDetails, isOverTheCounter }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { name, quantity, medicinalUse } = medicineDetails;
   const [editMedicineError, setEditMedicineError] = useState(false);
@@ -34,18 +29,20 @@ const EditMedicine = ({
     isOverTheCounter: isOverTheCounter,
   };
   const [editMedicine, results] = useEditMedicineMutation();
+  // console.log("results", results);
   const onSubmit = async (values, { resetForm }) => {
     const cleanedValues = { ...values };
-    cleanedValues.quantity = values.addQuantity
-      ? parseInt(values.addQuantity)
-      : "";
+    console.log("cleanedValues", cleanedValues);
+    cleanedValues.quantity = values.addQuantity ? parseInt(values.addQuantity) : "";
     delete cleanedValues.addQuantity;
-    const dataBaseValues = Object.fromEntries(
+    let dataBaseValues = Object.fromEntries(
       Object.entries(cleanedValues).filter(([_, v]) => v !== "" && v !== null)
     );
+    dataBaseValues.isOverTheCounter = dataBaseValues.isOverTheCounter === "true";
     // use name and cleanedvalues to do the update
     setIsLoading(true);
-    console.log("dataBase", dataBaseValues);
+    console.log("dataBase", { name, dataBaseValues });
+
     await editMedicine({ name, dataBaseValues });
     setIsLoading(false);
     onClose();
@@ -56,70 +53,66 @@ const EditMedicine = ({
   }, [results]);
 
   const editMedicineForm = (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={medicineSchema}
-      onSubmit={onSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={medicineSchema} onSubmit={onSubmit}>
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
-          <div className='form-container'>
+          <div className="form-container">
             <Input
               label={`New Price`}
-              id='price'
+              id="price"
               error={formik.errors.price}
               touch={formik.touched.price}
-              type='text'
+              type="text"
               {...formik.getFieldProps("price")}
             />
           </div>
-          <div className='form-container'>
+          <div className="form-container">
             <Input
               label={`New Description`}
-              id='description'
+              id="description"
               error={formik.errors.description}
               touch={formik.touched.description}
-              type='text'
+              type="text"
               {...formik.getFieldProps("description")}
             />
           </div>
-          <div className='form-container'>
+          <div className="form-container">
             <Input
               label={`Add Quantity`}
-              id='addQuantity'
+              id="addQuantity"
               error={formik.errors.addQuantity}
               touch={formik.touched.addQuantity}
-              type='number'
+              type="number"
               {...formik.getFieldProps("addQuantity")}
             />
 
             <DropDown
               options={["true", "false"]}
-              id='isOverTheCounter'
-              label='Change is Over The Counter'
+              id="isOverTheCounter"
+              label="Change is Over The Counter"
               error={formik.errors.isOverTheCounter}
               value={formik.values.isOverTheCounter}
               touch={formik.touched.isOverTheCounter}
               onChange={formik.handleChange}
             />
           </div>
-          <div className='form-container'>
+          <div className="form-container">
             <DropDown
               options={medicinalUses}
-              id='medicinalUse'
-              label='Change Medicinal Use'
+              id="medicinalUse"
+              label="Change Medicinal Use"
               error={formik.errors.medicinalUse}
               value={formik.values.medicinalUse}
               touch={formik.touched.medicinalUse}
               onChange={formik.handleChange}
             />
           </div>
-          <div className='edit-medicine-button'>
+          <div className="edit-medicine-button">
             {isLoading ? (
               <LoadingIndicator />
             ) : (
-              <Button type='submit'>
-                <AiOutlineEdit size={20} color='#fff' />
+              <Button type="submit">
+                <AiOutlineEdit size={20} color="#fff" />
                 Apply Changes
               </Button>
             )}
@@ -130,13 +123,13 @@ const EditMedicine = ({
   );
   if (!isOpen) return null;
   return (
-    <div className='edit-medicine-overlay'>
-      <div className='edit-medicine-content'>
-        <div className='edit-medicine-title'>
-          <div className='edit-medicine-header'>Edit {name}</div>
-          <div className='edit-medicine-exit-button' onClick={onClose}>
+    <div className="edit-medicine-overlay">
+      <div className="edit-medicine-content">
+        <div className="edit-medicine-title">
+          <div className="edit-medicine-header">Edit {name}</div>
+          <div className="edit-medicine-exit-button" onClick={onClose}>
             {" "}
-            <RxCross1 size={20} color='blue' />
+            <RxCross1 size={20} color="blue" />
           </div>
         </div>
         {editMedicineForm}
