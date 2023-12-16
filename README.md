@@ -117,6 +117,9 @@ The technology stack for the pharmacy module includes:
 - Change my password.
 - Reset my password via OTP sent to email.
 - Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
 - Add a medicine with its details like active ingredients, price, and quantity.
 - Upload images for medicines.
 - Edit details and prices of medicines.
@@ -141,7 +144,12 @@ The technology stack for the pharmacy module includes:
 - View total sales reports based on a chosen month.
 - View a pharmacist's information.
 - View a patient's basic information.
-
+- Change my password.
+- Reset my password via OTP sent to email.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+  
 </details>
 
 
