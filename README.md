@@ -76,7 +76,56 @@ The technology stack for the pharmacy module includes:
 - **Payment Processing**: Stripe for secure financial transactions
 
 ## Features
+<details>
+<summary>As a Guest I can</summary>
 
+- Register as a patient with username, name, email, password, date of birth, gender, mobile number, and emergency contact.
+- Submit a request to register as a pharmacist with username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+
+</details>
+
+<details>
+<summary>As a Patient I can</summary>
+
+- Login and logout of the system using my credentials.
+- Change and reset my password through OTP sent to my email.
+- Search for and filter medicines based on name and medicinal use.
+- Add over-the-counter and prescription medicines to my cart.
+- View, adjust quantities, and remove items from my cart.
+- Checkout my order with options for multiple delivery addresses and various payment methods, including wallet, credit card, or cash on delivery.
+- View current and past orders, their details, and status.
+- Cancel orders and view alternatives for out-of-stock medicines based on the main active ingredient.
+- Chat with a pharmacist and view the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As a Pharmacist I can</summary>
+
+- Login and logout of the system.
+- Change my password and reset it via OTP.
+- Upload and submit required registration documents like ID, pharmacy degree, and working licenses.
+- Add medicines with details (active ingredients, price, quantity) and upload images.
+- Edit medicine details and prices, and archive/unarchive medicines.
+- View the available quantity and sales of each medicine.
+- Filter sales reports based on medicine or date.
+- Receive notifications when a medicine is out of stock via the system and email.
+
+</details>
+
+<details>
+<summary>As an Administrator I can</summary>
+
+- Login and logout of the system.
+- Change my password and reset it via OTP.
+- Add and remove administrators, pharmacists, and patients from the system with set usernames and passwords.
+- View all information uploaded by a pharmacist applying to join the platform.
+- Accept or reject pharmacist registration requests.
+- View total sales reports by month, and view basic information of pharmacists and patients.
+
+</details>
+
+<!--
 - **Guests** can register as a patient or pharmacist, providing comprehensive personal and professional details.
 - **Users** can easily login and logout using their credentials to ensure security and privacy.
 - **Administrators** have the ability to manage user accounts and oversee pharmacist verification processes.
@@ -115,7 +164,7 @@ The technology stack for the pharmacy module includes:
 
 6. **Notifications**
    - Receive notifications for medicine stock levels.
-
+-->
 ## Comments and Security Measures
 
 - Passwords must follow specific validation criteria.
