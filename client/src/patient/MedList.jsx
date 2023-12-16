@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { medicines } from "../shared/assets/mockdata";
 import SearchBar from "../shared/components/SearchBar";
 import "./style.css";
 import Filter from "./Filter";
 import { useGetMedicinesQuery } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const MedList = ({socket}) => {
+const MedList = () => {
   // const [medicineArray, setMedicineArray] = useState(medicines);
   const [search, setSearch] = useState("");
 
@@ -43,7 +42,7 @@ const MedList = ({socket}) => {
     <div>
       <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
       {/* {mappedArray} */}
-      <Filter medicines={filteredArray} socket={socket} />
+      <Filter medicines={filteredArray} />
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { logout, useLogoutMutation } from "../../../store";
 import { useDispatch } from "react-redux";
 
-const NavBar = ({ links, socket, notifications }) => {
+const NavBar = ({ links, notifications }) => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [logoutMutation, result] = useLogoutMutation();
   const dispatch = useDispatch();

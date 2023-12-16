@@ -33,7 +33,6 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     // values contains all the data needed for registeration
-    // console.log(values);
     const user = {
       username: values.username,
       password: values.password,
@@ -94,15 +93,11 @@ const LoginForm = () => {
             />
           </div>
           <div className='submit-add-medicine-button-container'>
-            {
-              isLoading ? (
-                <LoadingIndicator />
-              ) : (
-                // <Link to='medicine'>
-                <Button type='submit'>Log in</Button>
-              )
-              // </Link>
-            }
+            {isLoading ? (
+              <LoadingIndicator />
+            ) : (
+              <Button type='submit'>Log in</Button>
+            )}
           </div>
         </form>
       )}

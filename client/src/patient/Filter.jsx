@@ -7,7 +7,7 @@ import TempDrawer from "../shared/components/Drawer";
 import { useAddToCartMutation, useGetPatientQuery, useRemoveFromCartMutation } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const Filter = ({ socket, medicines }) => {
+const Filter = ({ medicines }) => {
   const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [cart, setCart] = useState([]);
@@ -136,7 +136,6 @@ const Filter = ({ socket, medicines }) => {
     console.log("medicine: ", medicine);
     return (
       <ProductCard
-      _id={medicine._id}
         name={medicine.name}
         description={medicine.description}
         price={medicine.price}
@@ -151,7 +150,6 @@ const Filter = ({ socket, medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
-        socket = {socket}
       />
     );
   });

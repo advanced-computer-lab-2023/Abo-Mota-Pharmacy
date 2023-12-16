@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 
 const ProductCard = ({
-  _id,
   name,
   description,
   price,
@@ -19,7 +18,6 @@ const ProductCard = ({
   similarMedicines,
   isOverTheCounter,
   isPrescribed,
-  socket,
 }) => {
 
   const handleClick = () => {

@@ -61,7 +61,7 @@ function PharmacistApp({socket}) {
 
   return (
     <div>
-      <NavBar links={links} socket={socket} notifications={notifications}/>
+      <NavBar links={links} notifications={notifications}/>
       {/* <Outlet/> */}
       <div>
         {content}
