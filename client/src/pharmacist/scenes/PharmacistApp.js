@@ -12,26 +12,10 @@ import ViewSettings from "./ViewSettings";
 import Notifications from "../../shared/pages/Notification";
 import Outline from "../../shared/Outline";
 import sidebarItems from "../sidebarItems"
+import ChangePassword from "../../shared/components/ChangePassword";
 
 function PharmacistApp({socket}) {
-  const links = [
-    { name: "Change App", to: "/" },
-    { name: "Register", to: "/pharmacist/registerPharmacist" },
-    { name: "Medicine Inventory", to: "/pharmacist/medicine" },
-    { name: "View Settings", to: "/pharmacist/viewSettings" },
-    { name: "Sales Report", to: "/pharmacist/salesReport" },
-    
-  ];
-
   
- const navBarItems = [
-  {
-    name: "Profile",
-    to: "profile",
-  }
-];
-
-
   const { data, isFetching } = useGetPharmacistQuery();
   
   // const { data: notifs, isFetching: isFetchingNotifs } = useFetchNotificationQuery();
@@ -70,22 +54,21 @@ function PharmacistApp({socket}) {
   // })
 // }
 
+  const outlet = <Routes>
+                    <Route path='medicine' element={<MedicineScreen isPharmacist />} />
+                    <Route path='addMedicine' element={<AddMedicine />} />
+                    
+                    <Route path='viewSettings' element={<ViewSettings />} />
+                    <Route path='salesReport' element={<SalesReport />} />
+                    <Route path = 'notifications' element={<Notifications/>}/>
+                </Routes>
+
   return (
     <div>
       {/* <NavBar links={links}/> */}
       {/* <Outlet/> */}
-      {/* <Outline style={{backgroundColor: "blue"}} items={sidebarItems} navBarItems={navBarItems} socket={socket} />; */}
-      <Routes>
-        <Route path='medicine' element={<MedicineScreen isPharmacist />} />
-        <Route path='addMedicine' element={<AddMedicine />} />
-        <Route
-          path='changePassword'
-          element={<ChangePasswordScreen isPharmacist />}
-        />
-        <Route path='viewSettings' element={<ViewSettings />} />
-        <Route path='salesReport' element={<SalesReport />} />
-        <Route path = 'notifications' element={<Notifications/>}/>
-      </Routes>
+      <Outline style={{backgroundColor: "blue"}} outlet={outlet} items={sidebarItems} socket={socket} />;
+      
     </div>
   );
 }

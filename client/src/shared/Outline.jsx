@@ -12,7 +12,7 @@ import { CircularProgress } from '@mui/joy';
 const { Header, Content, Footer, Sider } = Layout;
 
 
-const Outline = ({ items, navBarItems, socket }) => {
+const Outline = ({ outlet, items, navBarItems, socket }) => {
   const [logout, results] = useLogoutMutation();
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate(); // Hook for navigation
@@ -84,7 +84,7 @@ const Outline = ({ items, navBarItems, socket }) => {
   }
   const profileContent = (
     <div>
-      {navBarItems.map(item => (
+      {navBarItems && navBarItems.map(item => (
         <Link key={item.name} to={item.to} style={{ display: 'block', margin: '10px 0' }}>
           {item.name}
         </Link>
@@ -169,7 +169,7 @@ const Outline = ({ items, navBarItems, socket }) => {
         </Header>
 
         <Content style={{ overflow: 'initial' }}>
-          <Outlet style={{  }} />
+          {outlet}
         </Content>
         {/* <Footer style={{ width: '100%', textAlign: 'center' }}>
           <CustomFooter/>
