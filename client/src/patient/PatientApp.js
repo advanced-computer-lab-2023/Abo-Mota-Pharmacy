@@ -14,6 +14,8 @@ import PrescriptionsScreen from "./scenes/PrescriptionsScreen";
 import Chat from "../shared/pages/Chat";
 import Outline from "../shared/Outline";
 import sideBarItems from "./sideBarItems";
+import PatientHome from "./PatientHome";
+
 
 function PatientApp({ socket }) {
 
@@ -31,13 +33,15 @@ function PatientApp({ socket }) {
     <Route path='/viewSettings' element={<ViewSettings />} />
     <Route path='/prescription' element={<PrescriptionsScreen />} />
     <Route path='/chat/:contact?' element={<Chat socket={socket} />} />
-
+    <Route path="" element={<PatientHome/>}/>
     {/* </Route> */}
   </Routes>
   return (
     <div>
       <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sideBarItems} socket={socket} isPatient />;
+    
     </div>
+    
   );
 }
 
