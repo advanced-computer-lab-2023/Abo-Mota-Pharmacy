@@ -23,7 +23,7 @@ export default function Notifications(){
     //some are null in the db need to be deleted
     const notifications = data.notifications.filter((notification) => notification != null);
 
-    const content = notifications.map((notification) => {
+    const content = notifications.reverse().map((notification) => {
         return <NotificationCard {...notification} />
     });
 

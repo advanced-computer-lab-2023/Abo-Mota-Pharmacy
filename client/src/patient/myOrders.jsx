@@ -71,13 +71,13 @@ function MyOrders() {
   });
 
   return (
-    <div>
+    <div className="mr-20 ml-20 mt-10">
       <Typography level="h1" sx={{ ml: 0.5 }} id="card-description">
         {" "}
         My Orders{" "}
       </Typography>
       {orders.length !== 0 ? (
-        <Box className="space-y-5">
+        <Box className="space-y-5 mt-5">
           <DatePicker format="MM/DD/YYYY" onChange={handelDateChange} style={{ width: "20%" }} />
           {renderedOrders.length !== 0 ? (
             <div className="space-y-10">{renderedOrders}</div>
