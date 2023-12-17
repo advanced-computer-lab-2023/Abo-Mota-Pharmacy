@@ -4,8 +4,8 @@ import { guestApi } from "./apis/guestApi.js";
 import { pharmacistApi } from "./apis/pharmacistApi.js";
 import { patientApi } from "./apis/patientApi.js";
 import { adminApi } from "./apis/adminApi.js";
-import { stripeApi } from "./apis/stripeApi";
 import { commonApi } from "./apis/commonApi";
+import { stripeApi } from "./apis/stripeApi";
 import { userReducer } from "./slices/userSlice";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { persistReducer, persistStore } from "redux-persist";
@@ -25,6 +25,7 @@ export const store = configureStore({
     [patientApi.reducerPath]: patientApi.reducer,
     [pharmacistApi.reducerPath]: pharmacistApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
+    [commonApi.reducerPath]: commonApi.reducer,
     [stripeApi.reducerPath]: stripeApi.reducer,
     [commonApi.reducerPath]: commonApi.reducer,
 
@@ -66,6 +67,7 @@ export {
 export {
   useGetPatientQuery,
   useGetMedicinesQuery,
+  useGetPharmacistsQuery,
   usePayByWalletMutation,
   useCreateOrderMutation,
   useAddToCartMutation,
@@ -75,6 +77,7 @@ export {
   useChangePatientPasswordMutation,
   useCancelOrderMutation,
   useLinkWithClinicMutation,
+  useUpdatePrescriptionsQuantityMutation,
 } from "./apis/patientApi";
 
 export {
@@ -97,6 +100,9 @@ export {
   useFetchContactsDetailsQuery,
   useInvalidateMessagesMutation,
   useInvalidateContactDetailsMutation,
+  useSendNotificationMutation,
+  useSendEmailMutation,
+  useFetchNotificationQuery,
 } from "./apis/commonApi";
 
 export { useCreatePaymentIntentMutation, useFetchStripeConfigQuery } from "./apis/stripeApi";

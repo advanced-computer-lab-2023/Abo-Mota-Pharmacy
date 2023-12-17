@@ -12,8 +12,7 @@ const Filter = ({ medicines }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [cart, setCart] = useState([]);
 
-
-  console.log("all medicines", medicines)
+  console.log("all medicines", medicines);
 
   const { data: patient, isFetching, error } = useGetPatientQuery();
 
@@ -21,7 +20,7 @@ const Filter = ({ medicines }) => {
   const [removeFromCart] = useRemoveFromCartMutation();
 
   if (isFetching) return <LoadingIndicator />;
-  // console.log("patient: ", patient);
+  console.log("patient: ", patient);
   let cart = patient?.cart || [];
 
   cart = cart.map((cartItem) => {
@@ -122,18 +121,17 @@ const Filter = ({ medicines }) => {
     setIsDrawerOpen(false);
   };
 
-  console.log("test: ", patient.prescriptions[0].medicines[0].medicine.name);
   const arr = [];
   for (let i = 0; i < patient.prescriptions.length; i++) {
     for (let j = 0; j < patient.prescriptions[i].medicines.length; j++) {
       arr.push(patient.prescriptions[i].medicines[j].medicine.name);
     }
   }
-  console.log("arr: ", arr);
 
   // medicine
 
   const mappedArray = filteredArray.map((medicine) => {
+    if (!medicine.isOverTheCounter) return null;
     console.log("medicine: ", medicine);
     return (
       <ProductCard
@@ -151,6 +149,7 @@ const Filter = ({ medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
+        healthPackage={patient.clinicPatient.healthPackage}
       />
     );
   });

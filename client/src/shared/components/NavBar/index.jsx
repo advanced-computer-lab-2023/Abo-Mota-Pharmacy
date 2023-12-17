@@ -3,11 +3,11 @@ import "./navbarstyless.css";
 import logo from "../../assets/logo.png";
 import { AiOutlineHome } from "react-icons/ai";
 import SideBar from "../SideBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logout, useLogoutMutation } from "../../../store";
 import { useDispatch } from "react-redux";
 
-const NavBar = ({ links }) => {
+const NavBar = ({ links}) => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [logoutMutation, result] = useLogoutMutation();
   const dispatch = useDispatch();

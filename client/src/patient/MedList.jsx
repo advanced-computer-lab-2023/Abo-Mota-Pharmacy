@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { medicines } from "../shared/assets/mockdata";
 import SearchBar from "../shared/components/SearchBar";
 import "./style.css";
 import Filter from "./Filter";
@@ -27,6 +26,7 @@ const MedList = () => {
     medicineArray = data;
     // console.log(data);
   }
+
   const filteredArray = medicineArray.filter((medicine) => {
     return (
       medicine.name.toLowerCase().includes(search.toLowerCase()) ||

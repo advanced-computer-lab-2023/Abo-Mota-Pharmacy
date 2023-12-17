@@ -16,19 +16,6 @@ const MedicineScreen = ({ isPharmacist = false }) => {
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
-  // const { data, error , isFetching } = useGetMedicinesQuery();
-  // const [pharmacist,setPharmacist] = useState({});
-  // const [pharmacistFetchingError, setPharmacistFetchingError] = useState('');
-  // const { data: pharmacistData, error: pharmacistError, isFetching: isFetchingPharmacist } = useGetPharmacistQuery();
-
-  // useEffect(() => {
-  //   if(pharmacistData && !isFetchingPharmacist){
-  //     setPharmacist(pharmacistData);
-  //     // console.log(pharmacistData);
-  //   }else if(pharmacistError && !isFetchingPharmacist){
-  //     setPharmacistFetchingError(pharmacistError.message);
-  //   }
-  // },[pharmacistData,isFetchingPharmacist,pharmacistError]);
   const { data, error, isFetching } = useGetAllMedicinesQuery();
   let medicineArray = [];
   let content = null;
@@ -56,6 +43,7 @@ const MedicineScreen = ({ isPharmacist = false }) => {
           sales={medicine.sales}
           image={medicine.medicineImage}
           status={medicine.status}
+          isOverTheCounter={medicine.isOverTheCounter}
         />
       );
     });
@@ -71,16 +59,6 @@ const MedicineScreen = ({ isPharmacist = false }) => {
       </div>
     );
   }
-
-  // useEffect(() => {
-  //   if(data && !isFetching){
-  //     setMedicineArray(data);
-  //     // console.log(data);
-  //   }else if(error && !isFetching){
-  //     setGetMedicinesError(error.message);
-  //     console.log(error);
-  //   }
-  // },[data,isFetching,error]);
 
   return (
     <div className='medicine-screen-pharmacist'>

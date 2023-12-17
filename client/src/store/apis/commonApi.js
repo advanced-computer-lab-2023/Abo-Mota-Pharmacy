@@ -10,7 +10,6 @@ const commonApi = createApi({
   endpoints(builder) {
     return {
       fetchLoggedIn: builder.query({
-
         query: () => {
           return {
             url: "/loggedIn",
@@ -26,6 +25,16 @@ const commonApi = createApi({
         query: (data) => {
           return {
             url: "/message",
+            body: data,
+            method: "POST",
+          };
+        },
+      }),
+
+      sendNotification: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/notification",
             body: data,
             method: "POST",
           };
@@ -67,6 +76,16 @@ const commonApi = createApi({
         },
       }),
 
+      fetchNotification: builder.query({
+
+        query: () => {
+          return {
+            url: "/notifications",
+            method: "GET",
+          };
+        },
+      }),
+
       invalidateMessages: builder.mutation({
         invalidatesTags: (result, error, p) => {
           return ["messages"];
@@ -90,6 +109,17 @@ const commonApi = createApi({
             url: "/nil",
             method: "POST",
           };
+        }
+      }),
+
+      sendEmail: builder.mutation({
+
+        query: (data) => {
+          return {
+            url: "/send-email",
+            body: data,
+            method: "POST",
+          };
         },
       }),
     }
@@ -104,6 +134,9 @@ export const {
   useFetchContactsDetailsQuery,
   useInvalidateMessagesMutation,
   useInvalidateContactDetailsMutation,
+  useSendNotificationMutation,
+  useFetchNotificationQuery,
+  useSendEmailMutation,
 } = commonApi;
 
 export { commonApi };

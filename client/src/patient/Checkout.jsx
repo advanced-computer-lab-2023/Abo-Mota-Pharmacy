@@ -25,19 +25,22 @@ import CardPayment from "./stripe/CardPayment";
 import WalletPayment from "./stripe/WalletPayment";
 import { useCreateOrderMutation } from "../store";
 import Toast from "./Toast";
-import { LuStethoscope, LuCalendarClock, LuBuilding } from "react-icons/lu";
-import { useAddToCartMutation, useGetPatientQuery, useAddDeliveryAddressMutation } from "../store";
+import {
+  useGetPatientQuery,
+  useAddDeliveryAddressMutation,
+  useGetPharmacistsQuery,
+  useSendEmailMutation,
+  useSendNotificationMutation,
+} from "../store";
 
-const Checkout = ({}) => {
+const Checkout = ({ socket }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalAmount, cartItems, medicines } = location.state;
-
   const handleRedirect = () => navigate("/patient/order", { state: { totalAmount, cartItems } });
 
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = ["Delivery", "Payment"];
-  // const savedAddresses = ["800,Nasr,Ciiro", "Address 2", "Address 3"];
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -59,6 +62,19 @@ const Checkout = ({}) => {
     duration: 4000,
   });
 
+  /////////////////////////////////NOTIFS////////////////////////////////////
+
+  const [sendNotification] = useSendNotificationMutation();
+  const [sendEmail] = useSendEmailMutation();
+  const { data, isFetchingPharm } = useGetPharmacistsQuery();
+
+  let pharmacistsArray = [];
+  if (!isFetchingPharm) {
+    pharmacistsArray = data;
+  }
+
+  /////////////////////////////////NOTIFS////////////////////////////////////
+
   const handleOpenChangeCity = React.useCallback((event, isOpen) => {
     setOpenCity(isOpen);
   }, []);
@@ -73,29 +89,21 @@ const Checkout = ({}) => {
 
   if (isFetching) return <div>Loading...</div>;
 
-  console.log("Patient", patient);
-
   const savedAddresses = patient.deliveryAddresses;
   const addressToString = (address) => {
     return `${address.apartmentNumber}, ${address.streetName}, ${address.city}`;
   };
 
   const onSuccessfulCheckout = () => {
-    console.log("Passed to createOrder");
-    console.log({
-      medicines: cartItems,
-    });
-
     const cartItemsWithoutImage = cartItems.map((item) => {
       const { medicineImage, ...rest } = item;
       return rest;
     });
-    console.log("cartItemsWithoutImage", cartItemsWithoutImage);
-    createOrder({
+    const { data: orderRes, isFetching: isFetchingMed } = createOrder({
       medicines: cartItemsWithoutImage,
     })
       .unwrap()
-      .then(() => {
+      .then((orderRes) => {
         setToast({
           ...toast,
           open: true,
@@ -106,6 +114,34 @@ const Checkout = ({}) => {
         setTimeout(() => {
           navigate("/patient/order", { state: { totalAmount, cartItems } });
         }, 1500);
+
+        console.log("ORDER RES", orderRes);
+        const { soldOutMedicine } = orderRes;
+
+        soldOutMedicine.forEach((medicine) => {
+          pharmacistsArray.forEach((pharmacist) => {
+            sendNotification({
+              recipientUsername: pharmacist.username,
+              recipientType: "pharmacist",
+              content: `The medicine ${medicine.name} is out of stock.`,
+            })
+              .unwrap()
+              .then((res) => console.log(res))
+              .catch((err) => console.log(err));
+
+            //send socket event to backend
+            socket.emit("send_notification_stock", {
+              receiver: pharmacist._id,
+              content: `The medicine ${medicine.name} is out of stock.`,
+            });
+
+            sendEmail({
+              email: pharmacist.email,
+              subject: "Item sold out",
+              text: `The medicine ${medicine.name} is out of stock.`,
+            });
+          });
+        });
       });
   };
 
@@ -156,6 +192,7 @@ const Checkout = ({}) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     if (prevActiveStep === 0) {
       setSelectedOption(null);
+      navigate("/patient/medicine");
     }
   };
 
@@ -524,7 +561,7 @@ const Checkout = ({}) => {
       <Fragment>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <div>
-            <Button disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+            <Button onClick={handleBack} sx={{ mr: 1 }}>
               Back
             </Button>
           </div>

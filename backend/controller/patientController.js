@@ -1,9 +1,11 @@
 const Medicine = require("../models/Medicine");
 const Patient = require("../models/Patient");
+const Pharmacist = require("../models/Pharmacist");
 const Order = require("../models/Order");
 const SalesReport = require("../models/SalesReport");
 const ClinicPatient = require("../models/ClinicPatient");
 const Prescription = require("../models/Prescription");
+const HealthPackage = require("../models/HealthPackage");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const saltRounds = 10;
@@ -21,8 +23,14 @@ const getPatient = async (req, res) => {
         },
       })
       .populate("healthPackage.package")
-      .populate("clinicPatient");
-
+      .populate("clinicPatient")
+      .populate({
+        path: "clinicPatient",
+        populate: {
+          path: "healthPackage.package",
+          model: "HealthPackage",
+        },
+      });
     if (patient.clinicPatient !== null || patient.clinicPatient !== undefined) {
       const prescriptions = await Prescription.find({
         patient: patient.clinicPatient,
@@ -35,25 +43,26 @@ const getPatient = async (req, res) => {
       ]);
       // console.log(patient);
       patient = patient.toObject();
-      patient.prescriptions = prescriptions.map((prescription) => {
-        // Convert prescription to a plain object if it's a Mongoose document
-        prescription =
-          prescription instanceof mongoose.Document ? prescription.toObject() : prescription;
-        // console.log(prescription);
-        if (Array.isArray(prescription.medicines)) {
-          prescription.medicines = prescription.medicines.map((medicineObj) => {
-            // console.log(medicineObj.medicine);
-            const medicineClone = medicineObj.medicine;
-            delete medicineClone.medicineImage;
-            // console.log(medicineClone);
+      patient.prescriptions = prescriptions;
+      // patient.prescriptions = prescriptions.map((prescription) => {
+      //   // Convert prescription to a plain object if it's a Mongoose document
+      //   prescription =
+      //     prescription instanceof mongoose.Document ? prescription.toObject() : prescription;
+      //   // console.log(prescription);
+      //   if (Array.isArray(prescription.medicines)) {
+      //     prescription.medicines = prescription.medicines.map((medicineObj) => {
+      //       // console.log(medicineObj.medicine);
+      //       const medicineClone = medicineObj.medicine;
+      //       delete medicineClone.medicineImage;
+      //       // console.log(medicineClone);
 
-            medicineObj.medicine = medicineClone;
+      //       medicineObj.medicine = medicineClone;
 
-            return medicineObj;
-          });
-        }
-        return prescription;
-      });
+      //       return medicineObj;
+      //     });
+      //   }
+      //   return prescription;
+      // });
     }
     res.status(200).json(patient);
   } catch (error) {
@@ -70,6 +79,29 @@ const getMedicines = async (req, res) => {
   }
 };
 
+const updatePrescriptionsQuantity = async (req, res) => {
+  try {
+    const { prescriptionId, medicineId } = req.body;
+    const prescription = await Prescription.findOne({ _id: prescriptionId });
+    const newMedicines = prescription.medicines.map((medicine) => {
+      // console.log(medicine);
+      if (medicine.medicine.equals(medicineId)) {
+        return { ...medicine.toObject(), quantity: medicine.quantity - 1 };
+      }
+      return medicine;
+    });
+    // console.log(newMedicines);
+    const updatedPrescription = await Prescription.updateOne(
+      { _id: prescriptionId },
+      {
+        medicines: newMedicines,
+      }
+    );
+    res.status(200).json(updatedPrescription);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 const getOrders = async (req, res) => {
   try {
     const username = req.userData.username;
@@ -93,6 +125,16 @@ const getOrders = async (req, res) => {
     );
     // console.log(ordersWithImages);
     res.status(200).json(ordersWithImages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getPharmacists = async (req, res) => {
+  try {
+    const pharmacists = await Pharmacist.find();
+    console.log(pharmacists);
+    res.status(200).json(pharmacists);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -155,7 +197,6 @@ const createOrder = async (req, res) => {
         "healthPackage.package"
       );
     }
-
     const { medicines } = req.body;
 
     let totalPrice = 0;
@@ -174,7 +215,6 @@ const createOrder = async (req, res) => {
     const purchaseDate = new Date();
     const updatedMedicines = await Promise.all(
       medicines.map(async (medicine) => {
-        console.log("med", medicine);
         const dbMedicine = await Medicine.findOne({ name: medicine.name }).select("-medicineImage");
 
         if (!dbMedicine) throw new Error("This medicine does not exist");
@@ -227,7 +267,15 @@ const createOrder = async (req, res) => {
 
     const updatedPatient = await Patient.updateOne({ username }, { cart: [] });
 
-    res.status(200).json({ order, updatedMedicines });
+    let soldOutMedicine = [];
+    for (const medicine of medicines) {
+      const dbMedicine = await Medicine.findOne({ name: medicine.name }).select("-medicineImage");
+      if (dbMedicine && dbMedicine.quantity === 0) {
+        soldOutMedicine.push(dbMedicine);
+      }
+    }
+
+    res.status(200).json({ order, updatedMedicines, soldOutMedicine });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -244,7 +292,6 @@ const addToCart = async (req, res) => {
       },
     });
 
-    console.log(patient);
     const name = req.body.name;
     const medicine = await Medicine.findOne({ name });
 
@@ -255,10 +302,12 @@ const addToCart = async (req, res) => {
 
     const existingCartItem = patient.cart.find((item) => item.medicine._id.equals(medicine._id));
 
-    if (existingCartItem) {
+    if (existingCartItem && existingCartItem.quantity < medicine.quantity) {
       existingCartItem.quantity += 1;
-    } else {
+    } else if (!existingCartItem) {
       patient.cart.push({ medicine, quantity: 1 });
+    } else if (existingCartItem.quantity === medicine.quantity) {
+      throw new Error("Not enough medicine in stock");
     }
     await patient.save();
     res.status(200).json({ patient });
@@ -281,7 +330,6 @@ const removeFromCart = async (req, res) => {
     });
 
     const cart = loggedIn.cart;
-    console.log("CART", cart);
 
     const updatedCart = cart
       .map((item) => {
@@ -293,8 +341,6 @@ const removeFromCart = async (req, res) => {
         return item;
       })
       .filter((item) => item.quantity > 0);
-
-    console.log("UPDATED", updatedCart);
 
     const updatedPatient = await Patient.updateOne({ username }, { cart: updatedCart });
     res.status(200).json({ updatedPatient });
@@ -444,6 +490,7 @@ module.exports = {
   getPatient,
   getMedicines,
   getOrders,
+  getPharmacists,
   cancelOrder,
   createOrder,
   removeFromCart,
@@ -454,4 +501,5 @@ module.exports = {
   viewWallet,
   viewAlternatives,
   linkWithClinic,
+  updatePrescriptionsQuantity,
 };

@@ -4,6 +4,7 @@ const {
   getMedicines,
   getPatient,
   getOrders,
+  getPharmacists,
   cancelOrder,
   createOrder,
   removeFromCart,
@@ -14,6 +15,7 @@ const {
   viewWallet,
   viewAlternatives,
   linkWithClinic,
+  updatePrescriptionsQuantity,
 } = require("../controller/patientController");
 
 const authorize = require("../middlewares/authorization");
@@ -21,6 +23,8 @@ const authorize = require("../middlewares/authorization");
 router.get("/", authorize, getPatient); //done
 
 router.get("/medicines", authorize, getMedicines); //done
+
+router.get("/pharmacists", authorize, getPharmacists);
 
 router.post("/addToCart", authorize, addToCart); //done
 
@@ -45,5 +49,7 @@ router.get("/wallet", authorize, viewWallet);
 router.get("/alternatives", authorize, viewAlternatives);
 
 router.post("/linkWithClinic", authorize, linkWithClinic);
+
+router.patch("/updatePrescriptionsQuantity", authorize, updatePrescriptionsQuantity);
 
 module.exports = router;

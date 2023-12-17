@@ -44,6 +44,9 @@ const medicineValidationSchema = Joi.object({
       "string.max": "Medicinal Use should not exceed 30 characters.",
       "string.pattern.base": "Medicinal Use should only contain letters, spaces and dashes.",
     }),
+  isOverTheCounter: Joi.boolean().required().messages({
+    "boolean.base": "Over the Counter must be a boolean.",
+  }),
 });
 
 module.exports = medicineValidationSchema;

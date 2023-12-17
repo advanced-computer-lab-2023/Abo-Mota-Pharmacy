@@ -32,6 +32,12 @@ const pharmacistSchema = new Schema(
       type: Number,
       default: 0,
     },
+    notifications: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Notification",
+			},
+		],
   },
   { toJSON: { virtuals: true } }
 );

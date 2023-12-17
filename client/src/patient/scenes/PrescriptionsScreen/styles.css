@@ -1,5 +1,5 @@
 .blue-imp-button {
-  background-color: var(--main-color) !important;
+  background-color: black !important;
   width: 120px !important;
   align-items: flex-end !important;
   display: flex !important ;
@@ -10,7 +10,7 @@
 
 .blue-imp-button:hover {
   transform: scale(1.1); /* Increase the scale to 110% on hover */
-  background-color: black !important;
+  background-color: var(--main-color) !important;
 }
 
 .blue-imp-button-container {
@@ -20,10 +20,10 @@
 }
 
 .prescription-image {
-  border-radius: 40px;
+  border-radius: 50px;
   border: 1px solid black;
-  height: 80px;
-  width: auto;
+  height: 100px;
+  width: 100px;
 }
 
 .prescription-container {

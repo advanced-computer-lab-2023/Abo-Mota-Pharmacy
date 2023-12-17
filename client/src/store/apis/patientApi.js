@@ -26,6 +26,13 @@ const patientApi = createApi({
         }),
       }),
 
+      getPharmacists: builder.query({
+        query: () => ({
+          url: "/pharmacists",
+          method: "GET",
+        }),
+      }),
+
       payByWallet: builder.mutation({
         invalidatesTags: (result, error, arg) => {
           return ["Patient"];
@@ -143,6 +150,18 @@ const patientApi = createApi({
           };
         },
       }),
+      updatePrescriptionsQuantity: builder.mutation({
+        invalidatesTags: (result, error, arg) => {
+          return ["Patient"];
+        },
+        query: (data) => {
+          return {
+            url: "/updatePrescriptionsQuantity",
+            method: "PATCH",
+            body: data,
+          };
+        },
+      }),
     };
   },
 });
@@ -150,6 +169,7 @@ const patientApi = createApi({
 export const {
   useGetPatientQuery,
   useGetMedicinesQuery,
+  useGetPharmacistsQuery,
   usePayByWalletMutation,
   useCreateOrderMutation,
   useCancelOrderMutation,
@@ -159,5 +179,6 @@ export const {
   useGetOrdersQuery,
   useChangePatientPasswordMutation,
   useLinkWithClinicMutation,
+  useUpdatePrescriptionsQuantityMutation,
 } = patientApi;
 export { patientApi };

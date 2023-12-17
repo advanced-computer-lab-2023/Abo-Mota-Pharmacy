@@ -17,6 +17,7 @@ const pharmacistApi = createApi({
           method: "GET",
         }),
       }),
+      
       getAllMedicines: builder.query({
         providesTags: (result, error) => {
           const tags = result.map((medicine) => {
@@ -71,14 +72,14 @@ const pharmacistApi = createApi({
           const formData = new FormData();
           if (dataBaseValues.description)
             formData.append("description", dataBaseValues.description);
-          if (dataBaseValues.price)
-            formData.append("price", dataBaseValues.price);
+          if (dataBaseValues.price) formData.append("price", dataBaseValues.price);
           if (dataBaseValues.activeIngredients)
             dataBaseValues.activeIngredients.forEach((ingredient) => {
               formData.append("activeIngredients", ingredient);
             });
-          if (dataBaseValues.quantity)
-            formData.append("quantity", dataBaseValues.quantity);
+
+          formData.append("isOverTheCounter", dataBaseValues.isOverTheCounter);
+          if (dataBaseValues.quantity) formData.append("quantity", dataBaseValues.quantity);
           if (dataBaseValues.medicinalUse)
             formData.append("medicinalUse", dataBaseValues.medicinalUse);
           if (dataBaseValues.medicineImage)

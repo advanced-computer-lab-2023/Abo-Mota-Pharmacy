@@ -35,19 +35,17 @@ const AddMedicine = () => {
       description: values.description,
       sales: 0,
       quantity: values.availableQuantity,
-      activeIngredients: values.activeIngredients
-        .split(",")
-        .map((ingredient) => ingredient.trim()),
+      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()),
       medicinalUse: values.medicinalUse,
       medicineImage: values.medicineImage,
-      isOverTheCounter: values.isOverTheCounter,
+      isOverTheCounter: values.isOverTheCounter === "true",
     };
     console.log(medicineObj);
     setIsLoading(true);
     await addMedicine(medicineObj);
     navigate("/pharmacist/medicine");
     setIsLoading(false);
-    resetForm({ values: "" });
+    // resetForm({ values: "" });
   };
 
   const medicineForm = (
@@ -58,19 +56,19 @@ const AddMedicine = () => {
     >
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
-          <div className='form-container'>
+          <div className="form-container">
             <Input
-              label='Medicine Name'
-              id='medicineName'
+              label="Medicine Name"
+              id="medicineName"
               error={formik.errors.medicineName}
               touch={formik.touched.medicineName}
-              type='text'
+              type="text"
               {...formik.getFieldProps("medicineName")}
             />
             <FileInput
-              label='Medicine Image*'
-              id='medicineImage'
-              name='medicineImage' // Ensure this is set to correctly associate with Formik's `getFieldProps`
+              label="Medicine Image*"
+              id="medicineImage"
+              name="medicineImage" // Ensure this is set to correctly associate with Formik's `getFieldProps`
               error={formik.errors.medicineImage}
               touch={formik.touched.medicineImage}
               onChange={(file) => formik.setFieldValue("medicineImage", file)}
@@ -78,48 +76,48 @@ const AddMedicine = () => {
             />
           </div>
 
-          <div className='form-container'>
+          <div className="form-container">
             <Input
-              label='Description'
-              id='description'
-              type='text'
+              label="Description"
+              id="description"
+              type="text"
               error={formik.errors.description}
               touch={formik.touched.description}
               {...formik.getFieldProps("description")}
             />
             <Input
-              label='Active Ingredients'
-              id='activeIngredients'
-              type='text'
+              label="Active Ingredients"
+              id="activeIngredients"
+              type="text"
               touch={formik.touched.activeIngredients}
               error={formik.errors.activeIngredients}
               {...formik.getFieldProps("activeIngredients")}
             />
           </div>
 
-          <div className='form-container'>
+          <div className="form-container">
             <Input
-              label='Price'
-              id='price'
-              type='number'
+              label="Price"
+              id="price"
+              type="number"
               error={formik.errors.price}
               touch={formik.touched.price}
               {...formik.getFieldProps("price")}
             />
             <Input
-              label='Available Quantity'
-              id='availableQuantity'
-              type='number'
+              label="Available Quantity"
+              id="availableQuantity"
+              type="number"
               error={formik.errors.availableQuantity}
               touch={formik.touched.availableQuantity}
               {...formik.getFieldProps("availableQuantity")}
             />
           </div>
-          <div className='form-container'>
+          <div className="form-container">
             <DropDown
               options={medicinalUses}
-              id='medicinalUse'
-              label='Medicinal Use'
+              id="medicinalUse"
+              label="Medicinal Use"
               error={formik.errors.medicinalUse}
               value={formik.values.medicinalUse}
               touch={formik.touched.medicinalUse}
@@ -127,8 +125,8 @@ const AddMedicine = () => {
             />
             <DropDown
               options={["true", "false"]}
-              id='isOverTheCounter'
-              label='Is Over The Counter?'
+              id="isOverTheCounter"
+              label="Is Over The Counter?"
               error={formik.errors.isOverTheCounter}
               value={formik.values.isOverTheCounter}
               touch={formik.touched.isOverTheCounter}
@@ -136,12 +134,12 @@ const AddMedicine = () => {
             />
           </div>
           <hr />
-          <div className='submit-add-medicine-button-container'>
+          <div className="submit-add-medicine-button-container">
             {isLoading ? (
               <LoadingIndicator />
             ) : (
-              <Button type='submit'>
-                <AiOutlinePlus color='#fff' size={20} />
+              <Button type="submit">
+                <AiOutlinePlus color="#fff" size={20} />
                 Add Medicine
               </Button>
             )}
@@ -151,11 +149,8 @@ const AddMedicine = () => {
     </Formik>
   );
   return (
-    <div className='add-medicine-form'>
-      <Header
-        header='New Medicine Form'
-        subheader='Please Enter new medicine info'
-      />
+    <div className="add-medicine-form">
+      <Header header="New Medicine Form" subheader="Please Enter new medicine info" />
       {medicineForm}
       <FormErrorDialog
         isError={addMedicineError !== ""}
@@ -194,9 +189,7 @@ const MedicineSchema = yup.object().shape({
     .max(500, "Too Long!")
     .required("Active ingredients are required"),
   medicinalUse: yup.string().required("Please select a medicinal use"),
-  isOverTheCounter: yup
-    .string()
-    .required("Please specify if the medicine is over the counter"),
+  isOverTheCounter: yup.string().required("Please specify if the medicine is over the counter"),
   medicineImage: yup
     .mixed()
     .required("A file is required")

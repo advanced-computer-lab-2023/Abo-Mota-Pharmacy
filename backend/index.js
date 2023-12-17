@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser");
 
 // express app
 const app = express();
@@ -11,9 +12,9 @@ const patientRouter = require("./routes/patientRouter");
 const guestRouter = require("./routes/guestRouter");
 const stripeRouter = require("./routes/stripeRouter");
 const commonRouter = require("./routes/commonRouter");
+
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-// const bodyParser = require("body-parser");
 
 const MongoURI = process.env.MONGO_URI;
 
@@ -43,10 +44,10 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("send_message", async (data) => {
-    const {
-      message,
-      isRelayToClinic
-    } = data;
+		const {
+			message,
+			isRelayToClinic
+		} = data;
 
 		const { sender, recipient } = message;
 
@@ -54,15 +55,15 @@ io.on("connection", (socket) => {
 		io.to(senderSocketId).emit("receive_message", message);
 
 		if (isRelayToClinic)
-      await axios.post("http://localhost:5000/api/relay", { message });
+			await axios.post("http://localhost:5000/api/relay", { message });
 
-    else {
-      const recipientSocketId = activeUsers[recipient];
+		else {
+			const recipientSocketId = activeUsers[recipient];
 
-      if (recipientSocketId) {
-        socket.to(recipientSocketId).emit("receive_message", message);
-      }
-    }
+			if (recipientSocketId) {
+				socket.to(recipientSocketId).emit("receive_message", message);
+			}
+		}
 
 	});
 
@@ -76,6 +77,13 @@ io.on("connection", (socket) => {
 		}
 
 		console.log(`Clinic Message @ Pharmacy = ${message}`);
+	});
+
+	//----------Notifications-------------//
+
+	socket.on("send_notification_stock", ({ receiver, content }) => {
+		const receiverSocket = activeUsers[receiver]; // get receiver socket id from activeUsers list
+		socket.to(receiverSocket).emit("receive_notification_stock", { content });
 	});
 });
 
@@ -96,6 +104,8 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5000'], credentials: true }));
 app.use(cookieParser());
+app.use(express.static(process.env.STATIC_DIR));
+app.use(bodyParser.json());
 
 // routes
 app.use("/pharmaApi/patient", patientRouter);
