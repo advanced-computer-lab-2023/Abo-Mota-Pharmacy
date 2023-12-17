@@ -1,14 +1,9 @@
-
 <!-- <div id="top"></div> -->
-
-
-
-
 
 <!-- badges -->
 <!--
 <div align="center" >
-   
+
 [![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/html5/)
 ![Redux](https://img.shields.io/badge/Built%20with-Redux-%23f44336?style=for-the-badge)
@@ -29,11 +24,11 @@
 <br>
 
 <div align="center>
-   <img src="[https://www.cancham.org.eg/upload/logo.png](https://i.pinimg.com/736x/6c/9b/30/6c9b3009988b071b4b60484622e93f17.jpg)" alt="Logo" width="200" height="120">   
+   <img src="[https://www.cancham.org.eg/upload/logo.png](https://i.pinimg.com/736x/6c/9b/30/6c9b3009988b071b4b60484622e93f17.jpg)" alt="Logo" width="200" height="120">
 </div>
 
 
-<a href=""><h1 align="center">Welcome to Abo Mota Pharmacy</h1></a> --> 
+<a href=""><h1 align="center">Welcome to Abo Mota Pharmacy</h1></a> -->
 
 <!--
 # Pharmacy Management System - Virtual Clinic
@@ -136,7 +131,7 @@ The technology stack for the pharmacy module includes:
 
 <details>
 <summary>As an Administrator I can</summary>
-   
+
 - Login with my username and password.
 - Logout of the system.
 - Add another administrator with a set username and password.
@@ -151,7 +146,7 @@ The technology stack for the pharmacy module includes:
 - view a list of all available medicines (including picture of medicine, price, description)
 - search for medicine based on name
 - filter medicines based on medicinal use
-  
+
 </details>
 
 
@@ -214,7 +209,7 @@ Clone the repository:
    git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
    cd Abo-Mota-Pharmacy
    ```
-   
+
 # Install client dependencies
 
   ```bash
@@ -287,7 +282,7 @@ This guide will help you understand how to navigate and utilize the features of 
 - Make sure your account details are up-to-date for seamless communication and transactions.
 - Always log out of your account after you have finished using the system to maintain security.
 - If you encounter any issues, refer to the 'Help' section or contact support for assistance.
-## API Refrences 
+## API Refrences
 
 ## Tests
 
@@ -313,7 +308,7 @@ We welcome contributions that help enhance the features and functionalities of t
 - [Tailwind docs](https://tailwindcss.com/docs/)
 - [Formik docs](https://formik.org/docs/tutorial)
 - [React pro sidebar](https://www.npmjs.com/package/react-pro-sidebar)
-- [React Router](https://reactrouter.com/en/main) 
+- [React Router](https://reactrouter.com/en/main)
 
 
 ## License
@@ -334,6 +329,7 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - The project needs to be deployed through services.
 - The project needs a robust unit test suite made with frameworks such as Jest.
 - A message broker needs to be added to the application to handle asynchronous tasks such as sending emails and notifications.
+- ✅ All Core Requirements Met. Additional features like video chat between pharmacists and doctors, and enhancements to the landing page, are currently under development.
 
 ## Code Style
 
@@ -343,84 +339,44 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 ## Screenshots
 
 <details>
-    
-<summary>Login Page</summary>
+<summary><h3>Landing Page</h3></summary>
+<img width="1000" alt="login" src="./screenshots/l1.png">
+<img width="1000" alt="login" src="./screenshots/l2.png">
+<img width="1000" alt="login" src="./screenshots/l3.png">
+<img width="1000" alt="login" src="./screenshots/l4.png">
+<img width="1000" alt="login" src="./screenshots/l5.png">
+</details>
+
+<details>
+<summary><h3>Login Page</h3></summary>
 <img width="1000" alt="login" src="./screenshots/login.png">
-
-
 </details>
 
 <details>
-    
-<summary>Patient Medicine Page</summary>
+<summary><h3>Patient</h3></summary>
 <img width="1000" alt="login" src="./screenshots/medicinePatient.png">
-
-
-</details>
-
-<details>
-    
-<summary>Order Page</summary>
 <img width="1000" alt="login" src="./screenshots/ordersPatient.png">
-
-
-</details>
-
-<details>
-    
-<summary>View Medicine Alternatives Page</summary>
 <img width="1000" alt="login" src="./screenshots/alternativePatients.png">
-
-
-</details>
-
-<details>
-    
-<summary>Patient Settings Page</summary>
 <img width="1000" alt="login" src="./screenshots/patientSettings.png">
-
-
+<img width="1000" alt="login" src="./screenshots/patientD1.png">
+<img width="1000" alt="login" src="./screenshots/patientD2.png">
+<img width="1000" alt="login" src="./screenshots/patientD3.png">
 </details>
 
 <details>
-    
-<summary>Sales Report Page</summary>
+<summary><h3>Pharmacist</h3></summary>
 <img width="1000" alt="login" src="./screenshots/salesReport.png">
-
-
-</details>
-
-<details>
-    
-<summary>Pharmacist Notification Page</summary>
 <img width="1000" alt="login" src="./screenshots/pharmacistNotifcations.png">
-
-
-</details>
-<details>
-    
-<summary>Pharmacist Settings Page</summary>
 <img width="1000" alt="login" src="./screenshots/pharmacistSettings.png">
-
-
-</details>
-<details>
-
-<summary>Admin View Pharmacists Page</summary>
-<img width="1000" alt="login" src="./screenshots/viewPharmacist.png">
-
-
-</details>
-
-<details>
-
-<summary>Medicine Inventory Page</summary>
+<img width="1000" alt="login" src="./screenshots/pharmacistSettings.png">
 <img width="1000" alt="login" src="./screenshots/medicineInventory.png">
-
-
+<img width="1000" alt="login" src="./screenshots/pharmacistChat.png">
 </details>
 
-
+<details>
+<summary><h3>Admin</h3></summary>
+<img width="1000" alt="login" src="./screenshots/viewPharmacist.png">
+</details>
 
 ## Tech Stack
 
@@ -448,8 +404,8 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - **APIs**: Stripe
 - **Development tools**: Postman, Git, GitHub
 
-
 ## Features
+
 <details>
 <summary>As a Guest I can</summary>
 
@@ -502,7 +458,6 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 
 <details>
 <summary>As an Administrator I can</summary>
-   
 
 - Add another administrator with a set username and password.
 - Remove a pharmacist or patient from the system.
@@ -516,7 +471,7 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - view a list of all available medicines (including picture of medicine, price, description)
 - search for medicine based on name
 - filter medicines based on medicinal use
-  
+
 </details>
 
 <details>
@@ -570,7 +525,6 @@ module.exports = {
   config,
 };
 ```
-
 
 </details>
 
@@ -626,14 +580,13 @@ const Medicine = mongoose.model("Medicine", medicineSchema);
 module.exports = Medicine;
 ```
 
-
 </details>
 
 <details>
 
 <summary>
     Patient Routes
-</summary> 
+</summary>
 
 ```javascript
 const express = require("express");
@@ -688,52 +641,47 @@ router.post("/linkWithClinic", authorize, linkWithClinic);
 router.patch("/updatePrescriptionsQuantity", authorize, updatePrescriptionsQuantity);
 
 module.exports = router;
-
 ```
 
 </details>
 
-
 <details>
     <summary>
         Authorization middleware
-    </summary> 
+    </summary>
 
 ```javascript
 const jwt = require("jsonwebtoken");
 
 const authToken = (req, res, next) => {
-    const token = req.cookies.jwt;
-    console.log(token);
-    if(token){
-        jwt.verify(token, process.env.JWT_SECRET, (err, userData) => {
-            if(err)
-                return res.status(500).json({message: "Unauthorized", isLoggedIn: false});
-            
-            req.userData = userData;  //userData is the payload included in the token
-            const userType = userData.userType;
-            //check if the user type allowed for the current route
-            console.log("baseUrl", req.baseUrl)
-            if(userType === 'admin' && (req.baseUrl).includes('/admin'))
-                next();
-            else if(userType === 'pharmacist' && (req.baseUrl).includes('/pharmacist'))
-                next();
-            else if (userType === 'patient' && ((req.baseUrl).includes('/patient') || (req.baseUrl).includes('/stripe')))
-                next();
-            else
-                return res.status(403).json({ message: "Forbidden"});
-        })
-    }else{
-        res.status(500).json({message: 'Unauthorized', isLoggedIn: false})
-    }
+  const token = req.cookies.jwt;
+  console.log(token);
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, userData) => {
+      if (err) return res.status(500).json({ message: "Unauthorized", isLoggedIn: false });
 
-}
+      req.userData = userData; //userData is the payload included in the token
+      const userType = userData.userType;
+      //check if the user type allowed for the current route
+      console.log("baseUrl", req.baseUrl);
+      if (userType === "admin" && req.baseUrl.includes("/admin")) next();
+      else if (userType === "pharmacist" && req.baseUrl.includes("/pharmacist")) next();
+      else if (
+        userType === "patient" &&
+        (req.baseUrl.includes("/patient") || req.baseUrl.includes("/stripe"))
+      )
+        next();
+      else return res.status(403).json({ message: "Forbidden" });
+    });
+  } else {
+    res.status(500).json({ message: "Unauthorized", isLoggedIn: false });
+  }
+};
 
 module.exports = authToken;
 ```
 
 </details>
-
 
 <details>
 
@@ -759,30 +707,30 @@ import { useDispatch } from "react-redux";
 import FormErrorDialog from "../../components/FormErrorDialog";
 
 const LoginForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [forgetPassword, setForgetPassword] = useState(false);
-  const [otpOpen, setOtpOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [openDialog, setOpenDialog] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
+const [forgetPassword, setForgetPassword] = useState(false);
+const [otpOpen, setOtpOpen] = useState(false);
+const [email, setEmail] = useState("");
+const [openDialog, setOpenDialog] = useState(false);
 
-  const navigate = useNavigate();
-  const [loginMutation, results] = useLoginMutation();
-  const dispatch = useDispatch();
+const navigate = useNavigate();
+const [loginMutation, results] = useLoginMutation();
+const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (results.error) {
-      setOpenDialog(true);
-    }
-  }, [results]);
+useEffect(() => {
+if (results.error) {
+setOpenDialog(true);
+}
+}, [results]);
 
-  const handleSubmit = async (values, { resetForm }) => {
-    // values contains all the data needed for registeration
-    const user = {
-      username: values.username,
-      password: values.password,
-    };
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+const handleSubmit = async (values, { resetForm }) => {
+// values contains all the data needed for registeration
+const user = {
+username: values.username,
+password: values.password,
+};
+setIsLoading(true);
+await new Promise((resolve) => setTimeout(resolve, 3000));
 
     try {
       const result = await loginMutation(user).unwrap();
@@ -803,89 +751,89 @@ const LoginForm = () => {
     } finally {
       setIsLoading(false);
     }
-  };
 
-  const PharmacistForm = (
-    <Formik
+};
+
+const PharmacistForm = (
+<Formik
       initialValues={initialPharmacistValues}
       validationSchema={PharmacistSchema}
       onSubmit={handleSubmit}
     >
-      {(formik) => (
-        <form onSubmit={formik.handleSubmit}>
-          {console.log(formik.values)}
-          <div className='form-container'>
-            <Input
-              label='Username*'
-              icon
-              type='text'
-              id='username'
-              error={formik.errors.username}
-              touch={formik.touched.username}
-              {...formik.getFieldProps("username")}
-            />
-          </div>
-          <div className='form-container'>
-            <Input
-              label='Password*'
-              icon
-              type='password'
-              id='password'
-              error={formik.errors.password}
-              touch={formik.touched.password}
-              {...formik.getFieldProps("password")}
-            />
-          </div>
-          <div className='submit-add-medicine-button-container'>
-            {isLoading ? (
-              <LoadingIndicator />
-            ) : (
-              <Button type='submit'>Log in</Button>
-            )}
-          </div>
-        </form>
-      )}
-    </Formik>
-  );
+{(formik) => (
 
-  console.log("res", results);
-  return (
-    <div className='login-div'>
-      <div className='login-portal'>
-        <div className='login-part'>
-          <div className='login-logo-div'>
-            {" "}
-            <img className='login-logo' src={logo} alt='logo' />{" "}
-          </div>
-          <Header header='Welcome Back!' type='login-header' />
-        </div>
-        <p className='login-word'>Login</p>
-        {PharmacistForm}
-        <div
-          className='flex justify-between mr-8 ml-8'
-          style={{
+<form onSubmit={formik.handleSubmit}>
+{console.log(formik.values)}
+<div className='form-container'>
+<Input
+label='Username*'
+icon
+type='text'
+id='username'
+error={formik.errors.username}
+touch={formik.touched.username}
+{...formik.getFieldProps("username")}
+/>
+</div>
+<div className='form-container'>
+<Input
+label='Password*'
+icon
+type='password'
+id='password'
+error={formik.errors.password}
+touch={formik.touched.password}
+{...formik.getFieldProps("password")}
+/>
+</div>
+<div className='submit-add-medicine-button-container'>
+{isLoading ? (
+<LoadingIndicator />
+) : (
+<Button type='submit'>Log in</Button>
+)}
+</div>
+</form>
+)}
+</Formik>
+);
+
+console.log("res", results);
+return (
+
+<div className='login-div'>
+<div className='login-portal'>
+<div className='login-part'>
+<div className='login-logo-div'>
+{" "}
+<img className='login-logo' src={logo} alt='logo' />{" "}
+</div>
+<Header header='Welcome Back!' type='login-header' />
+</div>
+<p className='login-word'>Login</p>
+{PharmacistForm}
+<div
+className='flex justify-between mr-8 ml-8'
+style={{
             display: "flex",
             justifyContent: "space-between",
             marginRight: "8px",
             marginLeft: "8px",
-          }}
-        >
-          <button
-            className='forget-password-button'
-            onClick={() => {
-              navigate("/registerPharmacist");
-            }}
-          >
-            Register as Pharmacist?
-          </button>
-          <button
-            className='forget-password-button'
-            onClick={() => {
-              navigate("/registerPatient");
-            }}
-          >
-            Register as Patient?
-          </button>
+          }} >
+<button
+className='forget-password-button'
+onClick={() => {
+navigate("/registerPharmacist");
+}} >
+Register as Pharmacist?
+</button>
+<button
+className='forget-password-button'
+onClick={() => {
+navigate("/registerPatient");
+}} >
+Register as Patient?
+</button>
 
           <button
             className='forget-password-button'
@@ -923,28 +871,29 @@ const LoginForm = () => {
         }}
       />
     </div>
-  );
+
+);
 };
 
 const PharmacistSchema = yup.object().shape({
-  username: yup.string().required("Please enter a valid username"),
+username: yup.string().required("Please enter a valid username"),
 
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[a-zA-Z]/, "Password must contain at least one letter")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .required("Please enter a valid password"),
+password: yup
+.string()
+.min(8, "Password must be at least 8 characters long")
+.matches(/[a-zA-Z]/, "Password must contain at least one letter")
+.matches(/[0-9]/, "Password must contain at least one number")
+.required("Please enter a valid password"),
 });
 
 const initialPharmacistValues = {
-  username: "",
-  password: "",
+username: "",
+password: "",
 };
 
 export default LoginForm;
 
-```
+````
 
 </details>
 
@@ -958,7 +907,7 @@ export default LoginForm;
 ```bash
 git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
 cd Abo-Mota-Pharmacy
-```
+````
 
 ### Install client dependencies
 
@@ -974,44 +923,45 @@ npm install
   npm install
 ```
 
-
-
 ## API Reference
+
 <details>
    <summary><h3>Common Routes (Notifications and Messages)</h1></summary>
 
 #### Get Notifications
+
 - **Endpoint**: `GET /api/common/notifications`
 - **Description**: Retrieves notifications for a user.
 - **Controller**: `getNotifications`
   - Retrieves all notifications for a user.
 
 #### Send Notification
+
 - **Endpoint**: `POST /api/common/notification`
 - **Description**: Sends a new notification.
 - **Controller**: `sendNotification`
   - Creates and sends notifications to specified recipients.
-- **Body Parameters**: 
-  | Parameter         | Type   |Description               |
+- **Body Parameters**:
+  | Parameter | Type |Description |
   |-------------------|--------|---------------------------|
-  | `recipientUsername`| string | Recipient's username      |
-  | `recipientType`   | string | Recipient's user type     |
-  | `content`         | string | Notification content      |
+  | `recipientUsername`| string | Recipient's username |
+  | `recipientType` | string | Recipient's user type |
+  | `content` | string | Notification content |
 
 #### Send Email Notification
+
 - **Endpoint**: `POST /api/common/send-email`
 - **Description**: Sends an email notification.
 - **Controller**: `sendEmailNotif`
   - Sends email notifications using external email service.
-- **Body Parameters**: 
-  | Parameter    | Type   | Description               |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |--------------|--------|---------------------------|
-  | `email`      | string | Recipient email address   |
-  | `subject`    | string | Email subject             |
-  | `text`       | string | Email body text           |
+  | `email` | string | Recipient email address |
+  | `subject` | string | Email subject |
+  | `text` | string | Email body text |
 
 </details>
-
 
 <details>
    <summary><h3>Stripe Routes</h3></summary>
@@ -1023,14 +973,15 @@ npm install
   - Returns Stripe publishable key.
 
 #### Create Payment Intent
+
 - **Endpoint**: `POST /api/stripe/create-payment-intent`
 - **Description**: Creates a new payment intent for Stripe transactions.
 - **Controller**: `createPaymentIntent`
-    - Stripe Payment Intent Creation.
-- **Body Parameters**: 
-  | Parameter     | Type   | Description               |
+  - Stripe Payment Intent Creation.
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |---------------|--------|---------------------------|
-  | `amount`      | number | Transaction amount in USD |
+  | `amount` | number | Transaction amount in USD |
 
 </details>
 <details>
@@ -1057,61 +1008,70 @@ npm install
   | `emergencyContact.relation`    | string | Relation to emergency contact  |
 
 #### Register Pharmacist
+
 - **Endpoint**: `POST /pharmaApi/guest/registerPharmacist`
 - **Description**: Registers a pharmacist to await approval on the platform
 - **Controller**: `registerPharmacist`
   - Creates a new pharmacist awaiting approval by an admin
 - **Body Parameters**:
-- **Body Parameters**: 
-  | Parameter   | Type   | Description       |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |-------------|--------|-------------------|
-  | `name`      | string | Pharmacist's name |
-  | `username`  | string | User's username   |
-  | `nationalId`| file | National ID file  |
-  | `password`  | string | Account password|
-  | `email`     | string | Email address  |
-  | `dob`       | date   | Date of Birth  |
+  | `name` | string | Pharmacist's name |
+  | `username` | string | User's username |
+  | `nationalId`| file | National ID file |
+  | `password` | string | Account password|
+  | `email` | string | Email address |
+  | `dob` | date | Date of Birth |
   | `educationalBackground` | string | Educational Background|
   | `affiliation` | string | Affiliation of Dr. |
-  | `mobile`    | number | Phone Number |
-  | `gender`    | string | Gender (male or female) |
+  | `mobile` | number | Phone Number |
+  | `gender` | string | Gender (male or female) |
   | `workingLicense`| file| Working license file|
   | `pharmacyDegree`| file | Pharmacy degree file|
+
 #### Login
+
 - **Endpoint**: `POST /pharmaApi/guest/login`
 - **Description**: Logs in a registered patient/pharmacist/admin
 - **Controller**: `login`
   - Logs in user and redirects to correct page, creates JWT authorization token
 - **Body Parameters**:
-  | Parameter   | Type   | Description       |
+  | Parameter | Type | Description |
   |-------------|--------|-------------------|
-  | `username`  | string | Account username |
-  | `password`  | string | Account password |
+  | `username` | string | Account username |
+  | `password` | string | Account password |
+
 #### Logout
+
 - **Endpoint**: `POST /pharmaApi/guest/logout`
 - **Description**: Logs out currently logged in user
 - **Controller**: `logout`
   - Logs out currently logged in user and destroys JWT token
+
 #### Request OTP
+
 - **Endpoint**: `POST /pharmaApi/guest/otp`
 - **Description**: Requests an OTP to be sent to a given email to reset password
 - **Controller**: `requestOtp`
-  -  Sends an email containing an OTP to the requesting user
+  - Sends an email containing an OTP to the requesting user
 - **Body Parameters**:
-  | Parameter   | Type   | Description       |
+  | Parameter | Type | Description |
   |-------------|--------|-------------------|
-  | `email`  | string | Account email |
+  | `email` | string | Account email |
+
 #### Forgot Password
+
 - **Endpoint**: `/pharmaApi/guest/forgotPassword`
 - **Description**: Changes password using previously sent otp
 - **Controller**: `forgotPassword`
   - Resets password using sent OTP
 - **Body Parameters**:
-  | Parameter   | Type   | Description       |
+  | Parameter | Type | Description |
   |-------------|--------|-------------------|
-  | `email`  | string | Account email |
-  | `otp`  | string | OTP received on email |
-  | `newPassword`  | string | New password  |
+  | `email` | string | Account email |
+  | `otp` | string | OTP received on email |
+  | `newPassword` | string | New password |
 
 </details>
 <details>
@@ -1126,89 +1086,94 @@ npm install
 
 - **Description**: Creates a new medicine record.
 - **Controller**: `addMedicine`
+
   - Adds new medicine details to the database.
 
-- **Body Parameters**: 
-  | Parameter           | Type   | Description |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |---------------------|--------|-----------------------------------|
-  | `name`              | string | Medicine name                     |
-  | `description`       | string | Description                       |
-  | `price`             | number | Price                             |
-  | `activeIngredients` | string | Active ingredients                |
-  | `quantity`          | number | Quantity available                |
-  | `medicinalUse`      | string | Medicinal use                     |
-  | `isOverTheCounter`  | boolean| Availability over the counter     |
-  | `medicineImage`     | file   | Image of the medicine             |
+  | `name` | string | Medicine name |
+  | `description` | string | Description |
+  | `price` | number | Price |
+  | `activeIngredients` | string | Active ingredients |
+  | `quantity` | number | Quantity available |
+  | `medicinalUse` | string | Medicinal use |
+  | `isOverTheCounter` | boolean| Availability over the counter |
+  | `medicineImage` | file | Image of the medicine |
 
 #### Edit Medicine
+
 - **Endpoint**: `PATCH /pharmaApi/pharmacist/medicine/:name`
 - **Description**: Modifies a medicine record.
 - **Controller**: `editMedicine`
   - Updates existing medicine details.
-- **Path Parameters (Params)**: 
-  | Parameter           | Type   | Description                       |
+- **Path Parameters (Params)**:
+  | Parameter | Type | Description |
   |---------------------|--------|-----------------------------------|
   | `name` | string | Medicine name to update |
 
-
-- **Body Parameters**: 
-  | Parameter           | Type   | Description |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |---------------------|--------|-----------------------------------|
-  | `name`              | string | Medicine name |
-  | `description`       | string | Description  |
-  | `price`             | number | Price |
-  | `activeIngredients` | string | Active ingredients  |
-  | `quantity`          | number | Quantity available                |
-  | `medicinalUse`      | string | Medicinal use                     |
-  | `isOverTheCounter`  | boolean| Availability over the counter     |
-  | `medicineImage`     | file   | Image of the medicine|
+  | `name` | string | Medicine name |
+  | `description` | string | Description |
+  | `price` | number | Price |
+  | `activeIngredients` | string | Active ingredients |
+  | `quantity` | number | Quantity available |
+  | `medicinalUse` | string | Medicinal use |
+  | `isOverTheCounter` | boolean| Availability over the counter |
+  | `medicineImage` | file | Image of the medicine|
 
 #### Get Sales Reports
+
 - **Endpoint**: `GET /pharmaApi/pharmacist/salesReport`
 - **Description**: Retrieves sales reports data grouped together by the same date (day/month/year).
 - **Controller**: `getSalesReports`
   - Generates sales reports for medicines.
 
 #### Change Password
+
 - **Endpoint**: `PATCH /pharmaApi/pharmacist/changePassword`
 - **Description**: Updates pharmacist's password.
 - **Controller**: `changePassword`
   - Allows pharmacists to change their password.
-- **Body Parameters**: 
-  | Parameter           | Type   | Description |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |---------------------|--------|-----------------------------------|
-  `oldPassword` | string   | Old password of current pharmacist 
-  | `newPassword` | string   | New password of current pharmacist |
+  `oldPassword` | string | Old password of current pharmacist
+  | `newPassword` | string | New password of current pharmacist |
+
 #### View Wallet
+
 - **Endpoint**: `GET /pharmaApi/pharmacist/wallet`
 - **Description**: Retrieves wallet information.
 - **Controller**: `viewWallet`
   - Displays current wallet balance for a pharmacist.
 
 #### Archive Medicine
+
 - **Endpoint**: `PATCH /pharmaApi/pharmacist/archive`
 - **Description**: Changes medicine status to archived.
 - **Controller**: `archiveMedicine`
   - Archives a specific medicine.
-- **Body Parameters**: 
-  | Parameter           | Type   | Description |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |---------------------|--------|-----------------------------------|
-  `medicineName` | string   | Archives a medicine   
+  `medicineName` | string | Archives a medicine
 
 #### Unarchive Medicine
+
 - **Endpoint**: `PATCH /pharmaApi/pharmacist/unarchive`
 - **Description**: Changes medicine status to unarchived.
 - **Controller**: `unarchiveMedicine`
   - Reverts archive status of a medicine.
-- **Body Parameters**: 
-  | Parameter           | Type   | Description |
-  |---------------------|--------|-----------------------------------|
-  `medicineName` | string   | Unarchives a medicine   
+- **Body Parameters**:
+| Parameter | Type | Description |
+|---------------------|--------|-----------------------------------|
+`medicineName` | string | Unarchives a medicine
 </details>
 <details>
    <summary><h3>Patient Routes </h1></summary>
-   
-
 
 #### Get Logged In Patient
 
@@ -1238,10 +1203,10 @@ npm install
 - **Controller**: `addToCart`
   - Processes the request to add a specified medicine to the patient’s cart
 - **Body Parameters**:
-  | Parameter | Type   | Description                  |
+  | Parameter | Type | Description |
   |-----------|--------|------------------------------|
-  | `name`    | string | Name of the medicine to add  |
-  | `quantity`| number | Quantity of the medicine     |
+  | `name` | string | Name of the medicine to add |
+  | `quantity`| number | Quantity of the medicine |
 
 #### Remove from Cart
 
@@ -1250,10 +1215,10 @@ npm install
 - **Controller**: `removeFromCart`
   - Handles the deletion of a selected medicine from the patient’s cart
 - **Path Parameters**:
-  | Parameter | Type   | Description                  |
+  | Parameter | Type | Description |
   |-----------|--------|------------------------------|
-  | `name`    | string | Name of the medicine         |
-  | `quantity`| number | Quantity of the medicine     |
+  | `name` | string | Name of the medicine |
+  | `quantity`| number | Quantity of the medicine |
 
 #### Get All Orders
 
@@ -1269,7 +1234,7 @@ npm install
 - **Controller**: `cancelOrder`
   - Handles the cancellation of an existing order
 - **Body Parameters**:
-  | Parameter | Type   | Description                   |
+  | Parameter | Type | Description |
   |-----------|--------|-------------------------------|
   | `orderId` | string | Unique identifier of the order|
 
@@ -1280,9 +1245,9 @@ npm install
 - **Controller**: `createOrder`
   - Calculates the total price of the order and updates the medicine stock
 - **Body Parameters**:
-  | Parameter  | Type   | Description                          |
+  | Parameter | Type | Description |
   |------------|--------|--------------------------------------|
-  | `medicines`| array  | An array of medicine objects         |
+  | `medicines`| array | An array of medicine objects |
 
 #### Add Delivery Address
 
@@ -1291,11 +1256,11 @@ npm install
 - **Controller**: `addDeliveryAddress`
   - Adds the new address to the patient's profile
 - **Body Parameters**:
-  | Parameter        | Type   | Description                |
+  | Parameter | Type | Description |
   |------------------|--------|----------------------------|
   | `apartmentNumber`| string | Apartment number of address|
-  | `streetName`     | string | Street name of address     |
-  | `city`           | string | City of the address        |
+  | `streetName` | string | Street name of address |
+  | `city` | string | City of the address |
 
 #### Pay By Wallet
 
@@ -1304,9 +1269,9 @@ npm install
 - **Controller**: `payByWallet`
   - Deducts the specified amount from the patient's wallet
 - **Body Parameters**:
-  | Parameter   | Type   | Description                 |
+  | Parameter | Type | Description |
   |-------------|--------|-----------------------------|
-  | `deductible`| number | Amount to be deducted       |
+  | `deductible`| number | Amount to be deducted |
 
 #### Change Password
 
@@ -1315,10 +1280,10 @@ npm install
 - **Controller**: `changePassword`
   - Verifies old password and updates to a new password
 - **Body Parameters**:
-  | Parameter    | Type   | Description          |
+  | Parameter | Type | Description |
   |--------------|--------|----------------------|
-  | `oldPassword`| string | Current password     |
-  | `newPassword`| string | New password         |
+  | `oldPassword`| string | Current password |
+  | `newPassword`| string | New password |
 
 #### View Wallet
 
@@ -1327,14 +1292,14 @@ npm install
 - **Controller**: `viewWallet`
   - Retrieves and displays the wallet balance of the logged-in patient
 
- #### View Alternatives
+#### View Alternatives
 
 - **Endpoint**: `GET /pharmaApi/patient/alternatives`
 - **Description**: Provides patients with alternative medicine options based on the active ingredient of a specified medicine
 - **Controller**: `viewAlternatives`
   - Identifies alternatives with the same primary active ingredient as the specified medicine
 - **Body Parameters**:
-  | Parameter     | Type   | Description                                   |
+  | Parameter | Type | Description |
   |---------------|--------|-----------------------------------------------|
   | `medicineName`| string | The name of the medicine to find alternatives for |
 
@@ -1345,10 +1310,10 @@ npm install
 - **Controller**: `linkWithClinic`
   - Validates clinic patient credentials and links the pharmacy and clinic patient accounts
 - **Body Parameters**:
-  | Parameter | Type   | Description                     |
+  | Parameter | Type | Description |
   |-----------|--------|---------------------------------|
-  | `username`| string | Username of the clinic patient  |
-  | `password`| string | Password of the clinic patient  |
+  | `username`| string | Username of the clinic patient |
+  | `password`| string | Password of the clinic patient |
 
 #### Update Prescriptions Quantity
 
@@ -1357,12 +1322,12 @@ npm install
 - **Controller**: `updatePrescriptionsQuantity`
   - Updates the quantity of a specified medicine in the prescription
 - **Body Parameters**:
-  | Parameter      | Type   | Description                                       |
+  | Parameter | Type | Description |
   |----------------|--------|---------------------------------------------------|
-  | `prescriptionId`| string | ID of the prescription to be updated              |
-  | `medicineId`    | string | ID of the medicine in the prescription to update |
+  | `prescriptionId`| string | ID of the prescription to be updated |
+  | `medicineId` | string | ID of the medicine in the prescription to update |
 
-</details>   
+</details>
 
 <details>
    <summary>
@@ -1370,114 +1335,128 @@ npm install
    </summary>
 
 #### Get Pharmacists
+
 - **Endpoint**: `GET /pharmaApi/admin/pharmacists`
 - **Description**: Fetches list of approved pharmacists.
 - **Controller**: `getPharmacists`
   - Retrieves all approved pharmacists.
+
 #### Get Pharmacist by ID
+
 - **Endpoint**: `GET /pharmaApi/admin/pharmacists/:id`
 - **Description**: Retrieves pharmacist details.
 - **Controller**: `getPharmacist`
   - Fetches details of a specific pharmacist.
-- **Path Parameters (Params)**: 
-  | Parameter | Type   | Description              |
+- **Path Parameters (Params)**:
+  | Parameter | Type | Description |
   |-----------|--------|--------------------------|
-  | `id`      | string | Pharmacist identifier    |
+  | `id` | string | Pharmacist identifier |
 
 #### Add Admin
+
 - **Endpoint**: `POST /pharmaApi/admin/admins`
 - **Description**: Registers a new admin.
 - **Controller**: `addAdmin`
   - Creates a new admin account.
-- **Body Parameters**: 
-  | Parameter | Type   | Description          |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |-----------|--------|----------------------|
-  | `username`| string | Admin's username     |
-  | `password`| string | Admin's password     |
-  | `email`   | string | Admin's email        |
+  | `username`| string | Admin's username |
+  | `password`| string | Admin's password |
+  | `email` | string | Admin's email |
 
 #### Delete Patient
+
 - **Endpoint**: `DELETE /pharmaApi/admin/patients`
 - **Description**: Deletes a patient account.
 - **Controller**: `deletePatient`
   - Removes a specific patient.
-- **Body Parameters**: 
-  | Parameter | Type   | Description          |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |-----------|--------|----------------------|
-  | `username`| string | Admin's username     |
+  | `username`| string | Admin's username |
 
 #### Delete Pharmacist
+
 - **Endpoint**: `DELETE /pharmaApi/admin/pharmacists`
 - **Description**: Deletes an approved pharmacist account.
 - **Controller**: `deletePharmacist`
   - Removes a specific approved pharmacist.
-- **Body Parameters**: 
-  | Parameter | Type   | Description          |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |-----------|--------|----------------------|
-  | `username`| string | Admin's username     |
+  | `username`| string | Admin's username |
 
 #### Change Password
+
 - **Endpoint**: `PATCH /pharmaApi/admin/changePassword`
 - **Description**: Changes user's password.
 - **Controller**: `changePassword`
   - Allows user to update their password.
-- **Body Parameters**: 
-  | Parameter | Type   | Description          |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |-----------|--------|----------------------|
-  | `oldPassword`| string | Current admin's old password     |
-  | `newPassword`| string | Current admin's new password     |
+  | `oldPassword`| string | Current admin's old password |
+  | `newPassword`| string | Current admin's new password |
 
 #### Get Admin Details
+
 - **Endpoint**: `GET /pharmaApi/admin/admin`
 - **Description**: Fetches admin information.
 - **Controller**: `getAdmin`
   - Retrieves details of the logged-in admin.
 
 #### Get Medicines
+
 - **Endpoint**: `GET /pharmaApi/admin/medicines`
 - **Description**: Retrieve all medicines on the platform
 - **Controller**: `getMedicines`
   - Returns a list of all medicines available on the platform
 
 #### Get Applications
+
 - **Endpoint**: `GET /pharmaApi/admin/applications`
 - **Description**: Retrieve a list of all pending pharmacist applications
 - **Controller**: `getApplications`
   - Returns a list of all applications of pharmacists that are pending on the database
 
 #### Handle Application
+
 - **Endpoint**: `PATCH /pharmaApi/admin/applications/:id`
 - **Description**: Approves or rejects a specific pharmacist application
 - **Controller**: `handleApplication`
-  - Rejects or accepts a pharmacist's application 
+  - Rejects or accepts a pharmacist's application
 - **Path Parameters (Params)**:
-  | Parameter   | Type   | Description       |
+  | Parameter | Type | Description |
   |-------------|--------|-------------------|
-  | `id`  | string | Pharmacist ObjectId |
-- **Body Parameters**: 
-  | Parameter   | Type   | Description       |
+  | `id` | string | Pharmacist ObjectId |
+- **Body Parameters**:
+  | Parameter | Type | Description |
   |-------------|--------|-------------------|
-  | `registrationStatus`  | string | Admin verdict, either "approved" or "rejected" |
+  | `registrationStatus` | string | Admin verdict, either "approved" or "rejected" |
 
 #### Get Patients
+
 - **Endpoint**: `GET /pharmaApi/admin/patients`
 - **Description**: Retrieves all patients on the platform
 - **Controller**: `getPatients`
   - Returns an array of all patients in the pharmacy database
 
 #### Get Patient
+
 - **Endpoint**: `GET /pharmaApi/admin/patients/:id`
 - **Description**: Retrieves a specific patient on the platform
 - **Controller**: `getPatient`
   - Returns a specified patient depending on id in params
 - **Path Parameters (Params)**:
-  | Parameter   | Type   | Description       |
-  |-------------|--------|-------------------|
-  | `id`  | string | Patient ObjectId |
+| Parameter | Type | Description |
+|-------------|--------|-------------------|
+| `id` | string | Patient ObjectId |
 </details>
 
 ## Testing
-The testing is done using `Postman`. 
+
+The testing is done using `Postman`.
 
 <details>
 
@@ -1495,7 +1474,7 @@ pm.test("Response status code is 200", function () {
 
 pm.test("Price should be a non-negative number", function () {
     const responseData = pm.response.json();
-    
+
     responseData.forEach(function(medicine) {
 …        pm.expect(item.quantity).to.be.a('number').and.to.be.at.least(0);
     });
@@ -1504,6 +1483,7 @@ pm.test("Price should be a non-negative number", function () {
 
 
 ```
+
 </details>
 
 <details>
@@ -1522,7 +1502,7 @@ pm.test("Response status code is 200", function () {
 
 pm.test("Response has the required fields - message, token, and userType", function () {
   const responseData = pm.response.json();
-  
+
   pm.expect(responseData).to.be.an('object');
 …  }, "UserType should be a valid type");
 });
@@ -1534,6 +1514,7 @@ pm.test("Content-Type header is application/json", function () {
 
 
 ```
+
 </details>
 
 <details>
@@ -1541,35 +1522,33 @@ pm.test("Content-Type header is application/json", function () {
       Example Testing Get Sales Report
    </summary>
 
-   ```javascript
-
+```javascript
 pm.test("Response status code is 200", function () {
-    pm.expect(pm.response.code).to.equal(200);
+  pm.expect(pm.response.code).to.equal(200);
 });
 
 pm.test("Content-Type header is application/json", function () {
-    pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+  pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
 });
 
 pm.test("Ensure purchaseDate is in a valid date format", function () {
-    const responseData = pm.response.json();
-    
-    pm.expect(responseData).to.be.an('array');
-    responseData.forEach(function(item) {
-        pm.expect(item.purchaseDate).to.match(/^\d{4}-\d{2}-\d{2}$/);
-    });
+  const responseData = pm.response.json();
+
+  pm.expect(responseData).to.be.an("array");
+  responseData.forEach(function (item) {
+    pm.expect(item.purchaseDate).to.match(/^\d{4}-\d{2}-\d{2}$/);
+  });
 });
 
 pm.test("Sales field is a non-negative integer", function () {
-    const responseData = pm.response.json();
+  const responseData = pm.response.json();
 
-    pm.expect(responseData).to.be.an('array');
-    responseData.forEach(function(item) {
-        pm.expect(item.sales).to.be.a('number');
-        pm.expect(item.sales).to.be.at.least(0);
-    });
+  pm.expect(responseData).to.be.an("array");
+  responseData.forEach(function (item) {
+    pm.expect(item.sales).to.be.a("number");
+    pm.expect(item.sales).to.be.at.least(0);
+  });
 });
-
 ```
 
 </details>
@@ -1626,4 +1605,3 @@ Please adhere to this project's `code of conduct`.
 Portions of this software utilize Stripe, which is licensed under the Apache License 2.0. You can find the details of this license [here](https://www.apache.org/licenses/LICENSE-2.0).
 
 The rest of the software is open source and licensed under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/).
-
