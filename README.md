@@ -1374,6 +1374,75 @@ npm install
   | `medicineId`    | string | The ID of the medicine within the prescription whose quantity is to be updated. |
 </details>   
 
+<details>
+   <summary>
+      <h3>Admin Routes</h3>
+   </summary>
+
+#### Get Pharmacists
+- **Endpoint**: `GET /pharmaApi/admin/pharmacists`
+- **Description**: Fetches list of approved pharmacists.
+- **Controller**: `getPharmacists`
+  - Retrieves all approved pharmacists.
+#### Get Pharmacist by ID
+- **Endpoint**: `GET /pharmaApi/admin/pharmacists/:id`
+- **Description**: Retrieves pharmacist details.
+- **Controller**: `getPharmacist`
+  - Fetches details of a specific pharmacist.
+- **Path Parameters (Params)**: 
+  | Parameter | Type   | Description              |
+  |-----------|--------|--------------------------|
+  | `id`      | string | Pharmacist identifier    |
+
+#### Add Admin
+- **Endpoint**: `POST /pharmaApi/admin/admins`
+- **Description**: Registers a new admin.
+- **Controller**: `addAdmin`
+  - Creates a new admin account.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `username`| string | Admin's username     |
+  | `password`| string | Admin's password     |
+  | `email`   | string | Admin's email        |
+
+#### Delete Patient
+- **Endpoint**: `DELETE /pharmaApi/admin/patients`
+- **Description**: Deletes a patient account.
+- **Controller**: `deletePatient`
+  - Removes a specific patient.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `username`| string | Admin's username     |
+
+#### Delete Pharmacist
+- **Endpoint**: `DELETE /pharmaApi/admin/pharmacists`
+- **Description**: Deletes an approved pharmacist account.
+- **Controller**: `deletePharmacist`
+  - Removes a specific approved pharmacist.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `username`| string | Admin's username     |
+
+#### Change Password
+- **Endpoint**: `PATCH /pharmaApi/admin/changePassword`
+- **Description**: Changes user's password.
+- **Controller**: `changePassword`
+  - Allows user to update their password.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `oldPassword`| string | Current admin's old password     |
+  | `newPassword`| string | Current admin's new password     |
+
+#### Get Admin Details
+- **Endpoint**: `GET /pharmaApi/admin/admin`
+- **Description**: Fetches admin information.
+- **Controller**: `getAdmin`
+  - Retrieves details of the logged-in admin.
+</details>
 ## Testing
 The testing is done using `Postman`. 
 
