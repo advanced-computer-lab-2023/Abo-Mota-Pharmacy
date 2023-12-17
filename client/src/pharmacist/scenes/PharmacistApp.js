@@ -13,7 +13,7 @@ import Chat from "../../shared/pages/Chat";
 import Notifications from "../../shared/pages/Notification";
 import Outline from "../../shared/Outline";
 import sidebarItems from "../sidebarItems"
-import ChangePassword from "../../shared/components/ChangePassword";
+import MedList from "./MedList";
 
 function PharmacistApp({ socket }) {
 
@@ -24,7 +24,7 @@ function PharmacistApp({ socket }) {
   }, [isFetching]);
 
   const outlet = <Routes>
-    <Route path='medicine' element={<MedicineScreen isPharmacist />} />
+    <Route path='medicine' element={<MedList isPharmacist={true} />} />
     <Route path='addMedicine' element={<AddMedicine />} />
 
     <Route path='viewSettings' element={<ViewSettings />} />

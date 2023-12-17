@@ -108,6 +108,7 @@ const getOrders = async (req, res) => {
     const patient = await Patient.findOne({ username });
     const orders = await Order.find({ patient: patient._id }).sort({ date: -1 });
     if (!orders) throw new Error("You haven't made any orders yet");
+
     const ordersWithImages = await Promise.all(
       orders.map(async (order) => {
         const formattedDate = order.formattedDate;
@@ -123,6 +124,8 @@ const getOrders = async (req, res) => {
         return orderClone;
       })
     );
+    console.log("orders with img", ordersWithImages);
+
     // console.log(ordersWithImages);
     res.status(200).json(ordersWithImages);
   } catch (error) {
