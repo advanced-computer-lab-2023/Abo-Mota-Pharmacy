@@ -119,11 +119,11 @@ function ChangePassword({ isAdmin, isPharmacist, isPatient }) {
 
     <>
     
-        <div className='cursor-pointer' onClick={() => setIsModalOpen(true)}>
+       { !isAdmin && <div className='cursor-pointer' onClick={() => setIsModalOpen(true)}>
             <Typography variant="h4" component="div" fontWeight={500}>
                 Press here to change your password.
             </Typography>
-        </div>
+        </div>}
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalDialog sx={{ overflowY: "auto", maxHeight: "90vh", p: 3 }}>
