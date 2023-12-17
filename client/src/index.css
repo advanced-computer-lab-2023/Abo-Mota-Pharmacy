@@ -10,7 +10,7 @@
   --main-color-transparent: rgba(0, 0, 255, 0.8);
 }
 html {
-  font-size: 80%;
+  /* font-size: 80%; */
   /* height: 100%; */
   /* font-size: 80%; */
 }
@@ -18,6 +18,6 @@ html {
 body {
   margin: 0px;
   background: #aaa;
-  font-family: Besley, serif;
+  /* font-family: Besley, serif; */
   /* height: 100%; */
 }

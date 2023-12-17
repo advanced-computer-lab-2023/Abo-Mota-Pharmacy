@@ -9,6 +9,7 @@ import RegisterScreen from "./patient/scenes/RegisterScreen";
 import RegisterForm from "./pharmacist/scenes/RegisterForm";
 import ConnectAccountForm from "./patient/scenes/ConnectAccountsForm";
 import io from "socket.io-client";
+import GetStarted from "./shared/pages/GetStarted/GetStarted";
 import LandingPage from "./shared/pages/LandingPage/LandingPage";
 
 
@@ -19,9 +20,9 @@ function App() {
     <div className='app'>
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/login' element={<LoginForm />} />
-        <Route path='/registerPatient' element={<RegisterScreen />} />
-        <Route path='/registerPharmacist' element={<RegisterForm />} />
+        <Route path='/login' element={<GetStarted task='Sign In'/>} />
+        <Route path='/registerPatient' element={<GetStarted task='Sign Up' />} />
+        <Route path='/registerPharmacist' element={<GetStarted task='Join the team'/>} />
 
         <Route path='/home' element={<HomePage />} />
         <Route element={<ProtectedRoute roles={["pharmacist"]} />}>
