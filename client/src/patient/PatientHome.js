@@ -193,9 +193,13 @@ const PatientHome = () => {
     },
   };
 
+ 
   return (
-    <div className="relative body-xs mb-96">
-      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 ml-5">
+    
+
+    <div className="relative body-xs">
+
+      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 ml-5 ">
         <div className="bg-transparent p-2">
           <div className="text-white text-4xl font-normal">Good days ahead!</div>
           <div className="text-white text-xl font-light">Tap to uncover our favorite picks</div>
@@ -206,16 +210,19 @@ const PatientHome = () => {
           </div>
         </div>
       </div>
+
+      
       <img
         src={blue}
         alt={imageAlt}
         width={imageWidth}
         height={imageHeight}
         loading="lazy"
-        className="slideshow__image"
+        className="slideshow__image max-h-96"
       />
+      
 
-      <div className=" absolute mt-20">
+      <div className=" absolute mt-20 w-full ">
         <div className="w-screen mb-5">
           {/* <div className="text-black text-4xl font-normal">Featured Products</div>
           <Divider /> */}
@@ -230,8 +237,8 @@ const PatientHome = () => {
         <OwlCarousel className='owl-theme ml-5' {...options}>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images.map((image) => (
                     <ImageButton
                       focusRipple
@@ -267,8 +274,8 @@ const PatientHome = () => {
           </div>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images1.map((image) => (
                     <ImageButton
                       focusRipple
@@ -305,8 +312,8 @@ const PatientHome = () => {
           </div>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images2.map((image) => (
                     <ImageButton
                       focusRipple
@@ -342,8 +349,8 @@ const PatientHome = () => {
           </div>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images3.map((image) => (
                     <ImageButton
                       focusRipple
@@ -381,7 +388,7 @@ const PatientHome = () => {
       </div>
 
 
-      <div className="absolute mt-96 ml-0 mb-0" style={{ top: '100%' }}>
+      <div className="absolute mt-96 ml-0 mb-0" style={{ top: '100%',width: '100%', height: '100vh' }}>
         <div className="w-screen mb-5 mt-20">
           {/* <div className="text-black text-4xl font-normal">Featured Products</div>
           <Divider /> */}
@@ -396,8 +403,8 @@ const PatientHome = () => {
         <OwlCarousel className='owl-theme ml-5' {...options}>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images4.map((image) => (
                     <ImageButton
                       focusRipple
@@ -433,8 +440,8 @@ const PatientHome = () => {
           </div>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images5.map((image) => (
                     <ImageButton
                       focusRipple
@@ -471,8 +478,8 @@ const PatientHome = () => {
           </div>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images6.map((image) => (
                     <ImageButton
                       focusRipple
@@ -508,8 +515,8 @@ const PatientHome = () => {
           </div>
           <div class='item mx-0'>
             <h4>
-              <div className="group relative cursor-pointer overflow-hidden w-11/12 h-96">
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className="h-fit w-fit">
+              <div className="group relative cursor-pointer overflow-hidden w-11/12 ">
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }} className=" w-fit">
                   {images7.map((image) => (
                     <ImageButton
                       focusRipple
@@ -545,11 +552,8 @@ const PatientHome = () => {
           </div>
         </OwlCarousel>
       </div>
-
-
-
-
     </div>
+    
   );
 };
 export default PatientHome;
