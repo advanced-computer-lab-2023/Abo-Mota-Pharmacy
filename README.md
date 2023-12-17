@@ -340,6 +340,8 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - [Eslint](https://eslint.org/docs/latest/user-guide/getting-started) : in the backend and the frontend to write the most optimum clean code possible and to define rules for the team to be able to write code in the same code style
 - [Prettier](https://prettier.io/) : it is a code formatter that runs automatically before each commit on the whole code so that the codes looks well formatted across the whole project
 
+## Screenshots
+
 ## Tech Stack
 
 <div align="center" >
@@ -365,6 +367,90 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - **Authentication**: JWT
 - **APIs**: Stripe
 - **Development tools**: Postman, Git, GitHub
+
+
+## Features
+<details>
+<summary>As a Guest I can</summary>
+
+- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
+- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+
+</details>
+
+<details>
+<summary>As a Patient I can</summary>
+
+- View a list of all available medicines, including pictures, prices, and descriptions.
+- Search for medicines based on name.
+- Filter medicines based on their medicinal use.
+- Add over-the-counter medicines to my cart.
+- Add prescription medicines to my cart based on my prescription.
+- View items in my cart.
+- Remove items from my cart.
+- Change the quantity of items in my cart.
+- Checkout my order.
+- Add new delivery addresses and choose from existing ones.
+- Select payment methods including wallet, credit card, or cash on delivery.
+- View my current and past orders along with their details and status.
+- Cancel orders.
+- View alternatives to medicines that are out of stock.
+- Chat with a pharmacist.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As a Pharmacist I can</summary>
+
+- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+- Add a medicine with its details like active ingredients, price, and quantity.
+- Upload images for medicines.
+- Edit details and prices of medicines.
+- Archive or unarchive a medicine.
+- View the available quantity and sales of each medicine.
+- Filter sales reports based on medicine or date.
+- Receive notifications when a medicine is out of stock.
+- Chat with a doctor.
+- View total sales reports based on a chosen month.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As an Administrator I can</summary>
+   
+
+- Add another administrator with a set username and password.
+- Remove a pharmacist or patient from the system.
+- View all the information uploaded by a pharmacist when they apply to join the platform.
+- Accept or reject the request of a pharmacist to join the platform.
+- View total sales reports based on a chosen month.
+- View a pharmacist's information.
+- View a patient's basic information.
+- Change my password.
+- Reset my password via OTP sent to email.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+  
+</details>
+
+<details>
+<summary>Common Features for Patient/Pharmacist/Administrator</summary>
+   
+- Login with my username and password.
+- Logout of the system.
+- Change my password.
+- Reset my password via OTP sent to email.
+- View a list of all available medicines including picture, price, and description.
+- Search for medicine based on name.
+- Filter medicines based on medicinal use.
+
+</details>
 
 ## Code Examples
 
@@ -785,86 +871,167 @@ export default LoginForm;
 
 
 
-## Features
-<details>
-<summary>As a Guest I can</summary>
+## Installation
 
-- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
-- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+### Clone the repository:
+
+```bash
+git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
+cd Abo-Mota-Pharmacy
+```
+
+### Install client dependencies
+
+```bash
+cd client
+npm install
+```
+
+### Install server dependencies
+
+```bash
+  cd backend
+  npm install
+```
+
+
+
+## API Reference
+<details>
+   <summary><h3>Common Routes (Notifications and Messages)</h1></summary>
+
+#### Get Notifications
+- **Endpoint**: `GET /api/common/notifications`
+- **Description**: Retrieves notifications for a user.
+- **Controller**: `getNotifications`
+  - Retrieves all notifications for a user.
+
+#### Send Notification
+- **Endpoint**: `POST /api/common/notification`
+- **Description**: Sends a new notification.
+- **Controller**: `sendNotification`
+  - Creates and sends notifications to specified recipients.
+- **Body Parameters**: 
+  | Parameter         | Type   |Description               |
+  |-------------------|--------|---------------------------|
+  | `recipientUsername`| string | Recipient's username      |
+  | `recipientType`   | string | Recipient's user type     |
+  | `content`         | string | Notification content      |
+
+#### Send Email Notification
+- **Endpoint**: `POST /api/common/send-email`
+- **Description**: Sends an email notification.
+- **Controller**: `sendEmailNotif`
+  - Sends email notifications using external email service.
+- **Body Parameters**: 
+  | Parameter    | Type   | Description               |
+  |--------------|--------|---------------------------|
+  | `email`      | string | Recipient email address   |
+  | `subject`    | string | Email subject             |
+  | `text`       | string | Email body text           |
 
 </details>
 
-<details>
-<summary>As a Patient I can</summary>
-
-- View a list of all available medicines, including pictures, prices, and descriptions.
-- Search for medicines based on name.
-- Filter medicines based on their medicinal use.
-- Add over-the-counter medicines to my cart.
-- Add prescription medicines to my cart based on my prescription.
-- View items in my cart.
-- Remove items from my cart.
-- Change the quantity of items in my cart.
-- Checkout my order.
-- Add new delivery addresses and choose from existing ones.
-- Select payment methods including wallet, credit card, or cash on delivery.
-- View my current and past orders along with their details and status.
-- Cancel orders.
-- View alternatives to medicines that are out of stock.
-- Chat with a pharmacist.
-- View the amount in my wallet.
-
-</details>
 
 <details>
-<summary>As a Pharmacist I can</summary>
-
-- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
-- view a list of all available medicines (including picture of medicine, price, description)
-- search for medicine based on name
-- filter medicines based on medicinal use
-- Add a medicine with its details like active ingredients, price, and quantity.
-- Upload images for medicines.
-- Edit details and prices of medicines.
-- Archive or unarchive a medicine.
-- View the available quantity and sales of each medicine.
-- Filter sales reports based on medicine or date.
-- Receive notifications when a medicine is out of stock.
-- Chat with a doctor.
-- View total sales reports based on a chosen month.
-- View the amount in my wallet.
-
-</details>
-
-<details>
-<summary>As an Administrator I can</summary>
+   <summary><h3>Stripe Routes</h3></summary>
    
+   #### Get Configurations
+- **Endpoint**: `GET /api/stripe/config`
+- **Description**: Retrieves Stripe configuration details.
+- **Controller**: `config`
+  - Returns Stripe publishable key.
 
-- Add another administrator with a set username and password.
-- Remove a pharmacist or patient from the system.
-- View all the information uploaded by a pharmacist when they apply to join the platform.
-- Accept or reject the request of a pharmacist to join the platform.
-- View total sales reports based on a chosen month.
-- View a pharmacist's information.
-- View a patient's basic information.
-- Change my password.
-- Reset my password via OTP sent to email.
-- view a list of all available medicines (including picture of medicine, price, description)
-- search for medicine based on name
-- filter medicines based on medicinal use
-  
+#### Create Payment Intent
+- **Endpoint**: `POST /api/stripe/create-payment-intent`
+- **Description**: Creates a new payment intent for Stripe transactions.
+- **Controller**: `createPaymentIntent`
+    - Stripe Payment Intent Creation.
+- **Body Parameters**: 
+  | Parameter     | Type   | Description               |
+  |---------------|--------|---------------------------|
+  | `amount`      | number | Transaction amount in USD |
+
 </details>
-
 <details>
-<summary>Common Features for Patient/Pharmacist/Administrator</summary>
+   <summary><h3>Guest Routes</h3></summary>
    
-- Login with my username and password.
-- Logout of the system.
-- Change my password.
-- Reset my password via OTP sent to email.
-- View a list of all available medicines including picture, price, and description.
-- Search for medicine based on name.
-- Filter medicines based on medicinal use.
+#### Register Patient
+- **Endpoint**: `POST /pharmaApi/guest/registerPatient`
+- **Description**: Registers a patient to the pharmacy platform
+- **Controller**: `registerPatient`
+  - Adds a new patient to the database
+- **Body Parameters**:
+| Parameter   | Type   | Description    |
+  |-------------|--------|----------------|
+  | `name`      | string | Patient's name |
+  | `username`  | string | User's username|
+  | `nationalId`| string | National ID    |
+  | `password`  | string | Account password|
+  | `email`     | string | Email address  |
+  | `dob`       | date   | Date of Birth  |
+  | `mobile`    | number | Phone Number |
+  | `gender`    | string | Gender (male or female) |
+   | `emergencyContact.name`        | string | Emergency contact's name       |
+  | `emergencyContact.mobile`      | string | Emergency contact's mobile     |
+  | `emergencyContact.relation`    | string | Relation to emergency contact  |
+
+#### Register Pharmacist
+- **Endpoint**: `POST /pharmaApi/guest/registerPharmacist`
+- **Description**: Registers a pharmacist to await approval on the platform
+- **Controller**: `registerPharmacist`
+  - Creates a new pharmacist awaiting approval by an admin
+- **Body Parameters**:
+- **Body Parameters**: 
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `name`      | string | Pharmacist's name |
+  | `username`  | string | User's username   |
+  | `nationalId`| file | National ID file  |
+  | `password`  | string | Account password|
+  | `email`     | string | Email address  |
+  | `dob`       | date   | Date of Birth  |
+  | `educationalBackground` | string | Educational Background|
+  | `affiliation` | string | Affiliation of Dr. |
+  | `mobile`    | number | Phone Number |
+  | `gender`    | string | Gender (male or female) |
+  | `workingLicense`| file| Working license file|
+  | `pharmacyDegree`| file | Pharmacy degree file|
+#### Login
+- **Endpoint**: `POST /pharmaApi/guest/login`
+- **Description**: Logs in a registered patient/pharmacist/admin
+- **Controller**: `login`
+  - Logs in user and redirects to correct page, creates JWT authorization token
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `username`  | string | Account username |
+  | `password`  | string | Account password |
+#### Logout
+- **Endpoint**: `POST /pharmaApi/guest/logout`
+- **Description**: Logs out currently logged in user
+- **Controller**: `logout`
+  - Logs out currently logged in user and destroys JWT token
+#### Request OTP
+- **Endpoint**: `POST /pharmaApi/guest/otp`
+- **Description**: Requests an OTP to be sent to a given email to reset password
+- **Controller**: `requestOtp`
+  -  Sends an email containing an OTP to the requesting user
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `email`  | string | Account email |
+#### Forgot Password
+- **Endpoint**: `/pharmaApi/guest/forgotPassword`
+- **Description**: Changes password using previously sent otp
+- **Controller**: `forgotPassword`
+  - Resets password using sent OTP
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `email`  | string | Account email |
+  | `otp`  | string | OTP received on email |
+  | `newPassword`  | string | New password  |
 
 </details>
 
@@ -927,30 +1094,6 @@ pm.test("Content-Type header is application/json", function () {
 
 ```
 </details>
-
-
-## Installation
-
-### Clone the repository:
-
-```bash
-git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
-cd Abo-Mota-Pharmacy
-```
-
-### Install client dependencies
-
-```bash
-cd client
-npm install
-```
-
-### Install server dependencies
-
-```bash
-  cd backend
-  npm install
-```
 
 ## How to use
 
