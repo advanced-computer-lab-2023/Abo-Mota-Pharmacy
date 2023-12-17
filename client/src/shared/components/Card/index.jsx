@@ -21,17 +21,17 @@ const ProductCard = ({
   similarMedicines,
   isOverTheCounter,
   isPrescribed,
-  healthPackage,
+  // healthPackage,
 }) => {
   const handleClick = () => {
     onAddToCart({ name, description, price, sales, quantity, medicinalUse });
   };
   const navigate = useNavigate();
   let newPrice = price;
-  if (healthPackage.package !== null) {
-    // console.log("healthPackage: ", healthPackage);
-    newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
-  }
+  // if (healthPackage.package !== null) {
+  //   // console.log("healthPackage: ", healthPackage);
+  //   newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
+  // }
   const findAltClick = () => {
     const filteredArray = similarMedicines.filter((medicine) => {
       console.log("medsssssssssssss: ", medicine.isOverTheCounter);

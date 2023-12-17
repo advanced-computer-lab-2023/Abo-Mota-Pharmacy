@@ -5,7 +5,7 @@ import Filter from "./Filter";
 import { useGetMedicinesQuery } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const MedList = () => {
+const MedList = ({isPharmacist = false}) => {
   // const [medicineArray, setMedicineArray] = useState(medicines);
   const [search, setSearch] = useState("");
 
@@ -42,7 +42,7 @@ const MedList = () => {
     <div>
       <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
       {/* {mappedArray} */}
-      <Filter medicines={filteredArray} />
+      <Filter medicines={filteredArray} isPharmacist={isPharmacist} />
     </div>
   );
 };

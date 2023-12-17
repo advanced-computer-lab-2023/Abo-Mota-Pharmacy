@@ -12,6 +12,7 @@ import ViewSettings from "./ViewSettings";
 import Notifications from "../../shared/pages/Notification";
 import Outline from "../../shared/Outline";
 import sidebarItems from "../sidebarItems"
+import MedList from "../../patient/MedList";
 
 function PharmacistApp({socket}) {
   const links = [
@@ -76,7 +77,8 @@ function PharmacistApp({socket}) {
       {/* <Outlet/> */}
       {/* <Outline style={{backgroundColor: "blue"}} items={sidebarItems} navBarItems={navBarItems} socket={socket} />; */}
       <Routes>
-        <Route path='medicine' element={<MedicineScreen isPharmacist />} />
+        <Route path="medicine" element={<MedList isPharmacist={true} />} />
+        <Route path='medicine2' element={<MedicineScreen />} />
         <Route path='addMedicine' element={<AddMedicine />} />
         <Route
           path='changePassword'

@@ -7,7 +7,7 @@ import TempDrawer from "../shared/components/Drawer";
 import { useAddToCartMutation, useGetPatientQuery, useRemoveFromCartMutation } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const Filter = ({ medicines }) => {
+const Filter = ({ medicines, isPharmacist }) => {
   const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [cart, setCart] = useState([]);
@@ -149,7 +149,7 @@ const Filter = ({ medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
-        healthPackage={patient.clinicPatient.healthPackage}
+        // healthPackage={patient.clinicPatient.healthPackage}
       />
     );
   });
