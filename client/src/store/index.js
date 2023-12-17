@@ -5,6 +5,7 @@ import { pharmacistApi } from "./apis/pharmacistApi.js";
 import { patientApi } from "./apis/patientApi.js";
 import { adminApi } from "./apis/adminApi.js";
 import { stripeApi } from "./apis/stripeApi";
+import { commonApi } from "./apis/commonApi";
 import { userReducer } from "./slices/userSlice";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { persistReducer, persistStore } from "redux-persist";
@@ -25,6 +26,8 @@ export const store = configureStore({
     [pharmacistApi.reducerPath]: pharmacistApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
     [stripeApi.reducerPath]: stripeApi.reducer,
+    [commonApi.reducerPath]: commonApi.reducer,
+
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
@@ -32,7 +35,8 @@ export const store = configureStore({
       .concat(pharmacistApi.middleware)
       .concat(patientApi.middleware)
       .concat(adminApi.middleware)
-      .concat(stripeApi.middleware);
+      .concat(stripeApi.middleware)
+      .concat(commonApi.middleware);
   },
 });
 
@@ -84,6 +88,16 @@ export {
   useHandleApplicationMutation,
   useChangeAdminPasswordMutation,
 } from "./apis/adminApi";
+
+export {
+  useFetchLoggedInQuery,
+  useSendMessageMutation,
+  useFetchMessagesQuery,
+  useFetchContactQuery,
+  useFetchContactsDetailsQuery,
+  useInvalidateMessagesMutation,
+  useInvalidateContactDetailsMutation,
+} from "./apis/commonApi";
 
 export { useCreatePaymentIntentMutation, useFetchStripeConfigQuery } from "./apis/stripeApi";
 

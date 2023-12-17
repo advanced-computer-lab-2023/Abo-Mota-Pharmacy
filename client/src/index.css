@@ -11,10 +11,12 @@
 }
 html {
   font-size: 80%;
+  /* height: 100%; */
 }
 
 body {
   margin: 0px;
   background: #eee;
   font-family: Besley, serif;
+  /* height: 100%; */
 }

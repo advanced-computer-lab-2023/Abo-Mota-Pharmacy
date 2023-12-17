@@ -14,16 +14,19 @@ import AlternativesScreen from "./scenes/AlternativesScreen/AlternativesScreen";
 import ViewSettings from "./scenes/ViewSettings";
 import ConnectAccountForm from "./scenes/ConnectAccountsForm";
 import PrescriptionsScreen from "./scenes/PrescriptionsScreen";
-function PatientApp() {
+import Chat from "../shared/pages/Chat";
+
+function PatientApp({ socket }) {
   const links = [
     { name: "Shop Medicines", to: "/patient/medicine" },
     { name: "View My Orders", to: "/patient/myOrders" },
     { name: "View Account", to: "/patient/viewSettings" },
     { name: "Prescription", to: "/patient/prescription" },
+    { name: "Chat", to: "/patient/chat" },
   ];
   // console.log(data);
   return (
-    <div>
+    <div className="flex flex-col" style={{ minHeight: '100vh' }}>
       <NavBar links={links} />
       <Routes>
         <Route path='medicine' element={<MedList />} />
@@ -42,6 +45,7 @@ function PatientApp() {
           path='/changePassword'
           element={<ChangePasswordScreen isPatient />}
         />
+        <Route path='/chat/:contact?' element={<Chat socket={socket} />} />
         {/* </Route> */}
       </Routes>
     </div>
