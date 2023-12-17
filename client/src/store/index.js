@@ -27,6 +27,8 @@ export const store = configureStore({
     [adminApi.reducerPath]: adminApi.reducer,
     [commonApi.reducerPath]: commonApi.reducer,
     [stripeApi.reducerPath]: stripeApi.reducer,
+    [commonApi.reducerPath]: commonApi.reducer,
+
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
@@ -34,8 +36,8 @@ export const store = configureStore({
       .concat(pharmacistApi.middleware)
       .concat(patientApi.middleware)
       .concat(adminApi.middleware)
-      .concat(commonApi.middleware)
-      .concat(stripeApi.middleware);
+      .concat(stripeApi.middleware)
+      .concat(commonApi.middleware);
   },
 });
 
@@ -91,10 +93,16 @@ export {
 } from "./apis/adminApi";
 
 export {
+  useFetchLoggedInQuery,
+  useSendMessageMutation,
+  useFetchMessagesQuery,
+  useFetchContactQuery,
+  useFetchContactsDetailsQuery,
+  useInvalidateMessagesMutation,
+  useInvalidateContactDetailsMutation,
   useSendNotificationMutation,
   useSendEmailMutation,
   useFetchNotificationQuery,
-  useFetchLoggedInQuery,
 } from "./apis/commonApi";
 
 export { useCreatePaymentIntentMutation, useFetchStripeConfigQuery } from "./apis/stripeApi";

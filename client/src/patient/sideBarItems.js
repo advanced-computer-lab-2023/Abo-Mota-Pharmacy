@@ -41,6 +41,12 @@ const items = [
     label: 'Prescription',
     to: '/patient/prescription',
   },
+  {
+    key: '5',
+    icon: <IoSettingsSharp />,
+    label: 'Chat',
+    to: '/patient/chat',
+  },
   
 ].map(item => ({
   ...item,

@@ -4,7 +4,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, BellOutlined, MessageOutlined, Us
 import { Layout, Menu, Button, theme } from 'antd';
 import PopOver from './components/Popover';
 import Logo from './assets/logo.png'
-import { useLogoutMutation , useFetchNotificationQuery, useFetchLoggedInQuery} from '../store';
+import { useLogoutMutation, useFetchNotificationQuery, useFetchLoggedInQuery } from '../store';
 import NotificationList from './components/NotificationList';
 // import MessagesList from './Components/MessagesList';
 
@@ -32,8 +32,8 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
       const notif = data.notifications
         .filter((notification) => notification != null)
-        .map((notification, index) => { 
-          return {content: notification.content, sender: notification.sender.username}
+        .map((notification, index) => {
+          return { content: notification.content, sender: notification.sender.username }
         });
       setNotifications(notif);
     }
@@ -41,16 +41,16 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
   useEffect(() => {
     const handleReceiveNotification = ({ content }) => {
-      
 
-      setNotifications((prev) => [...prev, {content}]);
+
+      setNotifications((prev) => [...prev, { content }]);
 
       setNotifCount(notifCount + 1);
     };
 
 
     const handleReceiveMessage = (message) => {
-      if(!isFetchingUser && message.recipient === loggedInUser._id.toString())
+      if (!isFetchingUser && message.recipient === loggedInUser._id.toString())
         setMessages((prevMessages) => [...prevMessages, message]);
       console.log(message);
 
@@ -59,9 +59,9 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
     // Attach the event listener
     if (!socket) return;
     socket.on("receive_notification_stock", handleReceiveNotification);
-  
+
     // socket.on("receive_message", handleReceiveMessage);
-    
+
   }, [socket, isFetchingUser]);
 
   // Function to handle menu item click
@@ -92,10 +92,10 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
     </div>
   );
 
-  if(isFetchingUser) return <CircularProgress/>
+  if (isFetchingUser) return <CircularProgress />
   // const messageContent = <MessagesList messages={messages} />;
-  const notificationContent = <NotificationList notifications={notifications} /> ;
-  
+  const notificationContent = <NotificationList notifications={notifications} />;
+
 
   return (
     <Layout hasSider>
@@ -130,27 +130,26 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
           marginLeft: collapsed ? '80px' : '200px',
           transition: 'margin-left 0.2s',
           // backgroundColor: "green",
-          // height: '100%',
           minHeight: '100vh'
         }}
       >
-        <Header style={{ position: 'sticky', top: '0', zIndex: '1000',display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px', background: colorBgContainer }}>
-        <div>
-        <Button
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
-          style={{ fontSize: '16px', border: 'none' }}
-          />
-        </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            { socket && <PopOver
+        <Header style={{ position: 'sticky', top: '0', zIndex: '1000', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px', background: colorBgContainer }}>
+          <div>
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{ fontSize: '16px', border: 'none' }}
+            />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            {socket && <PopOver
               logo={<MessageOutlined style={{ fontSize: '16px', cursor: 'pointer' }} />}
               // content={messageContent}
               placement="bottom"
               trigger="click"
-            /> }
-            { socket && !isPatient && <PopOver
+            />}
+            {socket && !isPatient && <PopOver
               logo={<BellOutlined style={{ fontSize: '16px', cursor: 'pointer' }} />}
               content={notificationContent}
               placement="bottom"

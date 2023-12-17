@@ -7,6 +7,7 @@ import LoginForm from "./shared/pages/LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterScreen from "./patient/scenes/RegisterScreen";
 import RegisterForm from "./pharmacist/scenes/RegisterForm";
+import ConnectAccountForm from "./patient/scenes/ConnectAccountsForm";
 import io from "socket.io-client";
 import LandingPage from "./shared/pages/LandingPage/LandingPage";
 
