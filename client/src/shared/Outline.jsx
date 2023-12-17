@@ -5,14 +5,14 @@ import { Layout, Menu, Button, theme } from 'antd';
 import PopOver from './components/Popover';
 import Logo from './assets/logo.png'
 import { useLogoutMutation , useFetchNotificationQuery, useFetchLoggedInQuery} from '../store';
-// import NotificationList from './Components/NotificationList';
+import NotificationList from './components/NotificationList';
 // import MessagesList from './Components/MessagesList';
 
 import { CircularProgress } from '@mui/joy';
 const { Header, Content, Footer, Sider } = Layout;
 
 
-const Outline = ({ outlet, items, navBarItems, socket }) => {
+const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
   const [logout, results] = useLogoutMutation();
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate(); // Hook for navigation
@@ -39,33 +39,30 @@ const Outline = ({ outlet, items, navBarItems, socket }) => {
     }
   }, [isFetching]);
 
-  // useEffect(() => {
-  //   const handleReceiveNotification = ({ sender, contentDoctor, contentPatient }) => {
-  //     console.log(contentDoctor);
-  //     if (contentDoctor) setNotifications((prev) => [...prev, {sender, content: contentDoctor}]);
+  useEffect(() => {
+    const handleReceiveNotification = ({ content }) => {
+      
 
-  //     if (contentPatient) setNotifications((prev) => [...prev, {sender, content: contentPatient}]);
+      setNotifications((prev) => [...prev, {content}]);
 
-  //     setNotifCount(notifCount + 1);
-  //   };
+      setNotifCount(notifCount + 1);
+    };
 
 
-  //   const handleReceiveMessage = (message) => {
-  //     if(!isFetchingUser && message.recipient === loggedInUser._id.toString())
-  //       setMessages((prevMessages) => [...prevMessages, message]);
-  //     console.log(message);
+    const handleReceiveMessage = (message) => {
+      if(!isFetchingUser && message.recipient === loggedInUser._id.toString())
+        setMessages((prevMessages) => [...prevMessages, message]);
+      console.log(message);
 
-  //   }
+    }
 
-  //   // Attach the event listener
-  //   if (!socket) return;
-  //   socket.on("receive_notification_booked", handleReceiveNotification);
-  //   socket.on("receive_notification_cancelled_by_patient", handleReceiveNotification);
-  //   socket.on("receive_notification_cancelled_by_doctor", handleReceiveNotification);
-  //   socket.on("receive_message", handleReceiveMessage);
-  //   socket.on("receive_notification_rescheduled_by_patient", handleReceiveNotification);
-  //   socket.on("receive_notification_rescheduled_by_doctor", handleReceiveNotification);
-  // }, [socket, isFetchingUser]);
+    // Attach the event listener
+    if (!socket) return;
+    socket.on("receive_notification_stock", handleReceiveNotification);
+  
+    // socket.on("receive_message", handleReceiveMessage);
+    
+  }, [socket, isFetchingUser]);
 
   // Function to handle menu item click
   const onMenuClick = (e) => {
@@ -97,7 +94,7 @@ const Outline = ({ outlet, items, navBarItems, socket }) => {
 
   if(isFetchingUser) return <CircularProgress/>
   // const messageContent = <MessagesList messages={messages} />;
-  // const notificationContent = <NotificationList notifications={notifications} loggedInUser={loggedInUser} /> ;
+  const notificationContent = <NotificationList notifications={notifications} /> ;
   
 
   return (
@@ -146,16 +143,16 @@ const Outline = ({ outlet, items, navBarItems, socket }) => {
           style={{ fontSize: '16px', border: 'none' }}
           />
         </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             { socket && <PopOver
               logo={<MessageOutlined style={{ fontSize: '16px', cursor: 'pointer' }} />}
               // content={messageContent}
               placement="bottom"
               trigger="click"
             /> }
-            { socket && <PopOver
+            { socket && !isPatient && <PopOver
               logo={<BellOutlined style={{ fontSize: '16px', cursor: 'pointer' }} />}
-              // content={notificationContent}
+              content={notificationContent}
               placement="bottom"
               trigger="click"
             />}

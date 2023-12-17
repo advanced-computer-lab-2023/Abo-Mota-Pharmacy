@@ -39,7 +39,7 @@ const MedList = () => {
   // });
 
   return (
-    <div>
+    <div className="mr-20 ml-20">
       <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
       {/* {mappedArray} */}
       <Filter medicines={filteredArray} />

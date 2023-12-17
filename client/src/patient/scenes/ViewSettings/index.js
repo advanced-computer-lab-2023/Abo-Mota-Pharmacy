@@ -3,7 +3,8 @@ import "./styles.css";
 import LoadingIndicator from "../../../shared/components/LoadingIndicator";
 import { Box, Card, Typography, Divider, Button, Avatar } from "@mui/joy";
 import { useNavigate } from "react-router";
-
+import ChangePassword from "../../../shared/components/ChangePassword";
+import LinkAccount from "../../LinkAccount";
 const ViewSettings = () => {
   const { data, isFetching, error } = useGetPatientQuery();
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const ViewSettings = () => {
 
       <Card
         className='mb-5 transition-transform hover:scale-105 bg-white text-black cursor-pointer'
-        onClick={() => navigate("/patient/connectAccountForm")}
+        // onClick={() => navigate("/patient/connectAccountForm")}
       >
         <Box className='p-4'>
           <Typography level='h3' component='div' fontWeight={500}>
@@ -48,16 +49,13 @@ const ViewSettings = () => {
           <Typography variant='h3' component='div' fontWeight={500}>
             {" "}
           </Typography>
-          <Typography variant='h4' component='div' fontWeight={500}>
-            Press here to connect to your clinic account to access your medical
-            records & discounts !
-          </Typography>
+          <LinkAccount />
         </Box>
       </Card>
 
       <Card
         className='mb-5 transition-transform hover:scale-105 bg-white text-black cursor-pointer'
-        onClick={() => navigate("/patient/changePassword")}
+        
       >
         <Box className='p-4'>
           <Typography level='h3' component='div' fontWeight={500}>
@@ -67,9 +65,7 @@ const ViewSettings = () => {
           <Typography variant='h3' component='div' fontWeight={500}>
             {" "}
           </Typography>
-          <Typography variant='h4' component='div' fontWeight={500}>
-            Press here to change your password.
-          </Typography>
+          <ChangePassword isPatient/>
         </Box>
       </Card>
     </Box>
