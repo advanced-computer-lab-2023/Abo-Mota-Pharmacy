@@ -1443,6 +1443,7 @@ npm install
 - **Controller**: `getAdmin`
   - Retrieves details of the logged-in admin.
 </details>
+
 ## Testing
 The testing is done using `Postman`. 
 
