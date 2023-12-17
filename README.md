@@ -1179,40 +1179,9 @@ npm install
 - **Controller**: `getOrders`
   - Fetches All orders made.
 
+##### Cancel Order
 
-## Delete Medical History
-
-### Endpoint
-- **URL**: `DELETE /pharmaApi/patient/removeFromCart`
-
-### Description
-- Removes a specific medicine from the patient's cart. It allows the patient to delete a certain quantity of a medicine they previously added to their cart.
-
-### Controller
-- **Function**: `removeFromCart`
-  - This controller function identifies and removes the specified quantity of the selected medicine from the patient's cart. If the specified quantity equals the quantity in the cart, it removes the medicine entry entirely.
-
-### Path Parameters
-- **Parameters**:
-
-  | Parameter | Type   | Description                                         |
-  |-----------|--------|-----------------------------------------------------|
-  | `name`    | string | The name of the medicine to be removed from the cart. |
-  | `quantity`| number | The quantity of the medicine to be removed.         |
-## Get Orders
-
-### Endpoint
-- **URL**: `GET /pharmaApi/patient/orders`
-
-### Description
-- Retrieves a list of all orders placed by the logged-in patient. This includes detailed information about each order, such as the medicines ordered and their respective images.
-
-### Controller
-- **Function**: `getOrders`
-  - This function fetches all orders made by the patient, sorted by date in descending order.
- ## Cancel Order
-
-### Endpoint
+**Endpoint**
 - **URL**: `PATCH /pharmaApi/patient/cancelOrder`
 
 ### Description
@@ -1235,7 +1204,7 @@ npm install
   |-----------|--------|-------------------------------|
   | `orderId` | string | Unique identifier of the order to be cancelled. | 
 
-## Create Order
+### Create Order
 
 ### Endpoint
 - **URL**: `POST /pharmaApi/patient/createOrder`
@@ -1257,7 +1226,7 @@ npm install
   | Parameter   | Type  | Description                                           |
   |-------------|-------|-------------------------------------------------------|
   | `medicines` | array | An array of medicine objects, each including `name`, `price`, and `quantity`. |
-## Add Delivery Address
+#### Add Delivery Address
 
 ### Endpoint
 - **URL**: `PATCH /pharmaApi/patient/addDeliveryAddress`
@@ -1280,7 +1249,7 @@ npm install
   | `apartmentNumber`| string | The apartment number of the new address.|
   | `streetName`     | string | The street name of the new address.     |
   | `city`           | string | The city of the new address.            |
- ## Pay By Wallet
+ #### Pay By Wallet
 
 ### Endpoint
 - **URL**: `PATCH /pharmaApi/patient/payByWallet`
@@ -1302,7 +1271,7 @@ npm install
   |-------------|--------|----------------------------------------------|
   | `deductible`| number | The amount to be deducted from the wallet.   |
 
-## Change Password
+#### Change Password
 
 ### Endpoint
 - **URL**: `PATCH /pharmaApi/patient/changePassword`
@@ -1325,7 +1294,7 @@ npm install
   | `oldPassword`| string | The current password of the patient. |
   | `newPassword`| string | The new password to be set.          |
 
-## View Wallet
+#### View Wallet
 
 ### Endpoint
 - **URL**: `GET /pharmaApi/patient/wallet`
@@ -1337,7 +1306,7 @@ npm install
 - **Function**: `viewWallet`
   - The function retrieves the patient's data using the `username` from `req.userData`.
   - It then responds with the wallet balance of the logged-in patient.
-## View Alternatives
+#### View Alternatives
 
 ### Endpoint
 - **URL**: `GET /pharmaApi/patient/alternatives`
@@ -1358,7 +1327,7 @@ npm install
   | Parameter     | Type   | Description                                   |
   |---------------|--------|-----------------------------------------------|
   | `medicineName`| string | The name of the medicine to find alternatives for. |
- ## Link with Clinic
+ #### Link with Clinic
 
 ### Endpoint
 - **URL**: `POST /pharmaApi/patient/linkWithClinic`
@@ -1380,7 +1349,7 @@ npm install
   |-----------|--------|-------------------------------------------|
   | `username`| string | The username of the clinic patient.       |
   | `password`| string | The password of the clinic patient.       |
-## Update Prescriptions Quantity
+#### Update Prescriptions Quantity
 
 ### Endpoint
 - **URL**: `PATCH /pharmaApi/patient/updatePrescriptionsQuantity`
