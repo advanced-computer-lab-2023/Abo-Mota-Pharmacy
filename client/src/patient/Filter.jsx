@@ -232,7 +232,7 @@ const Filter = ({ medicines }) => {
           Diuretic
         </button>
       </div>
-      <div className="container">{mappedArray}</div>
+      <div className="container1">{mappedArray}</div>
 
       <TempDrawer
         isOpen={isDrawerOpen}

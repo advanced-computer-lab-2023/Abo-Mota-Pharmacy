@@ -35,9 +35,7 @@ function PatientApp({ socket }) {
     {/* </Route> */}
   </Routes>
   return (
-    <div>
-      <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sideBarItems} socket={socket} isPatient />;
-    </div>
+    <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sideBarItems} socket={socket} isPatient />
   );
 }
 
