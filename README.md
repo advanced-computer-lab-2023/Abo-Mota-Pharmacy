@@ -898,6 +898,42 @@ npm install
 
 ## API Reference
 <details>
+   <summary><h3>Common Routes (Notifications and Messages)</h1></summary>
+
+#### Get Notifications
+- **Endpoint**: `GET /api/common/notifications`
+- **Description**: Retrieves notifications for a user.
+- **Controller**: `getNotifications`
+  - Retrieves all notifications for a user.
+
+#### Send Notification
+- **Endpoint**: `POST /api/common/notification`
+- **Description**: Sends a new notification.
+- **Controller**: `sendNotification`
+  - Creates and sends notifications to specified recipients.
+- **Body Parameters**: 
+  | Parameter         | Type   |Description               |
+  |-------------------|--------|---------------------------|
+  | `recipientUsername`| string | Recipient's username      |
+  | `recipientType`   | string | Recipient's user type     |
+  | `content`         | string | Notification content      |
+
+#### Send Email Notification
+- **Endpoint**: `POST /api/common/send-email`
+- **Description**: Sends an email notification.
+- **Controller**: `sendEmailNotif`
+  - Sends email notifications using external email service.
+- **Body Parameters**: 
+  | Parameter    | Type   | Description               |
+  |--------------|--------|---------------------------|
+  | `email`      | string | Recipient email address   |
+  | `subject`    | string | Email subject             |
+  | `text`       | string | Email body text           |
+
+</details>
+
+
+<details>
    <summary><h3>Stripe Routes</h3></summary>
    
    #### Get Configurations
