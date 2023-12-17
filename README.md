@@ -992,6 +992,86 @@ nodemon index.js
   | `amount`      | number | Transaction amount in USD |
 
 </details>
+<details>
+   <summary><h3>Guest Routes</h3></summary>
+#### Register Patient
+- **Endpoint**: `POST /pharmaApi/guest/registerPatient`
+- **Description**: Registers a patient to the pharmacy platform
+- **Controller**: `registerPatient`
+  - Adds a new patient to the database
+- **Body Parameters**:
+| Parameter   | Type   | Description    |
+  |-------------|--------|----------------|
+  | `name`      | string | Patient's name |
+  | `username`  | string | User's username|
+  | `nationalId`| string | National ID    |
+  | `password`  | string | Account password|
+  | `email`     | string | Email address  |
+  | `dob`       | date   | Date of Birth  |
+  | `mobile`    | number | Phone Number |
+  | `gender`    | string | Gender (male or female) |
+   | `emergencyContact.name`        | string | Emergency contact's name       |
+  | `emergencyContact.mobile`      | string | Emergency contact's mobile     |
+  | `emergencyContact.relation`    | string | Relation to emergency contact  |
+
+#### Register Pharmacist
+- **Endpoint**: `POST /pharmaApi/guest/registerPharmacist`
+- **Description**: Registers a pharmacist to await approval on the platform
+- **Controller**: `registerPharmacist`
+  - Creates a new pharmacist awaiting approval by an admin
+- **Body Parameters**:
+- **Body Parameters**: 
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `name`      | string | Pharmacist's name |
+  | `username`  | string | User's username   |
+  | `nationalId`| file | National ID file  |
+  | `password`  | string | Account password|
+  | `email`     | string | Email address  |
+  | `dob`       | date   | Date of Birth  |
+  | `educationalBackground` | string | Educational Background|
+  | `affiliation` | string | Affiliation of Dr. |
+  | `mobile`    | number | Phone Number |
+  | `gender`    | string | Gender (male or female) |
+  | `workingLicense`| file| Working license file|
+  | `pharmacyDegree`| file | Pharmacy degree file|
+#### Login
+- **Endpoint**: `POST /pharmaApi/guest/login`
+- **Description**: Logs in a registered patient/pharmacist/admin
+- **Controller**: `login`
+  - Logs in user and redirects to correct page, creates JWT authorization token
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `username`  | string | Account username |
+  | `password`  | string | Account password |
+#### Logout
+- **Endpoint**: `POST /pharmaApi/guest/logout`
+- **Description**: Logs out currently logged in user
+- **Controller**: `logout`
+  - Logs out currently logged in user and destroys JWT token
+#### Request OTP
+- **Endpoint**: `POST /pharmaApi/guest/otp`
+- **Description**: Requests an OTP to be sent to a given email to reset password
+- **Controller**: `requestOtp`
+  -  Sends an email containing an OTP to the requesting user
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `email`  | string | Account email |
+#### Forgot Password
+- **Endpoint**: `/pharmaApi/guest/forgotPassword`
+- **Description**: Changes password using previously sent otp
+- **Controller**: `forgotPassword`
+  - Resets password using sent OTP
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `email`  | string | Account email |
+  | `otp`  | string | OTP received on email |
+  | `newPassword`  | string | New password  |
+
+</details>
 
 
 ## Contributing
