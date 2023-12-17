@@ -15,7 +15,7 @@ function ViewPharmacists() {
 	else
 		content = <DataTable rows={data} headers={tableHeaders1}/>
     return (
-		<div>
+		<div className="ml-20 mr-20 mt-14" >
 			{content}
 		</div>
 	)

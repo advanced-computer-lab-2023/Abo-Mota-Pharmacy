@@ -11,7 +11,7 @@
     justify-content: center;
     align-items: center;
   } */
-  .container {
+  .container1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 70px; 
@@ -19,7 +19,7 @@
     /* justify-content:space-evenly; */
     /* margin-left: 10px;
     margin-right: 10px; */
-  }
+   } 
   
 
   .filterDiv {

@@ -15,7 +15,7 @@ function ViewApplications() {
 	else
 		content = <CollapsibleTable data={data} headers={tableHeaders1}/>
 	return (
-		<div>
+		<div className="ml-20 mr-20 mt-14">
 			{content}
 		</div>
 	)
