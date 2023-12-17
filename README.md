@@ -1034,7 +1034,97 @@ npm install
   | `newPassword`  | string | New password  |
 
 </details>
+<details>
+   <summary>
+      <h3>
+         Pharmacist Routes
+      </h3>
+   </summary>
+   
+#### Add Medicine
+- **Endpoint**: `POST /pharmaApi/pharmacist/medicine`
 
+- **Description**: Creates a new medicine record.
+- **Controller**: `addMedicine`
+  - Adds new medicine details to the database.
+
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  | `name`              | string | Medicine name                     |
+  | `description`       | string | Description                       |
+  | `price`             | number | Price                             |
+  | `activeIngredients` | string | Active ingredients                |
+  | `quantity`          | number | Quantity available                |
+  | `medicinalUse`      | string | Medicinal use                     |
+  | `isOverTheCounter`  | boolean| Availability over the counter     |
+  | `medicineImage`     | file   | Image of the medicine             |
+
+#### Edit Medicine
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/medicine/:name`
+- **Description**: Modifies a medicine record.
+- **Controller**: `editMedicine`
+  - Updates existing medicine details.
+- **Path Parameters (Params)**: 
+  | Parameter           | Type   | Description                       |
+  |---------------------|--------|-----------------------------------|
+  | `name` | string | Medicine name to update |
+
+
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  | `name`              | string | Medicine name |
+  | `description`       | string | Description  |
+  | `price`             | number | Price |
+  | `activeIngredients` | string | Active ingredients  |
+  | `quantity`          | number | Quantity available                |
+  | `medicinalUse`      | string | Medicinal use                     |
+  | `isOverTheCounter`  | boolean| Availability over the counter     |
+  | `medicineImage`     | file   | Image of the medicine|
+
+#### Get Sales Reports
+- **Endpoint**: `GET /pharmaApi/pharmacist/salesReport`
+- **Description**: Retrieves sales reports data grouped together by the same date (day/month/year).
+- **Controller**: `getSalesReports`
+  - Generates sales reports for medicines.
+
+#### Change Password
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/changePassword`
+- **Description**: Updates pharmacist's password.
+- **Controller**: `changePassword`
+  - Allows pharmacists to change their password.
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  `oldPassword` | string   | Old password of current pharmacist 
+  | `newPassword` | string   | New password of current pharmacist |
+#### View Wallet
+- **Endpoint**: `GET /pharmaApi/pharmacist/wallet`
+- **Description**: Retrieves wallet information.
+- **Controller**: `viewWallet`
+  - Displays current wallet balance for a pharmacist.
+
+#### Archive Medicine
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/archive`
+- **Description**: Changes medicine status to archived.
+- **Controller**: `archiveMedicine`
+  - Archives a specific medicine.
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  `medicineName` | string   | Archives a medicine   
+
+#### Unarchive Medicine
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/unarchive`
+- **Description**: Changes medicine status to unarchived.
+- **Controller**: `unarchiveMedicine`
+  - Reverts archive status of a medicine.
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  `medicineName` | string   | Unarchives a medicine   
+</details>
 ## Testing
 The testing is done using `Postman`. 
 
