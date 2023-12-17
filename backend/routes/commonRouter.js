@@ -2,7 +2,7 @@ const express = require("express");
 const Pharmacist = require("../models/Pharmacist");
 const Message = require("../models/Message");
 // const { sendMessage, getMessages, getLoggedIn, sendEmailNotif, getNotifications, sendNotification, getRecipient, getContactedUsers, nil } = require("../controllers/commonController");
-const { sendMessage, getMessages, getContactedUsers, getLoggedIn, getContact, nil } = require("../controller/commonController");
+const { sendMessage, getMessages, getContactedUsers, getLoggedIn, getContact, nil,  sendEmailNotif, getNotifications, sendNotification, getUser } = require("../controller/commonController");
 const router = express.Router();
 require("dotenv").config();
 
@@ -12,11 +12,13 @@ router.get("/message", authorize, getMessages);
 
 router.post("/message", authorize, sendMessage);
 
-// router.get("/notifications", authorize, getNotifications);
+router.get("/notifications", authorize, getNotifications);
 
-// router.post("/notification", authorize, sendNotification);
+router.post("/notification", authorize, sendNotification);
 
-// router.post('/send-email', authorize, sendEmailNotif);
+router.post('/send-email', authorize, sendEmailNotif);
+
+router.get("/user", authorize, getUser);
 
 router.get("/loggedIn", authorize, getLoggedIn);
 

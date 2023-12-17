@@ -15,23 +15,28 @@ export default function NotificationList({notifications}) {
 
   const navigate = useNavigate();
 
-  const content = notifications.reverse().map((notification, index) => {
+  const content = notifications.map((notification, index) => {
     if(index>5)
       return;
     
-    return <ListItem alignItems="flex-start" key={index} 
-          className='group/item hover:bg-slate-100 cursor-pointer rounded-lg' onClick={() => {navigate("notifications/")}}>
-            {/* {index !== 0 ? <Divider/>: null} */}
-            <ListItemAvatar> <Avatar size="md"> <GiMedicinePills/> </Avatar> </ListItemAvatar>
-            <ListItemText
-              primary={<Typography level="title-lg" id="card-description"> Medicine Out of Stock</Typography>}
-              secondary={
-                <React.Fragment>
-                  {notification.content}
-                </React.Fragment>
-              }
-            />
-          </ListItem>
+    return <>
+              <ListItem alignItems="flex-start" key={index} 
+                    className='group/item hover:bg-slate-100 cursor-pointer rounded-lg' onClick={() => {navigate("notifications/")}}>
+                      {/* {index !== 0 ? <Divider/>: null} */}
+                      <ListItemAvatar> <Avatar size="md"> <GiMedicinePills/> </Avatar> </ListItemAvatar>
+                      <ListItemText
+                        primary={<Typography level="title-lg" id="card-description"> Medicine Out of Stock</Typography>}
+                        secondary={
+                          <React.Fragment>
+                            {notification.content}
+                          </React.Fragment>
+                        }
+                      />
+              </ListItem>
+              {notifications.length > 1 && <Divider sx={{ opacity: '50%' }} />}
+
+          </>
+
   });
   return (
     <div>

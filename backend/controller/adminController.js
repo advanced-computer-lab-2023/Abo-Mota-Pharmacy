@@ -4,8 +4,6 @@ const Patient = require("../models/Patient");
 const Pharmacist = require("../models/Pharmacist");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const Appointment = require("../models/Appointment");
-const Prescription = require("../models/Prescription");
 
 const getAdmin = async (req, res) => {
   try {
@@ -75,7 +73,6 @@ const getPharmacist = async (req, res) => {
   try {
     const { id } = req.params;
     const pharmacist = await Pharmacist.findById(id);
-    if (!pharmacist) throw error;
     res.status(200).json(pharmacist);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -101,7 +98,7 @@ const getPatient = async (req, res) => {
     const patient = await Patient.findOne({ _id: id });
 
     if (!patient) {
-      return res.status(404).json({ error: error.message });
+      return res.status(404);
     }
 
     res.status(200).json({ message: patient });
@@ -116,7 +113,7 @@ const getMedicines = async (req, res) => {
     const medicines = await Medicines.find({});
 
     if (!medicines || medicines.length === 0) {
-      return res.status(404).json({ error: error.message });
+      return res.status(404);
     }
     res.status(200).json(medicines);
   } catch (error) {

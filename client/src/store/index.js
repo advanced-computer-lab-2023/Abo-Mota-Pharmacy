@@ -103,6 +103,7 @@ export {
   useSendNotificationMutation,
   useSendEmailMutation,
   useFetchNotificationQuery,
+  useFetchUserQuery,
 } from "./apis/commonApi";
 
 export { useCreatePaymentIntentMutation, useFetchStripeConfigQuery } from "./apis/stripeApi";

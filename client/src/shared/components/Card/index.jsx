@@ -58,11 +58,12 @@ const ProductCard = ({
   const handleClick = () => {
     onAddToCart({ name, description, price, sales, quantity, medicinalUse });
   };
-  let newPrice = 20;
-  // if (!isPharmacist && healthPackage.package !== null) {
-  //   // console.log("healthPackage: ", healthPackage);
-  //   newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
-  // }
+  
+  let newPrice = price;
+  if (healthPackage !== undefined && healthPackage.package !== null) {
+    // console.log("healthPackage: ", healthPackage);
+    newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
+  }
   const findAltClick = () => {
     const filteredArray = similarMedicines.filter((medicine) => {
       return (

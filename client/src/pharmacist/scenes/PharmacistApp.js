@@ -19,6 +19,10 @@ function PharmacistApp({ socket }) {
 
   const { data, isFetching } = useGetPharmacistQuery();
 
+    useEffect(() => {
+    !isFetching && socket.emit("user_connected", data._id)
+  }, [isFetching]);
+
   const outlet = <Routes>
     <Route path='medicine' element={<MedList isPharmacist={true} />} />
     <Route path='addMedicine' element={<AddMedicine />} />
@@ -46,9 +50,7 @@ export default PharmacistApp;
 
 // const [notifications, setNotifications] = useState([]);
 
-// useEffect(() => {
-//   !isFetching && socket.emit("user_connected", data._id)
-// }, [isFetching]);
+
 
 // useEffect(() => {
 //   if (!isFetchingNotifs) {
