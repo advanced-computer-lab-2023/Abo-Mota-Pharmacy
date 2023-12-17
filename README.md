@@ -1125,6 +1125,7 @@ npm install
   |---------------------|--------|-----------------------------------|
   `medicineName` | string   | Unarchives a medicine   
 </details>
+
 ## Testing
 The testing is done using `Postman`. 
 
