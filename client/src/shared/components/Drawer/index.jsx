@@ -1,10 +1,10 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
-import DrawerItem from "../DrawerItem";
-import { useNavigate } from "react-router-dom";
-import { useGetMedicineByIdQuery } from "../../../store";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import DrawerItem from '../DrawerItem';
+import { useNavigate } from 'react-router-dom';
+import { useGetMedicineByIdQuery } from '../../../store';
 
 export default function TemporaryDrawer({
   isOpen,
