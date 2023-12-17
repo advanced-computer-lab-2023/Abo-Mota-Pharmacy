@@ -340,6 +340,8 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - [Eslint](https://eslint.org/docs/latest/user-guide/getting-started) : in the backend and the frontend to write the most optimum clean code possible and to define rules for the team to be able to write code in the same code style
 - [Prettier](https://prettier.io/) : it is a code formatter that runs automatically before each commit on the whole code so that the codes looks well formatted across the whole project
 
+## Screenshots
+
 ## Tech Stack
 
 <div align="center" >
@@ -365,6 +367,90 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - **Authentication**: JWT
 - **APIs**: Stripe
 - **Development tools**: Postman, Git, GitHub
+
+
+## Features
+<details>
+<summary>As a Guest I can</summary>
+
+- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
+- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+
+</details>
+
+<details>
+<summary>As a Patient I can</summary>
+
+- View a list of all available medicines, including pictures, prices, and descriptions.
+- Search for medicines based on name.
+- Filter medicines based on their medicinal use.
+- Add over-the-counter medicines to my cart.
+- Add prescription medicines to my cart based on my prescription.
+- View items in my cart.
+- Remove items from my cart.
+- Change the quantity of items in my cart.
+- Checkout my order.
+- Add new delivery addresses and choose from existing ones.
+- Select payment methods including wallet, credit card, or cash on delivery.
+- View my current and past orders along with their details and status.
+- Cancel orders.
+- View alternatives to medicines that are out of stock.
+- Chat with a pharmacist.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As a Pharmacist I can</summary>
+
+- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+- Add a medicine with its details like active ingredients, price, and quantity.
+- Upload images for medicines.
+- Edit details and prices of medicines.
+- Archive or unarchive a medicine.
+- View the available quantity and sales of each medicine.
+- Filter sales reports based on medicine or date.
+- Receive notifications when a medicine is out of stock.
+- Chat with a doctor.
+- View total sales reports based on a chosen month.
+- View the amount in my wallet.
+
+</details>
+
+<details>
+<summary>As an Administrator I can</summary>
+   
+
+- Add another administrator with a set username and password.
+- Remove a pharmacist or patient from the system.
+- View all the information uploaded by a pharmacist when they apply to join the platform.
+- Accept or reject the request of a pharmacist to join the platform.
+- View total sales reports based on a chosen month.
+- View a pharmacist's information.
+- View a patient's basic information.
+- Change my password.
+- Reset my password via OTP sent to email.
+- view a list of all available medicines (including picture of medicine, price, description)
+- search for medicine based on name
+- filter medicines based on medicinal use
+  
+</details>
+
+<details>
+<summary>Common Features for Patient/Pharmacist/Administrator</summary>
+   
+- Login with my username and password.
+- Logout of the system.
+- Change my password.
+- Reset my password via OTP sent to email.
+- View a list of all available medicines including picture, price, and description.
+- Search for medicine based on name.
+- Filter medicines based on medicinal use.
+
+</details>
 
 ## Code Examples
 
@@ -785,87 +871,577 @@ export default LoginForm;
 
 
 
-## Features
-<details>
-<summary>As a Guest I can</summary>
+## Installation
 
-- Register as a patient with my username, name, email, password, date of birth, gender, mobile number, and emergency contact details.
-- Submit a request to register as a pharmacist with my username, name, email, password, date of birth, hourly rate, hospital affiliation, and educational background.
+### Clone the repository:
+
+```bash
+git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
+cd Abo-Mota-Pharmacy
+```
+
+### Install client dependencies
+
+```bash
+cd client
+npm install
+```
+
+### Install server dependencies
+
+```bash
+  cd backend
+  npm install
+```
+
+
+
+## API Reference
+<details>
+   <summary><h3>Common Routes (Notifications and Messages)</h1></summary>
+
+#### Get Notifications
+- **Endpoint**: `GET /api/common/notifications`
+- **Description**: Retrieves notifications for a user.
+- **Controller**: `getNotifications`
+  - Retrieves all notifications for a user.
+
+#### Send Notification
+- **Endpoint**: `POST /api/common/notification`
+- **Description**: Sends a new notification.
+- **Controller**: `sendNotification`
+  - Creates and sends notifications to specified recipients.
+- **Body Parameters**: 
+  | Parameter         | Type   |Description               |
+  |-------------------|--------|---------------------------|
+  | `recipientUsername`| string | Recipient's username      |
+  | `recipientType`   | string | Recipient's user type     |
+  | `content`         | string | Notification content      |
+
+#### Send Email Notification
+- **Endpoint**: `POST /api/common/send-email`
+- **Description**: Sends an email notification.
+- **Controller**: `sendEmailNotif`
+  - Sends email notifications using external email service.
+- **Body Parameters**: 
+  | Parameter    | Type   | Description               |
+  |--------------|--------|---------------------------|
+  | `email`      | string | Recipient email address   |
+  | `subject`    | string | Email subject             |
+  | `text`       | string | Email body text           |
 
 </details>
 
-<details>
-<summary>As a Patient I can</summary>
 
-- View a list of all available medicines, including pictures, prices, and descriptions.
-- Search for medicines based on name.
-- Filter medicines based on their medicinal use.
-- Add over-the-counter medicines to my cart.
-- Add prescription medicines to my cart based on my prescription.
-- View items in my cart.
-- Remove items from my cart.
-- Change the quantity of items in my cart.
-- Checkout my order.
-- Add new delivery addresses and choose from existing ones.
-- Select payment methods including wallet, credit card, or cash on delivery.
-- View my current and past orders along with their details and status.
-- Cancel orders.
-- View alternatives to medicines that are out of stock.
-- Chat with a pharmacist.
-- View the amount in my wallet.
+<details>
+   <summary><h3>Stripe Routes</h3></summary>
+   
+   #### Get Configurations
+- **Endpoint**: `GET /api/stripe/config`
+- **Description**: Retrieves Stripe configuration details.
+- **Controller**: `config`
+  - Returns Stripe publishable key.
+
+#### Create Payment Intent
+- **Endpoint**: `POST /api/stripe/create-payment-intent`
+- **Description**: Creates a new payment intent for Stripe transactions.
+- **Controller**: `createPaymentIntent`
+    - Stripe Payment Intent Creation.
+- **Body Parameters**: 
+  | Parameter     | Type   | Description               |
+  |---------------|--------|---------------------------|
+  | `amount`      | number | Transaction amount in USD |
 
 </details>
-
 <details>
-<summary>As a Pharmacist I can</summary>
+   <summary><h3>Guest Routes</h3></summary>
+   
+#### Register Patient
+- **Endpoint**: `POST /pharmaApi/guest/registerPatient`
+- **Description**: Registers a patient to the pharmacy platform
+- **Controller**: `registerPatient`
+  - Adds a new patient to the database
+- **Body Parameters**:
+| Parameter   | Type   | Description    |
+  |-------------|--------|----------------|
+  | `name`      | string | Patient's name |
+  | `username`  | string | User's username|
+  | `nationalId`| string | National ID    |
+  | `password`  | string | Account password|
+  | `email`     | string | Email address  |
+  | `dob`       | date   | Date of Birth  |
+  | `mobile`    | number | Phone Number |
+  | `gender`    | string | Gender (male or female) |
+   | `emergencyContact.name`        | string | Emergency contact's name       |
+  | `emergencyContact.mobile`      | string | Emergency contact's mobile     |
+  | `emergencyContact.relation`    | string | Relation to emergency contact  |
 
-- Upload and submit required documents for registration such as ID, pharmacy degree, and working licenses.
-- view a list of all available medicines (including picture of medicine, price, description)
-- search for medicine based on name
-- filter medicines based on medicinal use
-- Add a medicine with its details like active ingredients, price, and quantity.
-- Upload images for medicines.
-- Edit details and prices of medicines.
-- Archive or unarchive a medicine.
-- View the available quantity and sales of each medicine.
-- Filter sales reports based on medicine or date.
-- Receive notifications when a medicine is out of stock.
-- Chat with a doctor.
-- View total sales reports based on a chosen month.
-- View the amount in my wallet.
+#### Register Pharmacist
+- **Endpoint**: `POST /pharmaApi/guest/registerPharmacist`
+- **Description**: Registers a pharmacist to await approval on the platform
+- **Controller**: `registerPharmacist`
+  - Creates a new pharmacist awaiting approval by an admin
+- **Body Parameters**:
+- **Body Parameters**: 
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `name`      | string | Pharmacist's name |
+  | `username`  | string | User's username   |
+  | `nationalId`| file | National ID file  |
+  | `password`  | string | Account password|
+  | `email`     | string | Email address  |
+  | `dob`       | date   | Date of Birth  |
+  | `educationalBackground` | string | Educational Background|
+  | `affiliation` | string | Affiliation of Dr. |
+  | `mobile`    | number | Phone Number |
+  | `gender`    | string | Gender (male or female) |
+  | `workingLicense`| file| Working license file|
+  | `pharmacyDegree`| file | Pharmacy degree file|
+#### Login
+- **Endpoint**: `POST /pharmaApi/guest/login`
+- **Description**: Logs in a registered patient/pharmacist/admin
+- **Controller**: `login`
+  - Logs in user and redirects to correct page, creates JWT authorization token
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `username`  | string | Account username |
+  | `password`  | string | Account password |
+#### Logout
+- **Endpoint**: `POST /pharmaApi/guest/logout`
+- **Description**: Logs out currently logged in user
+- **Controller**: `logout`
+  - Logs out currently logged in user and destroys JWT token
+#### Request OTP
+- **Endpoint**: `POST /pharmaApi/guest/otp`
+- **Description**: Requests an OTP to be sent to a given email to reset password
+- **Controller**: `requestOtp`
+  -  Sends an email containing an OTP to the requesting user
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `email`  | string | Account email |
+#### Forgot Password
+- **Endpoint**: `/pharmaApi/guest/forgotPassword`
+- **Description**: Changes password using previously sent otp
+- **Controller**: `forgotPassword`
+  - Resets password using sent OTP
+- **Body Parameters**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `email`  | string | Account email |
+  | `otp`  | string | OTP received on email |
+  | `newPassword`  | string | New password  |
 
 </details>
-
 <details>
-<summary>As an Administrator I can</summary>
+   <summary>
+      <h3>
+         Pharmacist Routes
+      </h3>
+   </summary>
+   
+#### Add Medicine
+- **Endpoint**: `POST /pharmaApi/pharmacist/medicine`
+
+- **Description**: Creates a new medicine record.
+- **Controller**: `addMedicine`
+  - Adds new medicine details to the database.
+
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  | `name`              | string | Medicine name                     |
+  | `description`       | string | Description                       |
+  | `price`             | number | Price                             |
+  | `activeIngredients` | string | Active ingredients                |
+  | `quantity`          | number | Quantity available                |
+  | `medicinalUse`      | string | Medicinal use                     |
+  | `isOverTheCounter`  | boolean| Availability over the counter     |
+  | `medicineImage`     | file   | Image of the medicine             |
+
+#### Edit Medicine
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/medicine/:name`
+- **Description**: Modifies a medicine record.
+- **Controller**: `editMedicine`
+  - Updates existing medicine details.
+- **Path Parameters (Params)**: 
+  | Parameter           | Type   | Description                       |
+  |---------------------|--------|-----------------------------------|
+  | `name` | string | Medicine name to update |
+
+
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  | `name`              | string | Medicine name |
+  | `description`       | string | Description  |
+  | `price`             | number | Price |
+  | `activeIngredients` | string | Active ingredients  |
+  | `quantity`          | number | Quantity available                |
+  | `medicinalUse`      | string | Medicinal use                     |
+  | `isOverTheCounter`  | boolean| Availability over the counter     |
+  | `medicineImage`     | file   | Image of the medicine|
+
+#### Get Sales Reports
+- **Endpoint**: `GET /pharmaApi/pharmacist/salesReport`
+- **Description**: Retrieves sales reports data grouped together by the same date (day/month/year).
+- **Controller**: `getSalesReports`
+  - Generates sales reports for medicines.
+
+#### Change Password
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/changePassword`
+- **Description**: Updates pharmacist's password.
+- **Controller**: `changePassword`
+  - Allows pharmacists to change their password.
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  `oldPassword` | string   | Old password of current pharmacist 
+  | `newPassword` | string   | New password of current pharmacist |
+#### View Wallet
+- **Endpoint**: `GET /pharmaApi/pharmacist/wallet`
+- **Description**: Retrieves wallet information.
+- **Controller**: `viewWallet`
+  - Displays current wallet balance for a pharmacist.
+
+#### Archive Medicine
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/archive`
+- **Description**: Changes medicine status to archived.
+- **Controller**: `archiveMedicine`
+  - Archives a specific medicine.
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  `medicineName` | string   | Archives a medicine   
+
+#### Unarchive Medicine
+- **Endpoint**: `PATCH /pharmaApi/pharmacist/unarchive`
+- **Description**: Changes medicine status to unarchived.
+- **Controller**: `unarchiveMedicine`
+  - Reverts archive status of a medicine.
+- **Body Parameters**: 
+  | Parameter           | Type   | Description |
+  |---------------------|--------|-----------------------------------|
+  `medicineName` | string   | Unarchives a medicine   
+</details>
+<details>
+   <summary><h3>Patient Routes </h1></summary>
    
 
-- Add another administrator with a set username and password.
-- Remove a pharmacist or patient from the system.
-- View all the information uploaded by a pharmacist when they apply to join the platform.
-- Accept or reject the request of a pharmacist to join the platform.
-- View total sales reports based on a chosen month.
-- View a pharmacist's information.
-- View a patient's basic information.
-- Change my password.
-- Reset my password via OTP sent to email.
-- view a list of all available medicines (including picture of medicine, price, description)
-- search for medicine based on name
-- filter medicines based on medicinal use
-  
-</details>
+
+#### Get Logged In Patient
+
+- **Endpoint**: `GET /pharmaApi/patient`
+- **Description**: Retrieves logged in patient information
+- **Controller**: `getPatient`
+  - Fetches logged in patient's account object
+
+#### Get All Medicines
+
+- **Endpoint**: `GET /pharmaApi/patient/medicines`
+- **Description**: Retrieves all medicines available
+- **Controller**: `getMedicines`
+  - Fetches All Medicines
+#### Get All Pharmacists
+
+- **Endpoint**: `GET /pharmaApi/patient/pharmacists`
+- **Description**: Retrieves all pharmacists
+- **Controller**: `getPharmacists`
+  - Fetches All pharmacists
+
+#### Add to cart
+- **Endpoint**: `POST /pharmaApi/patient/addToCart`
+- **Description**: Add medicines to the cart
+- **Controller**: `addToCart`
+  - add medicines to the cart of the logged in patient
+- **Body Parameters**:
+    | Parameter | Type   | Description                  |
+    |-----------|--------|------------------------------|
+    | `name` | string | Name of medicine |
+
+    
+#### Delete Medical History
+- **Endpoint**: `DELETE /pharmaApi/patient/removeFromCart`
+- **Description**: Deletes a specific medicine from the cart
+- **Controller**: `removeFromCart`
+  - Deletes a medicine from the patients' cart
+- **Path Parameters (Params)**
+    | Parameter | Type   | Description                  |
+    |-----------|--------|------------------------------|
+    | `name` | string | Name of medicine |
+    | `quantity`    | number       | quantity of object in the cart|
+
+#### Get All Orders
+
+- **Endpoint**: `GET /pharmaApi/patient/orders`
+- **Description**: Retrieves all orders 
+- **Controller**: `getOrders`
+  - Fetches All orders made.
+
+##### Cancel Order
+
+**Endpoint**
+- **URL**: `PATCH /pharmaApi/patient/cancelOrder`
+
+### Description
+- Allows a patient to cancel a previously placed order. The cancellation includes refunding the order amount to the patient's wallet, updating the stock of the medicines involved in the order, and changing the order status to "cancelled".
+
+### Controller
+- **Function**: `cancelOrder`
+  - The controller function performs several actions upon a successful cancellation request:
+    - Validates the existence of the order based on the provided `orderId`.
+    - Refunds the total price of the order to the patient's wallet.
+    - Updates the sales and stock quantities for each medicine involved in the order.
+    - Optionally, removes related sales reports (this part is currently commented out in the provided code).
+    - Sets the order status to "cancelled".
+  - It then responds with the updated order and patient information.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter | Type   | Description                   |
+  |-----------|--------|-------------------------------|
+  | `orderId` | string | Unique identifier of the order to be cancelled. | 
+
+### Create Order
+
+### Endpoint
+- **URL**: `POST /pharmaApi/patient/createOrder`
+
+### Description
+- This endpoint is designed for patients to create a new order for medicines. It calculates the total price of the order, taking into account any applicable discounts for clinic patients, and updates the medicine stock and sales records accordingly.
+
+### Controller
+- **Function**: `createOrder`
+  - The function begins by identifying the patient from the `username` in `req.userData`.
+  - It checks if the patient is associated with a clinic (as a `clinicPatient`) and, if so, applies any relevant health package discounts to the total price of the order.
+  - The total price of the order is calculated based on the price and quantity of each medicine in the order.
+  - The function then updates the medicine stock in the database and records the sales.
+  - Sales reports are created for each medicine in the order. There's commented-out code that indicates potential future enhancements for handling sales reports more efficiently.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter   | Type  | Description                                           |
+  |-------------|-------|-------------------------------------------------------|
+  | `medicines` | array | An array of medicine objects, each including `name`, `price`, and `quantity`. |
+#### Add Delivery Address
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/addDeliveryAddress`
+
+### Description
+- This endpoint allows patients to add a new delivery address to their profile. It ensures that the address being added does not already exist in the patient's list of saved addresses.
+
+### Controller
+- **Function**: `addDeliveryAddress`
+  - The function retrieves the patient's data using the username provided in `req.userData`.
+  - It checks the existing delivery addresses to ensure the new address is not a duplicate.
+  - If the address is unique, it adds the new address (consisting of apartment number, street name, and city) to the patient's profile.
+  - The patient's delivery addresses are then updated in the database.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter        | Type   | Description                             |
+  |------------------|--------|-----------------------------------------|
+  | `apartmentNumber`| string | The apartment number of the new address.|
+  | `streetName`     | string | The street name of the new address.     |
+  | `city`           | string | The city of the new address.            |
+ #### Pay By Wallet
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/payByWallet`
+
+### Description
+- This endpoint allows patients to make payments using their wallet balance. It deducts the specified amount (deductible) from the patient's wallet.
+
+### Controller
+- **Function**: `payByWallet`
+  - The function first retrieves the patient's data using the `username` from `req.userData`.
+  - It checks if the patient's wallet balance is sufficient to cover the deductible amount.
+  - If the balance is sufficient, it deducts the specified amount from the wallet and updates the patient's wallet balance in the database.
+  - The function then responds with a success message and the updated patient information.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter   | Type   | Description                                  |
+  |-------------|--------|----------------------------------------------|
+  | `deductible`| number | The amount to be deducted from the wallet.   |
+
+#### Change Password
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/changePassword`
+
+### Description
+- Allows patients to change their account password. It requires patients to provide their old password for verification before updating to a new password.
+
+### Controller
+- **Function**: `changePassword`
+  - The function retrieves the patient's data using the `username` from `req.userData`.
+  - It verifies the provided old password against the stored hashed password in the database.
+  - If the old password matches, the function proceeds to hash the new password and update it in the patient's profile.
+  - The response includes confirmation of the password change.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter    | Type   | Description                          |
+  |--------------|--------|--------------------------------------|
+  | `oldPassword`| string | The current password of the patient. |
+  | `newPassword`| string | The new password to be set.          |
+
+#### View Wallet
+
+### Endpoint
+- **URL**: `GET /pharmaApi/patient/wallet`
+
+### Description
+- This endpoint provides the logged-in patient with the current balance in their wallet. It's a convenient way for patients to check their available funds.
+
+### Controller
+- **Function**: `viewWallet`
+  - The function retrieves the patient's data using the `username` from `req.userData`.
+  - It then responds with the wallet balance of the logged-in patient.
+#### View Alternatives
+
+### Endpoint
+- **URL**: `GET /pharmaApi/patient/alternatives`
+
+### Description
+- This endpoint provides patients with alternative medicine options based on the active ingredient of a specified medicine. It is useful for finding substitutes when a particular medicine is unavailable or to explore other options.
+
+### Controller
+- **Function**: `viewAlternatives`
+  - The function first retrieves the specified medicine using the `medicineName` provided in the request body.
+  - It identifies the primary active ingredient of the selected medicine.
+  - Then, it searches for and returns a list of alternative medicines that contain the same primary active ingredient, are not archived, and have a quantity greater than 0.
+  - The response includes an array of alternative medicines.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter     | Type   | Description                                   |
+  |---------------|--------|-----------------------------------------------|
+  | `medicineName`| string | The name of the medicine to find alternatives for. |
+ #### Link with Clinic
+
+### Endpoint
+- **URL**: `POST /pharmaApi/patient/linkWithClinic`
+
+### Description
+- This endpoint allows patients of the pharmacy to link their accounts with their clinic profiles. It's designed to establish a connection between a patient's pharmacy and clinic records for integrated care.
+
+### Controller
+- **Function**: `linkWithClinic`
+  - The function first verifies the clinic patient's credentials using the `username` and `password` provided in the request body.
+  - If the credentials are correct, it links the pharmacy patient's account (identified by `req.userData.username`) to the clinic patient profile.
+  - It updates both the pharmacy patient's profile to include a reference to the clinic patient, and vice versa.
+  - The function responds with confirmation of the successful link.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter | Type   | Description                               |
+  |-----------|--------|-------------------------------------------|
+  | `username`| string | The username of the clinic patient.       |
+  | `password`| string | The password of the clinic patient.       |
+#### Update Prescriptions Quantity
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/updatePrescriptionsQuantity`
+
+### Description
+- This endpoint allows for the adjustment of the quantity of a specific medicine in a patient's prescription. It is typically used to decrement the quantity after dispensing a dose of the prescribed medicine.
+
+### Controller
+- **Function**: `updatePrescriptionsQuantity`
+  - The function first retrieves the prescription using the `prescriptionId` provided in the request body.
+  - It then iterates over the medicines in the prescription, looking for the specified `medicineId`.
+  - When the relevant medicine is found, its quantity is decremented by one.
+  - The prescription is updated in the database with the new quantity of the medicine.
+  - The function responds with the details of the updated prescription.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter       | Type   | Description                                       |
+  |-----------------|--------|---------------------------------------------------|
+  | `prescriptionId`| string | The ID of the prescription to be updated.         |
+  | `medicineId`    | string | The ID of the medicine within the prescription whose quantity is to be updated. |
+</details>   
 
 <details>
-<summary>Common Features for Patient/Pharmacist/Administrator</summary>
-   
-- Login with my username and password.
-- Logout of the system.
-- Change my password.
-- Reset my password via OTP sent to email.
-- View a list of all available medicines including picture, price, and description.
-- Search for medicine based on name.
-- Filter medicines based on medicinal use.
+   <summary>
+      <h3>Admin Routes</h3>
+   </summary>
 
+#### Get Pharmacists
+- **Endpoint**: `GET /pharmaApi/admin/pharmacists`
+- **Description**: Fetches list of approved pharmacists.
+- **Controller**: `getPharmacists`
+  - Retrieves all approved pharmacists.
+#### Get Pharmacist by ID
+- **Endpoint**: `GET /pharmaApi/admin/pharmacists/:id`
+- **Description**: Retrieves pharmacist details.
+- **Controller**: `getPharmacist`
+  - Fetches details of a specific pharmacist.
+- **Path Parameters (Params)**: 
+  | Parameter | Type   | Description              |
+  |-----------|--------|--------------------------|
+  | `id`      | string | Pharmacist identifier    |
+
+#### Add Admin
+- **Endpoint**: `POST /pharmaApi/admin/admins`
+- **Description**: Registers a new admin.
+- **Controller**: `addAdmin`
+  - Creates a new admin account.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `username`| string | Admin's username     |
+  | `password`| string | Admin's password     |
+  | `email`   | string | Admin's email        |
+
+#### Delete Patient
+- **Endpoint**: `DELETE /pharmaApi/admin/patients`
+- **Description**: Deletes a patient account.
+- **Controller**: `deletePatient`
+  - Removes a specific patient.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `username`| string | Admin's username     |
+
+#### Delete Pharmacist
+- **Endpoint**: `DELETE /pharmaApi/admin/pharmacists`
+- **Description**: Deletes an approved pharmacist account.
+- **Controller**: `deletePharmacist`
+  - Removes a specific approved pharmacist.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `username`| string | Admin's username     |
+
+#### Change Password
+- **Endpoint**: `PATCH /pharmaApi/admin/changePassword`
+- **Description**: Changes user's password.
+- **Controller**: `changePassword`
+  - Allows user to update their password.
+- **Body Parameters**: 
+  | Parameter | Type   | Description          |
+  |-----------|--------|----------------------|
+  | `oldPassword`| string | Current admin's old password     |
+  | `newPassword`| string | Current admin's new password     |
+
+#### Get Admin Details
+- **Endpoint**: `GET /pharmaApi/admin/admin`
+- **Description**: Fetches admin information.
+- **Controller**: `getAdmin`
+  - Retrieves details of the logged-in admin.
 </details>
 
 ## Testing
@@ -927,30 +1503,6 @@ pm.test("Content-Type header is application/json", function () {
 
 ```
 </details>
-
-
-## Installation
-
-### Clone the repository:
-
-```bash
-git clone https://github.com/advanced-computer-lab-2023/Abo-Mota-Pharmacy.git
-cd Abo-Mota-Pharmacy
-```
-
-### Install client dependencies
-
-```bash
-cd client
-npm install
-```
-
-### Install server dependencies
-
-```bash
-  cd backend
-  npm install
-```
 
 ## How to use
 

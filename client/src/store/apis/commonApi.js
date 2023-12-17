@@ -10,6 +10,23 @@ const commonApi = createApi({
   endpoints(builder) {
     return {
 
+      fetchLoggedIn: builder.query({
+        // providesTags: (result, error) => {
+        //   const tags = result.map((p) => {
+        //     return { type: "Package", id: p._id };
+        //   });
+        //   tags.push({ type: "Package", id: 123 });
+        //   return tags;
+        // },
+
+        query: () => {
+          return {
+            url: "/loggedIn",
+            method: "GET",
+          };
+        },
+      }),
+
       sendNotification: builder.mutation({
     
         query: (data) => {
@@ -49,6 +66,7 @@ export const {
   useSendNotificationMutation,
   useFetchNotificationQuery,
   useSendEmailMutation,
+  useFetchLoggedInQuery,
 } = commonApi;
 
 export { commonApi };

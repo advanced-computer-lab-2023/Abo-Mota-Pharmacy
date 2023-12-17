@@ -1,5 +1,7 @@
 const Pharmacist = require("../models/Pharmacist");
 const Notification = require("../models/Notification");
+const PharmacyAdmin = require("../models/PharmacyAdmin");
+const Patient = require("../models/Patient");
 const sendEmail = require("../utils/sendEmail");
 
 const getNotifications = async (req, res) => {
@@ -75,8 +77,51 @@ const sendNotification = async (req, res) => {
   }
 };
 
+const getLoggedIn = async (req, res) => {
+  try {
+    const { username, userType } = req.userData;
+
+    let user;
+
+    if (userType.toLowerCase() === "patient")
+      user = await Patient.findOne({ username });
+
+    if (userType.toLowerCase() === "pharmacist")
+      user = await Pharmacist.findOne({ username });
+
+    if (userType.toLowerCase() === "admin")
+      user = await PharmacyAdmin.findOne({ username });
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getLoggedIn = async (req, res) => {
+  try {
+    const { username, userType } = req.userData;
+
+    let user;
+
+    if (userType.toLowerCase() === "patient")
+      user = await Patient.findOne({ username });
+
+    if (userType.toLowerCase() === "pharmacist")
+      user = await Pharmacist.findOne({ username });
+
+    if (userType.toLowerCase() === "admin")
+      user = await PharmacyAdmin.findOne({ username });
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   sendEmailNotif,
   getNotifications,
   sendNotification,
+  getLoggedIn,
 };
