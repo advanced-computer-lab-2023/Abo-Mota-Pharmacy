@@ -11,9 +11,8 @@ import {
 } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const Filter = ({ medicines }) => {
+const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
   const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { data: patient, isFetching, error } = useGetPatientQuery();
 
   const [addToCart] = useAddToCartMutation();
@@ -115,13 +114,7 @@ const Filter = ({ medicines }) => {
     });
   };
 
-  const handleCartIcon = () => {
-    setIsDrawerOpen(true);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerOpen(false);
-  };
+  
 
   const arr = [];
   for (let i = 0; i < patient.prescriptions.length; i++) {
@@ -162,15 +155,6 @@ const Filter = ({ medicines }) => {
 
   return (
     <div>
-      <div className="flex flex-row justify-end flex-wrap">
-        <button
-          className="bg-white text-black mb-2 rounded-3xl"
-          onClick={handleCartIcon}
-        >
-          <ShoppingCartOutlinedIcon />
-          Cart
-        </button>
-      </div>
       <div className="flex flex-row justify-center gap-x-2">
         <button
           className={`btn ${
