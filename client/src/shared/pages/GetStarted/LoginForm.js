@@ -44,13 +44,14 @@ export default function LoginForm(){
           if (result.userType === "patient") {
             dispatch(login({ role: "patient" })); // Dispatch login action with role
             navigate("/patient");
-          } else if (result.userType === "doctor") {
-            dispatch(login({ role: "doctor" })); // Dispatch login action with role
-            navigate("/doctor");
+          } else if (result.userType === "pharmacist") {
+            dispatch(login({ role: "pharmacist" })); // Dispatch login action with role
+            navigate("/pharmacist");
           } else if (result.userType === "admin") {
             dispatch(login({ role: "admin" })); // Dispatch login action with role
             navigate("/admin");
           }
+          window.location.reload();
           resetForm({ values: "" });
         } catch (error) {
           console.error("Failed to login:", error);
