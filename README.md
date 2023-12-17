@@ -994,6 +994,7 @@ nodemon index.js
 </details>
 <details>
    <summary><h3>Guest Routes</h3></summary>
+   
 #### Register Patient
 - **Endpoint**: `POST /pharmaApi/guest/registerPatient`
 - **Description**: Registers a patient to the pharmacy platform
