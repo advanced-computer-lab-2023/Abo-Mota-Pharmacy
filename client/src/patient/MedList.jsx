@@ -6,7 +6,6 @@ import { useGetMedicinesQuery } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
 const MedList = () => {
-  // const [medicineArray, setMedicineArray] = useState(medicines);
   const [search, setSearch] = useState("");
 
   const { data, error, isFetching } = useGetMedicinesQuery();
@@ -34,9 +33,6 @@ const MedList = () => {
     );
   });
 
-  // const mappedArray = filteredArray.map((medicine) => {
-  //   return <ProductCard name={medicine.name} description={medicine.description} price={medicine.price} extras={medicine.extras}/>
-  // });
 
   return (
     <div className="mr-20 ml-20">
