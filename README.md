@@ -329,7 +329,7 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 - The project needs to be deployed through services.
 - The project needs a robust unit test suite made with frameworks such as Jest.
 - A message broker needs to be added to the application to handle asynchronous tasks such as sending emails and notifications.
-- Additional features like video chat between pharmacists and doctors, and enhancements to the landing page, are currently under development.
+- Additional extra features like video chat between pharmacists and patients, and enhancements to the landing page, are currently under development.
 
 ## Code Style
 
