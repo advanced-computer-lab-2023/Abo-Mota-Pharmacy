@@ -32,15 +32,15 @@ export default function AlertDialogSlide({cancelOrder, open, setOpen}) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"CANCEL ORDER?"}</DialogTitle>
+        <DialogTitle>{"CANCEL ORDER"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             Are you sure you want to cancel your order?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseAgree}>Cancel My Order</Button>
-          <Button onClick={handleClose} color="error">Exit</Button>
+          <Button onClick={handleCloseAgree} color="error">Cancel My Order</Button>
+          <Button onClick={handleClose} color="primary">Exit</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

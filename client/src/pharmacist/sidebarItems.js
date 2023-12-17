@@ -3,6 +3,7 @@ import { createElement } from 'react';
 import { GiMedicinePills } from "react-icons/gi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { TbReportAnalytics } from "react-icons/tb";
+import { IoChatbubblesSharp } from "react-icons/io5";
 
 
 
@@ -33,7 +34,7 @@ const items = [
   },
   {
     key: '4',
-    icon: <IoSettingsSharp />,
+    icon: <IoChatbubblesSharp />,
     label: 'Chat',
     to: '/pharmacist/chat',
   },

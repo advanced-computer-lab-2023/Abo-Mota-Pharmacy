@@ -9,7 +9,9 @@ import ChangePasswordScreen from "../shared/pages/ChangePasswordScreen";
 import SalesReport from "../shared/pages/SalesReport";
 import Outline from "../shared/Outline";
 import sideBarItems from "./sidebarItems";
-import MedList from "../patient/MedList"
+import MedList from "../patient/MedList";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+
 function AdminApp() {
  
   const outlet = <Routes>
@@ -21,7 +23,7 @@ function AdminApp() {
                     <Route path='medicine' element={<MedicineScreen />} />
                     <Route
                       path='changePassword'
-                      element={<ChangePasswordScreen isAdmin />}
+                      element={<ChangePasswordPage />}
                     />
                     <Route path='salesReport' element={<SalesReport />} />
                 </Routes>

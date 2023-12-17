@@ -8,7 +8,6 @@ import { MdOutlineFileCopy } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
 
 const items = [
-  
   {
     key: '0',
     icon: <FaUsers />,
@@ -41,12 +40,6 @@ const items = [
   },
   {
     key: '5',
-    icon: <MdPassword />,
-    label: 'Change Password',
-    to: '/admin/changePassword',
-  },
-  {
-    key: '6',
     icon: <TbReportAnalytics />,
     label: 'Sales Report',
     to: '/admin/salesReport',
