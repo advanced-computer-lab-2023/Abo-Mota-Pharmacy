@@ -28,10 +28,10 @@ const ProductCard = ({
   };
   const navigate = useNavigate();
   let newPrice = price;
-  // if (healthPackage.package !== null) {
-  //   // console.log("healthPackage: ", healthPackage);
-  //   newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
-  // }
+  if (healthPackage !== undefined && healthPackage.package !== null) {
+    // console.log("healthPackage: ", healthPackage);
+    newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
+  }
   const findAltClick = () => {
     const filteredArray = similarMedicines.filter((medicine) => {
       console.log("medsssssssssssss: ", medicine.isOverTheCounter);
@@ -90,19 +90,28 @@ const ProductCard = ({
       <div className="product-details">
         <div className="nameWithPrice">
           <h3 className="product-name">{name}</h3>
-          <div className="ml-2">
-            <Chip
-              label={`$${price}`}
-              icon={<CancelIcon />}
-              style={{ backgroundColor: red[200], color: "white", textDecoration: "line-through" }}
-            />
-            <Chip
-              label={`$${newPrice}`}
-              icon={<FaArrowDown />}
-              style={{ backgroundColor: green[300], color: "white" }}
-              sx={{ ml: 1 }} // Adds margin to separate the chips
-            />
-          </div>
+          {newPrice !== price ? (
+            <div className="ml-2">
+              <Chip
+                label={`$${price}`}
+                icon={<CancelIcon />}
+                style={{
+                  backgroundColor: red[200],
+                  color: "white",
+                  textDecoration: "line-through",
+                }}
+              />
+
+              <Chip
+                label={`$${newPrice}`}
+                icon={<FaArrowDown />}
+                style={{ backgroundColor: green[300], color: "white" }}
+                sx={{ ml: 1 }} // Adds margin to separate the chips
+              />
+            </div>
+          ) : (
+            <h2 className="product-price">${price}</h2>
+          )}
         </div>
         <p className="product-description">{description}</p>
         {/* <p className="extras">→ Sold: {sales}</p>
