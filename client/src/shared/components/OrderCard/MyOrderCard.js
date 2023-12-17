@@ -134,7 +134,9 @@ function MyOrderCard({ sx, formattedDate, cartItems, totalAmount, orderId, statu
         >
           Total: ${totalAmount}
         </Typography>
-        <Button variant="outlined" color="error" disabled={isButtonDisabled} onClick={handleClick} sx={{ width: "10%" }}>CANCEL ORDER</Button>
+        <div className="flex justify-end">
+          <Button size="small" variant="outlined" color="error" disabled={isButtonDisabled} onClick={handleClick} sx={{ width: "15%" }}>CANCEL ORDER</Button>
+        </div>
         <AlertDialogSlide
           cancelOrder={cancelOrder}
           open={dialogOpen}

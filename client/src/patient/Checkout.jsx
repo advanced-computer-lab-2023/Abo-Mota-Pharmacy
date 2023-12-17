@@ -37,8 +37,7 @@ const Checkout = ({ socket }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { totalAmount, cartItems, medicines } = location.state;
-  const handleRedirect = () =>
-    navigate("/patient/order", { state: { totalAmount, cartItems } });
+  const handleRedirect = () => navigate("/patient/order", { state: { totalAmount, cartItems } });
 
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = ["Delivery", "Payment"];
@@ -116,8 +115,8 @@ const Checkout = ({ socket }) => {
           navigate("/patient/order", { state: { totalAmount, cartItems } });
         }, 1500);
 
-        console.log("ORDER RES",orderRes);
-        const {soldOutMedicine} = orderRes;
+        console.log("ORDER RES", orderRes);
+        const { soldOutMedicine } = orderRes;
 
         soldOutMedicine.forEach((medicine) => {
           pharmacistsArray.forEach((pharmacist) => {
@@ -129,13 +128,13 @@ const Checkout = ({ socket }) => {
               .unwrap()
               .then((res) => console.log(res))
               .catch((err) => console.log(err));
-  
+
             //send socket event to backend
             socket.emit("send_notification_stock", {
               receiver: pharmacist._id,
               content: `The medicine ${medicine.name} is out of stock.`,
             });
-  
+
             sendEmail({
               email: pharmacist.email,
               subject: "Item sold out",
@@ -143,12 +142,8 @@ const Checkout = ({ socket }) => {
             });
           });
         });
-
       });
-
-
-      
-    };
+  };
 
   const onFailedCheckout = () => {
     setToast({
@@ -197,6 +192,7 @@ const Checkout = ({ socket }) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     if (prevActiveStep === 0) {
       setSelectedOption(null);
+      navigate("/patient/medicine");
     }
   };
 
@@ -452,14 +448,9 @@ const Checkout = ({ socket }) => {
               <Typography level="h6" sx={{ mr: 0.5 }}>
                 {" "}
                 Saved Addresses*:
-                <Dropdown
-                  open={openSavedAddresses}
-                  onOpenChange={handleOpenChangeSavedAddresses}
-                >
+                <Dropdown open={openSavedAddresses} onOpenChange={handleOpenChangeSavedAddresses}>
                   <MenuButton style={{ marginLeft: "10px" }}>
-                    {selectedAddress
-                      ? addressToString(selectedAddress)
-                      : "Saved Addresses"}{" "}
+                    {selectedAddress ? addressToString(selectedAddress) : "Saved Addresses"}{" "}
                     <BsArrowDownSquare style={{ marginLeft: "10px" }} />
                   </MenuButton>
                   <Menu>
@@ -493,11 +484,7 @@ const Checkout = ({ socket }) => {
       case 1:
         return (
           <Card sx={{ borderRadius: 0, p: 4 }}>
-            <Box
-              id="button-group"
-              sx={{ display: "flex", gap: 1 }}
-              className="flex space-x-2 mb-5"
-            >
+            <Box id="button-group" sx={{ display: "flex", gap: 1 }} className="flex space-x-2 mb-5">
               {buttonGroup.map((button) => (
                 <Button
                   key={button.id}
@@ -574,11 +561,7 @@ const Checkout = ({ socket }) => {
       <Fragment>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <div>
-            <Button
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
+            <Button onClick={handleBack} sx={{ mr: 1 }}>
               Back
             </Button>
           </div>

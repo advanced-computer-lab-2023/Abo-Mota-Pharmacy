@@ -11,15 +11,15 @@
     justify-content: center;
     align-items: center;
   } */
-  .container {
+  .container1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 70px; 
     align-content: center;
     /* justify-content:space-evenly; */
-    margin-left: 50px;
-    margin-right: 50px;
-  }
+    /* margin-left: 10px;
+    margin-right: 10px; */
+   } 
   
 
   .filterDiv {

@@ -7,8 +7,10 @@ import LoginForm from "./shared/pages/LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterScreen from "./patient/scenes/RegisterScreen";
 import RegisterForm from "./pharmacist/scenes/RegisterForm";
+import ConnectAccountForm from "./patient/scenes/ConnectAccountsForm";
 import io from "socket.io-client";
 import LandingPage from "./shared/pages/LandingPage/LandingPage";
+
 
 const socket = io.connect("http://localhost:8000");
 
@@ -28,9 +30,12 @@ function App() {
             element={<PharmacistApp socket={socket} />}
           />
         </Route>
+
         <Route element={<ProtectedRoute roles={["patient"]} />}>
           <Route path='/patient/*' element={<PatientApp socket={socket} />} />
+          
         </Route>
+
         <Route element={<ProtectedRoute roles={["admin"]} />}>
           <Route path='/admin/*' element={<AdminApp />} />
         </Route>

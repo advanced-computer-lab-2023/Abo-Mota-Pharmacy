@@ -10,11 +10,14 @@
   --main-color-transparent: rgba(0, 0, 255, 0.8);
 }
 html {
+  font-size: 80%;
+  /* height: 100%; */
   /* font-size: 80%; */
 }
 
 body {
   margin: 0px;
-  background: #eee;
+  background: #aaa;
   font-family: Besley, serif;
+  /* height: 100%; */
 }

@@ -82,7 +82,7 @@ const SalesReport = () => {
       <Card className='mb-5 bg-white text-black'>
         <Box className='p-4 flex justify-between items-center'>
           <Typography
-            variant='h3'
+            variant='h5'
             component='div'
             fontWeight={500}
             className='text-l'
@@ -91,7 +91,7 @@ const SalesReport = () => {
           </Typography>
 
           <Typography
-            variant='h4'
+            variant='h5'
             component='div'
             fontWeight={500}
             className='text-s'
