@@ -23,7 +23,7 @@ function Chat({ socket }) {
   }
 
   return (
-    <Box className="grow flex h-2">
+    <Box className="h-full flex">
       <Box className="h-full bg-blue-100">
         <SideChat selectedRecipientId={selectedRecipientId} setSelectedRecipientId={setSelectedRecipientId} />
       </Box>

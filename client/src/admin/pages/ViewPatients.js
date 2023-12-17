@@ -25,7 +25,7 @@ function ViewPatients(){
 	}
 	
 	return (
-		<div>
+		<div className="ml-20 mr-20 mt-14">
 			{content}
 		</div>
 	)

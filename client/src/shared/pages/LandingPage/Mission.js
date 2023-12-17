@@ -4,7 +4,6 @@ import Button from "../../components/Button";
 
 const Mission = () => {
   const darkBlueColor = "#1c64f2"; // This is the dark blue color used earlier
-
   return (
     <section className='bg-white py-12 mt-12'>
       <div className='container mx-auto px-4 md:px-6 flex flex-wrap items-center'>
@@ -24,7 +23,7 @@ const Mission = () => {
           <blockquote className='text-xl md:text-2xl'>
             <FaQuoteLeft className='text-4xl mr-4 text-blue-900' />
             <p className='italic text-blue-800'>
-              An apple a day keeps the doctor away. No more apples.
+            Just like nicotine, heroin, morphine.Suddenly, I'm a fiend and you're all I need
             </p>
           </blockquote>
           <p className='font-semibold text-lg mt-4'>
