@@ -531,52 +531,54 @@ const Checkout = ({ socket }) => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <Typography level="h1" sx={{ ml: 0.5 }}>
-        Checkout
-      </Typography>
-      <Typography level="h4" sx={{ ml: 0.5 }}>
-        Required field *
-      </Typography>
+    <div className="mr-20 mt-14 ml-20">
+      <Box sx={{ width: "100%" }} >
+        <Stepper activeStep={activeStep} alternativeLabel>
+          {steps.map((label, index) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <Typography level="h1" sx={{ ml: 0.5 }}>
+          Checkout
+        </Typography>
+        <Typography level="h4" sx={{ ml: 0.5 }}>
+          Required field *
+        </Typography>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "40vh",
-          gap: "10px",
-        }}
-      >
-        {getStepContent(activeStep)}
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "40vh",
+            gap: "10px",
+          }}
+        >
+          {getStepContent(activeStep)}
+        </div>
 
-      <Fragment>
-        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-          <div>
-            <Button onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-          </div>
-          <Box sx={{ flex: "1 1 auto" }} />
+        <Fragment >
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }} className="ml-20 mr-20">
+            <div>
+              <Button onClick={handleBack} sx={{ mr: 1 }}>
+                Back
+              </Button>
+            </div>
+            <Box sx={{ flex: "1 1 auto" }} />
 
-          {activeStep === steps.length - 1 ? (
-            renderPaymentStatus()
-          ) : (
-            <Button onClick={handleNext}>Next</Button>
-          )}
-        </Box>
-      </Fragment>
+            {activeStep === steps.length - 1 ? (
+              renderPaymentStatus()
+            ) : (
+              <Button onClick={handleNext}>Next</Button>
+            )}
+          </Box>
+        </Fragment>
 
-      <Toast {...toast} onClose={onToastClose} />
-    </Box>
+        <Toast {...toast} onClose={onToastClose} />
+      </Box>
+    </div>
   );
 };
 

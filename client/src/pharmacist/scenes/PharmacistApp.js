@@ -13,14 +13,18 @@ import Chat from "../../shared/pages/Chat";
 import Notifications from "../../shared/pages/Notification";
 import Outline from "../../shared/Outline";
 import sidebarItems from "../sidebarItems"
-import ChangePassword from "../../shared/components/ChangePassword";
+import MedList from "./MedList";
 
 function PharmacistApp({ socket }) {
 
   const { data, isFetching } = useGetPharmacistQuery();
 
+    useEffect(() => {
+    !isFetching && socket.emit("user_connected", data._id)
+  }, [isFetching]);
+
   const outlet = <Routes>
-    <Route path='medicine' element={<MedicineScreen isPharmacist />} />
+    <Route path='medicine' element={<MedList isPharmacist={true} />} />
     <Route path='addMedicine' element={<AddMedicine />} />
 
     <Route path='viewSettings' element={<ViewSettings />} />
@@ -46,9 +50,7 @@ export default PharmacistApp;
 
 // const [notifications, setNotifications] = useState([]);
 
-// useEffect(() => {
-//   !isFetching && socket.emit("user_connected", data._id)
-// }, [isFetching]);
+
 
 // useEffect(() => {
 //   if (!isFetchingNotifs) {

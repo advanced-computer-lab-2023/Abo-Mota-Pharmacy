@@ -3,6 +3,7 @@ import { createElement } from 'react';
 import { GiMedicinePills, GiMedicines } from "react-icons/gi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { HiShoppingBag } from "react-icons/hi";
+import { IoChatbubblesSharp } from "react-icons/io5";
 
 const links = [
     { name: "View My Orders", to: "/patient/myOrders" },
@@ -43,7 +44,7 @@ const items = [
   },
   {
     key: '5',
-    icon: <IoSettingsSharp />,
+    icon: <IoChatbubblesSharp />,
     label: 'Chat',
     to: '/patient/chat',
   },

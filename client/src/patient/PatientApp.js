@@ -15,12 +15,17 @@ import Chat from "../shared/pages/Chat";
 import Outline from "../shared/Outline";
 import sideBarItems from "./sideBarItems";
 import PatientHome from "./PatientHome";
-
+import { useGetPatientQuery } from "../store";
+import { useEffect } from "react";
 
 function PatientApp({ socket }) {
 
-  // console.log(data);
+  const { data, isFetching } = useGetPatientQuery();
+  useEffect(() => {
+    !isFetching && socket.emit("user_connected", data._id)
+  }, [isFetching]);
 
+  
   const outlet = <Routes>
     <Route path="medicine" element={<MedList />} />
     <Route path="medicine2" element={<MedicineScreen />} />

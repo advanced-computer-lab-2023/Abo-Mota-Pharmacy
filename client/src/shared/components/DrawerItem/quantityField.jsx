@@ -23,7 +23,7 @@ const QuantityInput = ({ initialValue, onIncrement, onDecrement }) => {
   };
 
   return (
-    <div className="quantity-input">
+    <div className="quantity-input mt-5 mb-2">
       <button className="quantity-button" onClick={handleDecrement}>
         -
       </button>

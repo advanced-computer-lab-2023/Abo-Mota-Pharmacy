@@ -1,5 +1,5 @@
 import React from "react";
-import headerImage from "../../assets/landing_page image.png"; // Make sure the path is correct
+import headerImage from "../../assets/landing_page.png"; // Make sure the path is correct
 import logoImage from "../../assets/logo.png";
 import sara from "../../assets/sara-amr.PNG";
 import kord from "../../assets/omar-elkord.PNG";
@@ -17,7 +17,7 @@ const Header = () => {
 
   const navigate = useNavigate();
   const handleGetStarted = () => {
-    navigate("/patientRegistration");
+    navigate("/registerPatient");
   };
 
   return (
@@ -114,12 +114,12 @@ const Header = () => {
 function Card() {
   const navigate = useNavigate();
   const handleJoinTheTeamClick = () => {
-    navigate("/doctorRegistration");
+    navigate("/registerPharmacist");
   };
   return (
     <div className='bg-white rounded-xl shadow-lg p-6'>
       <h3 className='text-lg text-blue-900 font-semibold mb-4'>
-        Meet Our Doctors
+        Meet Our Pharmacists
       </h3>
       <div className='space-y-4'>
         {/* Doctor profile example */}
