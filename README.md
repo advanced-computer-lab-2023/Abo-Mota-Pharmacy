@@ -1125,6 +1125,285 @@ npm install
   |---------------------|--------|-----------------------------------|
   `medicineName` | string   | Unarchives a medicine   
 </details>
+<details>
+   <summary><h3>Patient Routes </h1></summary>
+   
+
+
+#### Get Logged In Patient
+
+- **Endpoint**: `GET /pharmaApi/patient`
+- **Description**: Retrieves logged in patient information
+- **Controller**: `getPatient`
+  - Fetches logged in patient's account object
+
+#### Get All Medicines
+
+- **Endpoint**: `GET /pharmaApi/patient/medicines`
+- **Description**: Retrieves all medicines available
+- **Controller**: `getMedicines`
+  - Fetches All Medicines
+#### Get All Pharmacists
+
+- **Endpoint**: `GET /pharmaApi/patient/pharmacists`
+- **Description**: Retrieves all pharmacists
+- **Controller**: `getPharmacists`
+  - Fetches All pharmacists
+
+#### Add to cart
+- **Endpoint**: `POST /pharmaApi/patient/addToCart`
+- **Description**: Add medicines to the cart
+- **Controller**: `addToCart`
+  - add medicines to the cart of the logged in patient
+- **Body Parameters**:
+    | Parameter | Type   | Description                  |
+    |-----------|--------|------------------------------|
+    | `name` | string | Name of medicine |
+
+    
+#### Delete Medical History
+- **Endpoint**: `DELETE /pharmaApi/patient/removeFromCart`
+- **Description**: Deletes a specific medicine from the cart
+- **Controller**: `removeFromCart`
+  - Deletes a medicine from the patients' cart
+- **Path Parameters (Params)**
+    | Parameter | Type   | Description                  |
+    |-----------|--------|------------------------------|
+    | `name` | string | Name of medicine |
+    | `quantity`    | number       | quantity of object in the cart|
+
+#### Get All Orders
+
+- **Endpoint**: `GET /pharmaApi/patient/orders`
+- **Description**: Retrieves all orders 
+- **Controller**: `getOrders`
+  - Fetches All orders made.
+
+
+## Delete Medical History
+
+### Endpoint
+- **URL**: `DELETE /pharmaApi/patient/removeFromCart`
+
+### Description
+- Removes a specific medicine from the patient's cart. It allows the patient to delete a certain quantity of a medicine they previously added to their cart.
+
+### Controller
+- **Function**: `removeFromCart`
+  - This controller function identifies and removes the specified quantity of the selected medicine from the patient's cart. If the specified quantity equals the quantity in the cart, it removes the medicine entry entirely.
+
+### Path Parameters
+- **Parameters**:
+
+  | Parameter | Type   | Description                                         |
+  |-----------|--------|-----------------------------------------------------|
+  | `name`    | string | The name of the medicine to be removed from the cart. |
+  | `quantity`| number | The quantity of the medicine to be removed.         |
+## Get Orders
+
+### Endpoint
+- **URL**: `GET /pharmaApi/patient/orders`
+
+### Description
+- Retrieves a list of all orders placed by the logged-in patient. This includes detailed information about each order, such as the medicines ordered and their respective images.
+
+### Controller
+- **Function**: `getOrders`
+  - This function fetches all orders made by the patient, sorted by date in descending order.
+ ## Cancel Order
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/cancelOrder`
+
+### Description
+- Allows a patient to cancel a previously placed order. The cancellation includes refunding the order amount to the patient's wallet, updating the stock of the medicines involved in the order, and changing the order status to "cancelled".
+
+### Controller
+- **Function**: `cancelOrder`
+  - The controller function performs several actions upon a successful cancellation request:
+    - Validates the existence of the order based on the provided `orderId`.
+    - Refunds the total price of the order to the patient's wallet.
+    - Updates the sales and stock quantities for each medicine involved in the order.
+    - Optionally, removes related sales reports (this part is currently commented out in the provided code).
+    - Sets the order status to "cancelled".
+  - It then responds with the updated order and patient information.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter | Type   | Description                   |
+  |-----------|--------|-------------------------------|
+  | `orderId` | string | Unique identifier of the order to be cancelled. | 
+
+## Create Order
+
+### Endpoint
+- **URL**: `POST /pharmaApi/patient/createOrder`
+
+### Description
+- This endpoint is designed for patients to create a new order for medicines. It calculates the total price of the order, taking into account any applicable discounts for clinic patients, and updates the medicine stock and sales records accordingly.
+
+### Controller
+- **Function**: `createOrder`
+  - The function begins by identifying the patient from the `username` in `req.userData`.
+  - It checks if the patient is associated with a clinic (as a `clinicPatient`) and, if so, applies any relevant health package discounts to the total price of the order.
+  - The total price of the order is calculated based on the price and quantity of each medicine in the order.
+  - The function then updates the medicine stock in the database and records the sales.
+  - Sales reports are created for each medicine in the order. There's commented-out code that indicates potential future enhancements for handling sales reports more efficiently.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter   | Type  | Description                                           |
+  |-------------|-------|-------------------------------------------------------|
+  | `medicines` | array | An array of medicine objects, each including `name`, `price`, and `quantity`. |
+## Add Delivery Address
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/addDeliveryAddress`
+
+### Description
+- This endpoint allows patients to add a new delivery address to their profile. It ensures that the address being added does not already exist in the patient's list of saved addresses.
+
+### Controller
+- **Function**: `addDeliveryAddress`
+  - The function retrieves the patient's data using the username provided in `req.userData`.
+  - It checks the existing delivery addresses to ensure the new address is not a duplicate.
+  - If the address is unique, it adds the new address (consisting of apartment number, street name, and city) to the patient's profile.
+  - The patient's delivery addresses are then updated in the database.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter        | Type   | Description                             |
+  |------------------|--------|-----------------------------------------|
+  | `apartmentNumber`| string | The apartment number of the new address.|
+  | `streetName`     | string | The street name of the new address.     |
+  | `city`           | string | The city of the new address.            |
+ ## Pay By Wallet
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/payByWallet`
+
+### Description
+- This endpoint allows patients to make payments using their wallet balance. It deducts the specified amount (deductible) from the patient's wallet.
+
+### Controller
+- **Function**: `payByWallet`
+  - The function first retrieves the patient's data using the `username` from `req.userData`.
+  - It checks if the patient's wallet balance is sufficient to cover the deductible amount.
+  - If the balance is sufficient, it deducts the specified amount from the wallet and updates the patient's wallet balance in the database.
+  - The function then responds with a success message and the updated patient information.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter   | Type   | Description                                  |
+  |-------------|--------|----------------------------------------------|
+  | `deductible`| number | The amount to be deducted from the wallet.   |
+
+## Change Password
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/changePassword`
+
+### Description
+- Allows patients to change their account password. It requires patients to provide their old password for verification before updating to a new password.
+
+### Controller
+- **Function**: `changePassword`
+  - The function retrieves the patient's data using the `username` from `req.userData`.
+  - It verifies the provided old password against the stored hashed password in the database.
+  - If the old password matches, the function proceeds to hash the new password and update it in the patient's profile.
+  - The response includes confirmation of the password change.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter    | Type   | Description                          |
+  |--------------|--------|--------------------------------------|
+  | `oldPassword`| string | The current password of the patient. |
+  | `newPassword`| string | The new password to be set.          |
+
+## View Wallet
+
+### Endpoint
+- **URL**: `GET /pharmaApi/patient/wallet`
+
+### Description
+- This endpoint provides the logged-in patient with the current balance in their wallet. It's a convenient way for patients to check their available funds.
+
+### Controller
+- **Function**: `viewWallet`
+  - The function retrieves the patient's data using the `username` from `req.userData`.
+  - It then responds with the wallet balance of the logged-in patient.
+## View Alternatives
+
+### Endpoint
+- **URL**: `GET /pharmaApi/patient/alternatives`
+
+### Description
+- This endpoint provides patients with alternative medicine options based on the active ingredient of a specified medicine. It is useful for finding substitutes when a particular medicine is unavailable or to explore other options.
+
+### Controller
+- **Function**: `viewAlternatives`
+  - The function first retrieves the specified medicine using the `medicineName` provided in the request body.
+  - It identifies the primary active ingredient of the selected medicine.
+  - Then, it searches for and returns a list of alternative medicines that contain the same primary active ingredient, are not archived, and have a quantity greater than 0.
+  - The response includes an array of alternative medicines.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter     | Type   | Description                                   |
+  |---------------|--------|-----------------------------------------------|
+  | `medicineName`| string | The name of the medicine to find alternatives for. |
+ ## Link with Clinic
+
+### Endpoint
+- **URL**: `POST /pharmaApi/patient/linkWithClinic`
+
+### Description
+- This endpoint allows patients of the pharmacy to link their accounts with their clinic profiles. It's designed to establish a connection between a patient's pharmacy and clinic records for integrated care.
+
+### Controller
+- **Function**: `linkWithClinic`
+  - The function first verifies the clinic patient's credentials using the `username` and `password` provided in the request body.
+  - If the credentials are correct, it links the pharmacy patient's account (identified by `req.userData.username`) to the clinic patient profile.
+  - It updates both the pharmacy patient's profile to include a reference to the clinic patient, and vice versa.
+  - The function responds with confirmation of the successful link.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter | Type   | Description                               |
+  |-----------|--------|-------------------------------------------|
+  | `username`| string | The username of the clinic patient.       |
+  | `password`| string | The password of the clinic patient.       |
+## Update Prescriptions Quantity
+
+### Endpoint
+- **URL**: `PATCH /pharmaApi/patient/updatePrescriptionsQuantity`
+
+### Description
+- This endpoint allows for the adjustment of the quantity of a specific medicine in a patient's prescription. It is typically used to decrement the quantity after dispensing a dose of the prescribed medicine.
+
+### Controller
+- **Function**: `updatePrescriptionsQuantity`
+  - The function first retrieves the prescription using the `prescriptionId` provided in the request body.
+  - It then iterates over the medicines in the prescription, looking for the specified `medicineId`.
+  - When the relevant medicine is found, its quantity is decremented by one.
+  - The prescription is updated in the database with the new quantity of the medicine.
+  - The function responds with the details of the updated prescription.
+
+### Body Parameters
+- **Parameters**:
+
+  | Parameter       | Type   | Description                                       |
+  |-----------------|--------|---------------------------------------------------|
+  | `prescriptionId`| string | The ID of the prescription to be updated.         |
+  | `medicineId`    | string | The ID of the medicine within the prescription whose quantity is to be updated. |
+</details>   
 
 ## Testing
 The testing is done using `Postman`. 
