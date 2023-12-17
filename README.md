@@ -342,6 +342,86 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 
 ## Screenshots
 
+<details>
+    
+<summary>Login Page</summary>
+<img width="1000" alt="login" src="./screenshots/login.png">
+
+
+</details>
+
+<details>
+    
+<summary>Patient Medicine Page</summary>
+<img width="1000" alt="login" src="./screenshots/medicinePatient.png">
+
+
+</details>
+
+<details>
+    
+<summary>Order Page</summary>
+<img width="1000" alt="login" src="./screenshots/ordersPatient.png">
+
+
+</details>
+
+<details>
+    
+<summary>View Medicine Alternatives Page</summary>
+<img width="1000" alt="login" src="./screenshots/alternativePatients.png">
+
+
+</details>
+
+<details>
+    
+<summary>Patient Settings Page</summary>
+<img width="1000" alt="login" src="./screenshots/patientSettings.png">
+
+
+</details>
+
+<details>
+    
+<summary>Sales Report Page</summary>
+<img width="1000" alt="login" src="./screenshots/salesReport.png">
+
+
+</details>
+
+<details>
+    
+<summary>Pharmacist Notification Page</summary>
+<img width="1000" alt="login" src="./screenshots/pharmacistNotifcations.png">
+
+
+</details>
+<details>
+    
+<summary>Pharmacist Settings Page</summary>
+<img width="1000" alt="login" src="./screenshots/pharmacistSettings.png">
+
+
+</details>
+<details>
+
+<summary>Admin View Pharmacists Page</summary>
+<img width="1000" alt="login" src="./screenshots/viewPharmacist.png">
+
+
+</details>
+
+<details>
+
+<summary>Medicine Inventory Page</summary>
+<img width="1000" alt="login" src="./screenshots/medicineInventory.png">
+
+
+</details>
+
+
+
 ## Tech Stack
 
 <div align="center" >

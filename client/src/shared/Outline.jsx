@@ -41,10 +41,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
   useEffect(() => {
     const handleReceiveNotification = ({ content }) => {
-
-
       setNotifications((prev) => [...prev, { content }]);
-
       setNotifCount(notifCount + 1);
     };
 
