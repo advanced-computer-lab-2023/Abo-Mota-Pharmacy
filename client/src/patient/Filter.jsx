@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import ProductCard from "../shared/components/Card";
-import "./style.css";
+// import "./style.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Button } from "@mui/material";
 import TempDrawer from "../shared/components/Drawer";
-import { useAddToCartMutation, useGetPatientQuery, useRemoveFromCartMutation } from "../store";
+import {
+  useAddToCartMutation,
+  useGetPatientQuery,
+  useRemoveFromCartMutation,
+} from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
 const Filter = ({ medicines }) => {
@@ -40,7 +44,10 @@ const Filter = ({ medicines }) => {
   };
 
   const filteredArray = medicines.filter((medicine) => {
-    return medicine.medicinalUse === selectedMedicinalUse || selectedMedicinalUse === "all";
+    return (
+      medicine.medicinalUse === selectedMedicinalUse ||
+      selectedMedicinalUse === "all"
+    );
   });
 
   // const mappedOrders = cart.map((cartItem, index) => (
@@ -149,90 +156,125 @@ const Filter = ({ medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
-        healthPackage={patient.clinicPatient.healthPackage}
+        //healthPackage={patient.clinicPatient.healthPackage}
       />
     );
   });
 
   return (
     <div>
-      <div className="cart-div">
-        <ShoppingCartOutlinedIcon />
-        <Button className="add-button" onClick={handleCartIcon}>
+      <div className="flex flex-row justify-end">
+        <button
+          className="bg-white text-black mb-2 rounded-3xl"
+          onClick={handleCartIcon}
+        >
+          <ShoppingCartOutlinedIcon />
           Cart
-        </Button>
+        </button>
       </div>
 
-      <div id="myBtnContainer">
+      <div className="flex flex-row justify-center gap-x-2">
         <button
-          className={`btn ${selectedMedicinalUse === "all" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "all" ? "bg-sky-900 text-white" : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("all")}
         >
           Show all
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Antiviral" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Antiviral" ? "bg-sky-900 text-white" : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antiviral")}
         >
           Antiviral
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Antifungal" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Antifungal" ? "bg-sky-900 text-white" : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antifungal")}
         >
           Antifungal
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Antipyretic" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Antipyretic"
+              ? "bg-sky-900 text-white"
+              : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antipyretic")}
         >
           Antipyretic
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Pain Reliever" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Pain Reliever"
+              ? "bg-sky-900 text-white"
+              : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Pain Reliever")}
         >
           Pain Reliever
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Antibiotic" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Antibiotic" ? "bg-sky-900 text-white" : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antibiotic")}
         >
           Antibiotic
         </button>
 
         <button
-          className={`btn ${selectedMedicinalUse === "Antiseptic" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Antiseptic" ? "bg-sky-900 text-white" : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antiseptic")}
         >
           Antiseptic
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Antispasmodic" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Antispasmodic"
+              ? "bg-sky-900 text-white"
+              : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antispasmodic")}
         >
           Antispasmodic
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Antihistamine" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Antihistamine"
+              ? "bg-sky-900 text-white"
+              : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antihistamine")}
         >
           Antihistamine
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Anti-inflammatory" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Anti-inflammatory"
+              ? "bg-sky-900 text-white"
+              : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Anti-inflammatory")}
         >
           Anti-inflammatory
         </button>
         <button
-          className={`btn ${selectedMedicinalUse === "Diuretic" ? "active" : ""}`}
+          className={`btn ${
+            selectedMedicinalUse === "Diuretic" ? "bg-sky-900 text-white" : ""
+          } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Diuretic")}
         >
           Diuretic
         </button>
       </div>
-      <div className="container1">{mappedArray}</div>
+      <div className="grid grid-cols-4">{mappedArray}</div>
 
       <TempDrawer
         isOpen={isDrawerOpen}
