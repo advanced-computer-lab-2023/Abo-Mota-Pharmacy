@@ -150,6 +150,7 @@ const Filter = ({ medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
+        isArchived={medicine.status}
         healthPackage={
           patient.clinicPatient !== null
             ? patient.clinicPatient.healthPackage
@@ -271,14 +272,18 @@ const Filter = ({ medicines }) => {
           Diuretic
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-16 mx-4">
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10 mx-4">
         {mappedArray}
       </div>
-      closeDrawer={closeDrawer}
-      onDeleteItem={handleDeleteItem}
-      onQuantityInc={handleQuantityInc}
-      onQuantityDec={handleQuantityDec}
-      medicines={medicines}
+      <TempDrawer
+        isOpen={isDrawerOpen}
+        closeDrawer={closeDrawer}
+        cartItems={cart}
+        onDeleteItem={handleDeleteItem}
+        onQuantityInc={handleQuantityInc}
+        onQuantityDec={handleQuantityDec}
+        medicines={medicines}
+      />
     </div>
   );
 };
