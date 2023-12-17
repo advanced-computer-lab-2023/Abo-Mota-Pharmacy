@@ -1456,6 +1456,43 @@ pm.test("Content-Type header is application/json", function () {
 ```
 </details>
 
+<details>
+   <summary>
+      Example Testing Get Sales Report
+   </summary>
+
+   ```javascript
+
+pm.test("Response status code is 200", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+
+pm.test("Content-Type header is application/json", function () {
+    pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+});
+
+pm.test("Ensure purchaseDate is in a valid date format", function () {
+    const responseData = pm.response.json();
+    
+    pm.expect(responseData).to.be.an('array');
+    responseData.forEach(function(item) {
+        pm.expect(item.purchaseDate).to.match(/^\d{4}-\d{2}-\d{2}$/);
+    });
+});
+
+pm.test("Sales field is a non-negative integer", function () {
+    const responseData = pm.response.json();
+
+    pm.expect(responseData).to.be.an('array');
+    responseData.forEach(function(item) {
+        pm.expect(item.sales).to.be.a('number');
+        pm.expect(item.sales).to.be.at.least(0);
+    });
+});
+
+```
+
+</details>
 ## How to use
 
 #### Start the client:
