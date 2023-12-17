@@ -110,7 +110,7 @@ export default function PharmacistRegistration(){
               ))}
             </Steps>
   
-            <div className="steps-content " style={{ minHeight: '300px' }}> {/* Adjusted margin and min-height */}
+            <div className="steps-content " style={{ minHeight: '300px' }}> 
               {React.createElement(steps[currentStep].content, { formik })}
             </div>
   
@@ -128,7 +128,7 @@ export default function PharmacistRegistration(){
               {currentStep === steps.length - 1 && (
       <Button
           type='secondary'
-          className={ `bg-green-500 text-white ${ !formik.isValid||formik.isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={ `bg-green-500 text-white ${formik.isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={() => {
             console.log(formik.values);
             formik.handleSubmit();}}>
