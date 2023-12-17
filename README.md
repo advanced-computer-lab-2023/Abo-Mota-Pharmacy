@@ -1247,51 +1247,41 @@ npm install
 - **Controller**: `viewWallet`
   - Retrieves and displays the wallet balance of the logged-in patient
 
- #### Link with Clinic
+ #### View Alternatives
 
-### Endpoint
-- **URL**: `POST /pharmaApi/patient/linkWithClinic`
+- **Endpoint**: `GET /pharmaApi/patient/alternatives`
+- **Description**: Provides patients with alternative medicine options based on the active ingredient of a specified medicine
+- **Controller**: `viewAlternatives`
+  - Identifies alternatives with the same primary active ingredient as the specified medicine
+- **Body Parameters**:
+  | Parameter     | Type   | Description                                   |
+  |---------------|--------|-----------------------------------------------|
+  | `medicineName`| string | The name of the medicine to find alternatives for |
 
-### Description
-- This endpoint allows patients of the pharmacy to link their accounts with their clinic profiles. It's designed to establish a connection between a patient's pharmacy and clinic records for integrated care.
+#### Link with Clinic
 
-### Controller
-- **Function**: `linkWithClinic`
-  - The function first verifies the clinic patient's credentials using the `username` and `password` provided in the request body.
-  - If the credentials are correct, it links the pharmacy patient's account (identified by `req.userData.username`) to the clinic patient profile.
-  - It updates both the pharmacy patient's profile to include a reference to the clinic patient, and vice versa.
-  - The function responds with confirmation of the successful link.
+- **Endpoint**: `POST /pharmaApi/patient/linkWithClinic`
+- **Description**: Allows patients to link their pharmacy account with their clinic profile for integrated care
+- **Controller**: `linkWithClinic`
+  - Validates clinic patient credentials and links the pharmacy and clinic patient accounts
+- **Body Parameters**:
+  | Parameter | Type   | Description                     |
+  |-----------|--------|---------------------------------|
+  | `username`| string | Username of the clinic patient  |
+  | `password`| string | Password of the clinic patient  |
 
-### Body Parameters
-- **Parameters**:
-
-  | Parameter | Type   | Description                               |
-  |-----------|--------|-------------------------------------------|
-  | `username`| string | The username of the clinic patient.       |
-  | `password`| string | The password of the clinic patient.       |
 #### Update Prescriptions Quantity
 
-### Endpoint
-- **URL**: `PATCH /pharmaApi/patient/updatePrescriptionsQuantity`
+- **Endpoint**: `PATCH /pharmaApi/patient/updatePrescriptionsQuantity`
+- **Description**: Adjusts the quantity of a specific medicine in a patient's prescription
+- **Controller**: `updatePrescriptionsQuantity`
+  - Updates the quantity of a specified medicine in the prescription
+- **Body Parameters**:
+  | Parameter      | Type   | Description                                       |
+  |----------------|--------|---------------------------------------------------|
+  | `prescriptionId`| string | ID of the prescription to be updated              |
+  | `medicineId`    | string | ID of the medicine in the prescription to update |
 
-### Description
-- This endpoint allows for the adjustment of the quantity of a specific medicine in a patient's prescription. It is typically used to decrement the quantity after dispensing a dose of the prescribed medicine.
-
-### Controller
-- **Function**: `updatePrescriptionsQuantity`
-  - The function first retrieves the prescription using the `prescriptionId` provided in the request body.
-  - It then iterates over the medicines in the prescription, looking for the specified `medicineId`.
-  - When the relevant medicine is found, its quantity is decremented by one.
-  - The prescription is updated in the database with the new quantity of the medicine.
-  - The function responds with the details of the updated prescription.
-
-### Body Parameters
-- **Parameters**:
-
-  | Parameter       | Type   | Description                                       |
-  |-----------------|--------|---------------------------------------------------|
-  | `prescriptionId`| string | The ID of the prescription to be updated.         |
-  | `medicineId`    | string | The ID of the medicine within the prescription whose quantity is to be updated. |
 </details>   
 
 <details>
