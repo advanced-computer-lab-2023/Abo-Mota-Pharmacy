@@ -10,6 +10,8 @@ import SalesReport from "../../shared/pages/SalesReport";
 import { useGetPharmacistQuery, useFetchNotificationQuery } from "../../store";
 import ViewSettings from "./ViewSettings";
 import Notifications from "../../shared/pages/Notification";
+import Outline from "../../shared/Outline";
+import sidebarItems from "../sidebarItems"
 
 function PharmacistApp({socket}) {
   const links = [
@@ -20,6 +22,15 @@ function PharmacistApp({socket}) {
     { name: "Sales Report", to: "/pharmacist/salesReport" },
     
   ];
+
+  
+ const navBarItems = [
+  {
+    name: "Profile",
+    to: "profile",
+  }
+];
+
 
   const { data, isFetching } = useGetPharmacistQuery();
   
@@ -61,9 +72,9 @@ function PharmacistApp({socket}) {
 
   return (
     <div>
-      <NavBar links={links}/>
+      {/* <NavBar links={links}/> */}
       {/* <Outlet/> */}
-     
+      {/* <Outline style={{backgroundColor: "blue"}} items={sidebarItems} navBarItems={navBarItems} socket={socket} />; */}
       <Routes>
         <Route path='medicine' element={<MedicineScreen isPharmacist />} />
         <Route path='addMedicine' element={<AddMedicine />} />
