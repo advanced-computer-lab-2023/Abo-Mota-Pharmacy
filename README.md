@@ -971,6 +971,29 @@ cd backend
 nodemon index.js
 ```
 
+## API Reference
+<details>
+   <summary><h3>Stripe Routes</h3></summary>
+   
+   #### Get Configurations
+- **Endpoint**: `GET /api/stripe/config`
+- **Description**: Retrieves Stripe configuration details.
+- **Controller**: `config`
+  - Returns Stripe publishable key.
+
+#### Create Payment Intent
+- **Endpoint**: `POST /api/stripe/create-payment-intent`
+- **Description**: Creates a new payment intent for Stripe transactions.
+- **Controller**: `createPaymentIntent`
+    - Stripe Payment Intent Creation.
+- **Body Parameters**: 
+  | Parameter     | Type   | Description               |
+  |---------------|--------|---------------------------|
+  | `amount`      | number | Transaction amount in USD |
+
+</details>
+
+
 ## Contributing
 
 Contributions are always welcome!
