@@ -1362,6 +1362,48 @@ npm install
 - **Description**: Fetches admin information.
 - **Controller**: `getAdmin`
   - Retrieves details of the logged-in admin.
+
+#### Get Medicines
+- **Endpoint**: `GET /pharmaApi/admin/medicines`
+- **Description**: Retrieve all medicines on the platform
+- **Controller**: `getMedicines`
+  - Returns a list of all medicines available on the platform
+
+#### Get Applications
+- **Endpoint**: `GET /pharmaApi/admin/applications`
+- **Description**: Retrieve a list of all pending pharmacist applications
+- **Controller**: `getApplications`
+  - Returns a list of all applications of pharmacists that are pending on the database
+
+#### Handle Application
+- **Endpoint**: `PATCH /pharmaApi/admin/applications/:id`
+- **Description**: Approves or rejects a specific pharmacist application
+- **Controller**: `handleApplication`
+  - Rejects or accepts a pharmacist's application 
+- **Path Parameters (Params)**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `id`  | string | Pharmacist ObjectId |
+- **Body Parameters**: 
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `registrationStatus`  | string | Admin verdict, either "approved" or "rejected" |
+
+#### Get Patients
+- **Endpoint**: `GET /pharmaApi/admin/patients`
+- **Description**: Retrieves all patients on the platform
+- **Controller**: `getPatients`
+  - Returns an array of all patients in the pharmacy database
+
+#### Get Patient
+- **Endpoint**: `GET /pharmaApi/admin/patients/:id`
+- **Description**: Retrieves a specific patient on the platform
+- **Controller**: `getPatient`
+  - Returns a specified patient depending on id in params
+- **Path Parameters (Params)**:
+  | Parameter   | Type   | Description       |
+  |-------------|--------|-------------------|
+  | `id`  | string | Patient ObjectId |
 </details>
 
 ## Testing
