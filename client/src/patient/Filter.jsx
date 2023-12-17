@@ -168,7 +168,7 @@ const Filter = ({ medicines }) => {
       <div className="flex flex-row justify-center gap-x-2">
         <button
           className={`btn ${
-            selectedMedicinalUse === "all" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "all" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("all")}
         >
@@ -176,7 +176,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antiviral" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Antiviral" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antiviral")}
         >
@@ -184,7 +184,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antifungal" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Antifungal" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antifungal")}
         >
@@ -192,7 +192,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antipyretic" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Antipyretic" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antipyretic")}
         >
@@ -200,7 +200,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Pain Reliever" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Pain Reliever" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Pain Reliever")}
         >
@@ -208,7 +208,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antibiotic" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Antibiotic" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antibiotic")}
         >
@@ -217,7 +217,7 @@ const Filter = ({ medicines }) => {
 
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antiseptic" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Antiseptic" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antiseptic")}
         >
@@ -225,7 +225,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antispasmodic" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Antispasmodic" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antispasmodic")}
         >
@@ -233,7 +233,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antihistamine" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Antihistamine" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antihistamine")}
         >
@@ -241,7 +241,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Anti-inflammatory" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Anti-inflammatory" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Anti-inflammatory")}
         >
@@ -249,7 +249,7 @@ const Filter = ({ medicines }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Diuretic" ? "bg-sky-900 text-white" : ""
+            selectedMedicinalUse === "Diuretic" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Diuretic")}
         >
