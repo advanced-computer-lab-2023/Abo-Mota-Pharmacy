@@ -9,7 +9,8 @@ import ChangePasswordScreen from "../shared/pages/ChangePasswordScreen";
 import SalesReport from "../shared/pages/SalesReport";
 import Outline from "../shared/Outline";
 import sideBarItems from "./sidebarItems";
-import MedList from "../patient/MedList"import ChangePasswordPage from "./pages/ChangePasswordPage";
+import MedList from "../patient/MedList";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
 
 function AdminApp() {
  
