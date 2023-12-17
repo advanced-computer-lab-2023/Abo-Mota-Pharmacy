@@ -174,7 +174,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
           </div>
         </Header>
 
-        <Content style={{ overflow: 'initial' }}>
+        <Content style={{ overflow: 'auto' }}>
           {outlet}
         </Content>
         {/* <Footer style={{ width: '100%', textAlign: 'center' }}>
