@@ -83,35 +83,11 @@ const getLoggedIn = async (req, res) => {
 
     let user;
 
-    if (userType.toLowerCase() === "patient")
-      user = await Patient.findOne({ username });
+    if (userType.toLowerCase() === "patient") user = await Patient.findOne({ username });
 
-    if (userType.toLowerCase() === "pharmacist")
-      user = await Pharmacist.findOne({ username });
+    if (userType.toLowerCase() === "pharmacist") user = await Pharmacist.findOne({ username });
 
-    if (userType.toLowerCase() === "admin")
-      user = await PharmacyAdmin.findOne({ username });
-
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-const getLoggedIn = async (req, res) => {
-  try {
-    const { username, userType } = req.userData;
-
-    let user;
-
-    if (userType.toLowerCase() === "patient")
-      user = await Patient.findOne({ username });
-
-    if (userType.toLowerCase() === "pharmacist")
-      user = await Pharmacist.findOne({ username });
-
-    if (userType.toLowerCase() === "admin")
-      user = await PharmacyAdmin.findOne({ username });
+    if (userType.toLowerCase() === "admin") user = await PharmacyAdmin.findOne({ username });
 
     res.status(200).json(user);
   } catch (error) {
