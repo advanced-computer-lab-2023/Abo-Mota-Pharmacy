@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 import FileInput from "../../../shared/components/FileInput";
 import FormErrorDialog from "../../../shared/components/FormErrorDialog/index.js";
-
+import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
 
 const AddMedicine = () => {
@@ -138,9 +138,9 @@ const AddMedicine = () => {
             {isLoading ? (
               <LoadingIndicator />
             ) : (
-              <Button type="submit">
-                <AiOutlinePlus color="#fff" size={20} />
-                Add Medicine
+              <Button type="submit" className="bg-sky-900">
+                {/* <p color="#fff" size={20} /> */}
+               + Add Medicine
               </Button>
             )}
           </div>
@@ -150,7 +150,8 @@ const AddMedicine = () => {
   );
   return (
     <div className="add-medicine-form">
-      <Header header="New Medicine Form" subheader="Please Enter new medicine info" />
+      {/* <Header header="New Medicine Form" subheader="Please Enter new medicine info" /> */}
+      <Typography><div className="text-4xl font-bold text-sky-900 ml-6">New Medicine Form</div></Typography>
       {medicineForm}
       <FormErrorDialog
         isError={addMedicineError !== ""}
