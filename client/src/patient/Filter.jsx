@@ -162,7 +162,7 @@ const Filter = ({ medicines }) => {
 
   return (
     <div>
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row justify-end flex-wrap">
         <button
           className="bg-white text-black mb-2 rounded-3xl"
           onClick={handleCartIcon}
