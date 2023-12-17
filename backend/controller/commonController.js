@@ -282,6 +282,25 @@ const nil = async (req, res) => {
   res.status(200).json("You just wasted everyone's time");
 }
 
+const getUser = async (req, res) => {
+  try {
+    const { id } = req.query;
+    let user = await Doctor.findOne({ _id: id });
+    if (!user) 
+      user = await Patient.findOne({ _id: id });
+    
+    if(!user)
+        user =  await Pharmacist.findOne({ _id: id });
+    
+
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    return res.status(200).json({ name: user.name, username: user.username });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getMessages,
   sendMessage,
@@ -292,5 +311,6 @@ module.exports = {
   sendEmailNotif,
   getNotifications,
   sendNotification,
+  getUser,
 };
 

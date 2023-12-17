@@ -25,9 +25,15 @@ function AdminApp() {
                     />
                     <Route path='salesReport' element={<SalesReport />} />
                 </Routes>
+  const navBarItems = [
+    {
+      name: "Change Password",
+      to: "/admin/changePassword",
+    }
+  ]
   return (
     <div>
-      <Outline style={{backgroundColor: "blue"}} outlet={outlet} items={sideBarItems}/>;
+      <Outline style={{backgroundColor: "blue"}} outlet={outlet} items={sideBarItems} navBarItems={navBarItems}/>;
     </div>
   );
 }

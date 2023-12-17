@@ -7,7 +7,7 @@ const BasicInformation = ({ formik }) => {
   return (
     <div>
       {/* Row for First Name and Last Name */}
-      <div className="flex flex-wrap -mx-2 mb-4">
+      <div className="flex flex-wrap -mx-2 mb-10 ">
         <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
         <Input
               label='First Name*'
@@ -30,7 +30,7 @@ const BasicInformation = ({ formik }) => {
         </div>
       </div>
       {/* Row for Date of Birth and Gender */}
-      <div className="flex flex-wrap -mx-2 mb-4">
+      <div className="flex  flex-row -mx-2 mb-10">
         <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
         <DateInput
               label='Date of Birth*'
@@ -41,7 +41,7 @@ const BasicInformation = ({ formik }) => {
               onChange={formik.handleChange}
             />
         </div>
-        <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+        <div className="w-full  md:w-96 px-2 mb-4 md:mb-0">
         <DropDown
               label='Gender*'
               type='text'

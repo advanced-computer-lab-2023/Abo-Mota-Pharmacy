@@ -111,13 +111,13 @@ return (
         </div>
         <h2 className="text-center text-2xl font-bold text-gray-700 mb-6">Login</h2>
         {UserForm}
-        <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-3 sm:space-y-0">
-          <button
-            className="text-sm text-indigo-600 hover:underline"
-            onClick={() => setForgetPassword(true)}>
-            Forgot Password?
-          </button>
-        </div>
+        <div className="flex flex-col sm:flex-row justify-center items-center mt-4 space-y-3 sm:space-y-0">
+        <button
+    className="text-sm text-blue-500 hover:underline hover:bg-transparent bg-transparent outline-none"
+    onClick={() => setForgetPassword(true)}>
+    Forgot Password?
+</button>
+      </div>
       </div>
       {forgetPassword && (
         <ForgetPasswordScreen
