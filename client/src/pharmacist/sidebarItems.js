@@ -3,6 +3,9 @@ import { createElement } from 'react';
 import { GiMedicinePills } from "react-icons/gi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { TbReportAnalytics } from "react-icons/tb";
+import { IoChatbubblesSharp } from "react-icons/io5";
+import { FaHandHoldingMedical } from "react-icons/fa";
+import { FaUserDoctor } from "react-icons/fa6";
 
 
 
@@ -33,10 +36,18 @@ const items = [
   },
   {
     key: '4',
-    icon: <IoSettingsSharp />,
+    icon: <FaUserDoctor />,
+    label: 'Doctors',
+    to: '/pharmacist/doctors',
+  }
+  ,
+  {
+    key: '5',
+    icon: <IoChatbubblesSharp />,
     label: 'Chat',
     to: '/pharmacist/chat',
   },
+  
   
 ].map(item => ({
   ...item,

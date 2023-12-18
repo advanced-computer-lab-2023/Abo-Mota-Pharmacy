@@ -14,6 +14,7 @@ import Notifications from "../../shared/pages/Notification";
 import Outline from "../../shared/Outline";
 import sidebarItems from "../sidebarItems"
 import ChangePassword from "../../shared/components/ChangePassword";
+import ViewDoctors from "./ViewDoctors";
 
 function PharmacistApp({ socket }) {
 
@@ -27,12 +28,11 @@ function PharmacistApp({ socket }) {
     <Route path='salesReport' element={<SalesReport />} />
     <Route path='notifications' element={<Notifications />} />
     <Route path='/chat/:contact?' element={<Chat socket={socket} />} />
+    <Route path='/doctors' element={<ViewDoctors />} />
   </Routes>
 
   return (
-    <div>
-      <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sidebarItems} socket={socket} />;
-    </div>
+    <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sidebarItems} socket={socket} />
   );
 }
 

@@ -17,7 +17,7 @@ const pharmacistApi = createApi({
           method: "GET",
         }),
       }),
-      
+
       getAllMedicines: builder.query({
         providesTags: (result, error) => {
           const tags = result.map((medicine) => {
@@ -130,6 +130,13 @@ const pharmacistApi = createApi({
           body: name,
         }),
       }),
+
+      getDoctors: builder.query({
+        query: () => ({
+          url: "/doctor",
+          method: "GET",
+        }),
+      }),
     };
   },
 });
@@ -143,5 +150,6 @@ export const {
   useGetSalesReportsQuery,
   useArchiveMedicineMutation,
   useUnarchiveMedicineMutation,
+  useGetDoctorsQuery,
 } = pharmacistApi;
 export { pharmacistApi };

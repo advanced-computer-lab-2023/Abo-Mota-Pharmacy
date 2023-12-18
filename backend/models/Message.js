@@ -15,8 +15,11 @@ const messageSchema = new Schema({
   recipient: {
     type: Schema.Types.ObjectId,
   },
-  recipientType: String,
   date: Date,
+  read: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const options = {
@@ -27,6 +30,7 @@ const options = {
   minute: "2-digit",
   hour12: true,
 };
+
 
 messageSchema.virtual("formattedDate").get(function () {
   return new Intl.DateTimeFormat("en-US", options).format(this.date);

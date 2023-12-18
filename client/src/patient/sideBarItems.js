@@ -3,6 +3,8 @@ import { createElement } from 'react';
 import { GiMedicinePills, GiMedicines } from "react-icons/gi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { HiShoppingBag } from "react-icons/hi";
+import { IoChatbubblesSharp } from "react-icons/io5";
+import { FaHandHoldingMedical } from "react-icons/fa";
 
 const links = [
     { name: "View My Orders", to: "/patient/myOrders" },
@@ -43,9 +45,9 @@ const items = [
   },
   {
     key: '5',
-    icon: <IoSettingsSharp />,
-    label: 'Chat',
-    to: '/patient/chat',
+    icon: <FaHandHoldingMedical />,
+    label: 'PharmaService',
+    to: '/patient/chat/000000000000000000000000',
   },
   
 ].map(item => ({

@@ -62,6 +62,7 @@ export {
   useGetSalesReportsQuery,
   useArchiveMedicineMutation,
   useUnarchiveMedicineMutation,
+  useGetDoctorsQuery,
 } from "./apis/pharmacistApi";
 
 export {

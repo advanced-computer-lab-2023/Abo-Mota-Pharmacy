@@ -19,9 +19,9 @@ const commonApi = createApi({
       }),
 
       sendMessage: builder.mutation({
-        invalidatesTags: (result, error, p) => {
-          return ["contactsDetails"];
-        },
+        // invalidatesTags: (result, error, p) => {
+        //   return ["contactsDetails"];
+        // },
         query: (data) => {
           return {
             url: "/message",

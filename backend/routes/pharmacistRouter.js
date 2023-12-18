@@ -11,6 +11,7 @@ const {
   archiveMedicine,
   unarchiveMedicine,
   getSalesReports,
+  getDoctors,
 } = require("../controller/pharmacistController");
 
 const validateMedicine = require("../middlewares/validateMedicineMiddleware");
@@ -49,5 +50,7 @@ router.get("/wallet", authorize, viewWallet);
 router.patch("/archive", authorize, archiveMedicine);
 
 router.patch("/unarchive", authorize, unarchiveMedicine);
+
+router.get("/doctor", authorize, getDoctors);
 
 module.exports = router;
