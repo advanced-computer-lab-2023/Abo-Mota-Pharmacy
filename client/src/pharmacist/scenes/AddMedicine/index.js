@@ -12,13 +12,9 @@ import { useEffect, useState } from "react";
 import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 import FileInput from "../../../shared/components/FileInput";
 import FormErrorDialog from "../../../shared/components/FormErrorDialog/index.js";
-<<<<<<< HEAD
 import { Breadcrumbs,Typography } from "@mui/joy";
 import { Link, Link as RouterLink } from "react-router-dom";
 
-=======
-import Typography from '@mui/material/Typography';
->>>>>>> 00d8d318d9ffa2d35fc1b66e590e5cda47f797d5
 import { useNavigate } from "react-router-dom";
 
 const AddMedicine = () => {
