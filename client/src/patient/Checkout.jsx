@@ -335,14 +335,14 @@ const Checkout = ({ socket }) => {
     if (selectedOption === "cash") {
       return (
         <>
-          <Typography level="h3" fontWeight={500}>
+          {/* <Typography level="h3" fontWeight={500}>
             Amount Due ${totalAmount}
-          </Typography>
-          <Typography level="h3" fontWeight={500}>
+          </Typography> */}
+          {/* <Typography level="h3" fontWeight={500}>
             Wallet -${tempWallet}
-          </Typography>
+          </Typography> */}
           <Typography level="h3" fontWeight={500}>
-            Total Amount ${totalAmount - tempWallet}
+            Total Amount ${totalAmount}
           </Typography>
           <button className="viewOrderButton" onClick={onSuccessfulCheckout}>
             Place Order
@@ -532,7 +532,7 @@ const Checkout = ({ socket }) => {
 
   return (
     <div className="mr-20 mt-14 ml-20">
-      <Box sx={{ width: "100%" }} >
+      <Box sx={{ width: "100%" }}>
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map((label, index) => (
             <Step key={label}>
@@ -559,7 +559,7 @@ const Checkout = ({ socket }) => {
           {getStepContent(activeStep)}
         </div>
 
-        <Fragment >
+        <Fragment>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }} className="ml-20 mr-20">
             <div>
               <Button onClick={handleBack} sx={{ mr: 1 }}>

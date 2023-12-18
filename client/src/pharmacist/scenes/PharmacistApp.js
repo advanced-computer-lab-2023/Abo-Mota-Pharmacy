@@ -1,19 +1,18 @@
 import React from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
-import RegisterForm from "./RegisterForm";
-import MedicineScreen from "./MedicineScreen";
+import { Routes, Route, } from "react-router-dom";
+import { useEffect } from "react";
 import AddMedicine from "./AddMedicine";
-import NavBar from "../../shared/components/NavBar";
-import ChangePasswordScreen from "../../shared/pages/ChangePasswordScreen";
 import SalesReport from "../../shared/pages/SalesReport";
-import { useGetPharmacistQuery, useFetchNotificationQuery } from "../../store";
+import { useGetPharmacistQuery } from "../../store";
 import ViewSettings from "./ViewSettings";
 import Chat from "../../shared/pages/Chat";
 import Notifications from "../../shared/pages/Notification";
 import Outline from "../../shared/Outline";
 import sidebarItems from "../sidebarItems"
 import ChangePassword from "../../shared/components/ChangePassword";
+import ViewDoctors from "./ViewDoctors";
+import MedList from "./MedList";
+import PharmacistHome from './PharmacistHome';
 
 function PharmacistApp({ socket }) {
 
@@ -24,19 +23,18 @@ function PharmacistApp({ socket }) {
   }, [isFetching]);
 
   const outlet = <Routes>
-    <Route path='medicine' element={<MedicineScreen isPharmacist />} />
+    <Route path='/' element={<PharmacistHome />} />
+    <Route path='medicine' element={<MedList isPharmacist={true} />} />
     <Route path='addMedicine' element={<AddMedicine />} />
-
     <Route path='viewSettings' element={<ViewSettings />} />
     <Route path='salesReport' element={<SalesReport />} />
     <Route path='notifications' element={<Notifications />} />
     <Route path='/chat/:contact?' element={<Chat socket={socket} />} />
+    <Route path='/doctors' element={<ViewDoctors />} />
   </Routes>
 
   return (
-    <div>
-      <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sidebarItems} socket={socket} />;
-    </div>
+    <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sidebarItems} socket={socket} />
   );
 }
 

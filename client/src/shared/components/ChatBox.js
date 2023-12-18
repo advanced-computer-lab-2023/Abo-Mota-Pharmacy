@@ -1,23 +1,36 @@
 import React from 'react'
-import { Input, Box, Avatar, Typography, Divider } from '@mui/joy'
+import { Input, Box, Avatar, Typography, Divider, Skeleton } from '@mui/joy'
 import { useState, useEffect, useRef } from 'react';
 import { IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { IoVideocamOutline } from "react-icons/io5";
 import { useFetchLoggedInQuery, useSendMessageMutation, useFetchMessagesQuery, useFetchContactQuery, useInvalidateContactDetailsMutation } from '../../store';
 import convertToCairoTime from '../functions/convertToCairoTime';
+import { FaStaffSnake } from "react-icons/fa6";
 
-function ChatBox({ socket, selectedRecipientId }) {
+import ChatBoxSkeleton from './ChatBoxSkeleton';
+
+
+function ChatBox({
+  socket,
+  selectedRecipientId,
+  messages,
+  setMessages,
+}) {
+
   const ref = useRef(null);
+  console.log("Selected recipient id: ", selectedRecipientId);
 
   const [sendMessage] = useSendMessageMutation();
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState("");
 
   const { data: contactData, isFetching: isFetchingContact, isError: isErrorContact } = useFetchContactQuery(selectedRecipientId);
   const { data: loggedInUser, isFetching: isFetchingUser, isError } = useFetchLoggedInQuery();
   const { data: messagesData, isLoading: isLoadingMessages, isFetching: isFetchingMessages, isError: isErrorMessages } = useFetchMessagesQuery(selectedRecipientId);
-  const [invalidateContacts] = useInvalidateContactDetailsMutation();
+
+  const PHARMA_SERVICE_ID = process.env.REACT_APP_PHARMA_SERVICE_ID;
+
 
   const scrollToBottom = () => {
     if (ref.current) {
@@ -28,27 +41,7 @@ function ChatBox({ socket, selectedRecipientId }) {
     }
   };
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-
-      setMessages((prevMessages) => {
-        // prevMessages[prevMessages.length - 1].showTime = false;
-        const newMessages = [...prevMessages, data];
-        return newMessages;
-      });
-
-      invalidateContacts();
-    });
-
-  }, [socket]);
-
-  useEffect(() => {
-    if (!isFetchingUser) {
-      console.log(`Emitting user connection with id ${loggedInUser._id}`);
-      socket.emit("user_connected", loggedInUser._id);
-    }
-  }, [isFetchingUser]);
-
+  // load messages state initially from db
   useEffect(() => {
     if (!isFetchingMessages) {
       if (messagesData) {
@@ -58,27 +51,6 @@ function ChatBox({ socket, selectedRecipientId }) {
   }, [isFetchingMessages, selectedRecipientId]);
 
   useEffect(() => scrollToBottom());
-
-  if (isFetchingUser || isLoadingMessages || isFetchingContact) {
-    return <div>Loading...</div>;
-  }
-
-  console.log("Contact Data: ", contactData);
-
-  // const scrollToElement = () => {
-  //   if (targetRef.current) {
-  //     const container = targetRef.current.closest('.scroll-container'); // Replace with your actual container class or ID
-  //     const elementRect = targetRef.current.getBoundingClientRect();
-  //     const containerRect = container.getBoundingClientRect();
-
-  //     // Calculate the scroll position to show more of the element
-  //     const desiredScrollTop = elementRect.top - containerRect.top - container.clientHeight / 4;
-
-  //     // Scroll to the calculated position
-  //     container.scrollTo({ top: desiredScrollTop, behavior: 'smooth' });
-  //   }
-  // };
-
 
 
   const onSendMessage = async () => {
@@ -97,10 +69,6 @@ function ChatBox({ socket, selectedRecipientId }) {
       date: new Date(),
     }
 
-    // if (ref.current) {
-    //   ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    //   console.log("About to scroll to: ", ref.current);
-    // }
     setTimeout(() => {
       scrollToBottom()
     }, 100);
@@ -109,26 +77,36 @@ function ChatBox({ socket, selectedRecipientId }) {
       "send_message",
       {
         message,
-        isRelayToClinic: contactData.contactType.toLowerCase() === "doctor"
+        senderData: loggedInUser,
+        recipientData: contactData,
+        isRelayToClinic: contactData.userType.toLowerCase() === "doctor"
       });
 
     sendMessage(message);
   };
 
-  const RecipientHeader = ({ recipientName }) => {
+  const RecipientHeader = ({ contact }) => {
     return (
-      <Box className="pl-4 py-2 bg-white" sx={{ borderBottom: '1px solid #cccccc' }}>
+      <Box className="pl-4 py-3 bg-white" sx={{ borderBottom: '1px solid #cccccc' }}>
         <Box className="flex justify-between items-center ">
           <Box className="flex items-center">
-            <Avatar color='warning' className="mr-3"> {recipientName[0]} </Avatar>
+            {/* <Avatar color='warning' className="mr-3"> {recipientName[0]} </Avatar> */}
+
+            {
+              contact._id === PHARMA_SERVICE_ID ?
+                <Avatar color="primary" className="mr-3"><FaStaffSnake style={{ fontSize: '1.5em' }} /> </Avatar>
+                :
+                <Avatar color="primary" className="mr-3">{contact.name[0]}</Avatar>
+            }
+
             <Typography level="body-lg" fontWeight={500}>
-              {recipientName}
+              {contact.name}
             </Typography>
           </Box>
 
-          <Box className="mr-5">
+          {/* <Box className="mr-5">
             <IconButton><IoVideocamOutline /></IconButton>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
 
@@ -136,9 +114,10 @@ function ChatBox({ socket, selectedRecipientId }) {
   }
 
   return (
-    <>
+    isFetchingUser || isLoadingMessages || isFetchingContact ? <ChatBoxSkeleton />
+      :
       <Box className='grow flex flex-col h-full' sx={{ position: 'relative' }}>
-        <RecipientHeader recipientName={contactData.name} />
+        <RecipientHeader contact={contactData} />
 
         <Box className="grow chatbox h-full overflow-auto" sx={{ height: '5px', px: '2em' }}>
           {/* <ScrollToBottom style={{ overflowY: 'scroll'}}> */}
@@ -146,8 +125,6 @@ function ChatBox({ socket, selectedRecipientId }) {
 
             messages.map((message, i) => {
               const { sender, content, date } = message;
-              console.log("I am here!!")
-              console.log(message);
 
               const fromMe = sender === loggedInUser._id;
               const containerClassName = fromMe ? "chat chat-end" : "chat chat-start";
@@ -197,7 +174,6 @@ function ChatBox({ socket, selectedRecipientId }) {
         </Box>
 
       </Box >
-    </>
   )
 }
 

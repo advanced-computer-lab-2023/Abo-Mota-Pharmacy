@@ -46,13 +46,15 @@ io.on("connection", (socket) => {
 	socket.on("send_message", async (data) => {
 		const {
 			message,
+			senderData,
+			recipientData,
 			isRelayToClinic
 		} = data;
 
 		const { sender, recipient } = message;
 
 		const senderSocketId = activeUsers[sender];
-		io.to(senderSocketId).emit("receive_message", message);
+		io.to(senderSocketId).emit("receive_message", data);
 
 		if (isRelayToClinic)
 			await axios.post("http://localhost:5000/api/relay", { message });
@@ -60,8 +62,10 @@ io.on("connection", (socket) => {
 		else {
 			const recipientSocketId = activeUsers[recipient];
 
+			console.log(`activeUsers in send_message = ${JSON.stringify(activeUsers, null, 2)}`);
+
 			if (recipientSocketId) {
-				socket.to(recipientSocketId).emit("receive_message", message);
+				socket.to(recipientSocketId).emit("receive_message", data);
 			}
 		}
 

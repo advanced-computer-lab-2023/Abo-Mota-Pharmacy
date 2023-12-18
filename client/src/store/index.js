@@ -62,6 +62,7 @@ export {
   useGetSalesReportsQuery,
   useArchiveMedicineMutation,
   useUnarchiveMedicineMutation,
+  useGetDoctorsQuery,
 } from "./apis/pharmacistApi";
 
 export {
@@ -103,6 +104,7 @@ export {
   useSendNotificationMutation,
   useSendEmailMutation,
   useFetchNotificationQuery,
+  useReadMessageMutation,
   useFetchUserQuery,
 } from "./apis/commonApi";
 

@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import { useAddMedicineMutation, useGetPharmacistQuery } from "../../../store";
 import FileInput from "../../../shared/components/FileInput";
 import FormErrorDialog from "../../../shared/components/FormErrorDialog/index.js";
+import { Breadcrumbs, Typography } from "@mui/joy";
+import { Link, Link as RouterLink } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,6 +31,7 @@ const AddMedicine = () => {
   }, [results]);
 
   const handleSubmit = async (values, { resetForm }) => {
+    // console.log(values);
     const medicineObj = {
       name: values.medicineName,
       price: values.price,
@@ -138,9 +141,8 @@ const AddMedicine = () => {
             {isLoading ? (
               <LoadingIndicator />
             ) : (
-              <Button type="submit">
-                <AiOutlinePlus color="#fff" size={20} />
-                Add Medicine
+              <Button type="submit" className="bg-sky-900">
+                {/* <p color="#fff" size={20} /> */}+ Add Medicine
               </Button>
             )}
           </div>
@@ -149,15 +151,27 @@ const AddMedicine = () => {
     </Formik>
   );
   return (
-    <div className="add-medicine-form">
-      <Header header="New Medicine Form" subheader="Please Enter new medicine info" />
-      {medicineForm}
-      <FormErrorDialog
-        isError={addMedicineError !== ""}
-        setClose={() => setAddMedicineError("")}
-        message={addMedicineError}
-      />
-    </div>
+    <>
+      <Breadcrumbs aria-label="breadcrumbs" className="mt-5 ml-10">
+        <Link component={RouterLink} color="neutral" to="../">
+          Home
+        </Link>
+        <Link component={RouterLink} color="neutral" to="../medicine">
+          Inventory
+        </Link>
+        <Typography>Add Medicine</Typography>
+      </Breadcrumbs>
+
+      <div className="add-medicine-form">
+        <Header header="New Medicine Form" subheader="Please Enter new medicine info" />
+        {medicineForm}
+        <FormErrorDialog
+          isError={addMedicineError !== ""}
+          setClose={() => setAddMedicineError("")}
+          message={addMedicineError}
+        />
+      </div>
+    </>
   );
 };
 const FILE_SIZE = 160 * 1024; // e.g., 160 KB
@@ -210,7 +224,7 @@ const formInitialValues = {
   availableQuantity: "",
   activeIngredients: "",
   medicinalUse: "Antibiotic",
-  isOverTheCounter: true,
+  isOverTheCounter: "true",
   medicineImage: null,
 };
 

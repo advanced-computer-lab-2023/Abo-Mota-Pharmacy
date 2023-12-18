@@ -7,22 +7,16 @@ import TempDrawer from "../shared/components/Drawer";
 import { useAddToCartMutation, useGetPatientQuery, useRemoveFromCartMutation } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
-const Filter = ({ medicines }) => {
+const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
   const [selectedMedicinalUse, setSelectedMedicinalUse] = useState("all");
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  // const [cart, setCart] = useState([]);
-
-  console.log("all medicines", medicines);
-
   const { data: patient, isFetching, error } = useGetPatientQuery();
 
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
 
   if (isFetching) return <LoadingIndicator />;
-  console.log("patient: ", patient);
-  let cart = patient?.cart || [];
 
+  let cart = patient?.cart || [];
   cart = cart.map((cartItem) => {
     const { medicine, quantity } = cartItem;
 
@@ -113,14 +107,6 @@ const Filter = ({ medicines }) => {
     });
   };
 
-  const handleCartIcon = () => {
-    setIsDrawerOpen(true);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerOpen(false);
-  };
-
   const arr = [];
   for (let i = 0; i < patient.prescriptions.length; i++) {
     for (let j = 0; j < patient.prescriptions[i].medicines.length; j++) {
@@ -132,7 +118,6 @@ const Filter = ({ medicines }) => {
 
   const mappedArray = filteredArray.map((medicine) => {
     if (!medicine.isOverTheCounter) return null;
-    console.log("medicine: ", medicine);
     return (
       <ProductCard
         name={medicine.name}
@@ -149,6 +134,7 @@ const Filter = ({ medicines }) => {
         similarMedicines={filteredArray}
         isOverTheCounter={medicine.isOverTheCounter}
         isPrescribed={arr.includes(medicine.name)}
+        isArchived={medicine.status}
         healthPackage={
           patient.clinicPatient !== null ? patient.clinicPatient.healthPackage : undefined
         }
@@ -158,13 +144,6 @@ const Filter = ({ medicines }) => {
 
   return (
     <div>
-      <div className="flex flex-row justify-end">
-        <button className="bg-white text-black mb-2 rounded-3xl" onClick={handleCartIcon}>
-          <ShoppingCartOutlinedIcon />
-          Cart
-        </button>
-      </div>
-
       <div className="flex flex-row justify-center gap-x-2">
         <button
           className={`btn ${
@@ -256,8 +235,9 @@ const Filter = ({ medicines }) => {
           Diuretic
         </button>
       </div>
-      <div className="grid grid-cols-4">{mappedArray}</div>
-
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10 mx-4">
+        {mappedArray}
+      </div>
       <TempDrawer
         isOpen={isDrawerOpen}
         closeDrawer={closeDrawer}
@@ -266,6 +246,9 @@ const Filter = ({ medicines }) => {
         onQuantityInc={handleQuantityInc}
         onQuantityDec={handleQuantityDec}
         medicines={medicines}
+        healthPackage={
+          patient.clinicPatient !== null ? patient.clinicPatient.healthPackage : undefined
+        }
       />
     </div>
   );

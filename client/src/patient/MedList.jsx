@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchBar from "../shared/components/SearchBar";
 import "./style.css";
 import Filter from "./Filter";
@@ -7,6 +8,7 @@ import LoadingIndicator from "../shared/components/LoadingIndicator";
 
 const MedList = () => {
   const [search, setSearch] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { data, error, isFetching } = useGetMedicinesQuery();
 
@@ -33,12 +35,28 @@ const MedList = () => {
     );
   });
 
+  const handleCartIcon = () => {
+    setIsDrawerOpen(true);
+  };
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+  };
+
 
   return (
-    <div className="mr-20 ml-20">
+    <div className="mr-20 ml-20 mt-10">
+      <div className="flex flex-row justify-end gap-6">
       <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
-      {/* {mappedArray} */}
-      <Filter medicines={filteredArray} />
+        <button
+          className="bg-white text-black mb-2 rounded-3xl"
+          onClick={handleCartIcon}
+        >
+          <ShoppingCartOutlinedIcon />
+          Cart
+        </button>
+      </div>
+
+      <Filter medicines={filteredArray} isDrawerOpen={isDrawerOpen} closeDrawer={closeDrawer}/>
     </div>
   );
 };

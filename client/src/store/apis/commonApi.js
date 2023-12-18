@@ -19,9 +19,9 @@ const commonApi = createApi({
       }),
 
       sendMessage: builder.mutation({
-        invalidatesTags: (result, error, p) => {
-          return ["contactsDetails"];
-        },
+        // invalidatesTags: (result, error, p) => {
+        //   return ["contactsDetails"];
+        // },
         query: (data) => {
           return {
             url: "/message",
@@ -123,6 +123,16 @@ const commonApi = createApi({
         },
       }),
 
+      readMessage: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/readMessage",
+            body: data,
+            method: "POST",
+          };
+        }
+      }),
+      
       fetchUser: builder.query({
         query: (id) => {
           return {
@@ -146,6 +156,7 @@ export const {
   useSendNotificationMutation,
   useFetchNotificationQuery,
   useSendEmailMutation,
+  useReadMessageMutation,
   useFetchUserQuery
 } = commonApi;
 
