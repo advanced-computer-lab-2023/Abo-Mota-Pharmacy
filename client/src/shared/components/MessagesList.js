@@ -19,9 +19,9 @@ export default function MessagesList({messages}) {
   });
 
   if(content.length === 0){
-    content = <Typography level="h4"  >
+    content = <JoyTypography level="body-sm" >
                 No New Messages
-                </Typography>
+              </JoyTypography>
   }
   return (
     <div>
@@ -32,7 +32,7 @@ export default function MessagesList({messages}) {
         {content}
         </List>
         <div className="flex justify-end cursor-pointer" onClick={() => {navigate("chat/")}}>
-        <Typography variant="body2" color="text.secondary"> View All Messages</Typography>
+        {messages.length> 0 && <Typography variant="body2" color="text.secondary"> View All Messages</Typography>}
       </div>
     </div>
   );
