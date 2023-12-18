@@ -4,7 +4,7 @@ import ChatBox from '../components/ChatBox';
 import SideChat from '../components/SideChat';
 import { Box, Divider } from '@mui/joy'
 import { useParams } from 'react-router-dom';
-import { useFetchLoggedInQuery } from '../../store';
+import { useFetchLoggedInQuery, useReadMessageMutation } from '../../store';
 import chatIcons from "../assets/chat_icons.png"
 import { Typography } from '@mui/joy';
 
@@ -16,6 +16,7 @@ function Chat({ socket }) {
   const [contactsDetails, setContactsDetails] = useState([]);
   const [messages, setMessages] = useState([]);
   const { data: loggedInUser, isFetching: isFetchingUser, isError } = useFetchLoggedInQuery();
+  const [readMessage] = useReadMessageMutation();
 
   useEffect(() => {
     if (!isFetchingUser) {
@@ -25,7 +26,6 @@ function Chat({ socket }) {
   }, [isFetchingUser]);
 
   const handleUpdateContactsDetails = (data) => {
-    console.log("In update contacts details event handler");
 
     setContactsDetails(prevContactsDetails => {
       const { message, senderData, recipientData } = data;
@@ -34,17 +34,33 @@ function Chat({ socket }) {
       );
 
       let newContactsDetails;
+      let read;
+      // Logged in user is the sender => must be inside the chat box
+      if (loggedInUser._id === message.sender) read = true;
+      // Logged in user is the recipient, but is on selectedRecipient => must be inside the side chat
+      else if (message.sender === selectedRecipientId) {
+        read = true;
+        setTimeout(() => {
+          readMessage({ contact: selectedRecipientId });
+        }, 1000);
+      }
+      else read = false;
+
+
       if (detailsIndex !== -1) {
         // Update existing contact details
         newContactsDetails = prevContactsDetails.map((details, index) =>
-          index === detailsIndex ? { ...details, message } : details
+          index === detailsIndex ? { ...details, message, read } : details
         );
+
       } else {
         // Add new contact details
         const newDetails = {
           contact: message.sender === loggedInUser._id ? recipientData : senderData,
-          message
+          message,
+          read
         };
+
         newContactsDetails = [...prevContactsDetails, newDetails];
       }
 
@@ -89,7 +105,6 @@ function Chat({ socket }) {
           setContactsDetails={setContactsDetails}
           selectedRecipientId={selectedRecipientId}
           setSelectedRecipientId={setSelectedRecipientId}
-          socket={socket}
         />
       </Box>
 
@@ -101,8 +116,6 @@ function Chat({ socket }) {
             ? <ChatBox
               socket={socket}
               selectedRecipientId={selectedRecipientId}
-              contactsDetails={contactsDetails}
-              setContactsDetails={setContactsDetails}
               messages={messages}
               setMessages={setMessages}
             />

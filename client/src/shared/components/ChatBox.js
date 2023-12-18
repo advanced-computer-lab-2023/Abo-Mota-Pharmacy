@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Box, Avatar, Typography, Divider } from '@mui/joy'
+import { Input, Box, Avatar, Typography, Divider, Skeleton } from '@mui/joy'
 import { useState, useEffect, useRef } from 'react';
 import { IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
@@ -8,8 +8,16 @@ import { useFetchLoggedInQuery, useSendMessageMutation, useFetchMessagesQuery, u
 import convertToCairoTime from '../functions/convertToCairoTime';
 import { FaStaffSnake } from "react-icons/fa6";
 
+import ChatBoxSkeleton from './ChatBoxSkeleton';
 
-function ChatBox({ socket, selectedRecipientId, contactsDetails, setContactsDetails, messages, setMessages }) {
+
+function ChatBox({
+  socket,
+  selectedRecipientId,
+  messages,
+  setMessages,
+}) {
+
   const ref = useRef(null);
   console.log("Selected recipient id: ", selectedRecipientId);
 
@@ -20,7 +28,6 @@ function ChatBox({ socket, selectedRecipientId, contactsDetails, setContactsDeta
   const { data: contactData, isFetching: isFetchingContact, isError: isErrorContact } = useFetchContactQuery(selectedRecipientId);
   const { data: loggedInUser, isFetching: isFetchingUser, isError } = useFetchLoggedInQuery();
   const { data: messagesData, isLoading: isLoadingMessages, isFetching: isFetchingMessages, isError: isErrorMessages } = useFetchMessagesQuery(selectedRecipientId);
-  const [invalidateContacts] = useInvalidateContactDetailsMutation();
 
   const PHARMA_SERVICE_ID = process.env.REACT_APP_PHARMA_SERVICE_ID;
 
@@ -34,8 +41,6 @@ function ChatBox({ socket, selectedRecipientId, contactsDetails, setContactsDeta
     }
   };
 
-
-
   // load messages state initially from db
   useEffect(() => {
     if (!isFetchingMessages) {
@@ -47,9 +52,6 @@ function ChatBox({ socket, selectedRecipientId, contactsDetails, setContactsDeta
 
   useEffect(() => scrollToBottom());
 
-  if (isFetchingUser || isLoadingMessages || isFetchingContact) {
-    return <div>Loading...</div>;
-  }
 
   const onSendMessage = async () => {
     if (messageContent === "")
@@ -112,7 +114,8 @@ function ChatBox({ socket, selectedRecipientId, contactsDetails, setContactsDeta
   }
 
   return (
-    <>
+    isFetchingUser || isLoadingMessages || isFetchingContact ? <ChatBoxSkeleton />
+      :
       <Box className='grow flex flex-col h-full' sx={{ position: 'relative' }}>
         <RecipientHeader contact={contactData} />
 
@@ -171,7 +174,6 @@ function ChatBox({ socket, selectedRecipientId, contactsDetails, setContactsDeta
         </Box>
 
       </Box >
-    </>
   )
 }
 

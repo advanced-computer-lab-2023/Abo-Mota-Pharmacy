@@ -104,6 +104,7 @@ export {
   useSendNotificationMutation,
   useSendEmailMutation,
   useFetchNotificationQuery,
+  useReadMessageMutation,
 } from "./apis/commonApi";
 
 export { useCreatePaymentIntentMutation, useFetchStripeConfigQuery } from "./apis/stripeApi";

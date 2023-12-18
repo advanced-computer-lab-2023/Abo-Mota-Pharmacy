@@ -1,28 +1,34 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Box, Avatar, Typography, Divider, Input, ListItemContent, ListItem, Chip, Badge } from '@mui/joy'
+import { Box, Avatar, Typography, Divider, Input, ListItemContent, ListItem, Badge, Skeleton } from '@mui/joy'
 import ListItemButton from '@mui/joy/ListItemButton';
 
-import { useFetchContactsDetailsQuery, useInvalidateMessagesMutation, useFetchLoggedInQuery } from '../../store';
+import { useFetchContactsDetailsQuery, useInvalidateMessagesMutation, useReadMessageMutation } from '../../store';
 import timeAgo from '../functions/timeAgo';
 import { FaStaffSnake } from "react-icons/fa6";
 
 import capitalize from '../functions/capitalize';
+import SideChatSkeleton from './SideChatSkeleton';
 
-function SideChat({ socket, contactsDetails, setContactsDetails, selectedRecipientId, setSelectedRecipientId }) {
+function SideChat({
+  contactsDetails,
+  setContactsDetails,
+  selectedRecipientId,
+  setSelectedRecipientId,
+}) {
 
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data: fetchedContactsDetails, isLoading: isLoadingContactsDetails, isFetching: isFetchingContactsDetails, isError: isErrorContactsDetails } = useFetchContactsDetailsQuery();
-  const { data: loggedInUser, isFetching: isFetchingUser, isError: isErrorFetchingUser } = useFetchLoggedInQuery();
   const [invalidateMessages] = useInvalidateMessagesMutation();
+  const [readMessage] = useReadMessageMutation();
   const PHARMA_SERVICE_ID = process.env.REACT_APP_PHARMA_SERVICE_ID;
-  const read = false;
 
   useEffect(() => {
     if (!isLoadingContactsDetails) {
       if (fetchedContactsDetails) {
-        setContactsDetails(fetchedContactsDetails);
+        let toBeSorted = [...fetchedContactsDetails];
+        setContactsDetails(toBeSorted.sort((a, b) => new Date(b.message.date) - new Date(a.message.date)));
       }
     }
   }, [isLoadingContactsDetails]);
@@ -52,22 +58,41 @@ function SideChat({ socket, contactsDetails, setContactsDetails, selectedRecipie
     return () => clearInterval(interval);
   });
 
+  const updateRead = (contactId) => {
+    setContactsDetails(prevContactsDetails => {
+      const updatedContactsDetails = prevContactsDetails.map(contactDetails => {
+        if (contactDetails.message.sender === contactId || contactDetails.message.recipient) {
+          return { ...contactDetails, read: true };
+        }
 
-  if (isLoadingContactsDetails) {
-    return <div>Loading...</div>;
+        return contactDetails;
+      });
+
+      return updatedContactsDetails.sort((a, b) => new Date(b.message.date) - new Date(a.message.date));
+    });
   }
 
-  const ContactCard = ({ contact, message }) => {
+
+  // if (isLoadingContactsDetails) {
+  //   return <div>Loading...</div>;
+  // }
+
+  const ContactCard = ({ contact, message, read }) => {
     const text = message.content;
-    // const maxTextLength = 35;
+
+    console.log("Received read value = ", read);
 
     return (
       <>
         <ListItem>
           <ListItemButton
             // className="flex space-x-5 px-2 py-3 rounded-md"
+            // variant={read ? 'plain' : 'soft'}
+
             onClick={() => {
               setSelectedRecipientId(contact._id);
+              updateRead(contact._id);
+              readMessage({ contact: contact._id });
               invalidateMessages();
             }}
 
@@ -90,13 +115,10 @@ function SideChat({ socket, contactsDetails, setContactsDetails, selectedRecipie
                 <Avatar sx={{ width: '3.5em', height: '3.5em' }} color='primary'>{contact.name[0]}</Avatar>
             }
 
-            { /* old font weights => <Typography level="body-md" fontWeight={500}> */}
-            { /* old font weights => <Typography level="body-sm" fontWeight={450}> */}
-
             <ListItemContent className="w-full space-y-1">
               <Box className="flex w-full justify-between items-center">
                 <Box className="flex space-x-1 items-center">
-                  <Typography level="body-md" fontWeight={500} textColor={message.read ? "#555e68" : "black"}>
+                  <Typography level="body-md" fontWeight={500} textColor={read ? "#555e68" : "black"}>
                     {contact.name}
                   </Typography>
 
@@ -113,13 +135,11 @@ function SideChat({ socket, contactsDetails, setContactsDetails, selectedRecipie
 
 
               <Box className="flex w-full justify-between items-center pr-2">
-                <Typography level="body-sm" noWrap fontWeight={message.read ? 450 : 600 } textColor={message.read ? "#555e68" : "black"}>
+                <Typography level="body-sm" noWrap fontWeight={read ? 450 : 600} textColor={read ? "#555e68" : "black"}>
                   {text}
                 </Typography>
 
-                <Badge invisible={message.read} size="md" />
-                {/* <div className='w-4 h-4 bg-blue-600 rounded-lg' /> */}
-                {/* <Chip color="primary" variant='solid' size="md">1</Chip> */}
+                <Badge invisible={read} size="lg" />
               </Box>
 
 
@@ -132,35 +152,37 @@ function SideChat({ socket, contactsDetails, setContactsDetails, selectedRecipie
   }
 
   return (
-    <Box className="h-full" sx={{ backgroundColor: '#f9f9f9', px: 2, width: '300px' }}>
-      <Typography level="h2" sx={{ p: 1 }}>
-        Chats
-      </Typography>
+    isLoadingContactsDetails ? <SideChatSkeleton />
+      : <Box className="h-full" sx={{ backgroundColor: '#f9f9f9', px: 2, width: '300px' }}>
+        <Typography level="h2" sx={{ p: 1 }}>
+          Chats
+        </Typography>
 
-      <Input
-        value={searchTerm}
-        className='mt-2 mb-5'
-        placeholder='Search for contacts'
-        sx={{ borderRadius: '1.5em' }}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+        <Input
+          value={searchTerm}
+          className='mt-2 mb-5'
+          placeholder='Search for contacts'
+          sx={{ borderRadius: '1.5em' }}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
-      <Box className="">
-        {
-          contactsDetails
-            .filter(contactDetails => contactDetails.contact.name.toLowerCase().includes(searchTerm))
-            .map((contactDetails, i) => {
-              const { contact, message } = contactDetails;
-              return (
-                <>
-                  <ContactCard contact={contact} message={message} />
-                  {(i < contactsDetails.length - 1) && <Divider sx={{ opacity: '50%' }} />}
-                </>
-              )
-            })
-        }
+        <Box className="">
+          {
+            contactsDetails
+              .filter(contactDetails => contactDetails.contact.name.toLowerCase().includes(searchTerm))
+              .map((contactDetails, i) => {
+                // const { contact, message, read } = contactDetails;
+                return (
+                  <>
+                    <ContactCard {...contactDetails} />
+                    {(i < contactsDetails.length - 1) && <Divider sx={{ opacity: '50%' }} />}
+                  </>
+                )
+              })
+          }
+        </Box>
       </Box>
-    </Box>
+
   )
 }
 

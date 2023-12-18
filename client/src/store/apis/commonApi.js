@@ -122,6 +122,16 @@ const commonApi = createApi({
           };
         },
       }),
+
+      readMessage: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/readMessage",
+            body: data,
+            method: "POST",
+          };
+        }
+      }),
     }
   },
 });
@@ -137,6 +147,7 @@ export const {
   useSendNotificationMutation,
   useFetchNotificationQuery,
   useSendEmailMutation,
+  useReadMessageMutation
 } = commonApi;
 
 export { commonApi };

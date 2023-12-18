@@ -1,8 +1,17 @@
 const express = require("express");
 const Pharmacist = require("../models/Pharmacist");
 const Message = require("../models/Message");
-// const { sendMessage, getMessages, getLoggedIn, sendEmailNotif, getNotifications, sendNotification, getRecipient, getContactedUsers, nil } = require("../controllers/commonController");
-const { sendMessage, getMessages, getContactedUsers, getLoggedIn, getContact, nil } = require("../controller/commonController");
+
+const {
+  sendMessage,
+  getMessages,
+  getContactedUsers,
+  getLoggedIn,
+  getContact,
+  nil,
+  readMessage,
+} = require("../controller/commonController");
+
 const router = express.Router();
 require("dotenv").config();
 
@@ -31,34 +40,10 @@ router.post("/pharmaservice", authorize, async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  // await Message.create({ content: "Hello", sender: "000000000000000000000000", recipient: "000000000000000000000000", date: new Date() });
 });
+
+router.post("/readMessage", authorize, readMessage);
 
 router.post("/nil", authorize, nil);
 module.exports = router;
 
-// assume the new model is:
-
-/*
-  Pharmacist => Patient
-
-  {
-    sender: actual pharmacist id
-    senderAlias: 'PharmaService' id => 0x12
-    recipient: actual patient id
-    content: message
-    date: date
-  }
-
-  ----
-
-  Patient => Pharmacist
-
-  {
-    sender: patient_id
-    senderAlias: patient_id
-    recipient: PharmaService id => 0x12
-    content: message
-    date: date
-  }
-*/
