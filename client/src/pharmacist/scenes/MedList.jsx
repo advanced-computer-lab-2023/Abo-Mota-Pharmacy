@@ -4,7 +4,8 @@ import "./style.css";
 import Filter from "./Filter";
 import { useGetAllMedicinesQuery } from "../../store";
 import LoadingIndicator from "../../shared/components/LoadingIndicator";
-import { Link } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
+import { Breadcrumbs, Typography } from "@mui/joy";
 
 const MedList = () => {
   const [search, setSearch] = useState("");
@@ -36,9 +37,15 @@ const MedList = () => {
 
   return (
     <div className="mr-20 ml-20 mb-20">
-      <div class="flex justify-end p-4 gap-8">
-        <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
-        <div class="flex justify-end p-4 ">
+      <Breadcrumbs aria-label="breadcrumbs" className="mt-5">
+          <Link component={RouterLink} color="neutral" to="../">
+            Home
+          </Link>
+          <Typography>Inventory</Typography>
+      </Breadcrumbs>
+      <div class="flex justify-end p-2 gap-8">
+        <div class="flex justify-end p-4 space-x-4">
+          <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
           <Link
             to="/pharmacist/addMedicine"
             className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"

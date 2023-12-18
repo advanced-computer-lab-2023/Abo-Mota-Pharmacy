@@ -44,7 +44,7 @@ const MedList = () => {
 
 
   return (
-    <div className="mr-20 ml-20">
+    <div className="mr-20 ml-20 mt-10">
       <div className="flex flex-row justify-end gap-6">
       <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
         <button
