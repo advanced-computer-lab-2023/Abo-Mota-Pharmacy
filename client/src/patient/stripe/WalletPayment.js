@@ -3,13 +3,16 @@ import { useGetPatientQuery } from "../../store";
 import { Button, Typography } from "@mui/joy";
 import { useState } from "react";
 
-function WalletPayment({ deductible, onSuccess, onFailure,totalAmount }) {
-
+function WalletPayment({ deductible, onSuccess, onFailure, totalAmount }) {
   // const { data: patient, isFetching: isFetchingPatient, error: isFetchingPatientError } = useFetchPatientQuery();
   const [payByWallet, walletResults] = usePayByWalletMutation();
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const { data: patient, isFetching: isFetchingPatient, error: isFetchingPatientError } = useGetPatientQuery();
+  const {
+    data: patient,
+    isFetching: isFetchingPatient,
+    error: isFetchingPatientError,
+  } = useGetPatientQuery();
 
   const handlePayByWallet = (e) => {
     e.preventDefault();
@@ -17,21 +20,18 @@ function WalletPayment({ deductible, onSuccess, onFailure,totalAmount }) {
     setIsProcessing(true);
 
     payByWallet({
-      deductible
+      deductible,
     })
       .unwrap()
       .then((res) => {
         console.log(res);
         onSuccess();
         setIsProcessing(false);
-
       })
       .catch((err) => {
         onFailure();
         setIsProcessing(false);
-
       });
-
   };
 
   if (isFetchingPatient) {
@@ -42,8 +42,12 @@ function WalletPayment({ deductible, onSuccess, onFailure,totalAmount }) {
 
   return (
     <form onSubmit={handlePayByWallet}>
-      <Typography level="h3" fontWeight={500}>Available Balance - ${patient.wallet}</Typography>
-      <Typography level="h3" fontWeight={500}>Total Amount - ${totalAmount}</Typography>
+      <Typography level="h3" fontWeight={500}>
+        Available Balance - ${parseFloat(patient.wallet.toFixed(2))}
+      </Typography>
+      <Typography level="h3" fontWeight={500}>
+        Total Amount - ${totalAmount}
+      </Typography>
       <Button
         type="submit"
         variant="solid"
@@ -52,13 +56,12 @@ function WalletPayment({ deductible, onSuccess, onFailure,totalAmount }) {
         sx={{ width: "100%", my: 3, borderRadius: 1 }}
         onClick={handlePayByWallet}
       >
-        <span> {isProcessing ? "Processing ..." : "Pay"}  </span>
+        <span> {isProcessing ? "Processing ..." : "Pay"} </span>
       </Button>
 
       <Typography level="body-sm">By clicking Pay you agree to the Terms & Conditions.</Typography>
-
     </form>
-  )
+  );
 }
 
 export default WalletPayment;

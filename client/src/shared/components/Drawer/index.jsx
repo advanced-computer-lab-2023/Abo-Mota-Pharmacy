@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import DrawerItem from '../DrawerItem';
-import { useNavigate } from 'react-router-dom';
-import { useGetMedicineByIdQuery } from '../../../store';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import DrawerItem from "../DrawerItem";
+import { useNavigate } from "react-router-dom";
+import { useGetMedicineByIdQuery } from "../../../store";
 
 export default function TemporaryDrawer({
   isOpen,
@@ -15,18 +15,20 @@ export default function TemporaryDrawer({
   onQuantityDec,
   totalAmount,
   medicines,
+  healthPackage,
 }) {
   const toggleDrawer = (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
   };
 
   totalAmount = cartItems.reduce((total, medicine) => {
-    return total + medicine.quantity * medicine.price;
+    let newPrice = medicine.price;
+    if (healthPackage !== undefined && healthPackage.package !== null) {
+      newPrice = medicine.price * (1 - healthPackage.package.pharmacyDiscount);
+    }
+    return total + medicine.quantity * newPrice;
   }, 0);
 
   const navigate = useNavigate();
@@ -37,12 +39,7 @@ export default function TemporaryDrawer({
   return (
     <div className="drawer">
       <React.Fragment>
-        <Drawer
-          anchor="right"
-          open={isOpen}
-          onClose={closeDrawer}
-          className="flex flex-col"
-        >
+        <Drawer anchor="right" open={isOpen} onClose={closeDrawer} className="flex flex-col">
           <Box
             sx={{ width: 300, padding: "16px" }}
             role="presentation"
@@ -61,6 +58,7 @@ export default function TemporaryDrawer({
                 quantityInc={() => onQuantityInc(medicine)}
                 quantityDec={() => onQuantityDec(medicine)}
                 medicineImage={medicine.medicineImage}
+                healthPackage={healthPackage}
               />
             ))}
           </div>

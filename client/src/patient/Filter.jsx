@@ -4,11 +4,7 @@ import ProductCard from "../shared/components/Card";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Button } from "@mui/material";
 import TempDrawer from "../shared/components/Drawer";
-import {
-  useAddToCartMutation,
-  useGetPatientQuery,
-  useRemoveFromCartMutation,
-} from "../store";
+import { useAddToCartMutation, useGetPatientQuery, useRemoveFromCartMutation } from "../store";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
 
 const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
@@ -38,10 +34,7 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
   };
 
   const filteredArray = medicines.filter((medicine) => {
-    return (
-      medicine.medicinalUse === selectedMedicinalUse ||
-      selectedMedicinalUse === "all"
-    );
+    return medicine.medicinalUse === selectedMedicinalUse || selectedMedicinalUse === "all";
   });
 
   // const mappedOrders = cart.map((cartItem, index) => (
@@ -114,8 +107,6 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
     });
   };
 
-  
-
   const arr = [];
   for (let i = 0; i < patient.prescriptions.length; i++) {
     for (let j = 0; j < patient.prescriptions[i].medicines.length; j++) {
@@ -145,9 +136,7 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
         isPrescribed={arr.includes(medicine.name)}
         isArchived={medicine.status}
         healthPackage={
-          patient.clinicPatient !== null
-            ? patient.clinicPatient.healthPackage
-            : undefined
+          patient.clinicPatient !== null ? patient.clinicPatient.healthPackage : undefined
         }
       />
     );
@@ -182,9 +171,7 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antipyretic"
-              ? "bg-sky-900 text-black"
-              : ""
+            selectedMedicinalUse === "Antipyretic" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antipyretic")}
         >
@@ -192,9 +179,7 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Pain Reliever"
-              ? "bg-sky-900 text-black"
-              : ""
+            selectedMedicinalUse === "Pain Reliever" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Pain Reliever")}
         >
@@ -219,9 +204,7 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antispasmodic"
-              ? "bg-sky-900 text-black"
-              : ""
+            selectedMedicinalUse === "Antispasmodic" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antispasmodic")}
         >
@@ -229,9 +212,7 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Antihistamine"
-              ? "bg-sky-900 text-black"
-              : ""
+            selectedMedicinalUse === "Antihistamine" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Antihistamine")}
         >
@@ -239,9 +220,7 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
         </button>
         <button
           className={`btn ${
-            selectedMedicinalUse === "Anti-inflammatory"
-              ? "bg-sky-900 text-black"
-              : ""
+            selectedMedicinalUse === "Anti-inflammatory" ? "bg-sky-900 text-black" : ""
           } bg-white text-black mb-2 rounded-3xl hover:bg-sky-900 hover:text-white`}
           onClick={() => filterMedicinesByMedicinalUse("Anti-inflammatory")}
         >
@@ -267,6 +246,9 @@ const Filter = ({ medicines, isDrawerOpen, closeDrawer }) => {
         onQuantityInc={handleQuantityInc}
         onQuantityDec={handleQuantityDec}
         medicines={medicines}
+        healthPackage={
+          patient.clinicPatient !== null ? patient.clinicPatient.healthPackage : undefined
+        }
       />
     </div>
   );

@@ -13,6 +13,7 @@ export default function DrawerItem({
   quantityInc,
   quantityDec,
   medicineImage,
+  healthPackage,
 }) {
   const bytesDegree = new Uint8Array(medicineImage.data.data);
   const blobDegree = new Blob([bytesDegree], {
@@ -28,6 +29,12 @@ export default function DrawerItem({
   const handleQuanDec = (newQuantity) => {
     quantityDec(newQuantity);
   };
+  let newPrice = price;
+  console.log("healthPackage: ", healthPackage);
+  if (healthPackage !== undefined && healthPackage.package !== null) {
+    // console.log("healthPackage: ", healthPackage);
+    newPrice = price * (1 - healthPackage.package.pharmacyDiscount);
+  }
   return (
     <div className="container2">
       <div className="image2">
@@ -37,7 +44,7 @@ export default function DrawerItem({
       <div className="product-details2">
         <div className="nameWithPrice2">
           <h3 className="text-xl font-medium mt-1">{name}</h3>
-          <p className="text-2xl font-normal">${price}</p>
+          <p className="text-2xl font-normal">${newPrice}</p>
         </div>
         <div>
           <QuantityInput

@@ -14,58 +14,55 @@ const ViewSettings = () => {
   }
 
   return (
-    <Box className='mx-20 my-10'>
-      <Typography level='h1' fontWeight={700}>
+    <Box className="mx-20 my-10">
+      <Typography level="h1" fontWeight={700}>
         Account Settings
       </Typography>
       <Divider sx={{ my: 2 }} />
-      <Card className='mb-5'>
-        <Box className=''>
-          <Typography level='title-md'>Wallet</Typography>
-          <Typography level='h1' fontWeight={500}>
-            {data.wallet} USD
+      <Card className="mb-5">
+        <Box className="">
+          <Typography level="title-md">Wallet</Typography>
+          <Typography level="h1" fontWeight={500}>
+            {parseFloat(data.wallet.toFixed(2))} USD
           </Typography>
         </Box>
 
         <Divider />
 
-        <Box className='flex justify-center'></Box>
+        <Box className="flex justify-center"></Box>
       </Card>
 
-      <Typography level='h2' fontWeight={400}>
+      <Typography level="h2" fontWeight={400}>
         Manage My Account
       </Typography>
       <Divider sx={{ my: 2 }} />
 
       <Card
-        className='mb-5 transition-transform hover:scale-105 bg-white text-black cursor-pointer'
+        className="mb-5 transition-transform hover:scale-105 bg-white text-black cursor-pointer"
         // onClick={() => navigate("/patient/connectAccountForm")}
       >
-        <Box className='p-4'>
-          <Typography level='h3' component='div' fontWeight={500}>
+        <Box className="p-4">
+          <Typography level="h3" component="div" fontWeight={500}>
             Connect Account
           </Typography>
           <Divider />
-          <Typography variant='h3' component='div' fontWeight={500}>
+          <Typography variant="h3" component="div" fontWeight={500}>
             {" "}
           </Typography>
           <LinkAccount />
         </Box>
       </Card>
 
-      <Card
-        className='mb-5 transition-transform hover:scale-105 bg-white text-black cursor-pointer'
-        
-      >
-        <Box className='p-4'>
-          <Typography level='h3' component='div' fontWeight={500}>
+      <Card className="mb-5 transition-transform hover:scale-105 bg-white text-black cursor-pointer">
+        <Box className="p-4">
+          <Typography level="h3" component="div" fontWeight={500}>
             Change Password
           </Typography>
           <Divider />
-          <Typography variant='h3' component='div' fontWeight={500}>
+          <Typography variant="h3" component="div" fontWeight={500}>
             {" "}
           </Typography>
-          <ChangePassword isPatient/>
+          <ChangePassword isPatient />
         </Box>
       </Card>
     </Box>
