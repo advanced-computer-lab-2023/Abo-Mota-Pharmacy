@@ -1,10 +1,8 @@
 import { useGetSalesReportsQuery } from "../../../store";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import SearchBar from "../../components/SearchBar";
 import { useState } from "react";
 import {
   TextField,
-  InputLabel,
   Typography,
   Divider,
   Card,
@@ -40,9 +38,7 @@ const SalesReport = () => {
   });
 
   const mappedArray = Object.keys(obj).map((key) => {
-    console.log(obj[key]);
     const total = obj[key].reduce((acc, curr) => {
-      console.log(curr.totalPrice);
       return acc + curr.medicineId.price * curr.sales;
     }, 0);
     const arr = obj[key].map((order, index) => {
