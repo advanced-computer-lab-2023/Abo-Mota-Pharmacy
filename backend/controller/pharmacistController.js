@@ -225,6 +225,7 @@ const getDoctors = async (req, res) => {
 	}
 };
 
+
 module.exports = {
   getPharmacist,
   getMedicines,

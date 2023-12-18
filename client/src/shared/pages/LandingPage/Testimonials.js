@@ -1,16 +1,17 @@
 // Import the required icons from react-icons if needed
 import { FaQuoteLeft } from 'react-icons/fa';
 import Image from '../../assets/testimonial picture.png';
-import nada from '../../assets/nada-ibrahim.png';
-import mabrouk from '../../assets/mohamed-mabrouk.jpg'
-import mervat from '../../assets/mervat.jpg';
-import starIcon from '../../assets/star-icon.png'
+import menrit from '../../assets/menrit.jpg';
+import mabrouk from '../../assets/mohamed-mabrouk.jpg';
+import amr from '../../assets/amr diab.jpg'
+import bassel from '../../assets/bassel.jpeg';
+import starIcon from '../../assets/star-icon.png';
 import { RxDragHandleDots1 } from "react-icons/rx";
 const testimonialsData = [
     {
-      quote: "My only regret in life is not being the product manager of Abo mota!",
-      author: "Nada Ibrahim",
-      avatar: nada 
+      quote: "さすがレボさん!",
+      author: "Menrit",
+      avatar: menrit 
     },
     {
       quote: "Amr Diab is a lucky man indeed. Being the product manager of Abo-mota is a once-in-a-lifetime opportunity!",
@@ -18,14 +19,14 @@ const testimonialsData = [
       avatar: mabrouk
     },
     {
-      quote: "The gui bonus is just a matter of time!",
-      author: "Mervat Abu-Elkheir",
-      avatar: mervat
+      quote: "I wish I could have worked with them!",
+      author: "Bassel Farouk",
+      avatar: bassel
     },
     {
       quote: "Their scrum master really outdone himself!",
       author: "Amr Diab",
-      avatar: mabrouk
+      avatar: amr
     }
   ];
 
@@ -36,7 +37,7 @@ const Testimonials = () => {
       <div className="container mx-auto px-6 relative mb-24">
         <h2 className="text-3xl font-semibold text-center text-blue-900 mb-12">What Our Clients Say About Us</h2>
         <div className="flex justify-center items-center mt-16">
-          <img src={Image} alt="Central Figure" className="w-[30rem] h-[30rem]" />
+          <img src={Image} alt="Central Figure" className="w-[40rem] h-[34rem]" />
         </div>
   
         <div className="absolute left-0 transform translate-x-[23rem] -translate-y-16"> {/* Example using a custom value */}
@@ -45,10 +46,10 @@ const Testimonials = () => {
         <div className="absolute right-0 transform -translate-x-[26rem] -translate-y-16"> {/* Example using a custom value */}
           <TestimonialCard quote={testimonialsData[1].quote} author={testimonialsData[1].author} avatar={testimonialsData[1].avatar} />
         </div>
-        <div className="absolute top-0  left-0 transform translate-x-[17rem] translate-y-48"> {/* Example using a custom value */}
+        <div className="absolute top-0  left-0 transform translate-x-[13rem] translate-y-48"> {/* Example using a custom value */}
           <TestimonialCard quote={testimonialsData[2].quote} author={testimonialsData[2].author} avatar={testimonialsData[2].avatar} />
         </div>
-        <div className="absolute top-0 right-0 transform -translate-x-[26rem] translate-y-32"> {/* Example using a custom value */}
+        <div className="absolute top-0 right-0 transform -translate-x-[24rem] translate-y-32"> {/* Example using a custom value */}
           <TestimonialCard quote={testimonialsData[3].quote} author={testimonialsData[3].author} avatar={testimonialsData[3].avatar} />
         </div>
         <div className="absolute  left-0 transform translate-x-20  -translate-y-4">

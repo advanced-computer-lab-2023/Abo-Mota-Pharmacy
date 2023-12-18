@@ -10,6 +10,11 @@ const {
   getContact,
   nil,
   readMessage,
+  sendEmailNotif,
+  getNotifications,
+  sendNotification,
+  getUser
+
 } = require("../controller/commonController");
 
 const router = express.Router();
@@ -21,11 +26,13 @@ router.get("/message", authorize, getMessages);
 
 router.post("/message", authorize, sendMessage);
 
-// router.get("/notifications", authorize, getNotifications);
+router.get("/notifications", authorize, getNotifications);
 
-// router.post("/notification", authorize, sendNotification);
+router.post("/notification", authorize, sendNotification);
 
-// router.post('/send-email', authorize, sendEmailNotif);
+router.post('/send-email', authorize, sendEmailNotif);
+
+router.get("/user", authorize, getUser);
 
 router.get("/loggedIn", authorize, getLoggedIn);
 

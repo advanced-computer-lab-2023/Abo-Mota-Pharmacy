@@ -6,7 +6,9 @@ import PopOver from './components/Popover';
 import Logo from './assets/logo.png'
 import { useLogoutMutation, useFetchNotificationQuery, useFetchLoggedInQuery } from '../store';
 import NotificationList from './components/NotificationList';
-// import MessagesList from './Components/MessagesList';
+import dayjs from 'dayjs';
+import MessagesList from './components/MessagesList';
+import {Badge} from '@mui/joy';
 
 import { CircularProgress } from '@mui/joy';
 const { Header, Content, Footer, Sider } = Layout;
@@ -21,6 +23,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
   const [notifications, setNotifications] = useState([]);
   const [notifCount, setNotifCount] = useState(0);
+  const [messageCount, setMessageCount] = useState(0);
   const [messages, setMessages] = useState([]);
 
   console.log("NOTIF COUNT", notifCount);
@@ -33,22 +36,24 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
       const notif = data.notifications
         .filter((notification) => notification != null)
         .map((notification, index) => {
-          return { content: notification.content, sender: notification.sender.username }
+          return { content: notification.content, sender: notification.sender.username, date: notification.formattedDate }
         });
-      setNotifications(notif);
+      setNotifications(notif.reverse());
     }
   }, [isFetching]);
 
   useEffect(() => {
     const handleReceiveNotification = ({ content }) => {
-      setNotifications((prev) => [...prev, { content }]);
+      setNotifications((prev) => [ { content }, ...prev]);
       setNotifCount(notifCount + 1);
     };
 
-
+    
     const handleReceiveMessage = (message) => {
-      if (!isFetchingUser && message.recipient === loggedInUser._id.toString())
-        setMessages((prevMessages) => [...prevMessages, message]);
+      if (!isFetchingUser && message.recipient === loggedInUser._id.toString()){
+        setMessages((prevMessages) => [message,...prevMessages]);
+        setMessageCount(prevCount => prevCount + 1); 
+      }
       console.log(message);
 
     }
@@ -57,7 +62,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
     if (!socket) return;
     socket.on("receive_notification_stock", handleReceiveNotification);
 
-    // socket.on("receive_message", handleReceiveMessage);
+    socket.on("receive_message", handleReceiveMessage);
 
   }, [socket, isFetchingUser]);
 
@@ -90,7 +95,9 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
   );
 
   if (isFetchingUser) return <CircularProgress />
-  // const messageContent = <MessagesList messages={messages} />;
+  const messageContent = <MessagesList messages={messages} />;
+
+ 
   const notificationContent = <NotificationList notifications={notifications} />;
 
 
@@ -136,22 +143,28 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
               onClick={() => setCollapsed(!collapsed)}
-              style={{ fontSize: '16px', border: 'none' }}
+              style={{ fontSize: '18px', border: 'none' }}
             />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            {socket && <PopOver
-              logo={<MessageOutlined style={{ fontSize: '16px', cursor: 'pointer' }} />}
-              // content={messageContent}
-              placement="bottom"
-              trigger="click"
-            />}
-            {socket && !isPatient && <PopOver
-              logo={<BellOutlined style={{ fontSize: '16px', cursor: 'pointer' }} />}
+            <Badge badgeContent={messageCount} showZero={false} size="sm" color="danger">
+              {socket && <PopOver
+                logo={<MessageOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />}
+                content={messageContent}
+                placement="bottom"
+                trigger="click"
+              />}
+            </Badge>
+
+            <Badge badgeContent={notifCount} showZero={false} size="sm" color="danger">
+              {socket && !isPatient && <PopOver
+              logo={<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />}
               content={notificationContent}
               placement="bottom"
               trigger="click"
             />}
+            </Badge>
+
             <PopOver
               logo={<UserOutlined style={{ fontSize: '16px', cursor: 'pointer' }} />}
               content={profileContent}
@@ -161,7 +174,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
           </div>
         </Header>
 
-        <Content style={{ overflow: 'initial' }}>
+        <Content style={{ overflow: 'auto' }}>
           {outlet}
         </Content>
         {/* <Footer style={{ width: '100%', textAlign: 'center' }}>

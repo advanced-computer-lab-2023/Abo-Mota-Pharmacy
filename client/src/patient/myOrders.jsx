@@ -56,19 +56,20 @@ function MyOrders() {
   } else {
     filteredOrders = orders;
   }
-
-  const renderedOrders = filteredOrders.map((order) => {
-    return (
-      <MyOrderCard
-        formattedDate={order.formattedDate}
-        cartItems={order.medicines}
-        totalAmount={order.totalPrice}
-        sx
-        orderId={order._id}
-        status={order.status}
-      />
-    );
-  });
+  let renderedOrders = [];
+  if (filteredOrders !== undefined) {
+    renderedOrders = filteredOrders.map((order) => {
+      return (
+        <MyOrderCard
+          formattedDate={order.formattedDate}
+          cartItems={order.medicines}
+          totalAmount={order.totalPrice}
+          orderId={order._id}
+          status={order.status}
+        />
+      );
+    });
+  }
 
   return (
     <div className="mr-20 ml-20 mt-10">

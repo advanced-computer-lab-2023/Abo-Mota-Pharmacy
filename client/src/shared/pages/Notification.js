@@ -18,7 +18,7 @@ export default function Notifications(){
 
     if(isFetchingNotifications) return <CircularProgress size="sm"/>
 
-    console.log(data.notifications);
+    console.log(data);
 
     //some are null in the db need to be deleted
     const notifications = data.notifications.filter((notification) => notification != null);
@@ -85,7 +85,7 @@ export default function Notifications(){
               },
             }}
           >
-            <Tab indicatorInset>
+            <Tab indicatorInset key={1}>
               Today{' '}
               {todayContent.length > 0 && (
                 <Chip
@@ -97,7 +97,7 @@ export default function Notifications(){
                 </Chip>
               )}
             </Tab>
-            <Tab indicatorInset>
+            <Tab indicatorInset key={2}>
               All{' '}
               { data.notifications.length > 0 && <Chip
                 size="sm"

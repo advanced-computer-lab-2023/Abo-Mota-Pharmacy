@@ -1,13 +1,9 @@
 import React from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
-import RegisterForm from "./RegisterForm";
-import MedicineScreen from "./MedicineScreen";
+import { Routes, Route, } from "react-router-dom";
+import { useEffect } from "react";
 import AddMedicine from "./AddMedicine";
-import NavBar from "../../shared/components/NavBar";
-import ChangePasswordScreen from "../../shared/pages/ChangePasswordScreen";
 import SalesReport from "../../shared/pages/SalesReport";
-import { useGetPharmacistQuery, useFetchNotificationQuery } from "../../store";
+import { useGetPharmacistQuery } from "../../store";
 import ViewSettings from "./ViewSettings";
 import Chat from "../../shared/pages/Chat";
 import Notifications from "../../shared/pages/Notification";
@@ -15,15 +11,21 @@ import Outline from "../../shared/Outline";
 import sidebarItems from "../sidebarItems"
 import ChangePassword from "../../shared/components/ChangePassword";
 import ViewDoctors from "./ViewDoctors";
+import MedList from "./MedList";
+import PharmacistHome from './PharmacistHome';
 
 function PharmacistApp({ socket }) {
 
   const { data, isFetching } = useGetPharmacistQuery();
 
-  const outlet = <Routes>
-    <Route path='medicine' element={<MedicineScreen isPharmacist />} />
-    <Route path='addMedicine' element={<AddMedicine />} />
+    useEffect(() => {
+    !isFetching && socket.emit("user_connected", data._id)
+  }, [isFetching]);
 
+  const outlet = <Routes>
+    <Route path='/' element={<PharmacistHome />} />
+    <Route path='medicine' element={<MedList isPharmacist={true} />} />
+    <Route path='addMedicine' element={<AddMedicine />} />
     <Route path='viewSettings' element={<ViewSettings />} />
     <Route path='salesReport' element={<SalesReport />} />
     <Route path='notifications' element={<Notifications />} />
@@ -46,9 +48,7 @@ export default PharmacistApp;
 
 // const [notifications, setNotifications] = useState([]);
 
-// useEffect(() => {
-//   !isFetching && socket.emit("user_connected", data._id)
-// }, [isFetching]);
+
 
 // useEffect(() => {
 //   if (!isFetchingNotifs) {

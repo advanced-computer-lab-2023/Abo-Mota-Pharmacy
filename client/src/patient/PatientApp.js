@@ -14,11 +14,18 @@ import PrescriptionsScreen from "./scenes/PrescriptionsScreen";
 import Chat from "../shared/pages/Chat";
 import Outline from "../shared/Outline";
 import sideBarItems from "./sideBarItems";
+import PatientHome from "./PatientHome";
+import { useGetPatientQuery } from "../store";
+import { useEffect } from "react";
 
 function PatientApp({ socket }) {
 
-  // console.log(data);
+  const { data, isFetching } = useGetPatientQuery();
+  useEffect(() => {
+    !isFetching && socket.emit("user_connected", data._id)
+  }, [isFetching]);
 
+  
   const outlet = <Routes>
     <Route path="medicine" element={<MedList />} />
     <Route path="medicine2" element={<MedicineScreen />} />
@@ -31,10 +38,12 @@ function PatientApp({ socket }) {
     <Route path='/viewSettings' element={<ViewSettings />} />
     <Route path='/prescription' element={<PrescriptionsScreen />} />
     <Route path='/chat/:contact?' element={<Chat socket={socket} />} />
-
+    <Route path="" element={<PatientHome/>}/>
     {/* </Route> */}
   </Routes>
   return (
+    
+    
     <Outline style={{ backgroundColor: "blue" }} outlet={outlet} items={sideBarItems} socket={socket} isPatient />
   );
 }

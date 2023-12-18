@@ -7,35 +7,6 @@ const Conversation = require("../models/Conversation");
 const PharmacyAdmin = require("../models/PharmacyAdmin");
 const sendEmail = require("../utils/sendEmail");
 
-// TESTING
-// PATIENT: DONE
-// PHARMACIST: DONE
-// const getMessages = async (req, res) => {
-//   try {
-//     const username = req.userData.username;
-//     const userType = req.userData.userType;
-//     const contact = req.query.contact;
-
-//     let user;
-
-//     if (userType.toLowerCase() === 'patient')
-//       user = await Patient.findOne({ username });
-//     if (userType.toLowerCase() === 'pharmacist') {
-//       user = await Pharmacist.findOne({ username: 'PharmaService' });
-//     }
-
-//     const messages = await Message.find({
-//       $or: [
-//         { sender: user._id, recipient: contact },
-//         { sender: contact, recipient: user._id }
-//       ]
-//     });
-//     res.status(200).json({ messages });
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
-
 const getMessages = async (req, res) => {
   try {
     const username = req.userData.username;
@@ -68,51 +39,6 @@ const getMessages = async (req, res) => {
   }
 };
 
-
-// TESTING
-// PATIENT: DONE
-// PHARMACIST: DONE
-
-// const sendMessage = async (req, res) => {
-//   try {
-//     const username = req.userData.username;
-//     const userType = req.userData.userType;
-//     const { content, recipient, date } = req.body;
-
-//     let sender;
-//     let message;
-
-//     if (userType.toLowerCase() === 'patient') {
-//       sender = await Patient.findOne({ username });
-
-//       message = {
-//         content,
-//         sender: sender._id,
-//         recipient: recipient,
-//         date,
-//       }
-//     }
-
-//     if (userType.toLowerCase() === 'pharmacist') {
-//       sender = await Pharmacist.findOne({ username: 'PharmaService' });
-//       const actualSender = await Pharmacist.findOne({ username: username });
-
-//       message = {
-//         content,
-//         sender: sender._id,
-//         actualSender: actualSender._id,
-//         recipient: recipient,
-//         date,
-//       }
-//     }
-
-//     await Message.create(message);
-//     res.status(200).json({ message: "Message sent successfully!" });
-
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
 
 const sendMessage = async (req, res) => {
   try {
@@ -195,92 +121,6 @@ const getNotifications = async (req, res) => {
   }
 };
 
-// TESTING
-// PATIENT: DONE
-// PHARMACIST: DONE
-
-// const getContactDetails = async (loggedIn, contactIds, collections) => {
-//   const details = await Promise.all(contactIds.map(async (contactId) => {
-
-//     const latestMessage = await Message.findOne({
-//       $or: [
-//         { sender: loggedIn._id, recipient: contactId },
-//         { sender: contactId, recipient: loggedIn._id }
-//       ]
-//     }).sort({ date: -1 }).lean();
-
-//     let contactDetails;
-//     let userType;
-
-//     for (const collection of collections) {
-//       contactDetails = await collection.findById(contactId).lean();
-//       if (contactDetails) {
-//         // Found the contact in this collection, break the loop
-//         userType = collection.modelName.toLowerCase();
-//         break;
-//       }
-//     }
-
-//     const userTypeMap = {
-//       pharmacypatient: 'patient',
-//       clinicpatient: 'patient',
-//       pharmacist: 'pharmacist',
-//       doctor: 'doctor',
-//     }
-
-//     userType = userTypeMap[userType];
-
-//     return {
-//       contact: { ...contactDetails, userType },
-//       message: latestMessage,
-//     };
-//   }));
-
-//   return details.sort((a, b) => {
-//     const dateA = new Date(a.message.date);
-//     const dateB = new Date(b.message.date);
-
-//     // Sort in descending order (newest to oldest)
-//     return dateB - dateA;
-//   });
-// }
-
-
-// const getContactedUsers = async (req, res) => {
-//   try {
-//     const username = req.userData.username;
-//     const userType = req.userData.userType;
-
-//     const sameCollection = userType.toLowerCase() === 'patient' ? Patient : Pharmacist;
-//     const oppositeCollections = userType.toLowerCase() === 'patient' ? [Pharmacist] : [Patient, Doctor];
-
-//     let loggedIn;
-
-//     if (userType.toLowerCase() === 'patient')
-//       loggedIn = await sameCollection.findOne({ username });
-
-//     if (userType.toLowerCase() === 'pharmacist')
-//       loggedIn = await sameCollection.findOne({ username: 'PharmaService' });
-
-//     // console.log(loggedIn);
-
-//     const sentMessages = await Message.find({ sender: loggedIn._id });
-
-//     // console.log(sentMessages);
-
-//     const receivedMessages = await Message.find({ recipient: loggedIn._id });
-
-//     // duplicate-free contacted users
-//     const recipientIds = [...new Set(sentMessages.map(message => message.recipient.toString()))];
-//     const senderIds = [...new Set(receivedMessages.map(message => message.sender.toString()))];
-//     const contactedUserIds = [...new Set([...recipientIds, ...senderIds])];
-//     const contactedUsers = await getContactDetails(loggedIn, contactedUserIds, oppositeCollections);
-
-//     res.status(200).json(contactedUsers);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// }
 
 const getContactedUsers = async (req, res) => {
   try {
@@ -359,55 +199,6 @@ const getContactedUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
-
-
-// const getContactDetails = async (loggedIn, contactIds, collections) => {
-//   const details = await Promise.all(contactIds.map(async (contactId) => {
-
-//     const latestMessage = await Message.findOne({
-//       $or: [
-//         { sender: loggedIn._id, recipient: contactId },
-//         { sender: contactId, recipient: loggedIn._id }
-//       ]
-//     }).sort({ date: -1 }).lean();
-
-//     let contactDetails;
-//     let userType;
-
-//     for (const collection of collections) {
-//       contactDetails = await collection.findById(contactId).lean();
-//       if (contactDetails) {
-//         // Found the contact in this collection, break the loop
-//         userType = collection.modelName.toLowerCase();
-//         break;
-//       }
-//     }
-
-//     const userTypeMap = {
-//       pharmacypatient: 'patient',
-//       clinicpatient: 'patient',
-//       pharmacist: 'pharmacist',
-//       doctor: 'doctor',
-//     }
-
-//     userType = userTypeMap[userType];
-
-//     return {
-//       contact: { ...contactDetails, userType },
-//       message: latestMessage,
-//     };
-//   }));
-
-//   return details.sort((a, b) => {
-//     const dateA = new Date(a.message.date);
-//     const dateB = new Date(b.message.date);
-
-//     // Sort in descending order (newest to oldest)
-//     return dateB - dateA;
-//   });
-// }
 
 
 const getContact = async (req, res) => {
@@ -545,6 +336,24 @@ const readMessage = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 }
+const getUser = async (req, res) => {
+  try {
+    const { id } = req.query;
+    let user = await Doctor.findOne({ _id: id });
+    if (!user) 
+      user = await Patient.findOne({ _id: id });
+    
+    if(!user)
+        user =  await Pharmacist.findOne({ _id: id });
+    
+
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    return res.status(200).json({ name: user.name, username: user.username });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   getMessages,
@@ -557,5 +366,6 @@ module.exports = {
   getNotifications,
   sendNotification,
   readMessage,
+  getUser,
 };
 
