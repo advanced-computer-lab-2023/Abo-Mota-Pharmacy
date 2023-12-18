@@ -33,41 +33,41 @@ const PharmacistHome = () => {
   });
 
   const groupedData = Object.entries(obj).map(([date, orders]) => {
-    // Sum total sales for each group
     const totalSales = orders.reduce((acc, order) => acc + order.sales, 0);
   
+    const medicineNames = [...new Set(orders.map(order => order.medicineId.name))];
+  
     return {
-      date: date,
-      sales: totalSales, 
-      name: orders[0].medicineId.name,
+      date: date, 
+      sales: totalSales,  
+      names: medicineNames, 
     };
   });
 
   const columns = [
     {
-      title: <Typography className="text-center">Name</Typography>,
-      dataIndex: 'name',
-      key: 'name',
-      render: (name) => (
-        <Typography className="text-center">{name}</Typography>
-      ),
-
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
     },
     {
-      title: <Typography className="text-center">Date</Typography>,
-      dataIndex: 'date', key: 'date',
-      render: (date) => (
-        <Typography className="text-center">{date}</Typography>
-      ),
+      title: 'Total Sales',
+      dataIndex: 'sales',
+      key: 'sales',
     },
     {
-      title: <Typography className="text-center">Sales</Typography>,
-      dataIndex: 'sales', key: 'sales',
-      render: (sales) => (
-        <Typography className="text-center">{sales}</Typography>
+      title: 'Medicine Names',
+      key: 'names',
+      render: (record) => (
+        <div>
+          {record.names.map((name, index) => (
+            <div key={index}>{name}</div>
+          ))}
+        </div>
       ),
     },
   ];
+  
 
   const getCurrentDate = () => {
     const options = { day: "2-digit", month: "short", year: "numeric" };
@@ -206,7 +206,7 @@ const PharmacistHome = () => {
         </div>
       </div>
 
-      <div className="w-10/12 ml-10 mt-10 rounded-xl">
+      <div className="w-1/2 mt-10 rounded-s">
         <Table columns={columns} dataSource={groupedData} />
       </div>
 
