@@ -69,7 +69,7 @@ function SideChatSkeleton() {
               <Box className="">
                 <Typography level="body-sm" fontWeight={450} textColor="#555e68">
                   {/* <Skeleton>HELLOOOOOOOOOOOOOOOOOOOO</Skeleton> */}
-                  <Skeleton>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Skeleton>
+                  <Skeleton>XXXXXXXXXXXXXXXXXXX</Skeleton>
                 </Typography>
               </Box>
 

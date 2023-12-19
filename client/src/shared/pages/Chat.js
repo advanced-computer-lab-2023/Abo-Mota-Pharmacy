@@ -72,6 +72,8 @@ function Chat({ socket }) {
   const handleUpdateMessages = (data) => {
     const { message } = data;
 
+    console.log(`Received data in handleUpdateMessages: ${JSON.stringify(data, null, 2)}`);
+    
     if (message.sender === selectedRecipientId || message.sender === loggedInUser._id) {
       setMessages((prevMessages) => {
         const newMessages = [...prevMessages, message];

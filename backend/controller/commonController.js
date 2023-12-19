@@ -27,6 +27,9 @@ const getMessages = async (req, res) => {
       }
     });
 
+    if (!conversation) return res.status(200).json({ messages: [] });
+
+
     const messages = await Promise.all(
       conversation.messages.map(messageId =>
         Message.findById(messageId).exec()
@@ -146,11 +149,14 @@ const getContactedUsers = async (req, res) => {
       conversation.participants.forEach(participant => {
         // Avoid adding the logged-in user's ID to the contact list
         if (!participant.equals(loggedIn._id)) {
+          const read = conversation.lastRead.get(loggedIn._id) &&
+            conversation.lastRead.get(loggedIn._id).toString() === conversation.lastMessage.toString();
+
           details.push({
             contactId: participant.toString(),
             messageId: conversation.lastMessage,
             conversation: conversation._id,
-            read: conversation.lastRead.get(loggedIn._id).toString() === conversation.lastMessage.toString(),
+            read
           });
         }
       });
@@ -336,16 +342,17 @@ const readMessage = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 }
+
 const getUser = async (req, res) => {
   try {
     const { id } = req.query;
     let user = await Doctor.findOne({ _id: id });
-    if (!user) 
+    if (!user)
       user = await Patient.findOne({ _id: id });
-    
-    if(!user)
-        user =  await Pharmacist.findOne({ _id: id });
-    
+
+    if (!user)
+      user = await Pharmacist.findOne({ _id: id });
+
 
     if (!user) return res.status(400).json({ message: "User not found" });
 

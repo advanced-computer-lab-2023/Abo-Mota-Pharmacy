@@ -46,8 +46,6 @@ io.on("connection", (socket) => {
 	socket.on("send_message", async (data) => {
 		const {
 			message,
-			senderData,
-			recipientData,
 			isRelayToClinic
 		} = data;
 
@@ -57,7 +55,7 @@ io.on("connection", (socket) => {
 		io.to(senderSocketId).emit("receive_message", data);
 
 		if (isRelayToClinic)
-			await axios.post("http://localhost:5000/api/relay", { message });
+			await axios.post("http://localhost:5000/api/relay", data);
 
 		else {
 			const recipientSocketId = activeUsers[recipient];
@@ -72,15 +70,22 @@ io.on("connection", (socket) => {
 	});
 
 	app.post("/pharmaApi/relay", (req, res) => {
-		const { message } = req.body;
-		const { recipient } = message;
+		// console.log("Relaying message to clinic");
+		// console.log(`req.body = ${JSON.stringify(req.body, null, 2)}`);
+
+		const data = req.body;
+		const { message: { recipient } } = data;
+
+		console.log(`messge in pharmaApi relay = ${JSON.stringify(recipient, null, 2)}`);
+		console.log(`recipient in pharmaApi relay = ${JSON.stringify(recipient, null, 2)}`);
+
 		const recipientSocketId = activeUsers[recipient];
 
-		if (recipientSocketId) {
-			socket.to(recipientSocketId).emit("receive_message", message);
-		}
+		console.log(`activeUsers in relay = ${JSON.stringify(activeUsers, null, 2)}`);
 
-		console.log(`Clinic Message @ Pharmacy = ${message}`);
+		if (recipientSocketId) {
+			socket.to(recipientSocketId).emit("receive_message", data);
+		}
 	});
 
 	//----------Notifications-------------//
