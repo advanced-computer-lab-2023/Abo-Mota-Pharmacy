@@ -115,7 +115,7 @@ export default function LoginForm(){
                   isLoading ? (
                     <LoadingIndicator />
                   ) : (
-                    <Button type='submit'>Log in</Button>
+                    <Button className="mt-4" type='submit'>Log in</Button>
                   )
                 }
               </div>
@@ -124,18 +124,17 @@ export default function LoginForm(){
         </Formik>
       );
 
-
 return (
     <>
     <div className="w-full max-w-md px-10 py-8 bg-white rounded-lg shadow-xl">
         <div className="flex justify-center mb-10">
           <img src={logo} alt="Logo" className="w-20 h-20" />
         </div>
-        <h2 className="text-center text-2xl font-bold text-gray-700 mb-6">Login</h2>
+        <h2 className="text-center  text-2xl font-bold text-gray-700 mb-6">Login</h2>
         {UserForm}
         <div className="flex flex-col sm:flex-row justify-center items-center mt-4 space-y-3 sm:space-y-0">
         <button
-    className="text-sm text-blue-500 hover:underline hover:bg-transparent bg-transparent outline-none"
+    className="text-sm  text-blue-500 hover:underline hover:bg-transparent bg-transparent outline-none"
     onClick={() => setForgetPassword(true)}>
     Forgot Password?
 </button>
@@ -160,13 +159,6 @@ return (
         email={email}
       />
     )}
-    {/* <FormErrorDialog
-      isError={isError}
-      setClose={() => {
-        setIsError(false);
-      }}
-    /> */}
-
       <div>
         <Toast {...toast} onClose={onToastClose} />
       </div>
@@ -177,12 +169,9 @@ return (
 const UserSchema = yup.object().shape({
     username: yup
       .string("Invalid username")
-      .required("Please enter a valid username"),
+      ,
     password: yup
       .string()
-      .min(8, "Password must be at least 8 characters long")
-      .matches(/[a-zA-Z]/, "Password must contain at least one letter")
-      .matches(/[0-9]/, "Password must contain at least one number")
       .required("Please enter a valid password"),
   });
 

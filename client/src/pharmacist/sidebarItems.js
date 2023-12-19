@@ -24,29 +24,29 @@ const items = [
   },
   {
     key: '2',
-    icon: <IoSettingsSharp />,
-    label: 'View Settings',
-    to: '/pharmacist/viewSettings',
-  },
-  {
-    key: '3',
     icon: <TbReportAnalytics />,
     label: 'Sales Report',
     to: '/pharmacist/salesReport',
   },
   {
-    key: '4',
+    key: '3',
     icon: <FaUserDoctor />,
     label: 'Doctors',
     to: '/pharmacist/doctors',
   }
   ,
   {
-    key: '5',
+    key: '4',
     icon: <IoChatbubblesSharp />,
     label: 'Chat',
     to: '/pharmacist/chat',
   },
+  {
+    key: '5',
+    icon: <IoSettingsSharp />,
+    label: 'View Settings',
+    to: '/pharmacist/viewSettings',
+  }
   
   
 ].map(item => ({
