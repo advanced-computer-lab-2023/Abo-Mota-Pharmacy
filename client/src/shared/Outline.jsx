@@ -8,7 +8,7 @@ import { useLogoutMutation, useFetchNotificationQuery, useFetchLoggedInQuery } f
 import NotificationList from './components/NotificationList';
 import dayjs from 'dayjs';
 import MessagesList from './components/MessagesList';
-import {Badge} from '@mui/joy';
+import { Badge } from '@mui/joy';
 
 import { CircularProgress } from '@mui/joy';
 const { Header, Content, Footer, Sider } = Layout;
@@ -44,15 +44,16 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
   useEffect(() => {
     const handleReceiveNotification = ({ content }) => {
-      setNotifications((prev) => [ { content }, ...prev]);
+      setNotifications((prev) => [{ content }, ...prev]);
       setNotifCount(notifCount + 1);
     };
 
-    
-    const handleReceiveMessage = (message) => {
-      if (!isFetchingUser && message.recipient === loggedInUser._id.toString()){
-        setMessages((prevMessages) => [message,...prevMessages]);
-        setMessageCount(prevCount => prevCount + 1); 
+
+    const handleReceiveMessage = (data) => {
+      const { message } = data;
+      if (!isFetchingUser && message.recipient === loggedInUser._id.toString()) {
+        setMessages((prevMessages) => [message, ...prevMessages]);
+        setMessageCount(prevCount => prevCount + 1);
       }
       console.log(message);
 
@@ -97,7 +98,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
   if (isFetchingUser) return <CircularProgress />
   const messageContent = <MessagesList messages={messages} />;
 
- 
+
   const notificationContent = <NotificationList notifications={notifications} />;
 
 
@@ -158,11 +159,11 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
             <Badge badgeContent={notifCount} showZero={false} size="sm" color="danger">
               {socket && !isPatient && <PopOver
-              logo={<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />}
-              content={notificationContent}
-              placement="bottom"
-              trigger="click"
-            />}
+                logo={<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />}
+                content={notificationContent}
+                placement="bottom"
+                trigger="click"
+              />}
             </Badge>
 
             <PopOver
