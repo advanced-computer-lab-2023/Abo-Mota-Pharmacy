@@ -159,11 +159,11 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
             <Badge badgeContent={notifCount} showZero={false} size="sm" color="danger">
               {socket && !isPatient && <PopOver
-                logo={<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />}
-                content={notificationContent}
-                placement="bottom"
-                trigger="click"
-              />}
+              logo={<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />}
+              content={notificationContent}
+              placement="bottomLeft"
+              trigger="click"
+            />}
             </Badge>
 
             <PopOver
