@@ -19,8 +19,9 @@ const Header = () => {
   }
 
   const navigate = useNavigate();
+
   const handleGetStarted= ()=>{
-    navigate('/patientRegistration');
+    navigate('/registerPatient');
   }
 
   return (
@@ -94,7 +95,7 @@ const Header = () => {
 function Card(){
   const navigate = useNavigate();
   const handleJoinTheTeamClick=()=>{
-    navigate('/doctorRegistration');
+    navigate('/registerPharmacist');
   }
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
