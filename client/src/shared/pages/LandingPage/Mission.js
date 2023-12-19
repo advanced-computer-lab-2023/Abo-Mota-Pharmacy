@@ -29,9 +29,11 @@ const Mission = () => {
           <p className='font-semibold text-lg mt-4'>
             Ahmed Labib, CEO of Abo Mota
           </p>
+          <a href="https://www.linkedin.com/in/ahmed-labib-a85799250/" target='_blank'>
           <Button type='primary' className='mt-4'>
             View More
           </Button>
+          </a>
         </div>
       </div>
     </section>
