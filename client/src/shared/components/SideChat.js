@@ -61,7 +61,7 @@ function SideChat({
   const updateRead = (contactId) => {
     setContactsDetails(prevContactsDetails => {
       const updatedContactsDetails = prevContactsDetails.map(contactDetails => {
-        if (contactDetails.message.sender === contactId || contactDetails.message.recipient) {
+        if (contactDetails.message.sender === contactId || contactDetails.message.recipient === contactId) {
           return { ...contactDetails, read: true };
         }
 
@@ -153,7 +153,7 @@ function SideChat({
 
   return (
     isLoadingContactsDetails ? <SideChatSkeleton />
-      : <Box className="h-full" sx={{ backgroundColor: '#f9f9f9', px: 2, width: '300px' }}>
+      : <Box className="h-full" sx={{ backgroundColor: '#f9f9f9', px: 2, width: '350px' }}>
         <Typography level="h2" sx={{ p: 1 }}>
           Chats
         </Typography>

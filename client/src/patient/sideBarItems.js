@@ -6,6 +6,8 @@ import { HiShoppingBag } from "react-icons/hi";
 import { IoChatbubblesSharp } from "react-icons/io5";
 import { FaHandHoldingMedical } from "react-icons/fa";
 
+const PHARMA_SERVICE_ID = process.env.REACT_APP_PHARMA_SERVICE_ID;
+
 const links = [
     { name: "View My Orders", to: "/patient/myOrders" },
     { name: "View Account", to: "/patient/viewSettings" },
@@ -47,7 +49,7 @@ const items = [
     key: '5',
     icon: <FaHandHoldingMedical />,
     label: 'PharmaService',
-    to: '/patient/chat/000000000000000000000000',
+    to: `/patient/chat/${PHARMA_SERVICE_ID}`,
   },
   
 ].map(item => ({
