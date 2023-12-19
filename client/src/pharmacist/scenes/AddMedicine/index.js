@@ -14,6 +14,7 @@ import FileInput from "../../../shared/components/FileInput";
 import FormErrorDialog from "../../../shared/components/FormErrorDialog/index.js";
 import { Breadcrumbs, Typography } from "@mui/joy";
 import { Link, Link as RouterLink } from "react-router-dom";
+// import Typography from "@mui/joy/Typography";
 
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +39,9 @@ const AddMedicine = () => {
       description: values.description,
       sales: 0,
       quantity: values.availableQuantity,
-      activeIngredients: values.activeIngredients.split(",").map((ingredient) => ingredient.trim()),
+      activeIngredients: values.activeIngredients
+        .split(",")
+        .map((ingredient) => ingredient.trim()),
       medicinalUse: values.medicinalUse,
       medicineImage: values.medicineImage,
       isOverTheCounter: values.isOverTheCounter === "true",
@@ -58,8 +61,8 @@ const AddMedicine = () => {
       onSubmit={handleSubmit}
     >
       {(formik) => (
-        <form onSubmit={formik.handleSubmit}>
-          <div className="form-container">
+        <form onSubmit={formik.handleSubmit} className="two-column-form">
+          <div className="form-column">
             <Input
               label="Medicine Name"
               id="medicineName"
@@ -68,18 +71,6 @@ const AddMedicine = () => {
               type="text"
               {...formik.getFieldProps("medicineName")}
             />
-            <FileInput
-              label="Medicine Image*"
-              id="medicineImage"
-              name="medicineImage" // Ensure this is set to correctly associate with Formik's `getFieldProps`
-              error={formik.errors.medicineImage}
-              touch={formik.touched.medicineImage}
-              onChange={(file) => formik.setFieldValue("medicineImage", file)}
-              onBlur={() => formik.setFieldTouched("medicineImage", true)} // To handle touch status
-            />
-          </div>
-
-          <div className="form-container">
             <Input
               label="Description"
               id="description"
@@ -98,7 +89,7 @@ const AddMedicine = () => {
             />
           </div>
 
-          <div className="form-container">
+          <div className="form-column">
             <Input
               label="Price"
               id="price"
@@ -115,33 +106,46 @@ const AddMedicine = () => {
               touch={formik.touched.availableQuantity}
               {...formik.getFieldProps("availableQuantity")}
             />
+            <div className="flex flex-row justify-between">
+              <DropDown
+                options={medicinalUses}
+                id="medicinalUse"
+                label="Medicinal Use"
+                error={formik.errors.medicinalUse}
+                value={formik.values.medicinalUse}
+                touch={formik.touched.medicinalUse}
+                onChange={formik.handleChange}
+              />
+              <DropDown
+                options={["true", "false"]}
+                id="isOverTheCounter"
+                label="Is Over The Counter?"
+                error={formik.errors.isOverTheCounter}
+                value={formik.values.isOverTheCounter}
+                touch={formik.touched.isOverTheCounter}
+                onChange={formik.handleChange}
+              />
+              <div className="mt-12">
+                <FileInput
+                  label="Medicine Image*"
+                  id="medicineImage"
+                  name="medicineImage"
+                  error={formik.errors.medicineImage}
+                  touch={formik.touched.medicineImage}
+                  onChange={(file) =>
+                    formik.setFieldValue("medicineImage", file)
+                  }
+                  onBlur={() => formik.setFieldTouched("medicineImage", true)}
+                />
+              </div>
+            </div>
           </div>
-          <div className="form-container">
-            <DropDown
-              options={medicinalUses}
-              id="medicinalUse"
-              label="Medicinal Use"
-              error={formik.errors.medicinalUse}
-              value={formik.values.medicinalUse}
-              touch={formik.touched.medicinalUse}
-              onChange={formik.handleChange}
-            />
-            <DropDown
-              options={["true", "false"]}
-              id="isOverTheCounter"
-              label="Is Over The Counter?"
-              error={formik.errors.isOverTheCounter}
-              value={formik.values.isOverTheCounter}
-              touch={formik.touched.isOverTheCounter}
-              onChange={formik.handleChange}
-            />
-          </div>
-          <hr />
+          <hr className="mt-15" />
           <div className="submit-add-medicine-button-container">
             {isLoading ? (
               <LoadingIndicator />
             ) : (
-              <Button type="submit" className="bg-sky-900">
+              <Button type="submit" className="bg-sky-900 hover:bg-gray-700">
                 {/* <p color="#fff" size={20} /> */}+ Add Medicine
               </Button>
             )}
@@ -163,7 +167,10 @@ const AddMedicine = () => {
       </Breadcrumbs>
 
       <div className="add-medicine-form">
-        <Header header="New Medicine Form" subheader="Please Enter new medicine info" />
+        {/* <Header header="New Medicine Form" subheader="Please Enter new medicine info" /> */}
+        <Typography>
+          <div className="text-6xl text-sky-900">New Medicine Form</div>
+        </Typography>
         {medicineForm}
         <FormErrorDialog
           isError={addMedicineError !== ""}
@@ -203,7 +210,9 @@ const MedicineSchema = yup.object().shape({
     .max(500, "Too Long!")
     .required("Active ingredients are required"),
   medicinalUse: yup.string().required("Please select a medicinal use"),
-  isOverTheCounter: yup.string().required("Please specify if the medicine is over the counter"),
+  isOverTheCounter: yup
+    .string()
+    .required("Please specify if the medicine is over the counter"),
   medicineImage: yup
     .mixed()
     .required("A file is required")

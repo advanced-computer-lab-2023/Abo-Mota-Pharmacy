@@ -33,23 +33,24 @@ const items = [
     label: 'View My Orders',
     to: '/patient/myOrders',
   },
+  
   {
     key: '3',
-    icon: <IoSettingsSharp />,
-    label: 'View Settings',
-    to: '/patient/viewSettings',
-  },
-  {
-    key: '4',
     icon: <GiMedicines />,
     label: 'Prescription',
     to: '/patient/prescription',
   },
   {
-    key: '5',
+    key: '4',
     icon: <FaHandHoldingMedical />,
     label: 'PharmaService',
     to: `/patient/chat/${PHARMA_SERVICE_ID}`,
+  },
+  {
+    key: '5',
+    icon: <IoSettingsSharp />,
+    label: 'View Settings',
+    to: '/patient/viewSettings',
   },
   
 ].map(item => ({

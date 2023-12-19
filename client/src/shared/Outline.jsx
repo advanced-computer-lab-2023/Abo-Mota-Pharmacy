@@ -8,7 +8,7 @@ import { useLogoutMutation, useFetchNotificationQuery, useFetchLoggedInQuery } f
 import NotificationList from './components/NotificationList';
 import dayjs from 'dayjs';
 import MessagesList from './components/MessagesList';
-import {Badge} from '@mui/joy';
+import { Badge } from '@mui/joy';
 
 import { CircularProgress } from '@mui/joy';
 const { Header, Content, Footer, Sider } = Layout;
@@ -48,11 +48,12 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
       setNotifCount(prevCount => prevCount + 1);
     };
 
-    
-    const handleReceiveMessage = (message) => {
-      if (!isFetchingUser && message.recipient === loggedInUser._id.toString()){
-        setMessages((prevMessages) => [message,...prevMessages]);
-        setMessageCount(prevCount => prevCount + 1); 
+
+    const handleReceiveMessage = (data) => {
+      const { message } = data;
+      if (!isFetchingUser && message.recipient === loggedInUser._id.toString()) {
+        setMessages((prevMessages) => [message, ...prevMessages]);
+        setMessageCount(prevCount => prevCount + 1);
       }
       console.log(message);
 
@@ -97,7 +98,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
   if (isFetchingUser) return <CircularProgress />
   const messageContent = <MessagesList messages={messages} />;
 
- 
+
   const notificationContent = <NotificationList notifications={notifications} />;
 
 
@@ -160,7 +161,7 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
               {socket && !isPatient && <PopOver
               logo={<BellOutlined style={{ fontSize: '18px', cursor: 'pointer' }} />}
               content={notificationContent}
-              placement="bottom"
+              placement="bottomLeft"
               trigger="click"
             />}
             </Badge>
