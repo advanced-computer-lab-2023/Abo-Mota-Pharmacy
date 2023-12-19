@@ -50,9 +50,9 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
 
 
     const handleReceiveMessage = (data) => {
-      const { message } = data;
+      const { message, senderData } = data;
       if (!isFetchingUser && message.recipient === loggedInUser._id.toString()) {
-        setMessages((prevMessages) => [message, ...prevMessages]);
+        setMessages((prevMessages) => [{message, senderData}, ...prevMessages]);
         setMessageCount(prevCount => prevCount + 1);
       }
       console.log(message);
