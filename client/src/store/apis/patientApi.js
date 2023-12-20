@@ -20,6 +20,7 @@ const patientApi = createApi({
       }),
 
       getMedicines: builder.query({
+        
         query: () => ({
           url: "/medicines",
           method: "GET",

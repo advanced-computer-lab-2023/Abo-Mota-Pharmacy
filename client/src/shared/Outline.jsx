@@ -48,7 +48,14 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
       setNotifCount(prevCount => prevCount + 1);
     };
 
+    // Attach the event listener
+    if (!socket) return;
+    socket.on("receive_notification_stock", handleReceiveNotification);
 
+  }, [socket]);
+
+  useEffect(() => {
+  
     const handleReceiveMessage = (data) => {
       const { message, senderData } = data;
       if (!isFetchingUser && message.recipient === loggedInUser._id.toString()) {
@@ -58,11 +65,8 @@ const Outline = ({ outlet, items, navBarItems, socket, isPatient }) => {
       console.log(message);
 
     }
-
     // Attach the event listener
     if (!socket) return;
-    socket.on("receive_notification_stock", handleReceiveNotification);
-
     socket.on("receive_message", handleReceiveMessage);
 
   }, [socket, isFetchingUser]);
