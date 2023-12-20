@@ -28,9 +28,6 @@ const LandingPage = () => {
       <div ref={aboutRef}><About /></div>
       <div ref={servicesRef}><Services /></div>
       <div ref={testimonialsRef}><Testimonials /></div>
-      {/* Uncomment other sections as needed */}
-      {/* <div ref={blogsRef}><Blogs /></div>
-      <div ref={contactRef}><Contact /></div> */}
       <div ref={footerRef}><Footer /></div>
     </div>
   );

@@ -12,7 +12,8 @@ import {useNavigate} from 'react-router-dom';
 const Header = ({ onAboutClick, onServicesClick, onTestimonialsClick, onFooterClick }) => {
 
   const handlePlayVideoClick= ()=>{
-
+    window.open('https://www.youtube.com/watch?v=QoShonI1yq4', '_blank');
+    
   }
   const handleLogInClick=()=>{
     navigate('/login');
