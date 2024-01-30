@@ -36,33 +36,29 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 </details>
 
 <details>
-<summary><h3>Patient</h3></summary>
-<img width="1000" alt="login" src="./screenshots/patient/home1.png">
-<img width="1000" alt="login" src="./screenshots/patient/home2.png">
-<img width="1000" alt="login" src="./screenshots/patient/inventory.png">
-<img width="1000" alt="login" src="./screenshots/patient/checkout_1.png">
-<img width="1000" alt="login" src="./screenshots/patient/checkout_2.png">
-<img width="1000" alt="login" src="./screenshots/patient/orders.png">
-<img width="1000" alt="login" src="./screenshots/patient/prescriptions.png">
-<img width="1000" alt="login" src="./screenshots/patient/chat.png">
-<img width="1000" alt="login" src="./screenshots/patient/settings.png>
-
-
-
-
+  <summary><h3>Patient</h3></summary>
+  <img width="1000" alt="login" src="./screenshots/patient/home1.png">
+  <img width="1000" alt="login" src="./screenshots/patient/home2.png">
+  <img width="1000" alt="login" src="./screenshots/patient/inventory.png">
+  <img width="1000" alt="login" src="./screenshots/patient/checkout_1.png">
+  <img width="1000" alt="login" src="./screenshots/patient/checkout_2.png">
+  <img width="1000" alt="login" src="./screenshots/patient/orders.png">
+  <img width="1000" alt="login" src="./screenshots/patient/prescriptions.png">
+  <img width="1000" alt="login" src="./screenshots/patient/chat.png">
+  <img width="1000" alt="login" src="./screenshots/patient/settings.png>
 
 </details>
 
 <details>
-<summary><h3>Pharmacist</h3></summary>
+  <summary><h3>Pharmacist</h3></summary>
 
-<img width="1000" alt="login" src="./screenshots/pharmacist/home.png">
-<img width="1000" alt="login" src="./screenshots/pharmacist/inventory.png">
-<img width="1000" alt="login" src="./screenshots/pharmacist/salesReport.png">
-<img width="1000" alt="login" src="./screenshots/pharmacist/pharmacistNotifcations.png">
-<img width="1000" alt="login" src="./screenshots/pharmacist/doctors.png">
-<img width="1000" alt="login" src="./screenshots/pharmacist/pharmacistChat.png">
-<img width="1000" alt="login" src="./screenshots/pharmacist/pharmacistSettings.png">
+  <img width="1000" alt="login" src="./screenshots/pharmacist/home.png">
+  <img width="1000" alt="login" src="./screenshots/pharmacist/inventory.png">
+  <img width="1000" alt="login" src="./screenshots/pharmacist/salesReport.png">
+  <img width="1000" alt="login" src="./screenshots/pharmacist/pharmacistNotifcations.png">
+  <img width="1000" alt="login" src="./screenshots/pharmacist/doctors.png">
+  <img width="1000" alt="login" src="./screenshots/pharmacist/pharmacistChat.png">
+  <img width="1000" alt="login" src="./screenshots/pharmacist/pharmacistSettings.png">
 </details>
 
 <details>
