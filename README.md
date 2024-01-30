@@ -46,6 +46,8 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
   <img width="1000" alt="login" src="./screenshots/patient/prescriptions.png">
   <img width="1000" alt="login" src="./screenshots/patient/chat.png">
   <img width="1000" alt="login" src="./screenshots/patient/settings.png">
+  <img width="1000" alt="login" src="./screenshots/patient/linking.png">
+
 
 </details>
 
@@ -63,7 +65,11 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 
 <details>
 <summary><h3>Admin</h3></summary>
-<img width="1000" alt="login" src="./screenshots/viewPharmacist.png">
+<img width="1000" alt="login" src="./screenshots/admin/users.png">
+<img width="1000" alt="login" src="./screenshots/admin/patients.png">
+<img width="1000" alt="login" src="./screenshots/admin/viewPharmacist.png">
+<img width="1000" alt="login" src="./screenshots/admin/report.png">
+
 </details>
 
 ## Tech Stack
