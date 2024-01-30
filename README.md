@@ -37,13 +37,20 @@ Abo Mota Pharmacy is a full pharmacy platform created as an additional module fo
 
 <details>
 <summary><h3>Patient</h3></summary>
-<img width="1000" alt="login" src="./screenshots/medicinePatient.png">
-<img width="1000" alt="login" src="./screenshots/ordersPatient.png">
-<img width="1000" alt="login" src="./screenshots/alternativePatients.png">
-<img width="1000" alt="login" src="./screenshots/patientSettings.png">
-<img width="1000" alt="login" src="./screenshots/patientD1.png">
-<img width="1000" alt="login" src="./screenshots/patientD2.png">
-<img width="1000" alt="login" src="./screenshots/patientD3.png">
+<img width="1000" alt="login" src="./screenshots/patient/home1.png">
+<img width="1000" alt="login" src="./screenshots/patient/home2.png">
+<img width="1000" alt="login" src="./screenshots/patient/inventory.png">
+<img width="1000" alt="login" src="./screenshots/patient/checkout_1.png">
+<img width="1000" alt="login" src="./screenshots/patient/checkout_2.png">
+<img width="1000" alt="login" src="./screenshots/patient/orders.png">
+<img width="1000" alt="login" src="./screenshots/patient/prescriptions.png">
+<img width="1000" alt="login" src="./screenshots/patient/chat.png">
+<img width="1000" alt="login" src="./screenshots/patient/settings.png>
+
+
+
+
+
 </details>
 
 <details>
